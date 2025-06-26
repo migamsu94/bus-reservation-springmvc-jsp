@@ -17,5 +17,6 @@ public class LogonDTO {
 	
 	private String id;	// 회원id
 	private String passwd; // 회원비밀번호
+	private String userPK;
 
 }

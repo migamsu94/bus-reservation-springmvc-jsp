@@ -1,6 +1,7 @@
 package koBus.mvc.domain;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -13,6 +14,7 @@ public class ReservationDTO {
     private String seatID;
     private String kusID;
     private Date rideDate;
+    private LocalDateTime rideDateTime;
     private Date resvDate;
     private String resvStatus;
     private String resvType;

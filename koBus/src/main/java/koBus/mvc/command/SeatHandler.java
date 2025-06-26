@@ -40,6 +40,9 @@ public class SeatHandler implements CommandHandler {
 	    String arvlNm = request.getParameter("arvlNm");
 	    
 	    
+	    System.out.println("request.getParameter(\"deprTime\") " + request.getParameter("deprTime"));
+	    
+	    
 	    switch (busClsCd) {
 		    case "0": busClsCd = "전체"; break;
 		    case "7": busClsCd = "프리미엄"; break;
@@ -218,6 +221,7 @@ public class SeatHandler implements CommandHandler {
 	    request.setAttribute("resId", resId);
 	    
 	    System.out.println("resId : " + resId);
+	    
 	    
 	    if ("kobusModifyResvSch.jsp".equals(sourcePage)) {
 	    	return "/koBusFile/kobusModifyResvSeat.jsp";

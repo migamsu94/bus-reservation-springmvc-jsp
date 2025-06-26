@@ -911,7 +911,7 @@ if (lngCd == "KO") {
 				<h4 class="mo_page">가는 편 승차권 정보</h4>
 				<div class="box_detail_info">
 					<div class="routeHead">
-						<p class="date">${deprDtFmt}&nbsp;${deprTimeFmt} 출발 </p>
+						<p class="date">${deprDtFmt}&nbsp;${deprTime} 출발 </p>
 					</div>
 					<div class="routeBody">
 						<div class="routeArea route_wrap">

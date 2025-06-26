@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.sql.Date;
 
 import com.util.DBConn;
@@ -14,80 +15,80 @@ public class ReservationDAO {
 
     // 1. 예매 INSERT
 	public boolean insertReservation(ReservationDTO dto) {
-		String sql = "INSERT INTO reservation "
-				+ "(resID, bshID, seatID, kusID, rideDate, resvDate, resvStatus, resvType, qrCode, mileage, seatAble) "
-				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	    String insertSql = "INSERT INTO reservation "
+	            + "(resID, bshID, seatID, kusID, rideDate, resvDate, resvStatus, resvType, qrCode, mileage, seatAble) "
+	            + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-		int cnt = 0;
+	    String updateSeatSql = "UPDATE BUSSCHEDULE B "
+	            + "SET REMAINSEATS = ( "
+	            + "    SELECT COUNT(*) "
+	            + "    FROM SEAT S "
+	            + "    WHERE S.BUSID = B.BUSID "
+	            + "      AND S.SEATABLE = 'Y' "
+	            + ") "
+	            + "WHERE B.BSHID = ( "
+	            + "    SELECT R.BSHID "
+	            + "    FROM RESERVATION R "
+	            + "    WHERE R.RESID = ? "
+	            + ")";
 
-		Connection conn = null;
+	    int insertResult = 0;
+	    int seatUpdateResult = 0;
+
+	    Connection conn = null;
 
 	    try {
-	        conn = DBConn.getConnection();          // 트랜잭션 시작을 위해 외부에서 선언
-	        conn.setAutoCommit(false);              // 트랜잭션 시작
+	        conn = DBConn.getConnection();
+	        conn.setAutoCommit(false); // 트랜잭션 시작
 
-	        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-	            pstmt.setString(1, dto.getResID());
-	            pstmt.setString(2, dto.getBshID());
-	            pstmt.setString(3, dto.getSeatID());
-	            pstmt.setString(4, dto.getKusID());
-	            pstmt.setDate(5, dto.getRideDate());
-	            pstmt.setDate(6, dto.getResvDate());
-	            pstmt.setString(7, dto.getResvStatus());
-	            pstmt.setString(8, dto.getResvType());
-	            pstmt.setInt(9, dto.getQrCode());
-	            pstmt.setInt(10, dto.getMileage());
-	            pstmt.setString(11, dto.getSeatAble());
+	        // 1. 예약 INSERT
+	        try (PreparedStatement pstmt1 = conn.prepareStatement(insertSql)) {
+	            pstmt1.setString(1, dto.getResID());
+	            pstmt1.setString(2, dto.getBshID());
+	            pstmt1.setString(3, dto.getSeatID());
+	            pstmt1.setString(4, dto.getKusID());
+	            pstmt1.setTimestamp(5, Timestamp.valueOf(dto.getRideDateTime()));
+	            pstmt1.setDate(6, dto.getResvDate());
+	            pstmt1.setString(7, dto.getResvStatus());
+	            pstmt1.setString(8, dto.getResvType());
+	            pstmt1.setInt(9, dto.getQrCode());
+	            pstmt1.setInt(10, dto.getMileage());
+	            pstmt1.setString(11, dto.getSeatAble());
 
-	            cnt = pstmt.executeUpdate();
-	            
-	            System.out.println("dto.getRideDate() " + dto.getRideDate());
-	            
-//	         // 2. 좌석 상태 변경
-//				String seatSql = "UPDATE BUSSCHEDULE B "
-//						+ "SET REMAINSEATS = ( "
-//						+ "    SELECT COUNT(*) "
-//						+ "    FROM SEAT S "
-//						+ "    WHERE S.BUSID = B.BUSID "
-//						+ "      AND S.SEATABLE = 'Y' "
-//						+ " ) "
-//						+ " WHERE B.BSHID = ( "
-//						+ "    SELECT R.BSHID "
-//						+ "    FROM RESERVATION R "
-//						+ "    WHERE R.RESID = ? "
-//						+ "      AND R.RIDEDATE = TO_TIMESTAMP(?, 'YYYY-MM-DD HH24:MI:SS') "
-//						+ " ) " ;
-//				pstmt = conn.prepareStatement(seatSql);
-//				pstmt.setString(1, mrsMrnpNo);
-//				pstmt.setString(2, rideTime);
-//				seatResult = pstmt.executeUpdate();
-	            
-
-	            conn.commit();  // 커밋
+	            insertResult = pstmt1.executeUpdate();
 	        }
 
+	        System.out.println("예약 등록 완료: " + insertResult + "건");
+	        System.out.println("rideDate: " + dto.getRideDate());
+
+	        // 2. 좌석 수 갱신
+	        try (PreparedStatement pstmt2 = conn.prepareStatement(updateSeatSql)) {
+	            pstmt2.setString(1, dto.getResID());
+	            seatUpdateResult = pstmt2.executeUpdate();
+	        }
+
+	        System.out.println("남은 좌석 수 갱신 완료: " + seatUpdateResult + "건");
+
+	        conn.commit(); // 트랜잭션 커밋
+
 	    } catch (SQLException e) {
+	        System.out.println("[ReservationDAO] insertReservation 오류: " + e.getMessage());
 	        try {
-	            if (conn != null) conn.rollback();  // 실패 시 롤백
+	            if (conn != null) conn.rollback();
 	        } catch (SQLException rollbackEx) {
 	            rollbackEx.printStackTrace();
 	        }
-	        System.out.println("[ReservationDAO] insertReservation 오류: " + e.getMessage());
 	        return false;
 	    } finally {
 	        try {
-	            if (conn != null) conn.setAutoCommit(true);  // 자동 커밋 복원
-	        } catch (SQLException ex) {
-	            ex.printStackTrace();
+	            if (conn != null) conn.setAutoCommit(true); // 상태 복원
+	        } catch (SQLException e) {
+	            e.printStackTrace();
 	        }
 	    }
 
-	    // 변경된 행 수가 1 이상인지 확인 후 리턴
-	    if (cnt > 0) {
-	        return true;
-	    } else {
-	        return false;
-	    }
+	    // INSERT와 좌석 갱신이 모두 성공해야 true
+	    return insertResult > 0 && seatUpdateResult > 0;
 	}
 
     // 2. 예매 상세 조회

@@ -677,8 +677,8 @@ function fnRecpCanInfo(idx , type) {
 			    	html +='<div class="mob_pad marT30"><h3 class="pop_h3 mob_h3">취소 안내</h3><p class="bul">마일리지(프리미엄) 예매 건은 <span class="accent2">취소 시 사용 마일리지 반환이 불가</span>하오니 유의하시기 바랍니다.</p></div>';
 			    }
 			    html +='</div>';
-			    html +='<div class="btns col1"><button recpListMap-remodal-action="confirm" onclick="fnRecpCan();" class="btnL btn_orange">'+'예매취소'+'</button></div>';
-			    html += '<button type="button" recpListMap-remodal-action="close" class="remodal-close"><span class="sr-only">'+'닫기'+'</span></button>'
+			    html +='<div class="btns col1"><button data-remodal-action="confirm" id="closeBtn" onclick="fnRecpCan();" class="btnL btn_orange">'+'예매취소'+'</button></div>';
+			    html += '<button type="button" data-remodal-action="close" class="remodal-close"><span class="sr-only">'+'닫기'+'</span></button>'
 			    html +='</div>';
 			    html +='</form>';
 			    // 왕복일 때

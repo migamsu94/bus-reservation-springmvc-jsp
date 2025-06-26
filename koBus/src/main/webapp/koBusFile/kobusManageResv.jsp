@@ -98,6 +98,14 @@
       generateQRCode();
   });
 </script>
+<script>
+$("#closeBtn").on("click", function () {
+	
+	var inst = $('[data-remodal-id=popTicketCancel]').remodal();  // modal1은 id명
+	inst.close();  // 모달 닫기
+});
+</script>
+
 <style>
 .com_pop_wrap {
     display: none;
