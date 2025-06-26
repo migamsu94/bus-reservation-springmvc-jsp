@@ -209,12 +209,12 @@ $(document).ready(function () {
 				<!-- 직통sngl,환승trtr,왕복rtrp -->
 				<input type="hidden" name="pathStep" id="pathStep" value="1">
 				<!-- 왕편 복편 설정 -->
-				<input type="hidden" name="deprDtm" id="deprDtm" value="20250621">
+				<input type="hidden" name="deprDtm" id="deprDtm" value="${deprDate }">
 				<!-- 가는날(편도,왕복) -->
 				<input type="hidden" name="deprDtmAll" id="deprDtmAll"
 					value="${deprDate }">
 				<!-- 가는날(편도,왕복) -->
-				<input type="hidden" name="arvlDtm" id="arvlDtm" value="20250621">
+				<input type="hidden" name="arvlDtm" id="arvlDtm" value="${deprDate }">
 				<!-- 오는날(왕복) -->
 				<input type="hidden" name="arvlDtmAll" id="arvlDtmAll"
 					value="2025. 6. 21. 토">
@@ -227,7 +227,7 @@ $(document).ready(function () {
 				<input type="hidden" name="distOrg" id="distOrg" value="">
 				<!-- 거리 -->
 				<!-- 출발일자:deprDtm or arvlDtm, 출발터미널번호:deprCd, 도착터미널번호:arvlCd  -->
-				<input type="hidden" name="deprDt" id="deprDt" value="20250621">
+				<input type="hidden" name="deprDt" id="deprDt" value="${deprDate }">
 				<!-- 출발일 -->
 				<input type="hidden" name="deprTime" id="deprTime" value="072000">
 				<!-- 출발시각 -->
@@ -311,7 +311,7 @@ $(document).ready(function () {
 				<!-- 통합단말기여부  Y:존재, N:없음 -->
 
 				<input type="hidden" name="chkDeprDt" id="chkDeprDt"
-					value="20250621">
+					value="${deprDate }">
 				<!-- 2일 후 시간체크 -->
 				<input type="hidden" name="chkDeprTime" id="chkDeprTime"
 					value="072000">
@@ -452,6 +452,8 @@ $(document).ready(function () {
 				<!-- 거래처코드 -->
 				<input type="hidden" name="stdDtm" id="stdDtm" value=""> <input
 					type="hidden" name="endDtm" id="endDtm" value="">
+					
+				<input type="hidden" name="resId" id="resId" value="${resId }">
 
 			</form>
 
@@ -1526,7 +1528,7 @@ $(document).ready(function () {
 					<input type="hidden" name="bohnArvlNm" id="bohnArvlNm" value="강릉">
 					<!-- 도착지명 -->
 					<input type="hidden" name="bohnDeprDt" id="bohnDeprDt"
-						value="20250621">
+						value="${deprDate }">
 					<!-- 출발일 -->
 					<input type="hidden" name="bohnDeprTime" id="bohnDeprTime"
 						value="072000">

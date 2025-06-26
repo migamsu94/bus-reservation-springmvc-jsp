@@ -412,9 +412,9 @@ if (lngCd == "KO") {
 
 <script type="text/javascript" src="/koBus/js/MrsFnFail.js"></script>
 <form name="mrsFnFailFrm" id="mrsFnFailFrm" method="post" action="https://www.kobus.co.kr/mrs/pymcfm.do">
-	<input type="hidden" name="estmAmt" id="estmAmt" value="24400"><!-- 예매금액 -->
+	<input type="hidden" name="estmAmt" id="estmAmt" value="${amount}"><!-- 예매금액 -->
 	<input type="hidden" name="dcAmt" id="dcAmt" value="0"><!-- 할인금액 -->
-	<input type="hidden" name="tissuAmt" id="tissuAmt" value="24400"><!-- 결제금액 -->
+	<input type="hidden" name="tissuAmt" id="tissuAmt" value="${amount}"><!-- 결제금액 -->
 	<input type="hidden" name="acmtMlg" id="acmtMlg" value="0"><!-- 적립마일리지 -->
 	<input type="hidden" name="mblUtlzPsbYn" id="mblUtlzPsbYn" value="Y"><!-- 모바일발권여부 -->
 	
@@ -593,9 +593,9 @@ if (lngCd == "KO") {
 
 				<div class="box_detail_info">
 					<div class="routeHead">
-						<p class="date">2025.06.27(금) 19:00 출발</p>
+						<p class="date">${deprDtTimeFmt} 출발</p>
 						<p class="ticket_number">
-							예매번호<span class="num">20250620567677</span>
+							예매번호<span class="num">${resId}</span>
 						</p>
 					</div>
 					<div class="routeBody">
@@ -604,15 +604,15 @@ if (lngCd == "KO") {
 								
 								<dl class="roundBox departure kor">
 									<dt>출발</dt>
-									<dd>서울경부</dd>
+									<dd>${deprNm}</dd>
 								</dl>
 								<dl class="roundBox arrive kor">
 									<dt>도착</dt>
-									<dd>안동</dd>
+									<dd>${arvlNm}</dd>
 								</dl>
 							</div>
 							<div class="detail_info">
-								<span>2시간 40분 소요</span>
+								<span>${durationStr} 소요</span>
 							</div>
 						</div>
 						<div class="routeArea route_wrap mob_route">
@@ -626,11 +626,11 @@ if (lngCd == "KO") {
 									<tbody>
 										<tr>
 											<th scope="row">고속사</th>
-											<td>(주)경기고속<span class="gyeonggi ico_bus">(주)경기고속</span></td>
+											<td>${cacmNm}<span class="gyeonggi ico_bus">${cacmNm}</span></td>
 										</tr>
 										<tr>
 											<th scope="row">등급</th>
-											<td>우등</td>
+											<td>${indVBusClsCd}</td>
 										</tr>
 										<tr>
 											<th scope="row">승차홈</th>
@@ -638,11 +638,11 @@ if (lngCd == "KO") {
 										</tr>
 										<tr>
 											<th scope="row">매수</th>
-											<td>일반 1명</td>
+											<td>${buyerSummary}</td>
 										</tr>
 										<tr>
 											<th scope="row">좌석</th>
-											<td>21</td>
+											<td>${seatNos}</td>
 										</tr>
 									</tbody>
 								</table>
@@ -665,7 +665,7 @@ if (lngCd == "KO") {
 									<tbody>
 										<tr>
 											<th scope="row">결제일시</th>
-											<td>2025.06.20 (금) 16:46</td>
+											<td>${paidAtStr}</td>
 										</tr>
 										<tr>
 											<th scope="row">결제수단</th>
@@ -674,7 +674,7 @@ if (lngCd == "KO") {
 												
 													
 														
-														네이버페이
+														${payMethod}
 														
 													
 												
@@ -726,7 +726,7 @@ if (lngCd == "KO") {
 
 											<tr>
 												<th scope="row">결제금액</th>
-												<td><strong><span id="tissuAmtView">24,400</span></strong><span id="tissuAmtUntView">원</span></td>
+												<td><strong><span id="tissuAmtView">${amount}</span></strong><span id="tissuAmtUntView">원</span></td>
 											</tr>
 										
 										<!-- 프리미엄 회원에만 노출 -->

@@ -440,13 +440,13 @@ if (lngCd == "KO") {
 	<input type="hidden" name="deprDtmAll" id="deprDtmAll" value=""><!-- 가는날(편도,왕복) -->
 	<input type="hidden" name="arvlDtm" id="arvlDtm" value=""><!-- 오는날(왕복) -->
 	<input type="hidden" name="arvlDtmAll" id="arvlDtmAll" value=""><!-- 오는날(왕복) -->
-	<input type="hidden" name="indVBusClsCd" id="indVBusClsCd" value="1"><!-- 버스등급 -->
+	<input type="hidden" name="indVBusClsCd" id="indVBusClsCd" value="${indVBusClsCd}"><!-- 버스등급 -->
 	<input type="hidden" name="takeDrtmOrg" id="takeDrtmOrg" value="${takeDrtmOrg}"><!-- 소요시간 -->
 	<input type="hidden" name="distOrg" id="distOrg" value="208.3"><!-- 거리 -->
 	<input type="hidden" name="rtrpChc" id="rtrpChc" value="1"><!-- 왕편 복편 설정 -->
 	<!-- 출발일자:deprDtm or arvlDtm, 출발터미널번호:deprCd, 도착터미널번호:arvlCd  -->
 	<input type="hidden" name="deprDt" id="deprDt" value="${deprDt}"><!-- 출발일 -->
-	<input type="hidden" name="deprTime" id="deprTime" value=""><!-- 출발시각 -->
+	<input type="hidden" name="deprTime" id="deprTime" value="${deprTime}"><!-- 출발시각 -->
 	<input type="hidden" name="alcnDeprDt" id="alcnDeprDt" value=""><!-- 배차출발일 -->
 	<input type="hidden" name="alcnDeprTime" id="alcnDeprTime" value="143000"><!-- 배차출발시각 -->
 	<input type="hidden" name="alcnDeprTrmlNo" id="alcnDeprTrmlNo" value="032"><!-- 배차출발터미널 -->
@@ -480,6 +480,7 @@ if (lngCd == "KO") {
 
 	<input type="hidden" name="seatNos" id="seatNos" value="${seatNos}"><!-- 각 좌석번호 -->
 	<input type="hidden" name="resId" id="resId" value="${resId}">
+	<input type="hidden" name="cacmNm" id="cacmNm" value="${cacmNm}">
 	
 	
 	<!-- 예상금액 -->

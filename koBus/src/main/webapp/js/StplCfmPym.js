@@ -474,6 +474,7 @@ function requestPay() {
 	var arvlNm = $("#arvlNm").val();
 	var deprDt = $("#deprDt").val();     // 예: 20250625
 	var deprTime = $("#deprTime").val(); // 예: 143000
+	console.log("🚨 deprTime 값:", deprTime);
 
 	// var deprDtFmt = deprDt.slice(0, 4) + "-" + deprDt.slice(4, 6) + "-" + deprDt.slice(6, 8);
 	var deprTimeFmt = deprTime.slice(0, 2) + ":" + deprTime.slice(2, 4);
@@ -512,7 +513,19 @@ function requestPay() {
 				bshid: bshid,
 				seat_number: seatNos,
 				boarding_dt: boardingDt,
-				resId: resId
+				resId: resId,
+				deprDt: $("#deprDt").val(),
+			    deprTime: $("#deprTime").val(),
+			    deprNm: $("#deprNm").val(),
+			    arvlNm: $("#arvlNm").val(),
+			    takeDrtmOrg: $("#takeDrtmOrg").val(),
+			    cacmNm: $("#cacmNm").val(),
+			    indVBusClsCd: $("#indVBusClsCd").val(),
+			    selSeatCnt: $("#selSeatCnt").val(),
+			    seatNos: $("#seatNos").val(),
+			    selAdltCnt: $("#selAdltCnt").val(),
+			    selTeenCnt: $("#selTeenCnt").val(),
+			    selChldCnt: $("#selChldCnt").val()
 			};
 
 			console.log("🚀 서버로 전송할 paymentData:", paymentData);
@@ -524,7 +537,40 @@ function requestPay() {
 				data: paymentData,
 				success: function (data) {
 					alert('🎉 예매가 완료 되었습니다!');
-					// location.href = "/payment/reservCompl.do";
+					
+					const resId = paymentData.resId;
+		            const deprDt = paymentData.deprDt;
+		            const deprTime = paymentData.deprTime;
+		            const deprNm = paymentData.deprNm;
+		            const arvlNm = paymentData.arvlNm;
+		            const takeDrtmOrg = paymentData.takeDrtmOrg;
+		            const cacmNm = paymentData.cacmNm;
+		            const indVBusClsCd = paymentData.indVBusClsCd;
+		            const selSeatCnt = paymentData.selSeatCnt;
+		            const seatNos = paymentData.seatNos;
+		            const selAdltCnt = paymentData.selAdltCnt;
+		            const selTeenCnt = paymentData.selTeenCnt;
+		            const selChldCnt = paymentData.selChldCnt;
+		            const payMethod = paymentData.pay_method;
+		            const amountStr = paymentData.amount;
+					
+					location.href = "/koBus/reservCompl.do"
+								    + "?resId=" + encodeURIComponent(resId)
+								    + "&deprDt=" + encodeURIComponent(deprDt)
+								    + "&deprTime=" + encodeURIComponent(deprTime)
+								    + "&deprNm=" + encodeURIComponent(deprNm)
+								    + "&arvlNm=" + encodeURIComponent(arvlNm)
+								    + "&takeDrtmOrg=" + encodeURIComponent(takeDrtmOrg)
+								    + "&cacmNm=" + encodeURIComponent(cacmNm)
+								    + "&indVBusClsCd=" + encodeURIComponent(indVBusClsCd)
+								    + "&selSeatCnt=" + encodeURIComponent(selSeatCnt)
+								    + "&seatNos=" + encodeURIComponent(seatNos)
+								    + "&selAdltCnt=" + encodeURIComponent(selAdltCnt)
+								    + "&selTeenCnt=" + encodeURIComponent(selTeenCnt)
+								    + "&selChldCnt=" + encodeURIComponent(selChldCnt)
+								    + "&payMethod=" + encodeURIComponent(payMethod)
+								    + "&amount=" + encodeURIComponent(amountStr);
+
 				},
 				error: function (xhr, status, error) {
 					alert('❌ 결제 정보 저장에 실패했습니다!');

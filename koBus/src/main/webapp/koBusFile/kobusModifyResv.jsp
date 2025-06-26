@@ -114,9 +114,9 @@
 			<div class="title_wrap in_process checkTicketingT"
 				style="display: none;">
 
-				<a href="https://www.kobus.co.kr/mrs/mrschantimestep1.do#"
+				<a href="/koBus/modifyResvSch.do"
 					class="back">back</a> <a
-					href="https://www.kobus.co.kr/mrs/mrschantimestep1.do#"
+					href="/koBus/modifyResvSch.do"
 					class="mo_toggle">메뉴</a>
 
 
@@ -153,7 +153,7 @@
 					<div class="change_wrap custom_input">
 					<c:set var="resv" value="${resvInfoList[0]}" />
 						<form name="mrschangefrm" id="mrschangefrm" method="post"
-							action="https://www.kobus.co.kr/mrs/mrschantimestep1.do">
+							action="/koBus/modifyResvSch.do">
 							<input type="hidden" name="mrsMrnpNo" value="${resv.resId }">
 								<input type="hidden" name="mrsMrnpSno" value="01"> 
 								<input
@@ -214,47 +214,9 @@
 												title="시간 선택" aria-expanded="false"> <span class="text">15:00</span></a>
 											<ul class="dropdown-list" style="top: 32px; display: none;">
 
-												<li><a href="javascript:fnTimeChoice(&#39;00:00&#39;);">00:00</a></li>
-												<li><a href="javascript:fnTimeChoice(&#39;01:00&#39;);">01:00</a></li>
-												<li><a href="javascript:fnTimeChoice(&#39;02:00&#39;);">02:00</a></li>
-												<li><a href="javascript:fnTimeChoice(&#39;03:00&#39;);">03:00</a></li>
-												<li><a href="javascript:fnTimeChoice(&#39;04:00&#39;);">04:00</a></li>
-												<li><a href="javascript:fnTimeChoice(&#39;05:00&#39;);">05:00</a></li>
-												<li><a href="javascript:fnTimeChoice(&#39;06:00&#39;);">06:00</a></li>
-												<li><a href="javascript:fnTimeChoice(&#39;07:00&#39;);">07:00</a></li>
-
-												<li><a href="javascript:fnTimeChoice(&#39;08:00&#39;);">08:00</a></li>
-
-												<li><a href="javascript:fnTimeChoice(&#39;09:00&#39;);">09:00</a></li>
-
-												<li><a href="javascript:fnTimeChoice(&#39;10:00&#39;);">10:00</a></li>
-
-												<li><a href="javascript:fnTimeChoice(&#39;11:00&#39;);">11:00</a></li>
-
-												<li><a href="javascript:fnTimeChoice(&#39;12:00&#39;);">12:00</a></li>
-
-												<li><a href="javascript:fnTimeChoice(&#39;13:00&#39;);">13:00</a></li>
-
-												<li><a href="javascript:fnTimeChoice(&#39;14:00&#39;);">14:00</a></li>
-
-												<li><a href="javascript:fnTimeChoice(&#39;15:00&#39;);">15:00</a></li>
-
-												<li><a href="javascript:fnTimeChoice(&#39;16:00&#39;);">16:00</a></li>
-
-												<li><a href="javascript:fnTimeChoice(&#39;17:00&#39;);">17:00</a></li>
-
-												<li><a href="javascript:fnTimeChoice(&#39;18:00&#39;);">18:00</a></li>
-
-												<li><a href="javascript:fnTimeChoice(&#39;19:00&#39;);">19:00</a></li>
-
-												<li><a href="javascript:fnTimeChoice(&#39;20:00&#39;);">20:00</a></li>
-
-												<li><a href="javascript:fnTimeChoice(&#39;21:00&#39;);">21:00</a></li>
-
-												<li><a href="javascript:fnTimeChoice(&#39;22:00&#39;);">22:00</a></li>
-
-												<li><a href="javascript:fnTimeChoice(&#39;23:00&#39;);">23:00</a></li>
-
+												<c:forEach var="time" items="${busTimeList}">
+													<li><a href="javascript:fnTimeChoice('${time}');">${time}</a></li>
+												</c:forEach>
 											</ul>
 										</div>
 

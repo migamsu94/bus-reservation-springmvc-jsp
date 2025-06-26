@@ -207,7 +207,7 @@
 				<input type="hidden" name="deprDtmAll" id="deprDtmAll"
 					value="${change.rideDateStr }">
 				<!-- 가는날(편도,왕복) -->
-				<input type="hidden" name="arvlDtm" id="arvlDtm" value="20250621">
+				<input type="hidden" name="arvlDtm" id="arvlDtm" value="${change.rideDateStr }">
 				<!-- 오는날(왕복) -->
 				<input type="hidden" name="arvlDtmAll" id="arvlDtmAll"
 					value="2025. 6. 21. 토">
@@ -219,7 +219,7 @@
 				<input type="hidden" name="distOrg" id="distOrg" value="">
 				<!-- 거리 -->
 				<!-- 출발일자:deprDtm or arvlDtm, 출발터미널번호:deprCd, 도착터미널번호:arvlCd  -->
-				<input type="hidden" name="deprDt" id="deprDt" value="20250621">
+				<input type="hidden" name="deprDt" id="deprDt" value="${change.rideDateStr }">
 				<!-- 출발일 -->
 				<input type="hidden" name="deprTime" id="deprTime" value="072000">
 				<!-- 출발시각 -->
@@ -303,7 +303,7 @@
 				<!-- 통합단말기여부  Y:존재, N:없음 -->
 
 				<input type="hidden" name="chkDeprDt" id="chkDeprDt"
-					value="20250621">
+					value="${change.rideDateStr }">
 				<!-- 2일 후 시간체크 -->
 				<input type="hidden" name="chkDeprTime" id="chkDeprTime"
 					value="072000">
@@ -443,6 +443,10 @@
 				<!-- 거래처코드 -->
 				<input type="hidden" name="stdDtm" id="stdDtm" value=""> <input
 					type="hidden" name="endDtm" id="endDtm" value="">
+					
+					
+				<input type="hidden" name="resId" id="resId" value="${resId }">
+				<!-- 결제금액 -->
 
 			</form>
 

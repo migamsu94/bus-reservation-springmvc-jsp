@@ -74,7 +74,7 @@ public class ResvDAOImpl implements ResvDAO {
 			    " JOIN region RGD ON D.regID = RGD.regID " +
 			    " JOIN region RGA ON A.regID = RGA.regID " +
 			    " JOIN RESERVATION_PAYMENT PM ON R.resID = PM.RES_ID " +
-			    " WHERE KU.id = ? AND R.resvStatus = '예약완료' " + 
+			    " WHERE KU.id = ? AND R.resvStatus = '결제완료' " + 
 			    " GROUP BY " +
 			    "    R.resID, R.rideDate, R.resvDate, R.resvStatus, R.resvType, R.qrCode, " +
 			    "    RGD.regId, RGD.regName, RGA.regId, RGA.regName, " +
@@ -157,7 +157,7 @@ public class ResvDAOImpl implements ResvDAO {
 	        // 트리거 사용 -> 좌석 상태 변경 + RESERVEDSEATS 테이블에서 예약 취소 된 좌석 삭제
 	        String sql = "UPDATE RESERVATION "
 	                   + "SET RESVSTATUS = '예약취소', SEATABLE = 'N' "
-	                   + "WHERE RESID = ? AND RESVSTATUS = '예약완료' AND SEATABLE = 'Y'";
+	                   + "WHERE RESID = ? AND RESVSTATUS = '결제완료' AND SEATABLE = 'Y'";
 	        pstmt = conn.prepareStatement(sql);
 	        pstmt.setString(1, mrsMrnpNo);
 	        result = pstmt.executeUpdate();

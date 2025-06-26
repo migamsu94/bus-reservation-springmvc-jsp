@@ -1,6 +1,7 @@
 package koBus.mvc.command;
 
 import java.io.IOException;
+import java.sql.Connection;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -11,7 +12,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.util.ConnectionProvider;
+
 import koBus.mvc.domain.ResvDTO;
+import koBus.mvc.domain.ScheduleDTO;
+import koBus.mvc.persistence.ScheduleDAO;
+import koBus.mvc.persistence.ScheduleDAOImpl;
 
 public class ModifyResvHandler implements CommandHandler{
 
@@ -84,12 +90,35 @@ public class ModifyResvHandler implements CommandHandler{
 		
 		resvInfoList.add(dto);
 		
+		
+		Connection conn = ConnectionProvider.getConnection();
+	    ScheduleDAO dao = new ScheduleDAOImpl(conn);
+		
+		List<ScheduleDTO> changeList = new ArrayList<ScheduleDTO>();
+		
+		
+		String deprDay2 = deprDay.replace("-", "");
+		
+		
+		changeList = dao.searchBusSchedule(deprRegCode, arrRegCode, deprDay2, "전체");	
+
+		
+		List<String> busTimeList = new ArrayList<>();
+
+		for (ScheduleDTO time : changeList) {
+		    LocalDateTime date = time.getDepartureDate();
+		    String busTime = date.format(DateTimeFormatter.ofPattern("HH:mm"));
+		    busTimeList.add(busTime);  // 리스트에 추가
+		    System.out.println(busTime);
+		}
+		
 
 //		System.out.printf(
 //			    "resId=%s, deprRegCode=%s, deprRegName=%s, arrRegCode=%s, arrRegName=%s, durMin=%s, busGrade=%s, deprDay=%s, deprTime=%s, amount=%s, payType=%s%n",
 //			    resId, deprRegCode, deprRegName, arrRegCode, arrRegName, durMin, busGrade, deprDay, deprTime, amount, payType
 //			);
 
+		request.setAttribute("busTimeList", busTimeList);
 		request.setAttribute("resvInfoList", resvInfoList);
 		
 		// TODO Auto-generated method stub

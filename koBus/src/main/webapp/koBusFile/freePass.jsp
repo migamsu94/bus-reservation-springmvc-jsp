@@ -31,9 +31,9 @@
 </script>
 
 
-<link rel="stylesheet" type="text/css" href="../css/common/ui.jqgrid.custom.css">
+<link rel="stylesheet" type="text/css" href="/koBus/css/common/ui.jqgrid.custom.css">
 
-<script type="text/javascript" src="../js/common/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="/koBus/js/common/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 //쿠키 가져오기
 function getCookie( name ) {
@@ -141,7 +141,7 @@ if (lngCd == "KO") {
 <script type="text/javascript" src="/koBus/js/common/security.js"></script>
 	
 	
-<link rel="stylesheet" type="text/css" href="/koBus/css/common/style.css"><script type="text/javascript" src="../js/common/new-kor-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="/koBus/css/common/style.css"><script type="text/javascript" src="/koBus/js/common/new-kor-ui.js"></script>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 <script src="https://cdn.iamport.kr/v1/iamport.js"></script></head>
 

@@ -50,10 +50,6 @@ public class ModifyResvHandlerSch implements CommandHandler {
 		String childCnt = request.getParameter("teenNum");
 		
 		
-
-		
-		
-
 		// 날짜 + 시간 조합 문자열 → 포맷된 탑승일 문자열로 사용
 		String rideDateStr = deprDay + " " + deprTime;
 
@@ -92,14 +88,16 @@ public class ModifyResvHandlerSch implements CommandHandler {
 		resvInfoList.add(dto);
 		
 		
+		
+		
 		if (deprDay != null && deprDay.matches("\\d{4}-\\d{2}-\\d{2}")) {
 			deprDay = deprDay.replace("-", "");
 		} else {
-		    System.out.println("입력 형식이 올바르지 않습니다.");
 		}
 		
 	    changeList = dao.searchBusSchedule(deprRegCode, arrRegCode, deprDay, busGrade);		
 		
+	    
 
 //		System.out.printf(
 //			    "resId=%s, deprRegCode=%s, deprRegName=%s, arrRegCode=%s, arrRegName=%s, durMin=%s, busGrade=%s, deprDay=%s, deprTime=%s, amount=%s, payType=%s%n",

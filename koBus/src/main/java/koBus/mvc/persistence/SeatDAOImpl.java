@@ -51,12 +51,12 @@ public class SeatDAOImpl implements SeatDAO{
 				+ "  AND b.DEPARTUREDATE = TO_TIMESTAMP(?, 'YYYYMMDD HH24:MI') ";
 		
 		 try {
-			 if (deprDtm.matches("\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}")) {
-			        String datePart = deprDtm.substring(0, 10).replace("-", "");
-			        String timePart = deprDtm.substring(11, 16);  // HH:mm
-			        deprDtm = datePart + " " + timePart;
-
-			    }   
+			 
+			 if (deprDtm != null && deprDtm.length() >= 16) {
+		            String datePart = deprDtm.substring(0, 10).replace("-", ""); // ex: 2025-06-28 → 20250628
+		            String timePart = deprDtm.substring(11, 16);                 // ex: 08:00:00 → 08:00
+		            deprDtm = datePart + " " + timePart;                        // ex: 20250628 08:00
+		        }   
 			 
 			 this.pstmt = conn.prepareStatement(sql);
 		        this.pstmt.setString(1, deprId);

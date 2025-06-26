@@ -52,14 +52,16 @@ public class SeatHandler implements CommandHandler {
 	    String sourcePage = request.getParameter("sourcePage");
 	    System.out.println("sourcePage " + sourcePage);
 	    
+	    String resId = null;
 	    
 	    if ("kobusModifyResvSch.jsp".equals(sourcePage)) {
 	    	
 	    	
 	    	LocalDateTime loc = LocalDateTime.parse(deprDate);
-		    DateTimeFormatter oracleFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		    DateTimeFormatter oracleFormatter = DateTimeFormatter.ofPattern("yyyyMMdd HH:mm:ss");
 		    deprDtm = loc.format(oracleFormatter);
 		    
+		    resId = request.getParameter("mrsMrnpNo");
 	    	String deprName = request.getParameter("deprNm");
 	    	String arrvName = request.getParameter("arvlNm");
 	    	String durMin = request.getParameter("takeDrtm");
@@ -74,16 +76,19 @@ public class SeatHandler implements CommandHandler {
 	    	int stuCountInt = Integer.parseInt(stuCount);
 	    	int chdCountInt = Integer.parseInt(chdCount);
 	    	
+	    	
+	    	
 
 	    	// ResvDTO 객체 생성
 	    	ResvDTO changeSeat = ResvDTO.builder()
+	    			.resId(resId)
 	    	        .deprRegCode(deprId)
 	    	        .deprRegName(deprName)
 	    	        .arrRegCode(arrId)
 	    	        .arrRegName(arrvName)
 	    	        .comName(comName)
 	    	        .busGrade("")          // 필요시 추가
-	    	        .rideDateStr(deprDate)
+	    	        .rideDateStr(deprDtm)
 	    	        .durMin(durMinInt)
 	    	        .aduCount(aduCountInt)
 	    	        .stuCount(stuCountInt)
@@ -111,6 +116,22 @@ public class SeatHandler implements CommandHandler {
 			
 			
 			if("KOBUSreservation2.jsp".equals(sourcePage) || "kobusModifyResvSch.jsp".equals(sourcePage)) {
+				
+				System.out.println("deprDtm " + deprDtm);
+				
+				
+				if (deprDtm.matches("\\d{8} \\d{2}:\\d{2}:\\d{2}")) {
+				    // 예: "20250628 08:00:00"
+				    String date = deprDtm.substring(0, 8); // "20250628"
+				    String time = deprDtm.substring(9, 14); // "08:00"
+
+				    // "2025-06-28 08:00"
+				    deprDtm = date.substring(0, 4) + "-" + 
+				              date.substring(4, 6) + "-" + 
+				              date.substring(6, 8) + " " + time;
+				}
+
+				
 //			출발지 / 도착지 / 출발시간 / 버스등급을 기준으로 사용하는 busId 가져오기
 				String busId = dao.getBusId(deprId, arrId, deprDtm);
 				
@@ -194,6 +215,9 @@ public class SeatHandler implements CommandHandler {
 	    request.setAttribute("totalSeat", totalSeat);
 	    request.setAttribute("seatList", seatList);
 	    request.setAttribute("busList", busList);
+	    request.setAttribute("resId", resId);
+	    
+	    System.out.println("resId : " + resId);
 	    
 	    if ("kobusModifyResvSch.jsp".equals(sourcePage)) {
 	    	return "/koBusFile/kobusModifyResvSeat.jsp";

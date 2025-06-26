@@ -126,6 +126,13 @@ function parseKoreanDateToYYYYMMDD(dateStr) {
 		display:none;
 	}
 	</style>
+	<style>
+		.box_detail_info {
+		    max-height: 200px; /* 원하는 높이로 조절 가능 */
+		    overflow-y: auto;
+		    padding-right: 10px; /* 스크롤바가 가려지는 것 방지 */
+		}
+	</style>
 	
 	
 

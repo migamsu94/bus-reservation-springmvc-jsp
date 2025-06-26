@@ -572,7 +572,7 @@ $(document).ready(function () {
 <!-- 25.06.23 추가 -------------------------------  -->
 <script>
 $("#reloadBtn").on("click", function () {
-    $("#alcnSrchFrm").submit();
+    /* $("#alcnSrchFrm").submit(); */
 });
 </script>
 
@@ -662,7 +662,7 @@ $(document).on("click", ".time li a", function () {
 <article id="new-kor-content">
    <script src="/koBus/js/kor/mrs/tckmrs/AlcnSrch.js?v=0102"
       type="text/javascript"></script>
-   <form action="/mrs/alcnSrch.do" id="alcnSrchFrm" method="post"
+   <form action="/koBus/mrs/alcnSrch.do" id="alcnSrchFrm" method="post"
       name="alcnSrchFrm">
       <input type="hidden" name="sourcePage" value="KOBUSreservation2.jsp">
       <input id="deprCd" name="deprCd" type="hidden" value="<%= request.getParameter("deprCd") %>" />

@@ -75,7 +75,7 @@
 							</li>
 							<li class="additional">
 								<div class="row">
-									<a class="txt_myMenu" href="#"> <span>프리패스/정기권</span><strong
+									<a class="txt_myMenu" href="/koBus/page/itemPurListPage.do"> <span>프리패스/정기권</span><strong
 										id="adtnPrdPT">${couponCount}개</strong></a> 
 								</div>
 								<div class="btnBox">

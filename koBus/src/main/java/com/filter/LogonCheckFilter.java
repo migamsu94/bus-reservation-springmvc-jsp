@@ -22,7 +22,9 @@ import javax.servlet.http.HttpSession;
 					, 
 		urlPatterns = { 
 				// 마이페이지 등등 권한 필요한 주소 추가할것. 
-				"/page/logonMyPage.do"
+				"/page/logonMyPage.do",
+				"/page/itemPurListPage.do",
+				"/kobusSeat.do"
 		})
 public class LogonCheckFilter extends HttpFilter implements Filter {
 

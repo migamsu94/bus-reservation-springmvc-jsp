@@ -136,27 +136,40 @@ public class ScheduleDAOImpl implements ScheduleDAO {
 		        deprDtm = datePart + " " + timePart;
 
 		        sql += " AND BS.DEPARTUREDATE = TO_TIMESTAMP(?, 'YYYYMMDD HH24:MI') ";
+		        
+		    } 
+		    
+		 // Case 2: "yyyy-MM-dd HH:mm"
+		    else if (deprDtm.trim().matches("\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}")) {
+		    	deprDtm = deprDtm.replaceAll("-", "").substring(0, 8) + " " + deprDtm.substring(11, 16);
 
-		    // Case 2: "yyyy-MM-dd"
-		    } else if (deprDtm.trim().matches("\\d{4}-\\d{2}-\\d{2}")) {
+		        sql += " AND BS.DEPARTUREDATE = TO_TIMESTAMP(?, 'YYYYMMDD HH24:MI') ";
+		    }
+		    
+		 // Case 3: "yyyy-MM-dd"
+		    else if (deprDtm.trim().matches("\\d{4}-\\d{2}-\\d{2}")) {
 		        deprDtm = deprDtm.replace("-", "");
 
 		        sql += " AND TRUNC(BS.DEPARTUREDATE) = TO_DATE(?, 'YYYYMMDD') ";
 
-		    // Case 3: "yyyyMMdd HH:mm"
+		    // Case 4: "yyyyMMdd HH:mm"
 		    } else if (deprDtm.trim().matches("\\d{8} \\d{2}:\\d{2}")) {
 		        sql += " AND BS.DEPARTUREDATE = TO_TIMESTAMP(?, 'YYYYMMDD HH24:MI') ";
 
-		    // Case 4: "yyyyMMdd"
+		    // Case 5: "yyyyMMdd"
 		    } else if (deprDtm.trim().matches("\\d{8}")) {
 		        sql += " AND TRUNC(BS.DEPARTUREDATE) = TO_DATE(?, 'YYYYMMDD') ";
 
+		     // Case 6: "yyyyMMdd HH:mm:ss"
+		    } else if (deprDtm.matches("\\d{8} \\d{2}:\\d{2}:\\d{2}")) {
+		        sql += " AND BS.DEPARTUREDATE = TO_TIMESTAMP(?, 'YYYYMMDD HH24:MI:SS') ";
 		    } else {
 		        System.out.println("입력 형식이 올바르지 않습니다.");
 		    }
 		}
 
 
+		System.out.println(sql);
 
 		if (!busClsCd.equals("전체")) {
 		    sql += " AND B.BUSGRADE = ? ";
@@ -198,6 +211,7 @@ public class ScheduleDAOImpl implements ScheduleDAO {
 					.adultFare(adultFare)
 					.stuFare(stuFare)
 					.childFare(childFare)
+					.departureDate(departureDate)
 					.arrivalDate(arrivalDate)
 					.durMin(durMin)
 					.bshId(bshId)
@@ -208,6 +222,7 @@ public class ScheduleDAOImpl implements ScheduleDAO {
 
 			schList.add(schDto);
 		}
+		
 
 		return schList;
 	}
