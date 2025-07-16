@@ -2,7 +2,7 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- saved from url=(0041)https://www.kobus.co.kr/mrs/stplcfmpym.do -->
-<html lang="ko" class="pc"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html lang="ko" class="pc"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	
 	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
@@ -13,15 +13,10 @@
 		
 		
 		
-		
-		
 	
-	
-	
-	<link rel="shortcut icon" type="image/x-icon" href="/koBus/media/favicon.ico">
+	<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/media/favicon.ico">
 	
 		
-
 
 
 <script type="text/javascript">
@@ -31,9 +26,9 @@
 </script>
 
 
-<link rel="stylesheet" type="text/css" href="/koBus/css/common/ui.jqgrid.custom.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/cdn-main/common/ui.jqgrid.custom.css">
 
-<script type="text/javascript" src="/koBus/js/common/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/common/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 //쿠키 가져오기
 function getCookie( name ) {
@@ -133,11 +128,11 @@ if (lngCd == "KO") {
 }
 
 </script>
-<script type="text/javascript" src="/koBus/js/common/ui.js"></script>
-<script type="text/javascript" src="/koBus/js/common/plugin.js"></script>
-<script type="text/javascript" src="/koBus/js/common/common.js"></script>
-<script type="text/javascript" src="/koBus/js/common/jquery.number.js"></script>
-<script type="text/javascript" src="/koBus/js/common/security.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/common/ui.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/common/plugin.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/common/common.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/common/jquery.number.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/common/security.js"></script>
 	
 	
-<link rel="stylesheet" type="text/css" href="/koBus/css/common/style.css"><script type="text/javascript" src="/koBus/js/common/new-kor-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/cdn-main/common/style.css"><script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/common/new-kor-ui.js"></script>

@@ -18,6 +18,6 @@ public class FreePassPayController {
     @PostMapping("/pay")
     public String handlePayment(@ModelAttribute FreePassPaymentDTO dto, Model model) {
     	paymentService.saveFreePassPayment(dto);
-        return "freePass";
+        return "freepass";
     }
 }

@@ -46,7 +46,7 @@ response.setDateHeader("Expires", 0); // Proxies
 		<div class="top-menu-area">
 			<div class="container">
 				<h1 id="logo">
-					<a href="/koBus/main.do"> <img src="/koBus/images/logo.png"
+					<a href="${pageContext.request.contextPath}/main.do"> <img src="${pageContext.request.contextPath}/resources/images/logo.png"
 						alt="KOBUS 전국고속버스운송사업조합">
 					</a>
 				</h1>
@@ -55,15 +55,15 @@ response.setDateHeader("Expires", 0); // Proxies
 
 						<c:choose>
 							<c:when test="${empty auth}">
-								<li><a class="login" href="/koBus/page/logonMain.do">로그인</a></li>
-								<li><a href="/koBus/page/joinMain.do">회원가입</a></li>
+								<li><a class="login" href="${pageContext.request.contextPath}/page/logonMain.do">로그인</a></li>
+								<li><a href="${pageContext.request.contextPath}/page/joinMain.do">회원가입</a></li>
 							</c:when>
 							<c:otherwise>
 								<li>${auth}|</li>
-								<li><a class="logout" href="/koBus/logOut.do">로그아웃</a></li>
+								<li><a class="logout" href="${pageContext.request.contextPath}/logOut.do">로그아웃</a></li>
 							</c:otherwise>
 						</c:choose>
-						<li><a href="/koBus/page/logonMyPage.do">마이페이지</a></li>
+						<li><a href="${pageContext.request.contextPath}/page/logonMyPage.do">마이페이지</a></li>
 						<li><a href="#">결제내역조회</a></li>
 						<li><a href="#">사이트맵</a></li>
 					</ul>
@@ -87,24 +87,24 @@ response.setDateHeader("Expires", 0); // Proxies
 			<div class="container">
 				<div class="gnb-area">
 					<ul id="new-kor-gnb">
-						<li><a href="/koBus/region.do">고속버스예매</a>
+						<li><a href="${pageContext.request.contextPath}/region.do">고속버스예매</a>
 							<ul>
-								<li><a href="/koBus/region.do">고속버스 예매</a></li>
-								<li><a href="/koBus/manageReservations.do">예매확인/취소/변경</a></li>
+								<li><a href="${pageContext.request.contextPath}/region.do">고속버스 예매</a></li>
+								<li><a href="${pageContext.request.contextPath}/manageReservations.do">예매확인/취소/변경</a></li>
 								<li><a href="#">영수증발행</a></li>
 							</ul></li>
 						<li><a href="#">운행정보</a>
 							<ul>
-								<li><a href="/koBus/kobusSchedule.do">시간표 조회</a></li>
+								<li><a href="${pageContext.request.contextPath}">시간표 조회</a></li>
 								<li><a href="#">도착시간 안내</a></li>
 							</ul></li>
 
 
-						<li><a href="/koBus/pageForward.do?page=freePass">프리패스/정기권</a>
+						<li><a href="${pageContext.request.contextPath}/pageForward.do?page=freePass">프리패스/정기권</a>
 							<ul>
-								<li><a href="/koBus/pageForward.do?page=freePass">프리패스 여행권</a></li>
-								<li><a href="/koBus/pageForward.do?page=seasonTicket">정기권</a></li>
-								<li><a href="/koBus/page/itemPurListPage.do">상품 구매내역</a></li>
+								<li><a href="${pageContext.request.contextPath}/pageForward.do?page=freePass">프리패스 여행권</a></li>
+								<li><a href="${pageContext.request.contextPath}/pageForward.do?page=seasonTicket">정기권</a></li>
+								<li><a href="${pageContext.request.contextPath}/page/itemPurListPage.do">상품 구매내역</a></li>
 							</ul></li>
 
 
@@ -119,12 +119,12 @@ response.setDateHeader("Expires", 0); // Proxies
 								<li><a href="/ugd/trmlgd/Trmlgd.do">고속버스 터미널</a></li>
 								<li><a href="/ugd/cacmgd/Cacmgd.do">고속버스 운송회사</a></li>
 							</ul></li>
-						<li><a href="/koBus/main.do">고객지원</a>
+						<li><a href="${pageContext.request.contextPath}/main.do">고객지원</a>
 							<ul>
-								<li><a href="/koBus/html/boardList.do">게시판</a></li>
-								<li><a href="/koBus/html/goBusFaq.do">자주찾는 질문</a></li>
+								<li><a href="${pageContext.request.contextPath}/html/boardList.do">게시판</a></li>
+								<li><a href="${pageContext.request.contextPath}/html/goBusFaq.do">자주찾는 질문</a></li>
 								<li><a
-									href="/koBus/lossCenter/main.do">유실물센터
+									href="${pageContext.request.contextPath}/lossCenter/main.do">유실물센터
 										안내</a></li>
 							</ul></li>
 					</ul>
@@ -138,7 +138,7 @@ response.setDateHeader("Expires", 0); // Proxies
 
 					<a href="/cscn/jobmttr/readJobList.do" class="btn btn-job"
 						title="새창" target="_blank"> <img
-						src="/koBus/images/ico-job-offer.png" alt="">승무사원 모집 <i
+						src="${pageContext.request.contextPath}/resources/images/ico-job-offer.png" alt="">승무사원 모집 <i
 						class="ico ico-arrow-new-window"></i>
 					</a>
 				</div>
@@ -146,8 +146,8 @@ response.setDateHeader("Expires", 0); // Proxies
 					<a
 						href="https://safeconnect.co.kr/sfconn/login/csc_pc?et=psn249R01&amp;ptrSvcSn=psn249"
 						title="새창" class="gnb-baaner"> <img
-						src="/koBus/images/003-GNB.png" alt="ID 찾을 필요 없이, 전화번호 로그인!">
-						<!-- <iframe src="/koBus/images/_ad-tubebox-002GNB.html" title="프레임 (전화번호안심 로그인)" class="ad-frame"></iframe> -->
+						src="${pageContext.request.contextPath}/resources/images/003-GNB.png" alt="ID 찾을 필요 없이, 전화번호 로그인!">
+						<!-- <iframe src="${pageContext.request.contextPath}/resources/images/_ad-tubebox-002GNB.html" title="프레임 (전화번호안심 로그인)" class="ad-frame"></iframe> -->
 					</a>
 				</div>
 			</div>

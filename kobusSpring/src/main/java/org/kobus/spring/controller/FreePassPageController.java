@@ -11,7 +11,7 @@ public class FreePassPageController {
     @GetMapping("/freepass.htm")
     public String showFreePassForm() {
     	System.out.println(">>>>>>   http://localhost/payment/freepass.htm 요청." );
-        return "kobus.payment/freePass";  // Tiles 와일드카드 규칙에 맞는 이름
+        return "kobus.payment/freepass";  // Tiles 와일드카드 규칙에 맞는 이름
         
         // return "payment/freePass";
         //  http://localhost/payment/freepass.htm 요청

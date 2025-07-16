@@ -6,28 +6,28 @@
 		<div class="footer-top-cont">
 			<ul class="express-bus-company-list">
 				<li>
-					<a href="http://www.kumhobuslines.co.kr/" target="_blank" title="새창"><img src="/koBus/images/logo-kumho-express.png" alt="금호고속"></a>
+					<a href="http://www.kumhobuslines.co.kr/" target="_blank" title="새창"><img src="${pageContext.request.contextPath}/resources/images/logo-kumho-express.png" alt="금호고속"></a>
 				</li>
 				<li>
-					<a href="http://www.dongbubus.com/" target="_blank" title="새창"><img src="/koBus/images/logo-dongbu-express.png" alt="동부고속"></a>
+					<a href="http://www.dongbubus.com/" target="_blank" title="새창"><img src="${pageContext.request.contextPath}/resources/images/logo-dongbu-express.png" alt="동부고속"></a>
 				</li>
 				<li>
-					<a href="http://www.songnisanbuslines.co.kr/" target="_blank" title="새창"><img src="/koBus/images/logo-sokrisan-express.png" alt="속리산고속"></a>
+					<a href="http://www.songnisanbuslines.co.kr/" target="_blank" title="새창"><img src="${pageContext.request.contextPath}/resources/images/logo-sokrisan-express.png" alt="속리산고속"></a>
 				</li>
 				<li>
-					<a href="http://www.dyexpress.co.kr/" target="_blank" title="새창"><img src="/koBus/images/logo-dongyang-express.png" alt="동양고속"></a>
+					<a href="http://www.dyexpress.co.kr/" target="_blank" title="새창"><img src="${pageContext.request.contextPath}/resources/images/logo-dongyang-express.png" alt="동양고속"></a>
 				</li>
 				<li>
-					<a href="http://www.samhwaexpress.co.kr/" target="_blank" title="새창"><img src="/koBus/images/logo-samhwa-express.png" alt="삼화고속"></a>
+					<a href="http://www.samhwaexpress.co.kr/" target="_blank" title="새창"><img src="${pageContext.request.contextPath}/resources/images/logo-samhwa-express.png" alt="삼화고속"></a>
 				</li>
 				<li>
-					<a href="http://www.jabus.co.kr/" target="_blank" title="새창"><img src="/koBus/images/logo-joongang-express.png" alt="중앙고속"></a>
+					<a href="http://www.jabus.co.kr/" target="_blank" title="새창"><img src="${pageContext.request.contextPath}/resources/images/logo-joongang-express.png" alt="중앙고속"></a>
 				</li>
 				<li>
-					<a href="http://www.chunilexpress.co.kr/" target="_blank" title="새창"><img src="/koBus/images/logo-chunil-express.png" alt="천일고속"></a>
+					<a href="http://www.chunilexpress.co.kr/" target="_blank" title="새창"><img src="${pageContext.request.contextPath}/resources/images/logo-chunil-express.png" alt="천일고속"></a>
 				</li>
 				<li>
-					<a href="http://www.hanilexpress.co.kr/" target="_blank" title="새창"><img src="/koBus/images/logo-hanil-express.png" alt="한일고속"></a>
+					<a href="http://www.hanilexpress.co.kr/" target="_blank" title="새창"><img src="${pageContext.request.contextPath}/resources/images/logo-hanil-express.png" alt="한일고속"></a>
 				</li>
 			</ul>
 			<!-- dropdown-top 클래스 추가 시, 드롭다운 목록 위로 노출 -->
@@ -62,20 +62,20 @@
 			</address>
 			<ul class="greeting-btn-list">
 				<li>
-					<a href="http://www.wa.or.kr/board/list.asp?search=total&amp;SearchString=%B0%ED%BC%D3%B9%F6%BD%BA&amp;BoardID=0006" target="_blank" title="새창"><img src="/koBus/images/logo-accessibility2.png" alt="(사)한국장애인단체총연합회 한국웹접근성인증평가원 웹 접근성 우수사이트 인증마크(WA인증마크)" height="40"></a>
+					<a href="http://www.wa.or.kr/board/list.asp?search=total&amp;SearchString=%B0%ED%BC%D3%B9%F6%BD%BA&amp;BoardID=0006" target="_blank" title="새창"><img src="${pageContext.request.contextPath}/resources/images/logo-accessibility2.png" alt="(사)한국장애인단체총연합회 한국웹접근성인증평가원 웹 접근성 우수사이트 인증마크(WA인증마크)" height="40"></a>
 				</li>
 				<li>
-					<a href="https://www.kobus.co.kr/ugd/bustrop/Bustrop.do" title="이사장 인사말 바로가기"><img src="/koBus/images/logo-kobus.png" alt="KOBUS 전국고속버스운송사업조합"></a>
+					<a href="https://www.kobus.co.kr/ugd/bustrop/Bustrop.do" title="이사장 인사말 바로가기"><img src="${pageContext.request.contextPath}/resources/images/logo-kobus.png" alt="KOBUS 전국고속버스운송사업조합"></a>
 				</li>
 				<li>
-					<a href="https://www.kobus.co.kr/ugd/trmlbizr/Trmlbizr.do" title="협회장 인사말 바로가기"><img src="/koBus/images/logo-npvtba-express.png" alt="전국여객자동차터미널사업자협회"></a>
+					<a href="https://www.kobus.co.kr/ugd/trmlbizr/Trmlbizr.do" title="협회장 인사말 바로가기"><img src="${pageContext.request.contextPath}/resources/images/logo-npvtba-express.png" alt="전국여객자동차터미널사업자협회"></a>
 				</li>
 			</ul>
 		</div>
 	</div>
 </footer>
 
-	</div>
+
 
 	
 
