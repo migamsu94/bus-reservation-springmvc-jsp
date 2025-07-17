@@ -6,23 +6,28 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.kobus.spring.domain.reservation.ResvDTO;
-import org.kobus.spring.domain.reservation.SeatDTO;
-import org.kobus.spring.domain.schedule.ScheduleDTO;
 import org.kobus.spring.service.reservation.ResvService;
 import org.kobus.spring.service.reservation.SeatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import lombok.extern.log4j.Log4j;
+
+@Controller
+@Log4j
 public class ModifyReservationController {
 	
 	
@@ -33,14 +38,16 @@ public class ModifyReservationController {
 	ResvService resvService;
 	
 	@GetMapping("/manageReservations.do")
-	public String manageReservations(HttpSession session) {
+	public String manageReservations(HttpSession session, Model model) {
 		
-		String loginId = (String) session.getAttribute("id");
+//		String loginId = (String) session.getAttribute("id");
 		
-		if (session == null || session.getAttribute("id") == null) {
-	        // 로그인 안 된 상태
-			return "redirect:/koBus/koBusFile/logonMain.jsp";
-		}
+		String loginId = "user1";
+		
+//		if (session == null || session.getAttribute("id") == null) {
+//	        // 로그인 안 된 상태
+//			return "redirect:/koBus/koBusFile/logonMain.jsp";
+//		}
 		
 
 		try {
@@ -48,6 +55,9 @@ public class ModifyReservationController {
 			List<ResvDTO> resvList = resvService.searchResvList(loginId);
 			
 			List<ResvDTO> cancelList = resvService.searchCancelResvList(loginId);
+			
+			model.addAttribute("resvList", resvList);
+			model.addAttribute("cancelList", cancelList);
 		
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -55,18 +65,84 @@ public class ModifyReservationController {
 		}
 
 
-		int cancelResult = 0;
-		int changeRemainSeats = 0;
-
 		return "kobus.reservation/kobusManageResv";
 	}
 	
 	
 	@PostMapping("/kobusResvCancel.ajax")
 	@ResponseBody
-	public ResponseEntity<?> resvCancel() {
-		return null;
+	public ResponseEntity<?> resvCancel(
+			@RequestParam(required = false) String ajax,
+			@RequestParam(required = false) String type,
+			@RequestParam(required = false) String mrsMrnpno,
+			@RequestParam(required = false) String mrsMrnpSno,
+			@RequestParam(required = false) String prmmDcDvsCd,
+			@RequestParam(required = false) String rtrpMrsYn,
+			@RequestParam(required = false) String BRKP_AMT_CMM,
+			@RequestParam(required = false) String pynDvsCd,
+			@RequestParam(required = false) String pynDtlCd,
+			@RequestParam(required = false) String tckSeqList,
+			@RequestParam(required = false) String cancCnt,
+			@RequestParam(required = false) String TRD_DTM,
+			@RequestParam(required = false) String alcnDeprDt,
+			@RequestParam(required = false) String alcnDeprTime,
+			@RequestParam(required = false) String deprnNm,
+			@RequestParam(required = false) String arvlNm,
+			@RequestParam(required = false) String takeDrtm,
+			@RequestParam(required = false) String cacmNm,
+			@RequestParam(required = false) String deprNm,
+			@RequestParam(required = false) String adltNum,
+			@RequestParam(required = false) String chldNum,
+			@RequestParam(required = false) String teenNum,
+			@RequestParam(required = false) String seatNo) {
 		
+		Map<String, Object> recpListMap = new HashMap<>();
+
+		int cancelResult = 0;
+		int changeRemainSeats = 0;
+
+		try {
+			recpListMap.put("type", type);
+			recpListMap.put("mrsMrnpNo", mrsMrnpno);
+			recpListMap.put("mrsMrnpSno", mrsMrnpSno);
+			recpListMap.put("prmmDcDvsCd", prmmDcDvsCd);
+			recpListMap.put("rtrpMrsYn", rtrpMrsYn);
+			recpListMap.put("BRKP_AMT_CMM", BRKP_AMT_CMM);
+			recpListMap.put("pynDvsCd", pynDvsCd);
+			recpListMap.put("pynDtlCd", pynDtlCd);
+			recpListMap.put("tckSeqList", tckSeqList);
+			recpListMap.put("cancCnt", cancCnt);
+			recpListMap.put("TRD_DTM", TRD_DTM);
+			recpListMap.put("alcnDeprDt", alcnDeprDt);
+			recpListMap.put("alcnDeprTime", alcnDeprTime);
+			recpListMap.put("deprnNm", deprnNm);
+			recpListMap.put("arvlNm", arvlNm);
+			recpListMap.put("takeDrtm", takeDrtm);
+			recpListMap.put("cacmNm", cacmNm);
+			recpListMap.put("deprNm", deprNm);
+			recpListMap.put("adltNum", adltNum);
+			recpListMap.put("chldNum", chldNum);
+			recpListMap.put("teenNum", teenNum);
+			recpListMap.put("setsList", seatNo);
+
+			String rideTime = alcnDeprDt + alcnDeprTime;
+
+			if ("true".equalsIgnoreCase(ajax) && "cancel".equalsIgnoreCase(type)) {
+				cancelResult = resvService.cancelResvList(mrsMrnpno);
+				changeRemainSeats = resvService.changeRemainSeats(mrsMrnpno, rideTime);
+
+				recpListMap.put("cancelResult", cancelResult);
+				recpListMap.put("changeRemainSeats", changeRemainSeats);
+			}
+
+			System.out.println("cancelResult : " + cancelResult);
+			System.out.println("changeRemainSeats : " + changeRemainSeats);
+
+		} catch (Exception e) {
+			recpListMap.put("error", "오류 발생: " + e.getMessage());
+		}
+
+		return ResponseEntity.ok(recpListMap);
 	}
 	
 	@GetMapping("/modifyResvSeat.do")

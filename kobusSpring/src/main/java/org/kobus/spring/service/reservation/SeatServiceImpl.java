@@ -6,7 +6,9 @@ import java.util.List;
 import org.kobus.spring.domain.reservation.SeatDTO;
 import org.kobus.spring.mapper.reservation.SeatMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class SeatServiceImpl implements SeatService {
 	
 	@Autowired

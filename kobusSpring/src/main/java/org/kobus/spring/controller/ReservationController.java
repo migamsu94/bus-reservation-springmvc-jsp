@@ -1,18 +1,9 @@
 package org.kobus.spring.controller;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Connection;
+
 import java.sql.SQLException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.naming.NamingException;
-
-import org.kobus.spring.domain.reservation.ResvDTO;
-import org.kobus.spring.domain.reservation.SeatDTO;
 import org.kobus.spring.domain.schedule.ScheduleDTO;
 import org.kobus.spring.service.reservation.SeatService;
 import org.kobus.spring.service.schedule.ScheduleService;
@@ -20,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.extern.log4j.Log4j;

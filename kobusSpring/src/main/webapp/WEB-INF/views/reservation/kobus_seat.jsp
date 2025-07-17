@@ -8,7 +8,6 @@
 <script type="text/javascript"
 	src="/koBus/js/new-kor-ui.js"></script>
 <script type="text/javascript" src="/koBus/js/SatsChc.js"></script>
-</head>
 
 <style>
 .txt_red {
@@ -881,8 +880,8 @@ $(document).ready(function () {
 
 
 		<!-- footer -->
+	
 	</div>
-
 	<div class="remodal-overlay remodal-is-closed" style="display: none;"></div>
 	<div class="remodal-wrapper remodal-is-closed" style="display: none;">
 		<div class="remodal remodal-is-initialized remodal-is-closed"

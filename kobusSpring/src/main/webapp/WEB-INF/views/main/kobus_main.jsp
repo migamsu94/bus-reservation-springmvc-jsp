@@ -8,8 +8,8 @@
 	});
 </script>
 
-<link rel="stylesheet" type="text/css" href="/koBus/css/common/style.css">
-<script type="text/javascript" src="/koBus/js/common/new-kor-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/common/style.css">
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/common/new-kor-ui.js"></script>
 </head>
 		
 <script>
@@ -104,17 +104,17 @@ function parseKoreanDateToYYYYMMDD(dateStr) {
 	
 	
 
-		<script type="text/javascript" src="/koBus/js/MainNew.js"></script>
-		<script type="text/javascript" src="/koBus/js/Main.js"></script>
-		<script type="text/javascript" src="/koBus/js/left.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/MainNew.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/Main.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/left.js"></script>
 
-		<script type="text/javascript" src="/koBus/js/common/RotInfPup.js"></script>
-		<script type="text/javascript" src="/koBus/js/common/RotInf.js"></script>
-		<script type="text/javascript" src="/koBus/js/MrsCfmLgn.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/common/RotInfPup.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/common/RotInf.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/MrsCfmLgn.js"></script>
 
-		<script type="text/javascript" src="/koBus/js/rsa_oaep-min.js"></script>
-		<script type="text/javascript" src="/koBus/js/jsbn-min2.js"></script>
-		<script type="text/javascript" src="/koBus/js/typedarray.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/rsa_oaep-min.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jsbn-min2.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/typedarray.js"></script>
 
 
 
@@ -140,23 +140,23 @@ function parseKoreanDateToYYYYMMDD(dateStr) {
 	});
 </script>
 
-		<script type="text/javascript" src="/koBus/js/MainNew.js"></script>
-		<script type="text/javascript" src="/koBus/js/Main.js"></script>
-		<script type="text/javascript" src="/koBus/js/left.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/MainNew.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/Main.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/left.js"></script>
 
-		<script type="text/javascript" src="/koBus/js/common/RotInfPup.js"></script>
-		<script type="text/javascript" src="/koBus/js/common/RotInf.js"></script>
-		<script type="text/javascript" src="/koBus/js/MrsCfmLgn.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/common/RotInfPup.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/common/RotInf.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/MrsCfmLgn.js"></script>
 
 		<!-- 20200617 yahan -->
-		<!-- <script type="text/javascript" src="/koBus/js/transkey.js"></script>
-<script type="text/javascript" src="/koBus/js/TranskeyLibPack_op.js"></script> -->
-		<script type="text/javascript" src="/koBus/js/rsa_oaep-min.js"></script>
-		<script type="text/javascript" src="/koBus/js/jsbn-min2.js"></script>
-		<script type="text/javascript" src="/koBus/js/typedarray.js"></script>
-		<!-- <script type="text/javascript" src="/koBus/js/transkeyServlet"></script>
-<script type="text/javascript" src="/koBus/js/transkeyServlet(1)"></script>
-<link rel="stylesheet" type="text/css" href="/koBus/js/transkey.css">  -->
+		<!-- <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/transkey.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/TranskeyLibPack_op.js"></script> -->
+		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/rsa_oaep-min.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jsbn-min2.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/typedarray.js"></script>
+		<!-- <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/transkeyServlet"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/transkeyServlet(1)"></script>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/js/transkey.css">  -->
 
 
 		<!-- 출/도착지 선택 레이어팝업 -->
@@ -959,20 +959,20 @@ function parseKoreanDateToYYYYMMDD(dateStr) {
 							<a href="/adtnprdnew/frps/frpsPrchGd.do"
 								class="item item-yellow"> <strong>프리패스 여행권 구매</strong>
 								<p>대한민국 구석구석을 자유롭게</p> <img
-								src="/koBus/images/img-links-small-item01.png" alt="">
+								src="${pageContext.request.contextPath}/resources/images/img-links-small-item01.png" alt="">
 							</a> <a href="/adtnprdnew/pass/passPrchGd.do"
 								class="item item-yellow"> <strong>정기권 구매</strong>
 								<p>매일 가는 목적지를 저렴하게</p> <img
-								src="/koBus/images/img-links-small-item02.png" alt="">
+								src="${pageContext.request.contextPath}/resources/images/img-links-small-item02.png" alt="">
 							</a> <a href="/oprninf/arscgd/oprnArscGd.do"
 								class="item item-blue"> <strong>도착시간 안내</strong>
 								<p>운행중인 버스정보를 확인해요</p> <img
-								src="/koBus/images/img-links-small-item03.png" alt="">
+								src="${pageContext.request.contextPath}/resources/images/img-links-small-item03.png" alt="">
 							</a> <a
 								href="/oprninf/alcninqr/oprnAlcnPage.do"
 								class="item item-blue"> <strong>시간표 조회</strong>
 								<p>배차시간을 편리하게 확인해요</p> <img
-								src="/koBus/images/img-links-small-item04.png" alt="">
+								src="${pageContext.request.contextPath}/resources/images/img-links-small-item04.png" alt="">
 							</a>
 						</div>
 
@@ -985,29 +985,29 @@ function parseKoreanDateToYYYYMMDD(dateStr) {
 							<div class="item item-green">
 								<span>프리미엄 골드 익스프레스</span> <strong>도로 위 비즈니스 클래스<br>
 									프리미엄 고속버스
-								</strong> <img src="/koBus/images/img-links-big-item01.png" alt="">
+								</strong> <img src="${pageContext.request.contextPath}/resources/images/img-links-big-item01.png" alt="">
 							</div>
 							<a href="https://www.zerodayexpress.com/b2cpublic/main.page"
 								target="_blank" title="새창" class="item item-blue"> <span>ZERODAY
 									EXPRESS</span> <strong>고속버스 당일배송<br> 온라인 택배신청
-							</strong> <img src="/koBus/images/img-links-big-item02.png" alt="">
+							</strong> <img src="${pageContext.request.contextPath}/resources/images/img-links-big-item02.png" alt="">
 							</a> <a
 								href="/cscn/lossClnc/readLossClncList.do"
 								target="_blank" title="새창" class="item item-purple"> <span>고객센터</span>
 								<strong>유실물 센터</strong> <img
-								src="/koBus/images/img-lost-article.png" alt="">
+								src="${pageContext.request.contextPath}/resources/images/img-lost-article.png" alt="">
 							</a>
 						</div>
 
 
 
 						<div class="banner-group type-row-C banner-and-lost-article">
-							<!-- <iframe src="/koBus/images/banner-kumho-market.html" title="프레임 (금호팔도마켓 이벤트 새창 링크)" class="ad-frame"></iframe> -->
-							<!-- <iframe src="/koBus/images/banner-hanil-modernprestige.html" title="프레임 (한일고속 회원전용 이벤트 새창 링크)" class="ad-frame"></iframe> -->
+							<!-- <iframe src="${pageContext.request.contextPath}/resources/images/banner-kumho-market.html" title="프레임 (금호팔도마켓 이벤트 새창 링크)" class="ad-frame"></iframe> -->
+							<!-- <iframe src="${pageContext.request.contextPath}/resources/images/banner-hanil-modernprestige.html" title="프레임 (한일고속 회원전용 이벤트 새창 링크)" class="ad-frame"></iframe> -->
 							<a href="/ugd/mlggd/Mlggd.do"
 								class="item item-lost-article" target="_blank" title="새창"> <span>이용안내</span>
 								<strong>프리미엄 마일리지</strong> <img
-								src="/koBus/images/ico-premium-mileage.png" alt="">
+								src="${pageContext.request.contextPath}/resources/images/ico-premium-mileage.png" alt="">
 							</a>
 						</div>
 
@@ -1149,7 +1149,7 @@ function parseKoreanDateToYYYYMMDD(dateStr) {
 					<div class="main">
 						<p class="mo_util">
 							<a
-								href="/koBus/kobusSchedule.do"
+								href="${pageContext.request.contextPath}/resources/kobusSchedule.do"
 								class="util1" style="width: 33.33%">시간표조회</a> <a
 								href="/ugd/mrsgd/Mrsgd.do" class="util2"
 								style="width: 33.33%">이용안내</a>
@@ -1989,12 +1989,12 @@ function parseKoreanDateToYYYYMMDD(dateStr) {
 				<ul class="txt">
 					<li><strong>광양 임시터미널(인동숲 주차장) 안내</strong>
 						<p style="margin-top: 10px;">
-							<img src="/koBus/images/pop_img01.png"
+							<img src="${pageContext.request.contextPath}/resources/images/pop_img01.png"
 								alt="광양임시터미널 - 타이어뱅크와 국민은행 사이 옆길 진입도" width="640">
 						</p></li>
 					<li><strong>광양 임시터미널 승차홈</strong>
 						<p>
-							<img src="/koBus/images/pop_img02.png"
+							<img src="${pageContext.request.contextPath}/resources/images/pop_img02.png"
 								alt="광양임시터미널 승차홈별 지역(상세 다음 참고)" width="640">
 						</p>
 						<div class="sr-only">
