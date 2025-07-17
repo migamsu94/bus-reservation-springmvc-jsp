@@ -1,4 +1,4 @@
-package org.kobus.spring.service.schedule;
+package org.kobus.spring.service.pay;
 
 import org.kobus.spring.domain.FreePassPaymentDTO;
 
