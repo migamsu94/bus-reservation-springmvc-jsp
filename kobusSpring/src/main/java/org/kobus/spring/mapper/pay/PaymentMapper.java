@@ -1,4 +1,4 @@
-package org.kobus.spring.mapper;
+package org.kobus.spring.mapper.pay;
 
 import org.kobus.spring.domain.FreePassPaymentDTO;
 

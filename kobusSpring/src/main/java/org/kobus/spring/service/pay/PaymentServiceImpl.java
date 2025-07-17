@@ -1,7 +1,7 @@
-package org.kobus.spring.service.schedule;
+package org.kobus.spring.service.pay;
 
 import org.kobus.spring.domain.FreePassPaymentDTO;
-import org.kobus.spring.mapper.PaymentMapper;
+import org.kobus.spring.mapper.pay.PaymentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
