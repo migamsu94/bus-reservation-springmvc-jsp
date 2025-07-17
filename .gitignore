@@ -68,7 +68,7 @@ local.properties
 .sts4-cache/
 
 ### === 추가: Maven 빌드 출력물 ===
-target/
+/target/
 
 ### === 추가: 배포 파일 ===
 *.war
