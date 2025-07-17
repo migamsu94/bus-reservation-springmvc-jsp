@@ -222,7 +222,7 @@
 		</p>
 		<p class="info">충북 청주시 흥덕 가경 1416</p>
 	</div>
-	<div class="tbl_type1 responsive col3">
+	<div class="tbl_type1 responsive col2">
 		<table>
 			<caption>유실물 센터 목록이며 영업소, 주소, 전화번호 정보 제공</caption>
 			<colgroup>
