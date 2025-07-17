@@ -133,6 +133,9 @@ if (lngCd == "KO") {
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/common/common.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/common/jquery.number.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/common/security.js"></script>
-	
-	
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/cdn-main/common/style.css"><script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/common/new-kor-ui.js"></script>
+
+
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/cdn-main/common/style.css">
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/js/common/new-kor-ui.js"></script>
