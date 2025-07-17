@@ -707,7 +707,7 @@ function fnAdtnVldTerm(){
         dataType : "json",
         success  : function(termMap){	
         	
-        	console.log(termMap);
+        	console.log("✅ 응답 성공", termMap);
 
 			// 20200515 yahan
 			if (termMap.adtnDupPrchYn == "Y" &&
@@ -768,6 +768,7 @@ function fnAdtnVldTerm(){
         	}
         },
         error:function (e){
+        	console.error("❌ Ajax 실패", e);
             //alert("connection error");
         }
     });
