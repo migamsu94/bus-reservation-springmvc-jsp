@@ -24,7 +24,7 @@ public class ReadVldTermController {
     @Autowired
     private TermMapper termMapper;
     
-    @PostMapping("/frpsDtlInf.ajax")
+    @PostMapping("/readFrpsDtlInf.ajax")
     public Map<String, Object> getAllFreePassOptions() {
         System.out.println("📌 [GET] 프리패스 옵션 목록 조회 시작");
 
