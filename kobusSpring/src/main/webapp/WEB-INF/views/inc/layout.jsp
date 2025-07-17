@@ -10,7 +10,7 @@
 
 <tiles:insertAttribute name="script" />
 
-<tiles:insertAttribute name="pageScript" ignore="true" />
+<%-- <tiles:insertAttribute name="pageScript" ignore="true" /> --%>
 
 </head>
 <body class="KO">
