@@ -3,6 +3,7 @@ package org.kobus.spring.domain;
 import java.sql.Date;
 import java.time.LocalDateTime;
 
+import org.kobus.spring.domain.reservation.SeatDTO;
 import org.kobus.spring.domain.schedule.ScheduleDTO;
 
 import lombok.Getter;

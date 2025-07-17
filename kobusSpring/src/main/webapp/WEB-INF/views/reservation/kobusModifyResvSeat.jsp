@@ -1,6 +1,55 @@
+<%@page import="com.util.JdbcUtil"%>
+<%@page import="com.util.ConnectionProvider"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="java.time.LocalDate"%>
+<%@page import="java.time.LocalTime"%>
 <%@ page language="java" trimDirectiveWhitespaces="true" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+	
+<!DOCTYPE html>
+<html lang="ko" class="pc">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+<title>예매정보입력(매수 및 좌석선택) | 고속버스예매 | 고속버스예매 | 고속버스통합예매</title>
+
+
+<link rel="shortcut icon"
+	href="https://www.kobus.co.kr/images/favicon.ico">
+
+
+<script type="text/javascript">
+/*********************************************
+ * 상수
+ *********************************************/
+</script>
+
+
+<link rel="stylesheet" type="text/css"
+	href="/koBus/css/common/ui.jqgrid.custom.css">
+
+<link rel="stylesheet"
+	href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
+<script type="text/javascript"
+	src="/koBus/js/common/ui.js"></script>
+<script type="text/javascript"
+	src="/koBus/js/common/plugin.js"></script>
+<script type="text/javascript"
+	src="/koBus/js/common/common.js"></script>
+
+<script type="text/javascript"
+	src="/koBus/js/common/jquery.number.js"></script>
+<script type="text/javascript"
+	src="/koBus/js/common/security.js"></script>
 
 
 <link rel="stylesheet" type="text/css"
@@ -10,27 +59,9 @@
 <script type="text/javascript" src="/koBus/js/SatsChc.js"></script>
 </head>
 
-<style>
-.txt_red {
-	font-weight: bold;
-	text-decoration: underline;
-	color: #e64c2e;
-}
+<body class="main KO" style="">
 
-.txt_bold {
-	font-weight: bold;
-	text-decoration: underline;
-}
-</style>
-
-<script>
-$(document).ready(function () {
-    $("#reloadBtn").on("click", function () {
-        location.reload(); // 현재 페이지 새로고침
-    });
-});
-</script>
-
+<%@ include file="common/header.jsp" %>
 
 		<!-- breadcrumb -->
 
@@ -72,9 +103,6 @@ $(document).ready(function () {
 
 				<li>
 					<div class="dropdown-wrap breadcrumb-select">
-
-
-
 						<a href="javascript:void(0)" class="btn-dropdown" title="하위메뉴 선택"
 							aria-expanded="false"> <span class="text">고속버스예매</span><i
 							class="ico ico-dropdown-arrow"></i></a>
@@ -139,19 +167,19 @@ $(document).ready(function () {
 			
 				
 			<c:set var="bus" value="${busList[0]}" />
+			<c:set var="change" value="${changeSeatList[0]}" />
 			<form name="satsChcFrm" id="satsChcFrm" method="post"
 				action="/koBus/kobusSeat.do">
-				<input type="hidden" name="sourcePage" value="kobus_seat.jsp">
-				<input type="hidden" name="deprCd" id="deprCd" value="${deprId }">
+				<input type="hidden" name="deprCd" id="deprCd" value="${change.deprRegCode }">
 				<!-- 출발지코드 -->
 				<%-- <input type="hidden" name="deprCd" id="deprCd" value="${param.deprCode}"> --%>
 				<!-- 추후 el 표기법으로 변경하기 그럼 request.getParameter 랑 setAttribute 없어도 됨-->
 				
-				<input type="hidden" name="deprNm" id="deprNm" value="${deprNm }">
+				<input type="hidden" name="deprNm" id="deprNm" value="${change.deprRegName }">
 				<!-- 출발지명 -->
-				<input type="hidden" name="arvlCd" id="arvlCd" value="${arrId }">
+				<input type="hidden" name="arvlCd" id="arvlCd" value="${change.arrRegCode }">
 				<!-- 도착지코드 -->
-				<input type="hidden" name="arvlNm" id="arvlNm" value="${arvlNm }">
+				<input type="hidden" name="arvlNm" id="arvlNm" value="${change.arrRegName }">
 				<!-- 도착지명 -->
 				<input type="hidden" name="tfrCd" id="tfrCd" value="">
 				<!-- 환승지코드 -->
@@ -164,27 +192,26 @@ $(document).ready(function () {
 				<!-- 직통sngl,환승trtr,왕복rtrp -->
 				<input type="hidden" name="pathStep" id="pathStep" value="1">
 				<!-- 왕편 복편 설정 -->
-				<input type="hidden" name="deprDtm" id="deprDtm" value="${deprDate }">
+				<input type="hidden" name="deprDtm" id="deprDtm" value="${change.rideDateStr }">
 				<!-- 가는날(편도,왕복) -->
 				<input type="hidden" name="deprDtmAll" id="deprDtmAll"
-					value="${deprDate }">
+					value="${change.rideDateStr }">
 				<!-- 가는날(편도,왕복) -->
-				<input type="hidden" name="arvlDtm" id="arvlDtm" value="${deprDate }">
+				<input type="hidden" name="arvlDtm" id="arvlDtm" value="${change.rideDateStr }">
 				<!-- 오는날(왕복) -->
 				<input type="hidden" name="arvlDtmAll" id="arvlDtmAll"
 					value="2025. 6. 21. 토">
 				<!-- 오는날(왕복) -->
-				<input type="hidden" name="busClsCd" id="busClsCd" value="0">
-				<input type="hidden" name="busCode" id="busCode" value="${bus.bshId }">
+				<input type="hidden" name="busClsCd" id="busClsCd" value="${change.busGrade }">
 				<!-- 버스등급 -->
-				<input type="hidden" name="takeDrtmOrg" id="takeDrtmOrg" value="${bus.durMin }">
+				<input type="hidden" name="takeDrtmOrg" id="takeDrtmOrg" value="${change.durMin }">
 				<!-- 소요시간 -->
 				<input type="hidden" name="distOrg" id="distOrg" value="">
 				<!-- 거리 -->
 				<!-- 출발일자:deprDtm or arvlDtm, 출발터미널번호:deprCd, 도착터미널번호:arvlCd  -->
-				<input type="hidden" name="deprDt" id="deprDt" value="${deprDate }">
+				<input type="hidden" name="deprDt" id="deprDt" value="${change.rideDateStr }">
 				<!-- 출발일 -->
-				<input type="hidden" name="deprTime" id="deprTime" value="${deprTime}">
+				<input type="hidden" name="deprTime" id="deprTime" value="072000">
 				<!-- 출발시각 -->
 				<input type="hidden" name="alcnDeprDt" id="alcnDeprDt" value="">
 				<!-- 배차출발일 -->
@@ -207,6 +234,8 @@ $(document).ready(function () {
 				<!-- 출발경유순서 -->
 				<input type="hidden" name="arvlThruSeq" id="arvlThruSeq" value="4">
 				<!-- 도착경유순서 -->
+				
+				<input type="hidden" name="busCode" id="busCode" value="${bus.bshId }">
 
 				<input type="hidden" name="adltFee" id="adltFee" value="${bus.adultFare }">
 				<!-- 일반금액 -->
@@ -266,7 +295,7 @@ $(document).ready(function () {
 				<!-- 통합단말기여부  Y:존재, N:없음 -->
 
 				<input type="hidden" name="chkDeprDt" id="chkDeprDt"
-					value="${deprDate }">
+					value="${change.rideDateStr }">
 				<!-- 2일 후 시간체크 -->
 				<input type="hidden" name="chkDeprTime" id="chkDeprTime"
 					value="072000">
@@ -275,9 +304,9 @@ $(document).ready(function () {
 					value="20250613140651">
 				<!-- 2일 후 시간체크 -->
 
-				<input type="hidden" name="rmnSatsNum" id="rmnSatsNum" value="6">
+				<input type="hidden" name="rmnSatsNum" id="rmnSatsNum" value="${bus.remainSeats }">
 				<!-- 잔여좌석수 -->
-				<input type="hidden" name="totSatsNum" id="totSatsNum" value="21">
+				<input type="hidden" name="totSatsNum" id="totSatsNum" value="${bus.busSeats }">
 				<!-- 총좌석수 -->
 				<input type="hidden" name="selSeatNum" id="selSeatNum" value="">
 				<!-- 선택좌석번호 -->
@@ -285,7 +314,6 @@ $(document).ready(function () {
 				<!-- 선택좌석수 -->
 				<input type="hidden" id="selectedSeatIds" name="selectedSeatIds" value="">
 				<!-- 좌석배열 -->
-				
 				
 				<input type="hidden" name="selAdltCnt" id="selAdltCnt" value="0">
 				<!-- 어른수 -->
@@ -408,7 +436,9 @@ $(document).ready(function () {
 				<input type="hidden" name="stdDtm" id="stdDtm" value=""> <input
 					type="hidden" name="endDtm" id="endDtm" value="">
 					
+					
 				<input type="hidden" name="resId" id="resId" value="${resId }">
+				<!-- 결제금액 -->
 
 			</form>
 
@@ -469,11 +499,11 @@ $(document).ready(function () {
 
 										<dl class="roundBox departure kor">
 											<dt>출발</dt>
-											<dd id="satsDeprTmlNm">${deprNm }</dd>
+											<dd id="satsDeprTmlNm"></dd>
 										</dl>
 										<dl class="roundBox arrive kor">
 											<dt>도착</dt>
-											<dd id="satsArvlTmlNm">${arvlNm }</dd>
+											<dd id="satsArvlTmlNm"></dd>
 										</dl>
 									</div>
 									<div class="detail_info">
@@ -507,7 +537,7 @@ $(document).ready(function () {
 												</tr>
 												<tr>
 													<th scope="row">출발</th>
-													<td>${deprTime }</td>
+													<td>${bus.departureDate }</td>
 												</tr>
 											</tbody>
 										</table>
@@ -593,7 +623,8 @@ $(document).ready(function () {
 								<!-- //mobile 매수 선택 -->
 								<div class="detailBox_head" style="height: 63px;">
 									<div class="box_refresh">
-										<button type="button" class="btn btn_refresh" id="reloadBtn">
+										<button type="button" class="btn btn_refresh"
+											onclick="fnReload();">
 											<span class="ico_refresh"><span class="sr-only">새로고침</span></span>
 										</button>
 									</div>
@@ -878,10 +909,130 @@ $(document).ready(function () {
 				<input type="hidden" id="returnUrl2" name="returnUrl" value="logout">
 			</form>
 
+<style>
+.txt_red {
+	font-weight: bold;
+	text-decoration: underline;
+	color: #e64c2e;
+}
 
+.txt_bold {
+	font-weight: bold;
+	text-decoration: underline;
+}
+</style>
 
 		<!-- footer -->
+
+		<!-- 푸터 -->
+		<footer id="new-kor-footer">
+			<div class="container">
+				<div class="footer-top-cont">
+					<ul class="express-bus-company-list">
+						<li><a href="http://www.kumhobuslines.co.kr/" target="_blank"
+							title="새창"><img
+								src="/koBus/images/logo-kumho-express.png"
+								alt="금호고속"></a></li>
+						<li><a href="http://www.dongbubus.com/" target="_blank"
+							title="새창"><img
+								src="/koBus/images/logo-dongbu-express.png"
+								alt="동부고속"></a></li>
+						<li><a href="http://www.songnisanbuslines.co.kr/"
+							target="_blank" title="새창"><img
+								src="/koBus/images/logo-sokrisan-express.png"
+								alt="속리산고속"></a></li>
+						<li><a href="http://www.dyexpress.co.kr/" target="_blank"
+							title="새창"><img
+								src="/koBus/images/logo-dongyang-express.png"
+								alt="동양고속"></a></li>
+						<li><a href="http://www.samhwaexpress.co.kr/" target="_blank"
+							title="새창"><img
+								src="/koBus/images/logo-samhwa-express.png"
+								alt="삼화고속"></a></li>
+						<li><a href="http://www.jabus.co.kr/" target="_blank"
+							title="새창"><img
+								src="/koBus/images/logo-joongang-express.png"
+								alt="중앙고속"></a></li>
+						<li><a href="http://www.chunilexpress.co.kr/" target="_blank"
+							title="새창"><img
+								src="/koBus/images/logo-chunil-express.png"
+								alt="천일고속"></a></li>
+						<li><a href="http://www.hanilexpress.co.kr/" target="_blank"
+							title="새창"><img
+								src="/koBus/images/logo-hanil-express.png"
+								alt="한일고속"></a></li>
+					</ul>
+					<!-- dropdown-top 클래스 추가 시, 드롭다운 목록 위로 노출 -->
+					<div class="dropdown-wrap dropdown-top related-sites-select">
+						<a href="javascript:void(0)" class="btn-dropdown" title="관련사이트 이동"
+							aria-expanded="false"><span class="text">관련사이트</span><i
+							class="ico ico-arrow-down"></i></a>
+						<ul class="dropdown-list" style="display: none;">
+							<li class="selected"><a
+								href="https://www.kobus.co.kr/wchr/main.do" target="_blank"
+								title="새창">장애인 휠체어 사이트</a></li>
+							<li><a href="https://www.tago.go.kr/" target="_blank"
+								title="새창">국가대중교통정보센터</a></li>
+							<li><a href="https://www.intis.or.kr/" target="_blank"
+								title="새창">인천장애인콜택시</a></li>
+							<li><a href="http://www.shinsegaecentralcity.com/"
+								target="_blank" title="새창">센트럴시티터미널</a></li>
+							<li><a href="https://txbus.t-money.co.kr/" target="_blank"
+								title="새창">시외버스 통합예매시스템</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="footer-bottom-cont">
+					<address class="address">
+						<ul class="policy-list">
+							<li><a href="https://www.kobus.co.kr/etc/svcstpl/SvcStpl.do">서비스
+									이용약관</a></li>
+							<li><a
+								href="https://www.kobus.co.kr/etc/indlstpl/IndlStpl.do"
+								class="text-bold">개인정보 처리방침</a></li>
+							<li><a href="https://www.kobus.co.kr/etc/busstpl/BusStpl.do">고속버스
+									운송약관</a></li>
+							<li><a href="http://www.tmoney.co.kr/" target="_blank"
+								title="새창">티머니</a></li>
+						</ul>
+						<ul class="contact">
+							<li>고객센터 : 1644-9030</li>
+							<li>서울특별시 서초구 신반포로 194</li>
+							<li>대표자 : 김용성</li>
+							<li>통신판매업신고 : 2009-서울서초 0587호</li>
+						</ul>
+						<p class="copyright">COPYRIGHT© 2016. WWW.KOBUS.CO.KR . ALL
+							RIGHT RESERVED</p>
+					</address>
+					<ul class="greeting-btn-list">
+						<li><a
+							href="http://www.wa.or.kr/board/list.asp?search=total&amp;SearchString=%B0%ED%BC%D3%B9%F6%BD%BA&amp;BoardID=0006"
+							target="_blank" title="새창"><img
+								src="/koBus/images/logo-accessibility2.png"
+								alt="(사)한국장애인단체총연합회 한국웹접근성인증평가원 웹 접근성 우수사이트 인증마크(WA인증마크)"
+								height="40"></a></li>
+						<li><a href="https://www.kobus.co.kr/ugd/bustrop/Bustrop.do"
+							title="이사장 인사말 바로가기"><img
+								src="/koBus/images/logo-kobus.png"
+								alt="KOBUS 전국고속버스운송사업조합"></a></li>
+						<li><a
+							href="https://www.kobus.co.kr/ugd/trmlbizr/Trmlbizr.do"
+							title="협회장 인사말 바로가기"><img
+								src="/koBus/images/logo-npvtba-express.png"
+								alt="전국여객자동차터미널사업자협회"></a></li>
+					</ul>
+				</div>
+			</div>
+		</footer>
+
 	</div>
+
+
+
+
+
+
+
 
 	<div class="remodal-overlay remodal-is-closed" style="display: none;"></div>
 	<div class="remodal-wrapper remodal-is-closed" style="display: none;">
@@ -1363,7 +1514,7 @@ $(document).ready(function () {
 					<input type="hidden" name="bohnArvlNm" id="bohnArvlNm" value="강릉">
 					<!-- 도착지명 -->
 					<input type="hidden" name="bohnDeprDt" id="bohnDeprDt"
-						value="${deprDate }">
+						value="20250621">
 					<!-- 출발일 -->
 					<input type="hidden" name="bohnDeprTime" id="bohnDeprTime"
 						value="072000">
