@@ -2,13 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-
-<link rel="stylesheet" type="text/css"
-	href="/koBus/css/common/style.css">
-<script type="text/javascript"
-	src="/koBus/js/new-kor-ui.js"></script>
-<script type="text/javascript" src="/koBus/js/SatsChc.js"></script>
-
 <style>
 .txt_red {
 	font-weight: bold;
@@ -22,14 +15,7 @@
 }
 </style>
 
-<script>
-$(document).ready(function () {
-    $("#reloadBtn").on("click", function () {
-        location.reload(); // 현재 페이지 새로고침
-    });
-});
-</script>
-
+<script type="text/javascript" src="/koBus/js/SatsChc.js"></script>
 
 		<!-- breadcrumb -->
 
@@ -71,9 +57,6 @@ $(document).ready(function () {
 
 				<li>
 					<div class="dropdown-wrap breadcrumb-select">
-
-
-
 						<a href="javascript:void(0)" class="btn-dropdown" title="하위메뉴 선택"
 							aria-expanded="false"> <span class="text">고속버스예매</span><i
 							class="ico ico-dropdown-arrow"></i></a>
@@ -138,19 +121,19 @@ $(document).ready(function () {
 			
 				
 			<c:set var="bus" value="${busList[0]}" />
+			<c:set var="change" value="${changeSeatList[0]}" />
 			<form name="satsChcFrm" id="satsChcFrm" method="post"
 				action="/koBus/kobusSeat.do">
-				<input type="hidden" name="sourcePage" value="kobus_seat.jsp">
-				<input type="hidden" name="deprCd" id="deprCd" value="${deprId }">
+				<input type="hidden" name="deprCd" id="deprCd" value="${change.deprRegCode }">
 				<!-- 출발지코드 -->
 				<%-- <input type="hidden" name="deprCd" id="deprCd" value="${param.deprCode}"> --%>
 				<!-- 추후 el 표기법으로 변경하기 그럼 request.getParameter 랑 setAttribute 없어도 됨-->
 				
-				<input type="hidden" name="deprNm" id="deprNm" value="${deprNm }">
+				<input type="hidden" name="deprNm" id="deprNm" value="${change.deprRegName }">
 				<!-- 출발지명 -->
-				<input type="hidden" name="arvlCd" id="arvlCd" value="${arrId }">
+				<input type="hidden" name="arvlCd" id="arvlCd" value="${change.arrRegCode }">
 				<!-- 도착지코드 -->
-				<input type="hidden" name="arvlNm" id="arvlNm" value="${arvlNm }">
+				<input type="hidden" name="arvlNm" id="arvlNm" value="${change.arrRegName }">
 				<!-- 도착지명 -->
 				<input type="hidden" name="tfrCd" id="tfrCd" value="">
 				<!-- 환승지코드 -->
@@ -163,27 +146,26 @@ $(document).ready(function () {
 				<!-- 직통sngl,환승trtr,왕복rtrp -->
 				<input type="hidden" name="pathStep" id="pathStep" value="1">
 				<!-- 왕편 복편 설정 -->
-				<input type="hidden" name="deprDtm" id="deprDtm" value="${deprDate }">
+				<input type="hidden" name="deprDtm" id="deprDtm" value="${change.rideDateStr }">
 				<!-- 가는날(편도,왕복) -->
 				<input type="hidden" name="deprDtmAll" id="deprDtmAll"
-					value="${deprDate }">
+					value="${change.rideDateStr }">
 				<!-- 가는날(편도,왕복) -->
-				<input type="hidden" name="arvlDtm" id="arvlDtm" value="${deprDate }">
+				<input type="hidden" name="arvlDtm" id="arvlDtm" value="${change.rideDateStr }">
 				<!-- 오는날(왕복) -->
 				<input type="hidden" name="arvlDtmAll" id="arvlDtmAll"
 					value="2025. 6. 21. 토">
 				<!-- 오는날(왕복) -->
-				<input type="hidden" name="busClsCd" id="busClsCd" value="0">
-				<input type="hidden" name="busCode" id="busCode" value="${bus.bshId }">
+				<input type="hidden" name="busClsCd" id="busClsCd" value="${change.busGrade }">
 				<!-- 버스등급 -->
-				<input type="hidden" name="takeDrtmOrg" id="takeDrtmOrg" value="${bus.durMin }">
+				<input type="hidden" name="takeDrtmOrg" id="takeDrtmOrg" value="${change.durMin }">
 				<!-- 소요시간 -->
 				<input type="hidden" name="distOrg" id="distOrg" value="">
 				<!-- 거리 -->
 				<!-- 출발일자:deprDtm or arvlDtm, 출발터미널번호:deprCd, 도착터미널번호:arvlCd  -->
-				<input type="hidden" name="deprDt" id="deprDt" value="${deprDate }">
+				<input type="hidden" name="deprDt" id="deprDt" value="${change.rideDateStr }">
 				<!-- 출발일 -->
-				<input type="hidden" name="deprTime" id="deprTime" value="${deprTime}">
+				<input type="hidden" name="deprTime" id="deprTime" value="072000">
 				<!-- 출발시각 -->
 				<input type="hidden" name="alcnDeprDt" id="alcnDeprDt" value="">
 				<!-- 배차출발일 -->
@@ -206,6 +188,8 @@ $(document).ready(function () {
 				<!-- 출발경유순서 -->
 				<input type="hidden" name="arvlThruSeq" id="arvlThruSeq" value="4">
 				<!-- 도착경유순서 -->
+				
+				<input type="hidden" name="busCode" id="busCode" value="${bus.bshId }">
 
 				<input type="hidden" name="adltFee" id="adltFee" value="${bus.adultFare }">
 				<!-- 일반금액 -->
@@ -265,7 +249,7 @@ $(document).ready(function () {
 				<!-- 통합단말기여부  Y:존재, N:없음 -->
 
 				<input type="hidden" name="chkDeprDt" id="chkDeprDt"
-					value="${deprDate }">
+					value="${change.rideDateStr }">
 				<!-- 2일 후 시간체크 -->
 				<input type="hidden" name="chkDeprTime" id="chkDeprTime"
 					value="072000">
@@ -274,9 +258,9 @@ $(document).ready(function () {
 					value="20250613140651">
 				<!-- 2일 후 시간체크 -->
 
-				<input type="hidden" name="rmnSatsNum" id="rmnSatsNum" value="6">
+				<input type="hidden" name="rmnSatsNum" id="rmnSatsNum" value="${bus.remainSeats }">
 				<!-- 잔여좌석수 -->
-				<input type="hidden" name="totSatsNum" id="totSatsNum" value="21">
+				<input type="hidden" name="totSatsNum" id="totSatsNum" value="${bus.busSeats }">
 				<!-- 총좌석수 -->
 				<input type="hidden" name="selSeatNum" id="selSeatNum" value="">
 				<!-- 선택좌석번호 -->
@@ -284,7 +268,6 @@ $(document).ready(function () {
 				<!-- 선택좌석수 -->
 				<input type="hidden" id="selectedSeatIds" name="selectedSeatIds" value="">
 				<!-- 좌석배열 -->
-				
 				
 				<input type="hidden" name="selAdltCnt" id="selAdltCnt" value="0">
 				<!-- 어른수 -->
@@ -407,7 +390,9 @@ $(document).ready(function () {
 				<input type="hidden" name="stdDtm" id="stdDtm" value=""> <input
 					type="hidden" name="endDtm" id="endDtm" value="">
 					
+					
 				<input type="hidden" name="resId" id="resId" value="${resId }">
+				<!-- 결제금액 -->
 
 			</form>
 
@@ -468,11 +453,11 @@ $(document).ready(function () {
 
 										<dl class="roundBox departure kor">
 											<dt>출발</dt>
-											<dd id="satsDeprTmlNm">${deprNm }</dd>
+											<dd id="satsDeprTmlNm"></dd>
 										</dl>
 										<dl class="roundBox arrive kor">
 											<dt>도착</dt>
-											<dd id="satsArvlTmlNm">${arvlNm }</dd>
+											<dd id="satsArvlTmlNm"></dd>
 										</dl>
 									</div>
 									<div class="detail_info">
@@ -506,7 +491,7 @@ $(document).ready(function () {
 												</tr>
 												<tr>
 													<th scope="row">출발</th>
-													<td>${deprTime }</td>
+													<td>${bus.departureDate }</td>
 												</tr>
 											</tbody>
 										</table>
@@ -592,7 +577,8 @@ $(document).ready(function () {
 								<!-- //mobile 매수 선택 -->
 								<div class="detailBox_head" style="height: 63px;">
 									<div class="box_refresh">
-										<button type="button" class="btn btn_refresh" id="reloadBtn">
+										<button type="button" class="btn btn_refresh"
+											onclick="fnReload();">
 											<span class="ico_refresh"><span class="sr-only">새로고침</span></span>
 										</button>
 									</div>
@@ -880,8 +866,16 @@ $(document).ready(function () {
 
 
 		<!-- footer -->
-	
+
 	</div>
+
+
+
+
+
+
+
+
 	<div class="remodal-overlay remodal-is-closed" style="display: none;"></div>
 	<div class="remodal-wrapper remodal-is-closed" style="display: none;">
 		<div class="remodal remodal-is-initialized remodal-is-closed"
@@ -1362,7 +1356,7 @@ $(document).ready(function () {
 					<input type="hidden" name="bohnArvlNm" id="bohnArvlNm" value="강릉">
 					<!-- 도착지명 -->
 					<input type="hidden" name="bohnDeprDt" id="bohnDeprDt"
-						value="${deprDate }">
+						value="20250621">
 					<!-- 출발일 -->
 					<input type="hidden" name="bohnDeprTime" id="bohnDeprTime"
 						value="072000">
