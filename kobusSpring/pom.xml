@@ -175,11 +175,11 @@
 			<version>1.16</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.bgee.log4jdbc-log4j2/log4jdbc-log4j2-jdbc4 -->
-		<dependency>
+<!-- 		<dependency>
 			<groupId>org.bgee.log4jdbc-log4j2</groupId>
 			<artifactId>log4jdbc-log4j2-jdbc4</artifactId>
 			<version>1.16</version>
-		</dependency>
+		</dependency> -->
 		
 		<dependency>
 			<groupId>org.projectlombok</groupId>
