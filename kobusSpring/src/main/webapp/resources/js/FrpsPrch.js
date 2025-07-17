@@ -36,7 +36,7 @@ $(document).ready(function() {
 	//사용시작일 	
 	$('#datepickerItem').datepicker({
 		showOn:"button",
-		buttonImage:"/koBus/images/ico_calender.png",
+		buttonImage:"/resources/images/ico_calender.png",
 		buttonImageOnly:true,
 		buttonText:"사용시작일 선택 달력",
 		minDate: min,

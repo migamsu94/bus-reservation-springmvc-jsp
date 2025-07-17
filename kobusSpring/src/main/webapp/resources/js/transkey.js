@@ -7,7 +7,7 @@
 
 
 //config
-var transkey_url = '/koBus';
+var transkey_url = '/resources';
 var transkey_surl ='/transkeyServlet';
 
 //20200617 yahan
