@@ -4,14 +4,14 @@
 	"http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 	
 <tiles-definitions>
-    
+  
     <definition name="kobus.*/*"  template="/WEB-INF/views/inc/layout.jsp">
         <put-attribute name="header"  value="/WEB-INF/views/inc/header.jsp" />
         <put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp" /> 
         <put-attribute name="footer"  value="/WEB-INF/views/inc/footer.jsp" />
         <put-attribute name="script"  value="/WEB-INF/views/inc/script.jsp" />
         
-        <!-- <put-attribute name="pageScript" value="" /> -->
+        <put-attribute name="pageScript" value="/WEB-INF/views/{1}/personalScript.jsp" />
         
         <put-attribute name="title"  value="SiSt5 Spring Tiles" />
     </definition>
@@ -19,9 +19,10 @@
     <definition name="kobus.payment/freepass" extends="kobus.*/*">
     <put-attribute name="pageScript" value="/WEB-INF/views/payment/paymentScript.jsp" />
 	</definition>
- -->
-</tiles-definitions>
+	 -->
 
+
+</tiles-definitions>
 
 
 
