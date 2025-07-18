@@ -23,7 +23,7 @@
 /* 웹폰트 */
 @font-face {
   font-family: "Pretendard GOV Variable";
-  src: url("/resources/fonts/PretendardGOVVariable.woff2") format("woff2-variations");
+  src: url("/koBus/resources/fonts/PretendardGOVVariable.woff2") format("woff2-variations");
   font-weight: 1 999;
   font-style: normal;
   font-display: swap !important;
@@ -201,28 +201,28 @@ caption.sr-only {
   width: 12px;
   height: 12px;
   line-height: 12px;
-  background-image: url("/resources/images/common/ico-arrow-down@2x.png");
+  background-image: url("/koBus/resources/images/common/ico-arrow-down@2x.png");
 }
 
 .ico-arrow-new-window {
   width: 14px;
   height: 14px;
   line-height: 14px;
-  background-image: url("/resources/images/common/ico-arrow-new-window@2x.png");
+  background-image: url("/koBus/resources/images/common/ico-arrow-new-window@2x.png");
 }
 
 .ico-dropdown-arrow {
   width: 20px;
   height: 20px;
   line-height: 20px;
-  background-image: url("/resources/images/common/ico-dropdown-arrow@2x.png");
+  background-image: url("/koBus/resources/images/common/ico-dropdown-arrow@2x.png");
 }
 
 .ico-home {
   width: 20px;
   height: 20px;
   line-height: 20px;
-  background-image: url("/resources/images/common/ico-home@2x.png");
+  background-image: url("/koBus/resources/images/common/ico-home@2x.png");
 }
 
 /* 콘텐츠 내 아이콘 */
@@ -230,7 +230,7 @@ caption.sr-only {
   width: 15.5px;
   height: 9px;
   line-height: 9px;
-  background-image: url("/resources/images/common/ico-more@2x.png");
+  background-image: url("/koBus/resources/images/common/ico-more@2x.png");
 }
 
 .ad-frame {
@@ -784,7 +784,7 @@ caption.sr-only {
   left: -22px;
   width: 12px;
   height: 12px;
-  background: url("/resources/images/common/ico-arrow-breadcrumb01.png") 0 0 no-repeat;
+  background: url("/koBus/resources/images/common/ico-arrow-breadcrumb01.png") 0 0 no-repeat;
   background-size: 12px 12px;
 }
 #new-kor-breadcrumb .breadcrumb-list .breadcrumb-select .btn-dropdown {
@@ -852,7 +852,7 @@ caption.sr-only {
   right: -24px;
   width: 12px;
   height: 12px;
-  background: url(/resources/images/common/ico-arrow-breadcrumb02.png) 0 0 no-repeat;
+  background: url(/koBus/resources/images/common/ico-arrow-breadcrumb02.png) 0 0 no-repeat;
   background-size: 12px 12px;
 }
 .content-header .process li .num {

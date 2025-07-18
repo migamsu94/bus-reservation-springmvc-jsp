@@ -7,12 +7,12 @@
 /*	Author: 
 /****************************************/
 #wrap {position:relative; width:100%; min-width:320px; min-height:100%;}
-body { background: url(/resources/images/loading.gif) no-repeat -9999px -9999px;}
+body { background: url(/koBus/resources/images/loading.gif) no-repeat -9999px -9999px;}
 /* common */
 .ellipsis { text-overflow: ellipsis; white-space: nowrap; overflow: hidden; display: inline-block; }
 .dimmed, .pop_dimmed { display: none;  position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5);  z-index: 996;}
 .click_box { position: relative; /*cursor: pointer;*/}
-.click_box:after { display: inline-block; content: ''; position: absolute; right: 5px; bottom: 5px; background: url(/resources/images/input_after.png) 0 0 no-repeat; background-size: 100%; width: 8px; height: 8px;}
+.click_box:after { display: inline-block; content: ''; position: absolute; right: 5px; bottom: 5px; background: url(/koBus/resources/images/input_after.png) 0 0 no-repeat; background-size: 100%; width: 8px; height: 8px;}
 .hidden { font-size: 0; width: 0; height: 0; text-indent: -9999em;}
 .accent, .accent2, .accentB { color: var(--primary-font);}
 .noti_box { background: #f6fafd; padding: 15px; border: 1px solid #bcd5e9; border-radius: 5px;}
@@ -485,7 +485,7 @@ body.main #wrap { /* min-height: 828px; */}
 .title_wrap.in_process .process li { display: inline-block; font-size: 15px; color: #a1a6b3;}
 .title_wrap.in_process .process .active { color: #fff;}
 .title_wrap.in_process .process li + li { margin-left: 30px;}
-.title_wrap.in_process .process li:after { display: inline-block; content: ''; background: url(/resources/images/common/arrow_process.png) right -18px no-repeat; background-size: 28px auto; width: 28px; height: 18px; margin: 0 0 -3px 30px;}
+.title_wrap.in_process .process li:after { display: inline-block; content: ''; background: url(/koBus/resources/images/common/arrow_process.png) right -18px no-repeat; background-size: 28px auto; width: 28px; height: 18px; margin: 0 0 -3px 30px;}
 .title_wrap.in_process .process li.active:after { background-position: right 0;}
 .title_wrap.in_process .process li.last:after { display: none;}
 .mobile .title_wrap select, .tablet .title_wrap select { font-size: 12px;}

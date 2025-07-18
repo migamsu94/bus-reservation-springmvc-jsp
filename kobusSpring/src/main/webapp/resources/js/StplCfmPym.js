@@ -532,7 +532,7 @@ function requestPay() {
 
 			// Ajax 전송
 			$.ajax({
-				url: '/koBus/payment/Reservation.do',
+				url: ctx + '/payment/Reservation.do',
 				type: 'POST',
 				data: paymentData,
 				success: function (data) {

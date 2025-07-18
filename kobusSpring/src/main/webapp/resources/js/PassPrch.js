@@ -268,7 +268,7 @@ function requestPay() {
 
             // 서버로 결제 데이터 전송 (이 부분이 핵심!)
             $.ajax({
-                url: '/koBus/payment/Seasonticket.do',
+                url: ctx + '/payment/Seasonticket.do',
                 type: 'POST',
                 data: {
                     imp_uid: rsp.imp_uid,

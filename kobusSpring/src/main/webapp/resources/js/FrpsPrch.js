@@ -36,7 +36,7 @@ $(document).ready(function() {
 	//사용시작일 	
 	$('#datepickerItem').datepicker({
 		showOn:"button",
-		buttonImage:"/resources/images/ico_calender.png",
+		buttonImage:"/koBus/resources/images/ico_calender.png",
 		buttonImageOnly:true,
 		buttonText:"사용시작일 선택 달력",
 		minDate: min,
@@ -196,7 +196,7 @@ $(document).ready(function() {
 
     // 결제 전 서버 금액 검증
     $.ajax({
-        url: '/koBus/freepass/payment/fetchAmount.ajax', // 서버에서 금액 가져오는 핸들러
+        url: ctx + '/payment/fetchAmount.ajax', // 서버에서 금액 가져오는 핸들러
         type: 'POST',
         dataType: 'json', // ★★★ 반드시 추가!
         data: { adtn_prd_sno: adtn_prd_sno },
@@ -321,7 +321,7 @@ function requestPay() {
         if (rsp.success) {
             // ★★★ 여기서 필요한 값들 추가 ★★★
             $.ajax({
-                url: '/koBus/payment/Freepass.do',
+                url: ctx + '/payment/Freepass.do',
                 type: 'POST',
                 data: {
                     imp_uid: rsp.imp_uid,
