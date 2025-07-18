@@ -375,7 +375,7 @@ dl.desc_list dd {margin-bottom:10px; padding-left:15px; font-size:14px; color:#6
 .route_box .place li > a.focus {outline: 2px solid black; outline-offset: -2px;}
 .route_box ul.date li {  background: var(--bg-gray); width: 100%; padding: 0;}
 .route_box .place li:after, 
-.route_box ul.date li:after { display: inline-block; content: ''; position: absolute; right: 5px; bottom: 5px; background: url(/resources/images/input_after.png) 0 0 no-repeat; background-size: 100%; width: 8px; height: 8px;}
+.route_box ul.date li:after { display: inline-block; content: ''; position: absolute; right: 5px; bottom: 5px; background: url(/koBus/resources/images/input_after.png) 0 0 no-repeat; background-size: 100%; width: 8px; height: 8px;}
 .route_box .place li:first-child, .route_box ul.date li:first-child { float: left;}
 .route_box .place .btn_change { position: absolute; top: 40px; right: -19px; background: url(/resources/images/arrow_toggle_s.png) 0 0 no-repeat; width: 31px; height: 31px; font-size: 0;  z-index: 50; cursor: pointer;}
 .route_box .place .btn_change:hover { background-position: 0 -31px; }
@@ -1438,7 +1438,7 @@ ul.sel_list > li .btn_wrap ul li .btn + .btn {margin-left:4px;}
 .receipt_wrap .date li .name {display: block; font-size: 14px; color: var(--text-body);}
 .receipt_wrap .text .text_date {display: inline-block; _height: 100%; padding: 0; font-size: 24px; color: #000;}
 .receipt_wrap .text input {position:absolute; left:-9999px; top:-0; width:1px !important; height:1px !important; padding: 0; font-size:0; color: #000; border:none; background:transparent; opacity:0;}
-.label_tag:after { display: inline-block; content: ''; position: absolute; right: 5px; bottom: 5px; background: url(/resources/images/input_after.png) 0 0 no-repeat; background-size: 100%; width: 8px; height: 8px;}
+.label_tag:after { display: inline-block; content: ''; position: absolute; right: 5px; bottom: 5px; background: url(/koBus/resources/images/input_after.png) 0 0 no-repeat; background-size: 100%; width: 8px; height: 8px;}
 /* .receipt_wrap .text input:focus ~ .text_date {outline: 2px solid black;} */
 
 .receipt_wrap .date li .box_inputForm strong {margin-bottom:8px; font-size:14px; color: var(--text-body); font-weight:normal;}
@@ -1934,7 +1934,7 @@ span.txt_period.txt_red {color:#e64c2e;}
 .pass_ticket .tbl_type3 .useDate { margin-left:-30px;} /* 181130 추가 */
 
 .tooltip_wrap { position: relative;}
-.tip_click { display: block; position: absolute; top: 8px; right: 8px; z-index: 10; background: url(/resources/images/ico_tipG.png) 0 0 no-repeat; background-size: 100%; width: 18px; height: 18px;}
+.tip_click { display: block; position: absolute; top: 8px; right: 8px; z-index: 10; background: url(/koBus/resources/images/ico_tipG.png) 0 0 no-repeat; background-size: 100%; width: 18px; height: 18px;}
 .tooltip { position: absolute; top: -86px; right: 0; display: inline-block; background: #fff; padding: 12px; border: 1px solid #ccc; border-radius: 5px; z-index: 100;}
 .tooltip:after { display: inline-block; content: ''; position: absolute; bottom: -7px; right: 10px; background: url(/resources/images/tip_arrow.png) 0 0 no-repeat; background-size: 100%; width: 12px; height: 7px;}
 .tooltip .tit { margin-bottom: 5px; font-size: 13px; font-weight: bold; color: #000;}
