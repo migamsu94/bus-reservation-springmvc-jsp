@@ -15,9 +15,22 @@
 }
 </style>
 
-<script type="text/javascript" src="/koBus/js/SatsChc.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/js/SatsChc.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/ReadLgnInf.js"></script>
 
-		<!-- breadcrumb -->
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/rsa_oaep-min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jsbn-min2.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/typedarray.js"></script>
+<!-- 출/도착지 선택 레이어팝업 -->
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/ReadLgnInf.js"></script>
+
+<!-- 20200831 yahan -->
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/rsa_oaep-min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jsbn-min2.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/typedarray.js"></script>
+
+<!-- breadcrumb -->
 
 		<!-- 브레드크럼 -->
 		<nav id="new-kor-breadcrumb">
@@ -831,31 +844,13 @@
 
 			</div>
 
-			<script type="text/javascript"
-				src="/koBus/js/ReadLgnInf.js"></script>
-
-			<!-- 20200617 yahan -->
-			<script type="text/javascript"
-				src="/koBus/js/rsa_oaep-min.js"></script>
-			<script type="text/javascript"
-				src="/koBus/js/jsbn-min2.js"></script>
-			<script type="text/javascript"
-				src="/koBus/js/typedarray.js"></script>
+			
+				
 			<input type="hidden" name="locInf" id="locInf" value="sats">
 			<!-- 페이지위치 -->
 			<input type="hidden" name="adtnflag" id="adtnflag" value="N">
 			<!-- 페이지위치 -->
-			<!-- 출/도착지 선택 레이어팝업 -->
-			<script type="text/javascript"
-				src="/koBus/js/ReadLgnInf.js"></script>
-
-			<!-- 20200831 yahan -->
-			<script type="text/javascript"
-				src="/koBus/js/rsa_oaep-min.js"></script>
-			<script type="text/javascript"
-				src="/koBus/js/jsbn-min2.js"></script>
-			<script type="text/javascript"
-				src="/koBus/js/typedarray.js"></script>
+			
 
 			<!-- 임시비밀번호 변경 -->
 

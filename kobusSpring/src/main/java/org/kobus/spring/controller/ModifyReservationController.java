@@ -162,12 +162,10 @@ public class ModifyReservationController {
 	}
 	
 	
-	@GetMapping("/modifyReservations.do")
-	public String modifyReservations(Model model, @ModelAttribute ResvDTO resvDTO ) {
+	@PostMapping("/modifyReservations.do")
+	public String modifyReservations(Model model, @ModelAttribute ResvDTO resvDTO ) throws SQLException {
 		
-		List<ModifyResvDTO> resvInfoList = new ArrayList<ModifyResvDTO>();
-
-
+		
 		String deprDay = resvDTO.getRideDateStr();              // fn:substringBefore(resv.rideDateStr, ' ')
 		String deprTime = resvDTO.getRideTimeStr();            // fn:substringAfter(resv.rideDateStr, ' ')
 
@@ -177,10 +175,8 @@ public class ModifyReservationController {
 		
 		// 날짜 + 시간 조합 문자열 → 포맷된 탑승일 문자열로 사용
 		String rideDateStr = deprDay + " " + deprTime;
+		int totalCount = adultCnt + stuCnt + childCnt;
 		
-		
-		
-
 		// rideDateStr → LocalDateTime 변환 (필요 시 예외 처리 포함)
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -188,11 +184,14 @@ public class ModifyReservationController {
 		String formatted = rideDate.format(outputFormatter);
 		
 		resvDTO.setRideDateStr(formatted);
-
-		int totalCount = adultCnt + stuCnt + childCnt;
-
 		resvDTO.setTotalCount(totalCount);
-	
+		resvDTO.setAduCount(adultCnt);
+		resvDTO.setStuCount(stuCnt);
+		resvDTO.setChdCount(childCnt);
+		
+		
+		List<ResvDTO> resvInfoList = new ArrayList<ResvDTO>();
+		resvInfoList.add(resvDTO);
 		
 		List<ScheduleDTO> changeList = new ArrayList<ScheduleDTO>();
 		
@@ -200,7 +199,7 @@ public class ModifyReservationController {
 		String deprDay2 = deprDay.replace("-", "");
 		
 		
-		changeList = scheduleService.searchBusSchedule(deprRegCode, arrRegCode, deprDay2, "전체");	
+		changeList = scheduleService.searchBusSchedule(resvDTO.getDeprRegCode(), resvDTO.getArrRegCode(), deprDay2, "전체");	
 
 		
 		List<String> busTimeList = new ArrayList<>();
@@ -209,7 +208,6 @@ public class ModifyReservationController {
 		    LocalDateTime date = time.getDepartureDate();
 		    String busTime = date.format(DateTimeFormatter.ofPattern("HH:mm"));
 		    busTimeList.add(busTime);  // 리스트에 추가
-		    System.out.println(busTime);
 		}
 		
 

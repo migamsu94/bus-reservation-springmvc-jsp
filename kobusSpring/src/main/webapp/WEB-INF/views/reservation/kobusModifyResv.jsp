@@ -50,7 +50,7 @@
 
 		<article id="new-kor-content">
 			<script type="text/javascript"
-				src="/koBus/js/MrsChangeTimeStep1.js"></script>
+				src="${pageContext.request.contextPath}/resources/js/MrsChangeTimeStep1.js"></script>
 			<div class="title_wrap in_process checkTicketingT"
 				style="display: none;">
 

@@ -7,11 +7,11 @@
 
 
 <script type="text/javascript"
-	src="/koBus/js/MrsCfmInf.js"></script>
+	src="${pageContext.request.contextPath}/resources/js/MrsCfmInf.js"></script>
 <script type="text/javascript"
-	src="/koBus/js/qrcode.js"></script>
+	src="${pageContext.request.contextPath}/resources/js/qrcode.js"></script>
 	<script type="text/javascript"
-	src="/koBus/js/jquery.qrcode.js"></script>
+	src="${pageContext.request.contextPath}/resources/js/jquery.qrcode.js"></script>
 <script>
   $(function() {
 	  const qrText = $("#qrText");
@@ -606,7 +606,7 @@ $("#recpCanFrm > button").on("click", function () {
 							<!-- //좌석상세내역 -->
 							<p class="btns multi clfix col3">
 								<a href="javascript:void(0);"
-									onclick="return fnmrsChangeTime(0);"
+									onclick="fnmrsChangeTime(0);"
 									class="btnL btn_cancel first">시간변경</a> <a
 									href="javascript:void(0);" id="btnGenerateQr"
 									class="btnL btn_cancel" title="새창">탑승권 확인</a>

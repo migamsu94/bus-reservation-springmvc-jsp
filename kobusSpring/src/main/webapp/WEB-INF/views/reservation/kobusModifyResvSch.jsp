@@ -4,9 +4,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
-<script type="text/javascript" src="/koBus/js/OprnAlcnInqr.js"></script>
-<script type="text/javascript" src="/koBus/js/OprnAlcnInqrPup.js"></script>
-<script type="text/javascript" src="/koBus/js/SatsChc.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/OprnAlcnInqr.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/OprnAlcnInqrPup.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/SatsChc.js"></script>
 
 <script>
 $(document).ready(function() {
