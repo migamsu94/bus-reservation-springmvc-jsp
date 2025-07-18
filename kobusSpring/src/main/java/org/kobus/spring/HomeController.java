@@ -26,7 +26,7 @@ public class HomeController {
 	@RequestMapping(value = "/main.do", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 	    logger.info("> HomeController.process() ...");
-	    return "kobus.main/kobus_main";
+	    return "koBusFile/kobus_main"; 
 	}
 
 	
