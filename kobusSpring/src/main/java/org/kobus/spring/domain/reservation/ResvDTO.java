@@ -37,6 +37,7 @@ public class ResvDTO {
 	private int chdCount; 		/* 아이좌석수 */
 	
 	private String rideDateStr;     /* 포맷된 탑승일 문자열 */
+	private String rideTimeStr;     /* 포맷된 탑승일 문자열 */
 	private String resvDateStr;     /* 포맷된 예약일 문자열 */
 	
 	private String rideDateFormatter;

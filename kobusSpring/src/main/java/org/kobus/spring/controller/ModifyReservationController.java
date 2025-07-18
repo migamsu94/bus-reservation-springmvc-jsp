@@ -1,5 +1,8 @@
 package org.kobus.spring.controller;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
+
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -12,14 +15,20 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.kobus.spring.domain.reservation.ModifyResvDTO;
 import org.kobus.spring.domain.reservation.ResvDTO;
+import org.kobus.spring.domain.schedule.ScheduleDTO;
 import org.kobus.spring.service.reservation.ResvService;
 import org.kobus.spring.service.reservation.SeatService;
+import org.kobus.spring.service.schedule.ScheduleService;
+import org.quartz.utils.ConnectionProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -36,6 +45,9 @@ public class ModifyReservationController {
 	
 	@Autowired
 	ResvService resvService;
+	
+	@Autowired
+	ScheduleService scheduleService;
 	
 	@GetMapping("/manageReservations.do")
 	public String manageReservations(HttpSession session, Model model) {
@@ -64,14 +76,15 @@ public class ModifyReservationController {
 			e.printStackTrace();
 		}
 
-
 		return "kobus.reservation/kobusManageResv";
 	}
 	
 	
-	@PostMapping("/kobusResvCancel.ajax")
+	@PostMapping(value = "/kobusResvCancel.ajax", produces = {
+			  MediaType.APPLICATION_JSON_UTF8_VALUE
+	})
 	@ResponseBody
-	public ResponseEntity<?> resvCancel(
+	public ResponseEntity<Map<String, Object>> resvCancel(
 			@RequestParam(required = false) String ajax,
 			@RequestParam(required = false) String type,
 			@RequestParam(required = false) String mrsMrnpno,
@@ -126,14 +139,12 @@ public class ModifyReservationController {
 			recpListMap.put("setsList", seatNo);
 
 			String rideTime = alcnDeprDt + alcnDeprTime;
+			
+			cancelResult = resvService.cancelResvList(mrsMrnpno);
+			changeRemainSeats = resvService.changeRemainSeats(mrsMrnpno, rideTime);
 
-			if ("true".equalsIgnoreCase(ajax) && "cancel".equalsIgnoreCase(type)) {
-				cancelResult = resvService.cancelResvList(mrsMrnpno);
-				changeRemainSeats = resvService.changeRemainSeats(mrsMrnpno, rideTime);
-
-				recpListMap.put("cancelResult", cancelResult);
-				recpListMap.put("changeRemainSeats", changeRemainSeats);
-			}
+			recpListMap.put("cancelResult", cancelResult);
+			recpListMap.put("changeRemainSeats", changeRemainSeats);
 
 			System.out.println("cancelResult : " + cancelResult);
 			System.out.println("changeRemainSeats : " + changeRemainSeats);
@@ -142,7 +153,70 @@ public class ModifyReservationController {
 			recpListMap.put("error", "오류 발생: " + e.getMessage());
 		}
 
-		return ResponseEntity.ok(recpListMap);
+		
+		if (recpListMap == null || recpListMap.isEmpty()) {
+            return ResponseEntity.noContent().build(); // 204 No Content
+        } else {
+            return ResponseEntity.ok(recpListMap); // 200 OK with JSON body
+        }
+	}
+	
+	
+	@GetMapping("/modifyReservations.do")
+	public String modifyReservations(Model model, @ModelAttribute ResvDTO resvDTO ) {
+		
+		List<ModifyResvDTO> resvInfoList = new ArrayList<ModifyResvDTO>();
+
+
+		String deprDay = resvDTO.getRideDateStr();              // fn:substringBefore(resv.rideDateStr, ' ')
+		String deprTime = resvDTO.getRideTimeStr();            // fn:substringAfter(resv.rideDateStr, ' ')
+
+		int adultCnt = resvDTO.getAduCount();
+		int stuCnt = resvDTO.getStuCount();
+		int childCnt = resvDTO.getChdCount();
+		
+		// 날짜 + 시간 조합 문자열 → 포맷된 탑승일 문자열로 사용
+		String rideDateStr = deprDay + " " + deprTime;
+		
+		
+		
+
+		// rideDateStr → LocalDateTime 변환 (필요 시 예외 처리 포함)
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		LocalDateTime rideDate = LocalDateTime.parse(rideDateStr, formatter);
+		String formatted = rideDate.format(outputFormatter);
+		
+		resvDTO.setRideDateStr(formatted);
+
+		int totalCount = adultCnt + stuCnt + childCnt;
+
+		resvDTO.setTotalCount(totalCount);
+	
+		
+		List<ScheduleDTO> changeList = new ArrayList<ScheduleDTO>();
+		
+		
+		String deprDay2 = deprDay.replace("-", "");
+		
+		
+		changeList = scheduleService.searchBusSchedule(deprRegCode, arrRegCode, deprDay2, "전체");	
+
+		
+		List<String> busTimeList = new ArrayList<>();
+
+		for (ScheduleDTO time : changeList) {
+		    LocalDateTime date = time.getDepartureDate();
+		    String busTime = date.format(DateTimeFormatter.ofPattern("HH:mm"));
+		    busTimeList.add(busTime);  // 리스트에 추가
+		    System.out.println(busTime);
+		}
+		
+
+		model.addAttribute("busTimeList", busTimeList);
+		model.addAttribute("resvInfoList", resvInfoList);
+		
+		return "kobus.reservation/kobusModifyResv";
 	}
 	
 	@GetMapping("/modifyResvSeat.do")
