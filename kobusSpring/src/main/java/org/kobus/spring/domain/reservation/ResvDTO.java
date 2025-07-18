@@ -1,4 +1,4 @@
-package org.kobus.spring.domain;
+package org.kobus.spring.domain.reservation;
 
 import java.time.LocalDateTime;
 

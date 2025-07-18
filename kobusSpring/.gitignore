@@ -37,6 +37,7 @@ tmp/
 # 특정 경로 하위 빌드 파일 (중복 방지)
 /m2e-wtp/
 /web-resources/
+/build/
 
 # Tiles, Spring 설정 캐시 무시
 META-INF/
