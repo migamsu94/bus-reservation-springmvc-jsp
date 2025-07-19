@@ -1,12 +1,7 @@
 package org.kobus.spring.controller;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
-
-import java.sql.Connection;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,13 +10,12 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import org.kobus.spring.domain.reservation.ModifyResvDTO;
 import org.kobus.spring.domain.reservation.ResvDTO;
+import org.kobus.spring.domain.reservation.SeatDTO;
 import org.kobus.spring.domain.schedule.ScheduleDTO;
 import org.kobus.spring.service.reservation.ResvService;
 import org.kobus.spring.service.reservation.SeatService;
 import org.kobus.spring.service.schedule.ScheduleService;
-import org.quartz.utils.ConnectionProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -65,7 +59,6 @@ public class ModifyReservationController {
 		try {
 			// 예매 내역 조회
 			List<ResvDTO> resvList = resvService.searchResvList(loginId);
-			
 			List<ResvDTO> cancelList = resvService.searchCancelResvList(loginId);
 			
 			model.addAttribute("resvList", resvList);
@@ -77,6 +70,165 @@ public class ModifyReservationController {
 		}
 
 		return "kobus.reservation/kobusManageResv";
+	}
+	
+	
+	
+	
+	
+	@PostMapping("/modifyReservations.do")
+	public String modifyReservations(Model model, @ModelAttribute ResvDTO resvDTO ) throws SQLException {
+		
+		
+		String deprDay = resvDTO.getRideDateStr();              // fn:substringBefore(resv.rideDateStr, ' ')
+		String deprTime = resvDTO.getRideTimeStr();            // fn:substringAfter(resv.rideDateStr, ' ')
+
+		int adultCnt = resvDTO.getAduCount();
+		int stuCnt = resvDTO.getStuCount();
+		int childCnt = resvDTO.getChdCount();
+		
+		// 날짜 + 시간 조합 문자열 -> 포맷된 탑승일 문자열로 사용
+		String rideDateStr = deprDay + " " + deprTime;
+		int totalCount = adultCnt + stuCnt + childCnt;
+		
+		// rideDateStr -> LocalDateTime 변환
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		LocalDateTime rideDate = LocalDateTime.parse(rideDateStr, formatter);
+		String formatted = rideDate.format(outputFormatter);
+		
+		resvDTO.setRideDateStr(formatted);
+		resvDTO.setTotalCount(totalCount);
+		resvDTO.setAduCount(adultCnt);
+		resvDTO.setStuCount(stuCnt);
+		resvDTO.setChdCount(childCnt);
+		
+		
+		List<ResvDTO> resvInfoList = new ArrayList<ResvDTO>();
+		resvInfoList.add(resvDTO);
+		
+		List<ScheduleDTO> changeList = new ArrayList<ScheduleDTO>();
+		
+		
+		String deprDay2 = deprDay.replace("-", "");
+		
+		
+		changeList = scheduleService.searchBusSchedule(resvDTO.getDeprRegCode(), resvDTO.getArrRegCode(), deprDay2, "전체");	
+
+		
+		List<String> busTimeList = new ArrayList<>();
+
+		for (ScheduleDTO time : changeList) {
+		    LocalDateTime date = time.getDepartureDate();
+		    String busTime = date.format(DateTimeFormatter.ofPattern("HH:mm"));
+		    busTimeList.add(busTime);  // 리스트에 추가
+		}
+		
+
+		model.addAttribute("busTimeList", busTimeList);
+		model.addAttribute("resvInfoList", resvInfoList);
+		
+		return "kobus.reservation/kobusModifyResv";
+	}
+	
+	@PostMapping("/modifyResvSch.do")
+	public String modifyResvSch(Model model, @ModelAttribute ResvDTO resvDTO) throws SQLException {
+		
+		String deprDay = resvDTO.getRideDateStr();
+		String deprTime = resvDTO.getRideTimeStr();
+
+		int adultCnt = resvDTO.getAduCount();
+		int stuCnt = resvDTO.getStuCount();
+		int childCnt = resvDTO.getChdCount();
+		
+		System.out.printf("totalCount : %d / %d / %d\n", adultCnt, stuCnt, childCnt);
+		
+		// 날짜 + 시간 조합 문자열 -> 포맷된 탑승일 문자열로 사용
+		String rideDateStr = deprDay + " " + deprTime;
+		int totalCount = adultCnt + stuCnt + childCnt;
+		
+		// rideDateStr -> LocalDateTime 변환
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		LocalDateTime rideDate = LocalDateTime.parse(rideDateStr, formatter);
+		
+		resvDTO.setRideDate(rideDate);
+		resvDTO.setTotalCount(totalCount);
+		resvDTO.setAduCount(adultCnt);
+		resvDTO.setStuCount(stuCnt);
+		resvDTO.setChdCount(childCnt);
+		
+		
+		List<ResvDTO> resvInfoList = new ArrayList<ResvDTO>();
+		resvInfoList.add(resvDTO);
+		
+		List<ScheduleDTO> changeList = new ArrayList<ScheduleDTO>();
+		
+		if (deprDay != null && deprDay.matches("\\d{4}-\\d{2}-\\d{2}")) {
+			deprDay = deprDay.replace("-", "");
+		}
+		
+	    changeList = scheduleService.searchBusSchedule(resvDTO.getDeprRegCode(), resvDTO.getArrRegCode(), deprDay, "전체");	
+	    
+	    model.addAttribute("changeList", changeList);
+		model.addAttribute("resvInfoList", resvInfoList);
+		
+		return "kobus.reservation/kobusModifyResvSch";
+	}
+	
+	@PostMapping("/modifyResvSeat.do")
+	public String modifyResvSeat(Model model, 
+			@ModelAttribute ResvDTO resvDTO,
+		    @RequestParam("deprDtm") String deprDate,
+		    @RequestParam("comName") String comName,
+		    @RequestParam("busGrade") String busGrade,
+		    @RequestParam("remainSeats") String remainSeats
+		    ) throws SQLException {
+
+		
+		LocalDateTime loc = LocalDateTime.parse(deprDate);
+	    DateTimeFormatter oracleFormatter = DateTimeFormatter.ofPattern("yyyyMMdd HH:mm:ss");
+	    deprDate = loc.format(oracleFormatter);
+		if (deprDate.matches("\\d{8} \\d{2}:\\d{2}:\\d{2}")) {
+		    // 예: "20250628 08:00:00"
+		    String date = deprDate.substring(0, 8); // "20250628"
+		    String time = deprDate.substring(9, 14); // "08:00"
+
+		    // "20250628 08:00"
+		    deprDate = date + " " + time;
+		}
+		
+		
+			// 출발지 / 도착지 / 출발시간 / 버스등급을 기준으로 사용하는 busId 가져오기
+			String busId = seatService.getBusId(resvDTO.getDeprRegCode(), resvDTO.getArrRegCode(), deprDate);
+			
+			// 탑승하는 버스 전체 좌석 가져오기
+			int totalSeat = seatService.getTotalSeats(busId);
+			
+			// 탑승하는 버스 좌석 정보 가져오기
+			List<SeatDTO> seatList = seatService.searchSeat(busId);
+			
+			// 탑승하는 버스 스케줄 정보 가져오기
+			List<ScheduleDTO> busList = scheduleService.searchBusSchedule(resvDTO.getDeprRegCode(), resvDTO.getArrRegCode(), deprDate, busGrade);
+			
+			deprDate = deprDate.substring(0, 4) + "-" + 
+					deprDate.substring(4, 6) + "-" + 
+					deprDate.substring(6, 8) + " " + deprDate.substring(9, 14);
+			
+			resvDTO.setRideDateFormatter(deprDate);
+			resvDTO.setBusGrade(busGrade);
+			
+    	
+    	// 리스트에 담아 request에 저장
+    	List<ResvDTO> changeSeatList = new ArrayList<ResvDTO>();
+    	changeSeatList.add(resvDTO);
+
+    	model.addAttribute("changeSeatList", changeSeatList);
+    	model.addAttribute("busList", busList);
+    	model.addAttribute("seatList", seatList);
+    	
+		
+    	return "kobus.reservation/kobusModifyResvSeat";
+		
 	}
 	
 	
@@ -155,137 +307,10 @@ public class ModifyReservationController {
 
 		
 		if (recpListMap == null || recpListMap.isEmpty()) {
-            return ResponseEntity.noContent().build(); // 204 No Content
-        } else {
-            return ResponseEntity.ok(recpListMap); // 200 OK with JSON body
-        }
-	}
-	
-	
-	@PostMapping("/modifyReservations.do")
-	public String modifyReservations(Model model, @ModelAttribute ResvDTO resvDTO ) throws SQLException {
-		
-		
-		String deprDay = resvDTO.getRideDateStr();              // fn:substringBefore(resv.rideDateStr, ' ')
-		String deprTime = resvDTO.getRideTimeStr();            // fn:substringAfter(resv.rideDateStr, ' ')
-
-		int adultCnt = resvDTO.getAduCount();
-		int stuCnt = resvDTO.getStuCount();
-		int childCnt = resvDTO.getChdCount();
-		
-		// 날짜 + 시간 조합 문자열 → 포맷된 탑승일 문자열로 사용
-		String rideDateStr = deprDay + " " + deprTime;
-		int totalCount = adultCnt + stuCnt + childCnt;
-		
-		// rideDateStr → LocalDateTime 변환 (필요 시 예외 처리 포함)
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-		DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-		LocalDateTime rideDate = LocalDateTime.parse(rideDateStr, formatter);
-		String formatted = rideDate.format(outputFormatter);
-		
-		resvDTO.setRideDateStr(formatted);
-		resvDTO.setTotalCount(totalCount);
-		resvDTO.setAduCount(adultCnt);
-		resvDTO.setStuCount(stuCnt);
-		resvDTO.setChdCount(childCnt);
-		
-		
-		List<ResvDTO> resvInfoList = new ArrayList<ResvDTO>();
-		resvInfoList.add(resvDTO);
-		
-		List<ScheduleDTO> changeList = new ArrayList<ScheduleDTO>();
-		
-		
-		String deprDay2 = deprDay.replace("-", "");
-		
-		
-		changeList = scheduleService.searchBusSchedule(resvDTO.getDeprRegCode(), resvDTO.getArrRegCode(), deprDay2, "전체");	
-
-		
-		List<String> busTimeList = new ArrayList<>();
-
-		for (ScheduleDTO time : changeList) {
-		    LocalDateTime date = time.getDepartureDate();
-		    String busTime = date.format(DateTimeFormatter.ofPattern("HH:mm"));
-		    busTimeList.add(busTime);  // 리스트에 추가
-		}
-		
-
-		model.addAttribute("busTimeList", busTimeList);
-		model.addAttribute("resvInfoList", resvInfoList);
-		
-		return "kobus.reservation/kobusModifyResv";
-	}
-	
-	@GetMapping("/modifyResvSeat.do")
-	public String modifyResvSeat(
-			@RequestParam("deprCd") String deprId,
-		    @RequestParam("arvlCd") String arrId,
-		    @RequestParam("deprDate") String deprDate,
-		    @RequestParam("deprTime") String deprTime,
-		    @RequestParam("busClsCd") String busClsCd,
-		    @RequestParam("deprNm") String deprNm,
-		    @RequestParam("arvlNm") String arvlNm,
-		    @RequestParam("sourcePage") String sourcePage,
-		    @RequestParam("mrsMrnpNo") String resId,
-		    @RequestParam("takeDrtm") String takeDrtm,
-		    @RequestParam("comName") String comName,
-		    @RequestParam("adltNum") String adltNum,
-		    @RequestParam("chldNum") String chldNum,
-		    @RequestParam("teenNum") String teenNum,
-		    Model model) {
-		
-		
-		LocalDate locDate = LocalDate.parse(deprDate); // yyyy-MM-dd
-	    LocalTime locTime = LocalTime.parse(deprTime); // HH:mm
-	    LocalDateTime loc = locDate.atTime(locTime);
-
-	    DateTimeFormatter oracleFormatter = DateTimeFormatter.ofPattern("yyyyMMdd HH:mm:ss");
-	    String deprDtm = loc.format(oracleFormatter);
-	  
-    	int durMinInt = Integer.parseInt(takeDrtm);
-    	int aduCountInt = Integer.parseInt(adltNum);
-    	int stuCountInt = Integer.parseInt(chldNum);
-    	int chdCountInt = Integer.parseInt(teenNum);
-    	
-    	System.out.println("deprDtm " + deprDtm);
-		
-		if (deprDtm.matches("\\d{8} \\d{2}:\\d{2}:\\d{2}")) {
-		    // 예: "20250628 08:00:00"
-		    String date = deprDtm.substring(0, 8); // "20250628"
-		    String time = deprDtm.substring(9, 14); // "08:00"
-
-		    // "2025-06-28 08:00"
-		    deprDtm = date.substring(0, 4) + "-" + 
-		              date.substring(4, 6) + "-" + 
-		              date.substring(6, 8) + " " + time;
-		}
-		
-    	
-    	// ResvDTO 객체 생성
-    	ResvDTO changeSeat = ResvDTO.builder()
-    			.resId(resId)
-    	        .deprRegCode(deprId)
-    	        .deprRegName(deprNm)
-    	        .arrRegCode(arrId)
-    	        .arrRegName(arvlNm)
-    	        .comName(comName)
-    	        .busGrade(busClsCd)
-    	        .rideDateStr(deprDtm)
-    	        .durMin(durMinInt)
-    	        .aduCount(aduCountInt)
-    	        .stuCount(stuCountInt)
-    	        .chdCount(chdCountInt)
-    	        .build();
-
-    	// 리스트에 담아 request에 저장
-    	List<ResvDTO> changeSeatList = new ArrayList<>();
-    	changeSeatList.add(changeSeat);
-
-    	model.addAttribute("changeSeatList", changeSeatList);
-		
-    	return "kobus.reservation/kobusModifyResvSeat";
-		
+          return ResponseEntity.noContent().build(); // 204 No Content
+      } else {
+          return ResponseEntity.ok(recpListMap); // 200 OK with JSON body
+      }
 	}
 
 }

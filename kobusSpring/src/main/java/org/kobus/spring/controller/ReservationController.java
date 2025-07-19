@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.extern.log4j.Log4j;
@@ -25,7 +26,7 @@ public class ReservationController {
 	@Autowired
 	SeatService seatService;
 	
-	@GetMapping("/kobusSeat.do")
+	@PostMapping("/kobusSeat.do")
 	public String kobusSeat(
 	    @RequestParam("deprCd") String deprId,
 	    @RequestParam("arvlCd") String arrId,
@@ -70,7 +71,7 @@ public class ReservationController {
 	    model.addAttribute("arvlNm", arvlNm);
 	    model.addAttribute("busList", busList);
 	    
-	    return "kobus.payment/kobus_pay"; 
+	    return "kobus.reservation/kobus_seat"; 
 	   
 		
 	}

@@ -14,14 +14,14 @@ $(document).ready(function() {
 	    // 클릭한 p 태그의 data-* 속성값 읽기
 	    var deprDtm = $(this).data("deprdtm");
 	    var comName = $(this).data("comname");
-	    var busClsCd = $(this).data("busclscd");
+	    var busGrade = $(this).data("busclscd");
 	    var adultFare = $(this).data("adute");
 	    var remainSeats = $(this).data("seats");
 
 	    // 숨은 input에 값 세팅
 	    $("#deprDtm").val(deprDtm);
 	    $("#comName").val(comName);
-	    $("#busClsCd").val(busClsCd);
+	    $("#busGrade").val(busGrade);
 	    $("#adultFare").val(adultFare);
 	    $("#remainSeats").val(remainSeats);
 
@@ -89,43 +89,42 @@ $(document).ready(function() {
 			      action="/koBus/modifyResvSeat.do">
 			  
 			  <input type="hidden" name="sourcePage" value="kobusModifyResvSch.jsp">
-			  <input type="hidden" name="mrsMrnpNo" value="${resv.resId }">
+			  <input type="hidden" name="resId" value="${resv.resId }">
 			  <input type="hidden" name="mrsMrnpSno" value="01"> 
 			  
-			  <input type="hidden" name="deprNm" value="${resv.deprRegName }">
+			  <input type="hidden" name="deprRegName" value="${resv.deprRegName }">
 			  <!-- 출발지 -->
 			  
-			  <input type="hidden" name="arvlNm" value="${resv.arrRegName }">
+			  <input type="hidden" name="arrRegName" value="${resv.arrRegName }">
 			  <!-- 도착지 -->
 			  
-			  <input type="hidden" name="takeDrtm" value="${resv.durMin }">
+			  <input type="hidden" name="durMin" value="${resv.durMin }">
 			  <!-- 소요시간 -->
 			  
-			  <input type="hidden" name="deprCd" value="${resv.deprRegCode }">
+			  <input type="hidden" name="deprRegCode" value="${resv.deprRegCode }">
 			  <!-- 출발지코드 -->
 			  
-			  <input type="hidden" name="arvlCd" value="${resv.arrRegCode }">
+			  <input type="hidden" name="arrRegCode" value="${resv.arrRegCode }">
 			  <!-- 도착지코드 -->
 			  
-			  <input type="hidden" name="busClsCd" id="busClsCd" value="">
+			  <input type="hidden" name="busGrade" value="">
 			  <!-- 등급 -->
 			  
-			  <input type="hidden" name="adltNum" value="${resv.aduCount }">
+			  <input type="hidden" name="aduCount" value="${resv.aduCount }">
 			  <!-- 일반매수 -->
 			  
-			  <input type="hidden" name="chldNum" value="${resv.stuCount }">
+			  <input type="hidden" name="stuCount" value="${resv.stuCount }">
 			  <!-- 초등매수 -->
 			  
-			  <input type="hidden" name="teenNum" value="${resv.chdCount }">
+			  <input type="hidden" name="chdCount" value="${resv.chdCount }">
 			  <!-- 중고매수 -->
-			  
-			  <input type="hidden" name="deprDtm" id="deprDtm" value="">
-			  <!-- 출발날짜 -->
 			  
 			  <!-- p 태그 data-* 에서 받아올 추가 input들 -->
 			  <input type="hidden" name="comName" id="comName" value="">
 			  <input type="hidden" name="adultFare" id="adultFare" value="">
 			  <input type="hidden" name="remainSeats" id="remainSeats" value="">
+			  <input type="hidden" name="deprDtm" id="deprDtm" value="">
+			  <input type="hidden" name="busClsCd" id="busClsCd" value="">
 			
 			</form>
 			

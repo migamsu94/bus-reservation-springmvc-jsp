@@ -94,34 +94,34 @@
 					<c:set var="resv" value="${resvInfoList[0]}" />
 						<form name="mrschangefrm" id="mrschangefrm" method="post"
 							action="/koBus/modifyResvSch.do">
-							<input type="hidden" name="mrsMrnpNo" value="${resv.resId }">
+							<input type="hidden" name="resId" value="${resv.resId }">
 								<input type="hidden" name="mrsMrnpSno" value="01"> 
 								<input
-									type="hidden" name="deprnNm" value="${resv.deprRegName }">
+									type="hidden" name="deprRegName" value="${resv.deprRegName }">
 								<!-- 출발지 -->
-								<input type="hidden" name="arvlNm" value="${resv.arrRegName }">
+								<input type="hidden" name="arrRegName" value="${resv.arrRegName }">
 								<!-- 도착지 -->
-								<input type="hidden" name="takeDrtm" value="${resv.durMin }">
+								<input type="hidden" name="durMin" value="${resv.durMin }">
 								<!-- 소요시간 -->
-								<input type="hidden" name="deprnCd" value="${resv.deprRegCode }">
+								<input type="hidden" name="deprRegCode" value="${resv.deprRegCode }">
 								<!-- 출발지코드 -->
-								<input type="hidden" name="arvlCd" value="${resv.arrRegCode }">
+								<input type="hidden" name="arrRegCode" value="${resv.arrRegCode }">
 								<!-- 도착지코드 -->
 								<input type="hidden" name="alcnDeprnCd" value="010">
 								<!-- 배차출발지코드 -->
 								<input type="hidden" name="alcnArvlCd" value="200">
 								<!-- 배차도착지코드 -->
-								<input type="hidden" name="deprCd" value="전체">
+								<input type="hidden" name="busGrade" value="전체">
 								<!-- 등급 -->
-								<input type="hidden" name="adltNum" value="${resv.aduCount }">
+								<input type="hidden" name="aduCount" value="${resv.aduCount }">
 								<!-- 일반매수 -->
-								<input type="hidden" name="chldNum" value="${resv.stuCount }">
+								<input type="hidden" name="stuCount" value="${resv.stuCount }">
 								<!-- 초등매수 -->
-								<input type="hidden" name="teenNum" value="${resv.chdCount }">
+								<input type="hidden" name="chdCount" value="${resv.chdCount }">
 								<!-- 중고매수 -->
-								<input type="hidden" name="DEPR_DT" value="${fn:substringBefore(resv.rideDateStr, ' ')}">
+								<input type="hidden" name="rideDateStr" value="${fn:substringBefore(resv.rideDateStr, ' ')}">
 								<!-- 출발날짜 -->
-								<input type="hidden" name="deprTime" value="${fn:substringAfter(resv.rideDateStr, ' ')}">
+								<input type="hidden" name="rideTimeStr" value="${fn:substringAfter(resv.rideDateStr, ' ')}">
 								<!-- 출발시간 -->
 							
 

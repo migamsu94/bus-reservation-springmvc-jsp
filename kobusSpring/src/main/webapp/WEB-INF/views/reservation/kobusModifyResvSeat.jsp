@@ -527,7 +527,7 @@
 										<li>
 											<div class="countBox">
 												<p class="division">
-													<em>일반</em> <span class="text_num count" id="adltCntMob">0</span>
+													<em>일반</em> <span class="text_num count" id="adltCntMob">${change.aduCount }</span>
 
 
 												</p>
@@ -535,10 +535,10 @@
 													<ul>
 
 
-														<li><button type="button" class="btn btn_add">
+														<li><button type="button" class="btn " disabled>
 																<span class="ico_plus"><span class="sr-only">증가</span></span>
 															</button></li>
-														<li><button type="button" class="btn btn_minus">
+														<li><button type="button" class="btn " disabled>
 																<span class="ico_minus"><span class="sr-only">감소</span></span>
 															</button></li>
 													</ul>
@@ -548,16 +548,16 @@
 										<li>
 											<div class="countBox">
 												<p class="division">
-													<em>초등생</em> <span class="text_num count" id="chldCntMob">0</span>
+													<em>초등생</em> <span class="text_num count" id="chldCntMob">${change.chdCount }</span>
 												</p>
 												<div class="btn_wrap">
 													<ul>
 
 
-														<li><button type="button" class="btn btn_add">
+														<li><button type="button" class="btn " disabled>
 																<span class="ico_plus"><span class="sr-only">증가</span></span>
 															</button></li>
-														<li><button type="button" class="btn btn_minus">
+														<li><button type="button" class="btn " disabled>
 																<span class="ico_minus"><span class="sr-only">감소</span></span>
 															</button></li>
 													</ul>
@@ -568,16 +568,16 @@
 										<li>
 											<div class="countBox">
 												<p class="division">
-													<em>중고생</em> <span class="text_num count" id="teenCntMob">0</span>
+													<em>중고생</em> <span class="text_num count" id="teenCntMob">${change.stuCount }</span>
 
 
 												</p>
 												<div class="btn_wrap">
 													<ul>
-														<li><button type="button" class="btn btn_add">
+														<li><button type="button" class="btn " disabled>
 																<span class="ico_plus"><span class="sr-only">증가</span></span>
 															</button></li>
-														<li><button type="button" class="btn btn_minus">
+														<li><button type="button" class="btn " disabled>
 																<span class="ico_minus"><span class="sr-only">감소</span></span>
 															</button></li>
 													</ul>
@@ -615,16 +615,16 @@
 											<li>
 												<div class="countBox">
 													<p class="division">
-														<em>일반</em> <span class="text_num count" id="adltCnt">0</span>
+														<em>일반</em> <span class="text_num count" id="adltCnt">${change.aduCount }</span>
 
 													</p>
 													<div class="btn_wrap">
 														<ul>
 
-															<li><button type="button" class="btn btn_add">
+															<li><button type="button" class="btn " disabled>
 																	<span class="ico_plus"><span class="sr-only">증가</span></span>
 																</button></li>
-															<li><button type="button" class="btn btn_minus">
+															<li><button type="button" class="btn " disabled>
 																	<span class="ico_minus"><span class="sr-only">감소</span></span>
 																</button></li>
 														</ul>
@@ -635,7 +635,7 @@
 											<li>
 												<div class="countBox">
 													<p class="division">
-														<em>초등생</em> <span class="text_num count" id="chldCnt">0</span>
+														<em>초등생</em> <span class="text_num count" id="chldCnt">${change.chdCount }</span>
 
 
 													</p>
@@ -643,10 +643,10 @@
 														<ul>
 
 
-															<li><button type="button" class="btn btn_add">
+															<li><button type="button" class="btn " disabled>
 																	<span class="ico_plus"><span class="sr-only">증가</span></span>
 																</button></li>
-															<li><button type="button" class="btn btn_minus">
+															<li><button type="button" class="btn " disabled>
 																	<span class="ico_minus"><span class="sr-only">감소</span></span>
 																</button></li>
 
@@ -658,16 +658,16 @@
 											<li>
 												<div class="countBox">
 													<p class="division">
-														<em>중고생</em> <span class="text_num count" id="teenCnt">0</span>
+														<em>중고생</em> <span class="text_num count" id="teenCnt">${change.stuCount }</span>
 													</p>
 													<div class="btn_wrap">
 														<ul>
 
 
-															<li><button type="button" class="btn btn_add">
+															<li><button type="button" class="btn " disabled>
 																	<span class="ico_plus"><span class="sr-only">증가</span></span>
 																</button></li>
-															<li><button type="button" class="btn btn_minus">
+															<li><button type="button" class="btn " disabled>
 																	<span class="ico_minus"><span class="sr-only">감소</span></span>
 																</button></li>
 														</ul>
@@ -693,14 +693,20 @@
 											
 											  <c:forEach var="seatList" items="${seatList}">
 											    <span class="seatBox ${seatList.seatAble eq 'N' ? 'disabled' : ''}">
+												  
 												  <input type="checkbox"
-												         name="seatBoxDtl"
-												         id="seatNum_${seatList.seatNo}"
-												         value="${seatList.seatNo}"
-												         onclick="fnSeatChc(this, 'seatNum_${seatList.seatId}');"
-												        ${seatList.seatAble eq 'N' ? 'disabled="disabled" title="예매 완료된 좌석" tabindex="-1" class="disabled-input"' : ''}>>
+											       name="seatBoxDtl"
+											       id="seatNum_${seatList.seatNo}"
+											       value="${seatList.seatNo}"
+											       onclick="fnSeatChc(this, 'seatNum_${seatList.seatId}');"
+											       ${seatList.seatAble eq 'N' ? 'disabled="disabled" title="예매 완료된 좌석" tabindex="-1"' : ''}
+											       class="${seatList.seatAble eq 'N' ? 'disabled-input' : ''}">
+												  
+												  
+												  
 												  <label for="seatNum_${seatList.seatNo}">${seatList.seatNo}</label>
 												</span>
+
 
 											  </c:forEach>
 											</div>

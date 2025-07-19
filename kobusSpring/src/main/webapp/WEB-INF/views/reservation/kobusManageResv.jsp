@@ -290,6 +290,8 @@ $("#recpCanFrm > button").on("click", function () {
 									style="width: 100%">
 							</form>
 							<!-- 시간변경 form -->
+							
+							
 							<form id="mrsTmznlistFrm0" name="mrsTmznlistFrm0"
 								action="/modifyReservations.do" method="post">
 								<input type="hidden" name="nonMbrsNo" value="">
