@@ -135,13 +135,15 @@
 				
 			<c:set var="bus" value="${busList[0]}" />
 			<c:set var="change" value="${changeSeatList[0]}" />
+			
+			어른 : ${bus.adultFare } <br>
+			학생 : ${bus.stuFare } <br>
+			아이 : ${bus.childFare } <br>
+			
 			<form name="satsChcFrm" id="satsChcFrm" method="post"
-				action="/koBus/kobusSeat.do">
+				action="/koBus/payment/buypay.do">
 				<input type="hidden" name="deprCd" id="deprCd" value="${change.deprRegCode }">
 				<!-- 출발지코드 -->
-				<%-- <input type="hidden" name="deprCd" id="deprCd" value="${param.deprCode}"> --%>
-				<!-- 추후 el 표기법으로 변경하기 그럼 request.getParameter 랑 setAttribute 없어도 됨-->
-				
 				<input type="hidden" name="deprNm" id="deprNm" value="${change.deprRegName }">
 				<!-- 출발지명 -->
 				<input type="hidden" name="arvlCd" id="arvlCd" value="${change.arrRegCode }">
@@ -282,13 +284,13 @@
 				<input type="hidden" id="selectedSeatIds" name="selectedSeatIds" value="">
 				<!-- 좌석배열 -->
 				
-				<input type="hidden" name="selAdltCnt" id="selAdltCnt" value="0">
+				<input type="hidden" name="selAdltCnt" id="selAdltCnt" value="${change.aduCount }">
 				<!-- 어른수 -->
 				<input type="hidden" name="selAdltDcCnt" id="selAdltDcCnt" value="0">
 				<!-- 할인대상어른수 -->
-				<input type="hidden" name="selChldCnt" id="selChldCnt" value="0">
+				<input type="hidden" name="selChldCnt" id="selChldCnt" value="${change.chdCount }">
 				<!-- 초등생수 -->
-				<input type="hidden" name="selTeenCnt" id="selTeenCnt" value="0">
+				<input type="hidden" name="selTeenCnt" id="selTeenCnt" value="${change.stuCount }">
 				<!-- 중고생수 -->
 				<input type="hidden" name="selUvsdCnt" id="selUvsdCnt" value="0">
 				<!-- 대학생수 -->
@@ -325,13 +327,13 @@
 				<input type="hidden" name="pcpyNoAll2" id="pcpyNoAll2" value="">
 				<!-- 왕복시 복편 선점번호전체   -->
 
-				<input type="hidden" name="rtSelAdltCnt" id="rtSelAdltCnt" value="">
+				<input type="hidden" name="rtSelAdltCnt" id="rtSelAdltCnt" value="${change.aduCount }">
 				<!-- 어른수   -->
-				<input type="hidden" name="rtSelChldCnt" id="rtSelChldCnt" value="">
+				<input type="hidden" name="rtSelChldCnt" id="rtSelChldCnt" value="${change.chdCount }">
 				<!-- 초등생수   -->
 				<input type="hidden" name="rtSelUvsdCnt" id="rtSelUvsdCnt" value="">
 				<!-- 대학생수   -->
-				<input type="hidden" name="rtSelTeenCnt" id="rtSelTeenCnt" value="">
+				<input type="hidden" name="rtSelTeenCnt" id="rtSelTeenCnt" value="${change.stuCount }">
 				<!-- 중고생수   -->
 				<input type="hidden" name="rtSelSncnCnt" id="rtSelSncnCnt" value="">
 				<!-- 경로수(권종추가-201906) -->
@@ -354,13 +356,13 @@
 				<input type="hidden" name="tissuAmt" id="tissuAmt" value="">
 				<!-- 결제금액 -->
 				
-				<input type="hidden" name="adltTotPrice" id="adltTotPrice" value="">
+				<input type="hidden" name="adltTotPrice" id="adltTotPrice" value="${bus.adultFare }">
 				<!-- 일반금액 -->
 				
-				<input type="hidden" name="chldTotPrice" id="chldTotPrice" value="">
+				<input type="hidden" name="chldTotPrice" id="chldTotPrice" value="${bus.stuFare }">
 				<!-- 중고생금액 -->
 				
-				<input type="hidden" name="teenTotPrice" id="teenTotPrice" value="">
+				<input type="hidden" name="teenTotPrice" id="teenTotPrice" value="${bus.childFare }">
 				<!-- 초등생금액 -->
 				
 				<input type="hidden" name="allTotAmtPrice" id="allTotAmtPrice" value="">
@@ -417,8 +419,8 @@
 
 			<div class="title_wrap in_process ticketingT" style="display: none;">
 
-				<a href="https://www.kobus.co.kr/mrs/satschc.do#" class="back">back</a>
-				<a href="https://www.kobus.co.kr/mrs/satschc.do#" class="mo_toggle">메뉴</a>
+				<a href="#" class="back">back</a>
+				<a href="#" class="mo_toggle">메뉴</a>
 
 				<h2>고속버스예매</h2>
 				<ol class="process">
@@ -444,7 +446,7 @@
 					</div>
 					<!-- 광고 배너 추후 추가 예정 -->
 					<!-- <iframe
-						src="/koBus/html/_ad-tubebox-002TITLE.html"
+						src="${pageContext.request.contextPath}/resources/html/_ad-tubebox-002TITLE.html"
 						title="프레임 (전화번호안심 로그인)" class="ad-frame ad-frame-title"></iframe> -->
 				</div>
 			</div>
@@ -686,7 +688,7 @@
 										<div class="bg_seatBox seat21" style="display: block;">
 											<div class="bg_bus_img">
 												<img
-													src="/koBus/images/bg_bus21.png"
+													src="${pageContext.request.contextPath}/resources/images/bg_bus21.png"
 													alt="버스 내부 도면으로 버스의 전방 좌측에는 운전석, 전방 우측에는 출입구가 위치하고 있습니다. 운전석 뒤로는 1,2번 좌석이 있고, 1,2번 좌석 뒤로 두 개의 좌석씩 4,5,7,8,10,11,13,14,16,17,19,20번 좌석이 있습니다. 출입구 뒤에는 3번 좌석이 있으며, 3번 뒤로 6,9,12,15,18,21번 좌석이 있습니다. 2번과 3번 좌석 사이에는 통로가 있으며, 전체적으로 통로를 중심으로 좌측에 2개 좌석, 우측에 1개 좌석이 위치하며 한 줄에 3개의 좌석씩 7줄로 배치되어 있습니다. 총 21개의 좌석이 있으며 좌석 번호는 왼쪽부터 오른쪽으로 증가합니다.">
 											</div>
 											<div class="seatList">
@@ -749,16 +751,16 @@
 													<td id="allTotAmtLocU">0원</td>
 												</tr>
 												<tr>
-													<th scope="row">일반 <span id="adltSeatCnt">0</span></th>
-													<td id="adltTotAmt">0원</td>
+													<th scope="row">일반 <span id="adltSeatCnt">${change.aduCount }</span></th>
+													<td id="adltTotAmt">${change.aduCount * bus.adultFare}원</td>
 												</tr>
 												<tr>
-													<th scope="row">초등생 <span id="chldSeatCnt">0</span></th>
-													<td id="chldTotAmt">0원</td>
+													<th scope="row">초등생 <span id="chldSeatCnt">${change.chdCount }</span></th>
+													<td id="chldTotAmt">${change.chdCount * bus.childFare}원</td>
 												</tr>
 												<tr>
-													<th scope="row">중고생 <span id="teenSeatCnt">0</span></th>
-													<td id="teenTotAmt">0원</td>
+													<th scope="row">중고생 <span id="teenSeatCnt">${change.stuCount }</span></th>
+													<td id="teenTotAmt">${change.stuCount * bus.stuFare}원</td>
 												</tr>
 											</tbody>
 										</table>
@@ -939,7 +941,7 @@
 			</div>
 			<div class="cont">
 				<img
-					src="/koBus/images/img_crew_info1.jpg"
+					src="${pageContext.request.contextPath}/resources/images/img_crew_info1.jpg"
 					alt="" class="crew_info">
 				<div class="alt">
 					<h4>국민안전 승무원이 되어 보시겠습니까?</h4>
@@ -1004,7 +1006,7 @@
 			</div>
 			<div class="cont">
 				<img
-					src="/koBus/images/img_crew_info2.jpg"
+					src="${pageContext.request.contextPath}/resources/images/img_crew_info2.jpg"
 					alt="" class="crew_info">
 
 				<!-- 대체텍스트 -->

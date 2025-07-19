@@ -310,7 +310,7 @@ $("#recpCanFrm > button").on("click", function () {
 								<!-- 출발지코드 -->
 								<input type="hidden" name="arrRegCode" value="${resv.arrRegCode }">
 								<!-- 도착지코드 -->
-								<input type="hidden" name="alcnDeprnCd" value="010">
+								<input type="hidden" name="alcnDeprCd" value="010">
 								<!-- 배차출발지코드 -->
 								<input type="hidden" name="alcnArvlCd" value="200">
 								<!-- 배차도착지코드 -->
@@ -342,8 +342,7 @@ $("#recpCanFrm > button").on("click", function () {
 								<input type="hidden" name="mrspMbphNo" id="mrspMbphNo" value="">
 							</form>
 							<!-- 예매취소 form -->
-							<form id="recpCanFrm" name="recpCanFrm"
-								action="/koBus/kobusResvCancel.ajax">
+							<form id="recpCanFrm" name="recpCanFrm">
 
 								<%-- <input type="hidden" name="nonMbrsNo" id="nonMbrsNo" value="${resv.nonMbrsNo}"> --%>
 								<input type="hidden" name="mrsMrnpno" id="mrsMrnpno" value="${resv.resId}">
@@ -354,6 +353,7 @@ $("#recpCanFrm > button").on("click", function () {
 								<input type="hidden" name="deprnNm" id="deprnNm" value="${resv.deprRegName}">
 								<input type="hidden" name="arvlNm" id="arvlNm" value="${resv.arrRegName}">
 								<input type="hidden" name="deprnCd" id="deprnCd" value="${resv.deprRegCode}">
+								<input type="hidden" name="deprCd" id="deprCd" value="${resv.deprRegCode}">
 								<input type="hidden" name="arvlCd" id="arvlCd" value="${resv.arrRegCode}">
 								<input type="hidden" name="takeDrtm" id="takeDrtm" value="${resv.durMin}">
 								<input type="hidden" name="cacmCd" id="cacmCd" value="06">
@@ -377,8 +377,7 @@ $("#recpCanFrm > button").on("click", function () {
 								
 							</form>
 							
-							<form id="recpCanOkFrm" name="recpCanOkFrm"
-								action="/koBus/kobusResvCancel.ajax">
+							<form id="recpCanOkFrm" name="recpCanOkFrm">
 
 								<%-- <input type="hidden" name="nonMbrsNo" id="nonMbrsNo" value="${resv.nonMbrsNo}"> --%>
 								<input type="hidden" name="mrsMrnpno" id="mrsMrnpno" value="${resv.resId}">
@@ -389,6 +388,7 @@ $("#recpCanFrm > button").on("click", function () {
 								<input type="hidden" name="deprnNm" id="deprnNm" value="${resv.deprRegName}">
 								<input type="hidden" name="arvlNm" id="arvlNm" value="${resv.arrRegName}">
 								<input type="hidden" name="deprnCd" id="deprnCd" value="${resv.deprRegCode}">
+								<input type="hidden" name="deprCd" id="deprCd" value="${resv.deprRegCode}">
 								<input type="hidden" name="arvlCd" id="arvlCd" value="${resv.arrRegCode}">
 								<input type="hidden" name="takeDrtm" id="takeDrtm" value="${resv.durMin}">
 								<input type="hidden" name="cacmCd" id="cacmCd" value="06">

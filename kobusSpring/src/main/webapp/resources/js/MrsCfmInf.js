@@ -95,7 +95,7 @@ function fnRecpCanInfo(idx , type) {
 		var recpCanInfoFrm = $("form[name=recpCanFrm]").serialize();
 		$.ajax({
 			 type:"post"
-			,url: "/koBus/kobusResvCancel.ajax?ajax=true"
+			,url: "/koBus/kobusResvCancel.ajax?ajaxType=search"
 			,data:recpCanInfoFrm // input 값 세팅 
 			,dataType:"json"
 			,success:function(recpListMap){
@@ -915,7 +915,7 @@ function fnRecpCan() {
 	if(confirm("예매취소 하시겠습니까?") == true){
 				$.ajax({
 			  		type:"post"		
-					,url:"/koBus/kobusResvCancel.ajax?ajax=true"
+					,url:"/koBus/kobusResvCancel.ajax?ajaxType=cancel"
 					,data:updatedFormData // input 값 세팅 
 					,dataType:"json"
 					,success:function(data){

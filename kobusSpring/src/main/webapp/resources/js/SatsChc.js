@@ -630,7 +630,6 @@ function fnAmtClln(){
 	var dfptCheckCnt = 0;
 	
 	
-	/*
 	if($("input:checkbox[name=seatBoxDtl]:checked").length <= adltChcCnt ){ //성인선택수
 		adltCheckCnt = $("input:checkbox[name=seatBoxDtl]:checked").length;
 	}else{
@@ -646,7 +645,7 @@ function fnAmtClln(){
 				uvsdCheckCnt = $("input:checkbox[name=seatBoxDtl]:checked").length - Number(adltChcCnt) - Number(chldChcCnt) - Number(teenChcCnt);
 			}
 		}
-	}*/
+	}
 	
 	//인원수 (180703)
 	for(var i=0; i<10; i++){

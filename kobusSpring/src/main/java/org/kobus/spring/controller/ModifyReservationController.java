@@ -10,6 +10,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.aspectj.apache.bcel.classfile.Module.Require;
+import org.kobus.spring.domain.reservation.ModifyResvDTO;
 import org.kobus.spring.domain.reservation.ResvDTO;
 import org.kobus.spring.domain.reservation.SeatDTO;
 import org.kobus.spring.domain.schedule.ScheduleDTO;
@@ -197,7 +199,6 @@ public class ModifyReservationController {
 		    deprDate = date + " " + time;
 		}
 		
-		
 			// 출발지 / 도착지 / 출발시간 / 버스등급을 기준으로 사용하는 busId 가져오기
 			String busId = seatService.getBusId(resvDTO.getDeprRegCode(), resvDTO.getArrRegCode(), deprDate);
 			
@@ -231,14 +232,39 @@ public class ModifyReservationController {
 		
 	}
 	
+	@PostMapping(value = "/setPcpy.ajax", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	public ResponseEntity<?> setPcpy(
+			@RequestParam Map<String, String> paramMap, 
+			@ModelAttribute ModifyResvDTO modifyResvDTO, 
+			HttpSession session) {
+
+	    // 1) 파라미터 확인
+	    String selectedSeatIds = paramMap.get("selectedSeatIds");
+	    String ajaxType = paramMap.get("ajaxType");
+	    System.out.println("선택 좌석: " + selectedSeatIds);
+	    System.out.println("ajaxType: " + ajaxType);
+
+	    // 2) 선점 로직 예시 (DB 처리나 세션에 저장)
+	    modifyResvDTO.setSelectedSeatIds(selectedSeatIds);
+
+	    // 3) 결과 리턴 (성공 JSON)
+	    Map<String, Object> result = new HashMap<>();
+	    result.put("result", "success");
+	    result.put("message", "좌석 선점 성공");
+
+	    return ResponseEntity.ok(result);
+	}
+	
+	
+	
 	
 	@PostMapping(value = "/kobusResvCancel.ajax", produces = {
-			  MediaType.APPLICATION_JSON_UTF8_VALUE
+			MediaType.APPLICATION_JSON_UTF8_VALUE
 	})
 	@ResponseBody
 	public ResponseEntity<Map<String, Object>> resvCancel(
-			@RequestParam(required = false) String ajax,
-			@RequestParam(required = false) String type,
+			@RequestParam(required = false) String ajaxType,
 			@RequestParam(required = false) String mrsMrnpno,
 			@RequestParam(required = false) String mrsMrnpSno,
 			@RequestParam(required = false) String prmmDcDvsCd,
@@ -260,14 +286,13 @@ public class ModifyReservationController {
 			@RequestParam(required = false) String chldNum,
 			@RequestParam(required = false) String teenNum,
 			@RequestParam(required = false) String seatNo) {
-		
+
 		Map<String, Object> recpListMap = new HashMap<>();
 
 		int cancelResult = 0;
 		int changeRemainSeats = 0;
 
 		try {
-			recpListMap.put("type", type);
 			recpListMap.put("mrsMrnpNo", mrsMrnpno);
 			recpListMap.put("mrsMrnpSno", mrsMrnpSno);
 			recpListMap.put("prmmDcDvsCd", prmmDcDvsCd);
@@ -291,9 +316,13 @@ public class ModifyReservationController {
 			recpListMap.put("setsList", seatNo);
 
 			String rideTime = alcnDeprDt + alcnDeprTime;
-			
-			cancelResult = resvService.cancelResvList(mrsMrnpno);
-			changeRemainSeats = resvService.changeRemainSeats(mrsMrnpno, rideTime);
+
+			if ("cancel".equals(ajaxType)) {
+				cancelResult = resvService.cancelResvList(mrsMrnpno);
+				changeRemainSeats = resvService.changeRemainSeats(mrsMrnpno, rideTime);
+			}
+
+
 
 			recpListMap.put("cancelResult", cancelResult);
 			recpListMap.put("changeRemainSeats", changeRemainSeats);
@@ -305,12 +334,13 @@ public class ModifyReservationController {
 			recpListMap.put("error", "오류 발생: " + e.getMessage());
 		}
 
-		
+
 		if (recpListMap == null || recpListMap.isEmpty()) {
-          return ResponseEntity.noContent().build(); // 204 No Content
-      } else {
-          return ResponseEntity.ok(recpListMap); // 200 OK with JSON body
-      }
+			return ResponseEntity.noContent().build(); // 204 No Content
+		} else {
+			return ResponseEntity.ok(recpListMap); // 200 OK with JSON body
+		}
 	}
+
 
 }
