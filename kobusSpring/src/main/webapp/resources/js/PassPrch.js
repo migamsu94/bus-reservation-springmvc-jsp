@@ -481,7 +481,7 @@ function test(mmm){
 	
 	$('#datepickerItem').datepicker({
 		showOn:"button",
-		buttonImage:"/koBus/images/ico_calender.png",
+		buttonImage:"/koBus/resources/images/ico_calender.png",
 		buttonImageOnly:true,
 		buttonText:"사용시작일 선택 달력",
 		minDate: mmm,
@@ -540,6 +540,10 @@ function fnYyDtmStup(dtVal){ // 날짜 계산
 // 부가상품 상세 조회
 function fnPassDtl(){
 	var rotLinInf = $("#selUseRot").val();
+	if(rotLinInf && rotLinInf.length > 6){
+	    rotLinInf = rotLinInf.substring(0, 6);  // 뒤 1자리 제거
+	    $("#selUseRot").val(rotLinInf);        // form 값으로 다시 넣음
+	}
 	var datepickerItem = $("#datepickerItem").val();
 	if(rotLinInf == "" || datepickerItem == ""){
 		return;

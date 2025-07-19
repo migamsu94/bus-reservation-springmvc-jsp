@@ -12,6 +12,7 @@ import org.kobus.spring.domain.pay.FreepassPaymentDTO;
 import org.kobus.spring.domain.pay.PaymentCommonDTO;
 import org.kobus.spring.mapper.pay.TermMapper;
 import org.kobus.spring.service.pay.FreePassPaymentService;
+import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +27,8 @@ public class PaymentController {
     private TermMapper termMapper;
 	
 	@Autowired
-    private FreePassPaymentService freepassService;
+	private FreePassPaymentService freepassService;  // 인터페이스 → 구현체
+	
 	
 	// 일반 예매 결제
     @PostMapping("/Reservation.do")
@@ -61,6 +63,8 @@ public class PaymentController {
     // 프리패스 결제
     @PostMapping("/Freepass.do")
     public Map<String, Object> handleFreepass(HttpServletRequest request) {
+    	System.out.println("freepassService 프록시 여부: " + AopUtils.isAopProxy(freepassService));
+        System.out.println("freepassService 실제 클래스: " + freepassService.getClass());
         Map<String, Object> resultMap = new HashMap<>();
         try {
             // 세션에서 userId 확인
@@ -90,6 +94,14 @@ public class PaymentController {
             	long timestampMillis = Long.parseLong(paidAtStr) * 1000L;
                 paidAt = new Timestamp(timestampMillis);
             }
+            
+         // startDate 방어 코드 추가
+            if (startDateStr == null || startDateStr.trim().isEmpty()) {
+                resultMap.put("result", 0);
+                resultMap.put("msg", "startDate가 비어 있습니다.");
+                return resultMap;
+            }
+            System.out.println("startDateStr = [" + startDateStr + "]");
             Date startDate = new java.sql.Date(new SimpleDateFormat("yyyy-MM-dd").parse(startDateStr).getTime());
 
             // DTO 구성

@@ -267,7 +267,7 @@ dl.desc_list dd {margin-bottom:10px; padding-left:15px; font-size:14px; color:#6
 .scrollbar-inner .scroll-content { margin: 0 !important;}
 .noti_pop .pop_cont { /* max-width: 298px; padding: 0 5px; */ box-sizing: border-box;}
 .noti_pop .pop_cont iframe body:focus {outline:none;}
-.noti_pop .pop_close { display: block; position: absolute; top: 0; right: 0; background: url(/resources/images/common/close_mobile.png) center center no-repeat; background-size: 16px; width: 16px; height: 16px; padding: 20px; font-size: 0;}
+.noti_pop .pop_close { display: block; position: absolute; top: 0; right: 0; background: url(/koBus/resources/images/common/close_mobile.png) center center no-repeat; background-size: 16px; width: 16px; height: 16px; padding: 20px; font-size: 0;}
 .noti_pop .pop_cont * { font-size: 14px;}
 .noti_pop .btns { margin-top: 0; padding: 8px; border-top: 1px solid #e6e6e6;}
 .noti_pop .btns * { width: 146px; padding: 0;}
