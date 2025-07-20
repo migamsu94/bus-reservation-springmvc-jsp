@@ -16,7 +16,7 @@ public class ModifyResvDTO {
     private String arvlNm;           // 도착지명
 
     // ================== 경로 구분 ==================
-    private String pathDvs;          // 직통(sngl)/환승(trtr)/왕복(rtrp)
+    private String pathDvs;          // 편도(sngl)/환승(trtr)/왕복(rtrp)
     private String pathStep;         // 왕복 단계 (1: 왕편, 2: 복편)
 
     // ================== 출발/도착 일자 및 시간 ==================

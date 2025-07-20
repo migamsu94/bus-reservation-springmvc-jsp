@@ -215,9 +215,10 @@ public class ModifyReservationController {
 					deprDate.substring(4, 6) + "-" + 
 					deprDate.substring(6, 8) + " " + deprDate.substring(9, 14);
 			
-			resvDTO.setRideDateFormatter(deprDate);
+			resvDTO.setRideDateStr(deprDate);
+			resvDTO.setRideTimeStr(deprDate.substring(9, 14));
 			resvDTO.setBusGrade(busGrade);
-			
+		
     	
     	// 리스트에 담아 request에 저장
     	List<ResvDTO> changeSeatList = new ArrayList<ResvDTO>();
@@ -243,7 +244,12 @@ public class ModifyReservationController {
 	    String selectedSeatIds = paramMap.get("selectedSeatIds");
 	    String ajaxType = paramMap.get("ajaxType");
 	    System.out.println("선택 좌석: " + selectedSeatIds);
-	    System.out.println("ajaxType: " + ajaxType);
+	    
+	    System.out.println("getDeprDtm: " + paramMap.get("deprDtm"));
+	    System.out.println("getArvlDtm: " + paramMap.get("arvlDtm"));
+	    System.out.println("getBusClsCd: " + paramMap.get("busClsCd"));
+	    
+	    
 
 	    // 2) 선점 로직 예시 (DB 처리나 세션에 저장)
 	    modifyResvDTO.setSelectedSeatIds(selectedSeatIds);
@@ -315,11 +321,11 @@ public class ModifyReservationController {
 			recpListMap.put("teenNum", teenNum);
 			recpListMap.put("setsList", seatNo);
 
-			String rideTime = alcnDeprDt + alcnDeprTime;
+			String rideDateTime = alcnDeprDt + alcnDeprTime;
 
 			if ("cancel".equals(ajaxType)) {
 				cancelResult = resvService.cancelResvList(mrsMrnpno);
-				changeRemainSeats = resvService.changeRemainSeats(mrsMrnpno, rideTime);
+				changeRemainSeats = resvService.changeRemainSeats(mrsMrnpno, rideDateTime);
 			}
 
 

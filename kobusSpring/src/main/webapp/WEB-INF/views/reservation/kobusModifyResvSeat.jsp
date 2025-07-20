@@ -131,17 +131,15 @@
 	
 </script>
 
-			
-				
 			<c:set var="bus" value="${busList[0]}" />
 			<c:set var="change" value="${changeSeatList[0]}" />
 			
-			어른 : ${bus.adultFare } <br>
-			학생 : ${bus.stuFare } <br>
-			아이 : ${bus.childFare } <br>
+			<%-- 어른 : ${change.rideDateStr } <br>
+			학생 : ${change.busGrade } <br>
+			아이 : ${bus.childFare } <br> --%>
 			
 			<form name="satsChcFrm" id="satsChcFrm" method="post"
-				action="/koBus/payment/buypay.do">
+				action="/koBus/setPcpy.ajax">
 				<input type="hidden" name="deprCd" id="deprCd" value="${change.deprRegCode }">
 				<!-- 출발지코드 -->
 				<input type="hidden" name="deprNm" id="deprNm" value="${change.deprRegName }">
@@ -171,7 +169,7 @@
 				<input type="hidden" name="arvlDtmAll" id="arvlDtmAll"
 					value="2025. 6. 21. 토">
 				<!-- 오는날(왕복) -->
-				<input type="hidden" name="busClsCd" id="busClsCd" value="${change.busGrade }">
+				<input type="hidden" name="busClsCd" id="busClsCd" value="${bus.busGrade }">
 				<!-- 버스등급 -->
 				<input type="hidden" name="takeDrtmOrg" id="takeDrtmOrg" value="${change.durMin }">
 				<!-- 소요시간 -->
@@ -180,12 +178,12 @@
 				<!-- 출발일자:deprDtm or arvlDtm, 출발터미널번호:deprCd, 도착터미널번호:arvlCd  -->
 				<input type="hidden" name="deprDt" id="deprDt" value="${change.rideDateStr }">
 				<!-- 출발일 -->
-				<input type="hidden" name="deprTime" id="deprTime" value="072000">
+				<input type="hidden" name="deprTime" id="deprTime" value="${change.rideTimeStr }">
 				<!-- 출발시각 -->
 				<input type="hidden" name="alcnDeprDt" id="alcnDeprDt" value="">
 				<!-- 배차출발일 -->
 				<input type="hidden" name="alcnDeprTime" id="alcnDeprTime"
-					value="072000">
+					value="">
 				<!-- 배차출발시각 -->
 				<input type="hidden" name="alcnDeprTrmlNo" id="alcnDeprTrmlNo"
 					value="010">
@@ -751,16 +749,16 @@
 													<td id="allTotAmtLocU">0원</td>
 												</tr>
 												<tr>
-													<th scope="row">일반 <span id="adltSeatCnt">${change.aduCount }</span></th>
-													<td id="adltTotAmt">${change.aduCount * bus.adultFare}원</td>
+													<th scope="row">일반 <span id="adltSeatCnt">0</span></th>
+													<td id="adltTotAmt">0원</td>
 												</tr>
 												<tr>
-													<th scope="row">초등생 <span id="chldSeatCnt">${change.chdCount }</span></th>
-													<td id="chldTotAmt">${change.chdCount * bus.childFare}원</td>
+													<th scope="row">초등생 <span id="chldSeatCnt">0</span></th>
+													<td id="chldTotAmt">0원</td>
 												</tr>
 												<tr>
-													<th scope="row">중고생 <span id="teenSeatCnt">${change.stuCount }</span></th>
-													<td id="teenTotAmt">${change.stuCount * bus.stuFare}원</td>
+													<th scope="row">중고생 <span id="teenSeatCnt">0</span></th>
+													<td id="teenTotAmt">0원</td>
 												</tr>
 											</tbody>
 										</table>

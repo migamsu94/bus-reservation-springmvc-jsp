@@ -648,7 +648,7 @@ function fnAmtClln(){
 	}
 	
 	//인원수 (180703)
-	for(var i=0; i<10; i++){
+	for(var i=1; i<10; i++){
 		if(typeof arrSeat[i] != "undefined"){
 			if(arrSeat[i][1] == "adltCnt"){
 				adltCheckCnt++;
@@ -1563,7 +1563,7 @@ function fnSatsChcCfm(e){
 		alert("할인 승차권 부정 사용시 운임의 10배 부가 운임을 요구할 수 있습니다.");
 	}
 	
-//alert(cfmPrmmDcDvsCd);	
+	
 	if(cfmPrmmDcDvsCd == "0"){
 		$("#selAdltCnt").val(allAdltChcCnt);
 		$("#selAdltDcCnt").val("0");
@@ -1626,14 +1626,14 @@ function fnSatsChcCfm(e){
 			}			
 		}
 	}
-	/*adltNum.sort();
+	adltNum.sort();
 	for(var i=0; i<adltNum.length; i++){
 		if(selSeatNumNew.length <= 0){
 			selSeatNumNew = adltNum[i]; 
 		}else{
 			selSeatNumNew += ":" + adltNum[i]; 
 		}		
-	}*/
+	}
 	//초등생 선택 좌석	
 	j=0;
 	for(var i=0; i<10; i++){
@@ -1644,14 +1644,14 @@ function fnSatsChcCfm(e){
 			}			
 		}
 	}
-	/*chldNum.sort();
+	chldNum.sort();
 	for(var i=0; i<chldNum.length; i++){
 		if(selSeatNumNew.length <= 0){
 			selSeatNumNew = chldNum[i]; 
 		}else{
 			selSeatNumNew += ":" + chldNum[i]; 
 		}		
-	}*/
+	}
 	//중고생 선택 좌석
 	j=0;
 	for(var i=0; i<10; i++){
@@ -1662,14 +1662,14 @@ function fnSatsChcCfm(e){
 			}			
 		}
 	}
-	/*teenNum.sort();
+	teenNum.sort();
 	for(var i=0; i<teenNum.length; i++){
 		if(selSeatNumNew.length <= 0){
 			selSeatNumNew = teenNum[i]; 
 		}else{
 			selSeatNumNew += ":" + teenNum[i]; 
 		}		
-	}*/
+	}
 	//대학생 선택 좌석
 	j=0;
 	for(var i=0; i<10; i++){

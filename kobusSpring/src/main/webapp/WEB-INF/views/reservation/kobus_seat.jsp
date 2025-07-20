@@ -2,12 +2,29 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/css/common/style.css">
 <script type="text/javascript"
-	src="${pageContext.request.contextPath}/resources/js/new-kor-ui.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/SatsChc.js"></script>
+	src="${pageContext.request.contextPath}/resources/js/SatsChc.js"></script>
+
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/js/ReadLgnInf.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/js/rsa_oaep-min.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/js/jsbn-min2.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/js/typedarray.js"></script>
+
+<!-- 출/도착지 선택 레이어팝업 -->
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/js/ReadLgnInf.js"></script>
+
+<!-- 20200831 yahan -->
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/js/rsa_oaep-min.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/js/jsbn-min2.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/js/typedarray.js"></script>
 
 <style>
 .txt_red {
@@ -163,17 +180,17 @@ $(document).ready(function () {
 				<!-- 직통sngl,환승trtr,왕복rtrp -->
 				<input type="hidden" name="pathStep" id="pathStep" value="1">
 				<!-- 왕편 복편 설정 -->
-				<input type="hidden" name="deprDtm" id="deprDtm" value="${deprDate }">
+				<input type="hidden" name="deprDtm" id="deprDtm" value="${deprDtm }">
 				<!-- 가는날(편도,왕복) -->
 				<input type="hidden" name="deprDtmAll" id="deprDtmAll"
-					value="${deprDate }">
+					value="${deprDtm }">
 				<!-- 가는날(편도,왕복) -->
-				<input type="hidden" name="arvlDtm" id="arvlDtm" value="${deprDate }">
+				<input type="hidden" name="arvlDtm" id="arvlDtm" value="${deprDtm }">
 				<!-- 오는날(왕복) -->
 				<input type="hidden" name="arvlDtmAll" id="arvlDtmAll"
 					value="2025. 6. 21. 토">
 				<!-- 오는날(왕복) -->
-				<input type="hidden" name="busClsCd" id="busClsCd" value="0">
+				<input type="hidden" name="busClsCd" id="busClsCd" value="${bus.busGrade }">
 				<input type="hidden" name="busCode" id="busCode" value="${bus.bshId }">
 				<!-- 버스등급 -->
 				<input type="hidden" name="takeDrtmOrg" id="takeDrtmOrg" value="${bus.durMin }">
@@ -265,7 +282,7 @@ $(document).ready(function () {
 				<!-- 통합단말기여부  Y:존재, N:없음 -->
 
 				<input type="hidden" name="chkDeprDt" id="chkDeprDt"
-					value="${deprDate }">
+					value="${deprDtm }">
 				<!-- 2일 후 시간체크 -->
 				<input type="hidden" name="chkDeprTime" id="chkDeprTime"
 					value="072000">
@@ -462,7 +479,7 @@ $(document).ready(function () {
 							<!-- 좌측 infoBox -->
 							<div class="infoBox">
 
-								<p class="date" id="satsDeprDtm"></p>
+								<p class="date" id="satsDeprDtm">${deprDtm }</p>
 								<div class="route_wrap" id="satsRotInfo">
 									<div class="inner">
 
@@ -845,32 +862,12 @@ $(document).ready(function () {
 
 			</div>
 
-			<script type="text/javascript"
-				src="${pageContext.request.contextPath}/resources/js/ReadLgnInf.js"></script>
 
-			<!-- 20200617 yahan -->
-			<script type="text/javascript"
-				src="${pageContext.request.contextPath}/resources/js/rsa_oaep-min.js"></script>
-			<script type="text/javascript"
-				src="${pageContext.request.contextPath}/resources/js/jsbn-min2.js"></script>
-			<script type="text/javascript"
-				src="${pageContext.request.contextPath}/resources/js/typedarray.js"></script>
 			<input type="hidden" name="locInf" id="locInf" value="sats">
 			<!-- 페이지위치 -->
 			<input type="hidden" name="adtnflag" id="adtnflag" value="N">
 			<!-- 페이지위치 -->
-			<!-- 출/도착지 선택 레이어팝업 -->
-			<script type="text/javascript"
-				src="${pageContext.request.contextPath}/resources/js/ReadLgnInf.js"></script>
-
-			<!-- 20200831 yahan -->
-			<script type="text/javascript"
-				src="${pageContext.request.contextPath}/resources/js/rsa_oaep-min.js"></script>
-			<script type="text/javascript"
-				src="${pageContext.request.contextPath}/resources/js/jsbn-min2.js"></script>
-			<script type="text/javascript"
-				src="${pageContext.request.contextPath}/resources/js/typedarray.js"></script>
-
+			
 			<!-- 임시비밀번호 변경 -->
 
 			<form name="lgnForm">

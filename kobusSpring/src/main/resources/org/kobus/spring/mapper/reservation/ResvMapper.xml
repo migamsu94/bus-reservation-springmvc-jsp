@@ -108,7 +108,7 @@
         ]]>
     </select>
 
-	<!-- int changeRemainSeats(@Param("mrsMrnpNo") String mrsMrnpNo, @Param("rideTime") String rideTime) throws SQLException; -->
+	<!-- int changeRemainSeats(@Param("mrsMrnpNo") String mrsMrnpNo, @Param("rideDateTime") String rideDateTime) throws SQLException; -->
 	<update id="updateRemainSeats">
 	    UPDATE BUSSCHEDULE B
 	    SET REMAINSEATS = (
@@ -121,7 +121,7 @@
 	        SELECT R.BSHID
 	        FROM RESERVATION R
 	        WHERE R.RESID = #{mrsMrnpNo}
-	          AND R.RIDEDATE = TO_TIMESTAMP(#{rideTime}, 'YYYY-MM-DD HH24:MI:SS')
+	          AND R.RIDEDATE = TO_TIMESTAMP(#{rideDateTime}, 'YYYY-MM-DD HH24:MI:SS')
 	    )
 	</update>
 	
