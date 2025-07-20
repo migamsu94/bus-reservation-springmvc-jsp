@@ -1,12 +1,17 @@
 package org.kobus.spring.controller;
 
+import java.io.PrintWriter;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONObject;
 import org.kobus.spring.domain.pay.SeasonTicketOptionDTO;
 import org.kobus.spring.domain.pay.SeasonTicketRouteDTO;
 import org.kobus.spring.mapper.pay.PassRotLinInfMapper;
@@ -14,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -97,6 +103,56 @@ public class ReadPassRotLinInfController {
         result.put("adtnDtlList", optionList);
         result.put("len", optionList.size());
         return result;
+    }
+    
+    @PostMapping("/readPassVldTerm.ajax")
+    public void getPassValidTerm(
+            @RequestParam(value = "startDate", required = false) String startDate,
+            @RequestParam(value = "period", required = false) String periodStr,
+            HttpServletResponse resp
+    ) throws Exception {
+
+        JSONObject result = new JSONObject();
+
+        if (startDate == null || periodStr == null || startDate.trim().isEmpty() || periodStr.trim().isEmpty()) {
+            System.out.println("[Warn] 파라미터 누락! (startDate, period) -> startDate: [" + startDate + "], period: [" + periodStr + "]");
+            result.put("fulTerm", "");
+            result.put("rotAllCnt", 0);
+            result.put("termSttDt", "");
+            resp.setContentType("application/json; charset=UTF-8");
+            PrintWriter out = resp.getWriter();
+            out.write(result.toString());
+            out.close();
+            return;
+        }
+
+        try {
+            startDate = startDate.trim();
+            periodStr = periodStr.trim();
+            LocalDate stt = LocalDate.parse(startDate, DateTimeFormatter.ofPattern("yyyyMMdd"));
+            int period = Integer.parseInt(periodStr);
+            LocalDate end = stt.plusDays(period - 1);
+
+            String fulTerm = stt.format(DateTimeFormatter.ofPattern("yyyy.MM.dd")) +
+                             " ~ " +
+                             end.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
+            String termSttDt = stt.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+
+            result.put("fulTerm", fulTerm);
+            result.put("rotAllCnt", 1);
+            result.put("termSttDt", termSttDt);
+            result.put("timDte", termSttDt);  // timDte도 동일 값으로 반환
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("startDate: [" + startDate + "], period: [" + periodStr + "]");
+            result.put("fulTerm", "");
+            result.put("rotAllCnt", 0);
+        }
+
+        resp.setContentType("application/json; charset=UTF-8");
+        PrintWriter out = resp.getWriter();
+        out.write(result.toString());
+        out.close();
     }
 
 }
