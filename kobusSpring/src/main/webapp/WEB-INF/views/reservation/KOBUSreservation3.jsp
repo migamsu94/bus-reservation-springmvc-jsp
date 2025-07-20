@@ -27,7 +27,7 @@
 <title>예매정보입력(노선조회) | 고속버스예매 | 고속버스예매 | 고속버스통합예매</title>
 
 
-<link rel="shortcut icon" href="/koBus/images/favicon.ico">
+<link rel="shortcut icon" href="/koBus/resources/images/favicon.ico">
 
 
 
@@ -41,7 +41,7 @@
 
 
 <link rel="stylesheet" type="text/css"
-	href="/koBus/css/ui.jqgrid.custom.css">
+	href="/koBus/resources/cdn-main/ui.jqgrid.custom.css">
 
 <script>
      $( function() {
@@ -55,16 +55,16 @@
  });
 </script>
 
-<script type="text/javascript" src="/koBus/js/common/ui.js"></script>
-<script type="text/javascript" src="/koBus/js/plugin.js"></script>
-<script type="text/javascript" src="/koBus/js/common.js"></script>
+<script type="text/javascript" src="/koBus/resources/js/common/ui.js"></script>
+<script type="text/javascript" src="/koBus/resources/js/plugin.js"></script>
+<script type="text/javascript" src="/koBus/resources/js/common.js"></script>
 
-<script type="text/javascript" src="/koBus/js/jquery/jquery.number.js"></script>
-<script type="text/javascript" src="/koBus/js/security.js"></script>
+<script type="text/javascript" src="/koBus/resources/js/jquery/jquery.number.js"></script>
+<script type="text/javascript" src="/koBus/resources/js/security.js"></script>
 
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" type="text/css" href="/koBus/css/common/style.css">
+<link rel="stylesheet" type="text/css" href="/koBus/resources/cdn-main/common/style.css">
 <script type="text/javascript"
 	src="/koBus/js/kor/new-kor-ui.js?v=0102.0"></script>
 </head>
@@ -90,7 +90,6 @@
 
 
 <body class="main KO" style="">
-<%@ include file="common/header.jsp" %>
 	
 
 
@@ -162,9 +161,9 @@
 	노선조회팝업화면 호출시 RotInfPup.js와 RotInfPup.jsp를 호출해준다.
 	RotInfPup.js 에서 fnEmptyCssStup() 를 호출한다. 부모페이지에서 해당 function 생성해서 해당page에 맞는 내용으로 변경해준다.
  -->
-<script type="text/javascript" src="/koBus/js/common/RotInfPup.js"></script>
-		<script type="text/javascript" src="/koBus/js/common/RotInf.js"></script>
-		<script type="text/javascript" src="/koBus/js/MrsCfmLgn.js"></script>
+<script type="text/javascript" src="/koBus/resources/js/common/RotInfPup.js"></script>
+		<script type="text/javascript" src="/koBus/resources/js/common/RotInf.js"></script>
+		<script type="text/javascript" src="/koBus/resources/js/MrsCfmLgn.js"></script>
 <style>
 .oneway { width:100%; }
 
@@ -184,7 +183,7 @@
 } 
 </style>
 
-<form name="rotInfFrm" id="rotInfFrm" method="post" action="/koBus/mrs/alcnSrch.do"> 
+<form name="rotInfFrm" id="rotInfFrm" method="post" action="/koBus/reservation2.do"> 
 	<input type="hidden" name="sourcePage" value="KOBUSreservation3.jsp">
 	<input type="hidden" name="deprCd" id="deprCd" value=""><!-- 출발지코드 -->
 	<input type="hidden" name="deprNm" id="deprNm" value=""><!-- 출발지명 -->
@@ -686,28 +685,28 @@
 		<div class="footer-top-cont">
 			<ul class="express-bus-company-list">
 				<li>
-					<a href="http://www.kumhobuslines.co.kr" target="_blank" title="새창"><img src="/koBus/images/kor/layout/logo-kumho-express.png" alt="금호고속"></a>
+					<a href="http://www.kumhobuslines.co.kr" target="_blank" title="새창"><img src="/koBus/resources/images/kor/layout/logo-kumho-express.png" alt="금호고속"></a>
 				</li>
 				<li>
-					<a href="http://www.dongbubus.com" target="_blank" title="새창"><img src="/koBus/images/kor/layout/logo-dongbu-express.png" alt="동부고속"></a>
+					<a href="http://www.dongbubus.com" target="_blank" title="새창"><img src="/koBus/resources/images/kor/layout/logo-dongbu-express.png" alt="동부고속"></a>
 				</li>
 				<li>
-					<a href="http://www.songnisanbuslines.co.kr" target="_blank" title="새창"><img src="/koBus/images/kor/layout/logo-sokrisan-express.png" alt="속리산고속"></a>
+					<a href="http://www.songnisanbuslines.co.kr" target="_blank" title="새창"><img src="/koBus/resources/images/kor/layout/logo-sokrisan-express.png" alt="속리산고속"></a>
 				</li>
 				<li>
-					<a href="http://www.dyexpress.co.kr" target="_blank" title="새창"><img src="/koBus/images/kor/layout/logo-dongyang-express.png" alt="동양고속"></a>
+					<a href="http://www.dyexpress.co.kr" target="_blank" title="새창"><img src="/koBus/resources/images/kor/layout/logo-dongyang-express.png" alt="동양고속"></a>
 				</li>
 				<li>
-					<a href="http://www.samhwaexpress.co.kr" target="_blank" title="새창"><img src="/koBus/images/kor/layout/logo-samhwa-express.png" alt="삼화고속"></a>
+					<a href="http://www.samhwaexpress.co.kr" target="_blank" title="새창"><img src="/koBus/resources/images/kor/layout/logo-samhwa-express.png" alt="삼화고속"></a>
 				</li>
 				<li>
-					<a href="http://www.jabus.co.kr" target="_blank" title="새창"><img src="/koBus/images/kor/layout/logo-joongang-express.png" alt="중앙고속"></a>
+					<a href="http://www.jabus.co.kr" target="_blank" title="새창"><img src="/koBus/resources/images/kor/layout/logo-joongang-express.png" alt="중앙고속"></a>
 				</li>
 				<li>
-					<a href="http://www.chunilexpress.co.kr" target="_blank" title="새창"><img src="/koBus/images/kor/layout/logo-chunil-express.png" alt="천일고속"></a>
+					<a href="http://www.chunilexpress.co.kr" target="_blank" title="새창"><img src="/koBus/resources/images/kor/layout/logo-chunil-express.png" alt="천일고속"></a>
 				</li>
 				<li>
-					<a href="http://www.hanilexpress.co.kr" target="_blank" title="새창"><img src="/koBus/images/kor/layout/logo-hanil-express.png" alt="한일고속"></a>
+					<a href="http://www.hanilexpress.co.kr" target="_blank" title="새창"><img src="/koBus/resources/images/kor/layout/logo-hanil-express.png" alt="한일고속"></a>
 				</li>
 			</ul>
 			<!-- dropdown-top 클래스 추가 시, 드롭다운 목록 위로 노출 -->
@@ -742,13 +741,13 @@
 			</address>
 			<ul class="greeting-btn-list">
 				<li>
-					<a href="http://www.wa.or.kr/board/list.asp?search=total&amp;SearchString=%B0%ED%BC%D3%B9%F6%BD%BA&amp;BoardID=0006" target="_blank" title="새창"><img src="/koBus/images/kor/layout/logo-accessibility2.png" alt="(사)한국장애인단체총연합회 한국웹접근성인증평가원 웹 접근성 우수사이트 인증마크(WA인증마크)" height="40"></a>
+					<a href="http://www.wa.or.kr/board/list.asp?search=total&amp;SearchString=%B0%ED%BC%D3%B9%F6%BD%BA&amp;BoardID=0006" target="_blank" title="새창"><img src="/koBus/resources/images/kor/layout/logo-accessibility2.png" alt="(사)한국장애인단체총연합회 한국웹접근성인증평가원 웹 접근성 우수사이트 인증마크(WA인증마크)" height="40"></a>
 				</li>
 				<li>
-					<a href="/ugd/bustrop/Bustrop.do" title="이사장 인사말 바로가기"><img src="/koBus/images/kor/layout/logo-kobus.png" alt="KOBUS 전국고속버스운송사업조합"></a>
+					<a href="/ugd/bustrop/Bustrop.do" title="이사장 인사말 바로가기"><img src="/koBus/resources/images/kor/layout/logo-kobus.png" alt="KOBUS 전국고속버스운송사업조합"></a>
 				</li>
 				<li>
-					<a href="/ugd/trmlbizr/Trmlbizr.do" title="협회장 인사말 바로가기"><img src="/koBus/images/kor/layout/logo-npvtba-express.png" alt="전국여객자동차터미널사업자협회"></a>
+					<a href="/ugd/trmlbizr/Trmlbizr.do" title="협회장 인사말 바로가기"><img src="/koBus/resources/images/kor/layout/logo-npvtba-express.png" alt="전국여객자동차터미널사업자협회"></a>
 				</li>
 			</ul>
 		</div>
@@ -941,7 +940,8 @@
 					    console.log("▶ 터미널 요청:", sidoCode, cmdType);
 
 					    $.ajax({
-					      url: "<%=request.getContextPath()%>/getTerminals.do",
+					      <%-- url: "<%=request.getContextPath()%>/getTerminals.do", --%>
+					      url: "<%= request.getContextPath() %>/getTerminals.do",
 					      method: "GET",
 					      data: { sidoCode: sidoCode },
 					      dataType: "json",
@@ -1012,11 +1012,11 @@
 				<div class="phone_wrap clfix">
 					<p class="phone1">
 						<strong>터치한번으로</strong>
-						<img src="/koBus/images/page/tmoney_phone1.png" alt="모바일티머니 결제화면"><!-- 1103 -->
+						<img src="/koBus/resources/images/page/tmoney_phone1.png" alt="모바일티머니 결제화면"><!-- 1103 -->
 					</p>
 					<p class="phone2">
 						<strong>결제완료!</strong>
-						<img src="/koBus/images/page/tmoney_phone2.png" alt="모바일티머니 결제완료화면">
+						<img src="/koBus/resources/images/page/tmoney_phone2.png" alt="모바일티머니 결제완료화면">
 					</p>
 				</div>
 			</div>
@@ -1264,12 +1264,12 @@
 				<ul class="txt">
 					<li><strong>광양 임시터미널(인동숲 주차장) 안내</strong>
 						<p style="margin-top: 10px;">
-							<img src="/koBus/images/page/pop_img01.png"
+							<img src="/koBus/resources/images/page/pop_img01.png"
 								alt="광양임시터미널 - 타이어뱅크와 국민은행 사이 옆길 진입도" width="640">
 						</p></li>
 					<li><strong>광양 임시터미널 승차홈</strong>
 						<p>
-							<img src="/koBus/images/page/pop_img02.png"
+							<img src="/koBus/resources/images/page/pop_img02.png"
 								alt="광양임시터미널 승차홈별 지역(상세 다음 참고)" width="640">
 						</p>
 						<div class="sr-only">
