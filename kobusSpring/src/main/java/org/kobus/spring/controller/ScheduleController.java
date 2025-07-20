@@ -117,7 +117,7 @@ public class ScheduleController {
 
 	@GetMapping("/kobusSchedule.do")
 	public String getSchedule() {
-		return "koBusFile/kobusSchedule";
+		return "kobus.reservation/kobusSchedule";
 
 	}
 }

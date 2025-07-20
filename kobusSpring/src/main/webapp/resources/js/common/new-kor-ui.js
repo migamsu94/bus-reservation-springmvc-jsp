@@ -456,12 +456,12 @@ $(document).ready(function() {
 					seatAltText = "버스 내부 좌석 배치를 보여주는 도면으로 상단 좌측에는 운전석, 우측에는 출입구가 위치하고 있으며, 좌석 번호는 왼쪽부터 오른쪽으로 증가합니다."
 				}
 				
-				var imgElement = $('<img>', {
-					'src': '/images/kor/common/bg_bus' + seatNumber +'.png',
-					'alt': seatAltText
-				});
+				//var imgElement = $('<img>', {
+				//	'src': '/koBus/resources/images/bg_bus' + seatNumber +'.png',
+				//	'alt': seatAltText
+				// });
 				
-				$(this).find('.bg_bus_img').append(imgElement);
+				// $(this).find('.bg_bus_img').append(imgElement);
 			}
 		});
 	}
