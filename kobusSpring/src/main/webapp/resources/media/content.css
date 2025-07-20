@@ -4359,7 +4359,7 @@ ul.sel_list>li .btn_wrap ul li .btn+.btn {
 .ticket_chk .custom_radio input:checked+label:before {
 	display: inline-block;
 	content: '';
-	background: url(/images/kor/common/custom_chkW.png) 0 3px no-repeat;
+	background: url(/koBus/resources/images/kor/common/custom_chkW.png) 0 3px no-repeat;
 	background-size: 12px auto;
 	width: 12px;
 	height: 16px;
@@ -4907,7 +4907,7 @@ ul.sel_list>li .btn_wrap ul li .btn+.btn {
 .pop_pass_history .process li:after {
 	display: inline-block;
 	content: '';
-	background: url(/images/kor/common/pop_arrow_process.png) right 0
+	background: url(/koBus/resources/images/kor/common/pop_arrow_process.png) right 0
 		no-repeat;
 	width: 34px;
 	height: 12px;
@@ -4971,7 +4971,7 @@ ul.sel_list>li .btn_wrap ul li .btn+.btn {
 	text-decoration: underline;
 } /* 191101 추가 */
 .noti_wrap.fail {
-	background: url(/images/kor/common/notice_img.png) center bottom
+	background: url(/koBus/resources/images/kor/common/notice_img.png) center bottom
 		no-repeat;
 	background-size: auto 116px;
 	margin-bottom: 30px;
@@ -5125,7 +5125,7 @@ ul.sel_list>li .btn_wrap ul li .btn+.btn {
 .tbl_type2 .error_txt:before {
 	display: inline-block;
 	content: '';
-	background: url(/images/kor/page/ico_tipB2_s.png) no-repeat 0 0;
+	background: url(/koBus/resources/images/kor/page/ico_tipB2_s.png) no-repeat 0 0;
 	width: 13px;
 	height: 13px;
 	margin-right: 2px;
@@ -5241,7 +5241,7 @@ ul.sel_list>li .btn_wrap ul li .btn+.btn {
 	z-index: 200;
 	width: 60px;
 	height: 60px;
-	background: url(/images/kor/common/bg_issueTicket.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/common/bg_issueTicket.png) 0 0 no-repeat;
 	background-size: 100% auto;
 }
 
@@ -5254,7 +5254,7 @@ ul.sel_list>li .btn_wrap ul li .btn+.btn {
 	z-index: 200;
 	width: 60px;
 	height: 60px;
-	background: url(/images/kor/common/bg_issueTicket.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/common/bg_issueTicket.png) 0 0 no-repeat;
 	background-position: 0 -60px;
 	background-size: 100% auto;
 }
@@ -5268,7 +5268,7 @@ ul.sel_list>li .btn_wrap ul li .btn+.btn {
 	z-index: 200;
 	width: 60px;
 	height: 60px;
-	background: url(/images/kor/common/bg_issueTicket.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/common/bg_issueTicket.png) 0 0 no-repeat;
 	background-position: 0 -120px;
 	background-size: 100% auto;
 }
@@ -5282,7 +5282,7 @@ ul.sel_list>li .btn_wrap ul li .btn+.btn {
 	z-index: 200;
 	width: 60px;
 	height: 60px;
-	background: url(/images/kor/common/bg_issueTicket.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/common/bg_issueTicket.png) 0 0 no-repeat;
 	background-position: 0 -180px;
 	background-size: 100% auto;
 }
@@ -5312,7 +5312,7 @@ ul.sel_list>li .btn_wrap ul li .btn+.btn {
 	z-index: 200;
 	width: 60px;
 	height: 60px;
-	background: url(/images/kor/common/bg_issueTicket.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/common/bg_issueTicket.png) 0 0 no-repeat;
 	background-size: 100% auto;
 }
 
@@ -5325,7 +5325,7 @@ ul.sel_list>li .btn_wrap ul li .btn+.btn {
 	z-index: 200;
 	width: 60px;
 	height: 60px;
-	background: url(/images/kor/common/bg_issueTicket.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/common/bg_issueTicket.png) 0 0 no-repeat;
 	background-position: 0 -60px;
 	background-size: 100% auto;
 }
@@ -5339,7 +5339,7 @@ ul.sel_list>li .btn_wrap ul li .btn+.btn {
 	z-index: 200;
 	width: 60px;
 	height: 60px;
-	background: url(/images/kor/common/bg_issueTicket.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/common/bg_issueTicket.png) 0 0 no-repeat;
 	background-position: 0 -120px;
 	background-size: 100% auto;
 }
@@ -5353,7 +5353,7 @@ ul.sel_list>li .btn_wrap ul li .btn+.btn {
 	z-index: 200;
 	width: 60px;
 	height: 60px;
-	background: url(/images/kor/common/bg_issueTicket.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/common/bg_issueTicket.png) 0 0 no-repeat;
 	background-position: 0 -180px;
 	background-size: 100% auto;
 }
@@ -5385,7 +5385,7 @@ ul.sel_list>li .btn_wrap ul li .btn+.btn {
 	margin-right: 10px;
 	width: 14px;
 	height: 14px;
-	background: url(/images/kor/common/ico_mobile_ticket.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/common/ico_mobile_ticket.png) 0 0 no-repeat;
 	background-size: 100% auto;
 }
 
@@ -5495,7 +5495,7 @@ ul.sel_list>li .btn_wrap ul li .btn+.btn {
 	z-index: 100;
 	width: 100%;
 	height: 100%;
-	background: url(/images/kor/common/bg_checkTicket_com_s.png) 0 0
+	background: url(/koBus/resources/images/kor/common/bg_checkTicket_com_s.png) 0 0
 		no-repeat;
 	background-color: #fff;
 	background-size: 178px 72px;
@@ -5514,7 +5514,7 @@ ul.sel_list>li .btn_wrap ul li .btn+.btn {
 	z-index: 101;
 	width: 100%;
 	height: 100%;
-	background: url(/images/kor/common/bg_timeOver.png) 50% 50% no-repeat;
+	background: url(/koBus/resources/images/kor/common/bg_timeOver.png) 50% 50% no-repeat;
 	background-color: #fff;
 	opacity: 0.7;
 }
@@ -5667,7 +5667,7 @@ ul.sel_list>li .btn_wrap ul li .btn+.btn {
 	position: absolute;
 	right: 5px;
 	bottom: 5px;
-	background: url('/koBus/media/input_after.png') 0 0 no-repeat;
+	background: url('/koBus/resources/media/input_after.png') 0 0 no-repeat;
 	background-size: 100%;
 	width: 8px;
 	height: 8px;
@@ -5962,25 +5962,25 @@ ul.compareBox li .box_inputForm.card_num .box_label+.box_label label {
 	width: 18px;
 	height: 14px;
 	margin-left: 5px;
-	background: url(/images/kor/page/ico_premium_s_on.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/page/ico_premium_s_on.png) 0 0 no-repeat;
 	vertical-align: middle;
 	text-indent: -9999px;
 }
 
 .myPage_list li.history .row .txt_myMenu {
-	background: url(/images/kor/page/bg_myPage_list01.png) 50% 0 no-repeat;
+	background: url(/koBus/resources/images/kor/page/bg_myPage_list01.png) 50% 0 no-repeat;
 }
 
 .myPage_list li.additional .row .txt_myMenu {
-	background: url(/images/kor/page/bg_myPage_list02.png) 50% 0 no-repeat;
+	background: url(/koBus/resources/images/kor/page/bg_myPage_list02.png) 50% 0 no-repeat;
 }
 
 .myPage_list li.mileage .row .txt_myMenu {
-	background: url(/images/kor/page/bg_myPage_list03.png) 50% 0 no-repeat;
+	background: url(/koBus/resources/images/kor/page/bg_myPage_list03.png) 50% 0 no-repeat;
 }
 
 .myPage_list li.payment .row .txt_myMenu {
-	background: url(/images/kor/page/bg_myPage_list04.png) 50% 0 no-repeat;
+	background: url(/koBus/resources/images/kor/page/bg_myPage_list04.png) 50% 0 no-repeat;
 }
 
 .myAccount ul li {
@@ -6019,7 +6019,7 @@ ul.compareBox li .box_inputForm.card_num .box_label+.box_label label {
 	z-index: 300;
 	width: 14px;
 	height: 14px;
-	background: url(/images/kor/common/ico_delete_gray.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/common/ico_delete_gray.png) 0 0 no-repeat;
 	background-size: 100% auto;
 	text-indent: -9999px;
 }
@@ -6032,7 +6032,7 @@ ul.compareBox li .box_inputForm.card_num .box_label+.box_label label {
 	z-index: 300;
 	width: 24px;
 	height: 24px;
-	background: url(/images/kor/common/ico_complete.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/common/ico_complete.png) 0 0 no-repeat;
 	background-size: 100% auto;
 	text-indent: -9999px;
 }
@@ -6232,12 +6232,12 @@ table td.noData {
 }
 
 .tbl_ico.ico_departure {
-	background: url(/images/kor/page/bg_ico_departure.png) 0 5px no-repeat;
+	background: url(/koBus/resources/images/kor/page/bg_ico_departure.png) 0 5px no-repeat;
 	background-size: 14px auto;
 }
 
 .tbl_ico.ico_arrive {
-	background: url(/images/kor/page/bg_ico_arrive.png) 0 8px no-repeat;
+	background: url(/koBus/resources/images/kor/page/bg_ico_arrive.png) 0 8px no-repeat;
 	background-size: 14px auto;
 }
 
@@ -6262,7 +6262,7 @@ table td.noData {
 	right: 0;
 	width: 50%;
 	height: 100%;
-	background: url(/images/kor/page/bg_payment_com_s.png) 100% 100%
+	background: url(/koBus/resources/images/kor/page/bg_payment_com_s.png) 100% 100%
 		no-repeat;
 }
 
@@ -6272,7 +6272,7 @@ table td.noData {
 	right: 0;
 	width: 50%;
 	height: 100%;
-	background: url(/images/kor/page/bg_payment_cancel_s.png) 100% 100%
+	background: url(/koBus/resources/images/kor/page/bg_payment_cancel_s.png) 100% 100%
 		no-repeat;
 }
 
@@ -6319,7 +6319,7 @@ table td.noData {
 	float: right;
 	height: 100%;
 	padding: 0 20px 0 75px;
-	background: url(/images/kor/page/ico_mileage.png) 0 50% no-repeat;
+	background: url(/koBus/resources/images/kor/page/ico_mileage.png) 0 50% no-repeat;
 	background-size: 57px auto;
 	line-height: 70px;
 	color: #fff;
@@ -6410,12 +6410,12 @@ table td.noData {
 	display: inline-block;
 	width: 31px;
 	height: 30px;
-	background: url(/images/page/arrow_down.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/page/arrow_down.png) 0 0 no-repeat;
 	_background-size: cover;
 }
 
 .tbl_valid_wrap .title-wrap button.expanded {
-	background: url(/images/page/arrow_up.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/page/arrow_up.png) 0 0 no-repeat;
 	_background-size: cover;
 }
 
@@ -6455,16 +6455,16 @@ table td.noData {
 	bottom: 0;
 	width: 40px;
 	height: 40px;
-	background: url(/images/kor/page/bg_mileage_save_s.png) right bottom
+	background: url(/koBus/resources/images/kor/page/bg_mileage_save_s.png) right bottom
 		no-repeat;
 }
 
 .tbl_search_result tbody .used td.txt_mileage .state {
-	background-image: url(/images/kor/page/bg_mileage_use_s.png);
+	background-image: url(/koBus/resources/images/kor/page/bg_mileage_use_s.png);
 }
 
 .tbl_search_result tbody .valid td.txt_mileage .state {
-	background-image: url(/images/kor/page/bg_mileage_valid_s.png);
+	background-image: url(/koBus/resources/images/kor/page/bg_mileage_valid_s.png);
 }
 
 /* !! 마일리지 - 20170928 수정 */
@@ -6731,7 +6731,7 @@ table td.noData {
 	bottom: 0;
 	width: 222px;
 	height: 89px;
-	background: url(/images/kor/page/bnr_app_s.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/page/bnr_app_s.png) 0 0 no-repeat;
 }
 
 .bnr_app strong {
@@ -6903,7 +6903,7 @@ table td.noData {
 .join_wrap a:before {
 	display: inline-block;
 	content: '';
-	background: url(/images/kor/common/ico_joinUs_s.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/common/ico_joinUs_s.png) 0 0 no-repeat;
 	background-size: 100%;
 	width: 30px;
 	height: 24px;
@@ -6911,7 +6911,7 @@ table td.noData {
 }
 
 .join_wrap a:hover:before {
-	background: url(/images/kor/common/ico_joinUs_s.png) 0 bottom no-repeat
+	background: url(/koBus/resources/images/kor/common/ico_joinUs_s.png) 0 bottom no-repeat
 }
 
 .find_wrap {
@@ -7077,7 +7077,7 @@ table td.noData {
 }
 
 .box_searchId a span.ico_searchId {
-	background: url(/images/kor/common/ico_searchId_s.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/common/ico_searchId_s.png) 0 0 no-repeat;
 }
 
 .box_searchId a span.ico_searchId:hover {
@@ -7086,7 +7086,7 @@ table td.noData {
 }
 
 .box_searchId a span.ico_searchPW {
-	background: url(/images/kor/common/ico_searchPW_s.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/common/ico_searchPW_s.png) 0 0 no-repeat;
 }
 
 .box_searchId a span.ico_searchPW:hover {
@@ -7095,7 +7095,7 @@ table td.noData {
 }
 
 .box_searchId a span.ico_joinUs {
-	background: url(/images/kor/common/ico_joinUs_s.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/common/ico_joinUs_s.png) 0 0 no-repeat;
 }
 
 .box_searchId a span.ico_joinUs:hover {
@@ -7205,7 +7205,7 @@ table td.noData {
 	width: 100%;
 	margin-top: -31px;
 	padding-top: 45px;
-	background: url(/images/kor/common/ico_joinUs_s.png) center 15px
+	background: url(/koBus/resources/images/kor/common/ico_joinUs_s.png) center 15px
 		no-repeat;
 	font-size: 12px;
 }
@@ -7245,7 +7245,7 @@ table td.noData {
 }
 
 .mobileApp {
-	background: var(- -primary-face) url(/images/kor/page/bnr_app_s.png)
+	background: var(- -primary-face) url(/koBus/resources/images/kor/page/bnr_app_s.png)
 		center bottom no-repeat;
 }
 
@@ -7454,12 +7454,12 @@ table td.noData {
 
 .product_wrap .product_type1:before {
 	left: 0;
-	background: url(/images/kor/page/product_type1L.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/page/product_type1L.png) 0 0 no-repeat;
 }
 
 .product_wrap .product_type1:after {
 	right: -1px;
-	background: url(/images/kor/page/product_type1R.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/page/product_type1R.png) 0 0 no-repeat;
 }
 
 .product_wrap .product_type2 {
@@ -7469,12 +7469,12 @@ table td.noData {
 
 .product_wrap .product_type2:before {
 	left: 0;
-	background: url(/images/kor/page/product_type2L.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/page/product_type2L.png) 0 0 no-repeat;
 }
 
 .product_wrap .product_type2:after {
 	right: 0;
-	background: url(/images/kor/page/product_type2R.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/page/product_type2R.png) 0 0 no-repeat;
 }
 
 .product_wrap .product_name {
@@ -7490,7 +7490,7 @@ table td.noData {
 .product_wrap .product_name:before {
 	display: block;
 	content: '';
-	background: url(/images/kor/page/ico_bus.png) center center no-repeat;
+	background: url(/koBus/resources/images/kor/page/ico_bus.png) center center no-repeat;
 	background-size: auto 29px;
 	width: 56px;
 	height: 56px;
@@ -7579,7 +7579,7 @@ table td.noData {
 .product_wrap .product_cont .add:before {
 	display: block;
 	content: '';
-	background: url(/images/kor/common/ico_plus_gray.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/common/ico_plus_gray.png) 0 0 no-repeat;
 	background-size: contain;
 	width: 16px;
 	height: 16px;
@@ -7647,7 +7647,7 @@ span.txt_period.txt_red {
 	z-index: 101;
 	width: 60px;
 	height: 60px;
-	background: url(/images/kor/common/bg_commuter.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/common/bg_commuter.png) 0 0 no-repeat;
 	background-size: 100% auto;
 }
 
@@ -7660,7 +7660,7 @@ span.txt_period.txt_red {
 	z-index: 101;
 	width: 60px;
 	height: 60px;
-	background: url(/images/kor/common/bg_seasonTicket.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/common/bg_seasonTicket.png) 0 0 no-repeat;
 	background-size: 100% auto;
 }
 
@@ -7673,7 +7673,7 @@ span.txt_period.txt_red {
 	z-index: 101;
 	width: 60px;
 	height: 60px;
-	background: url(/images/kor/common/bg_freepass.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/common/bg_freepass.png) 0 0 no-repeat;
 	background-size: 100% auto;
 }
 
@@ -7901,7 +7901,7 @@ span.txt_period.txt_red {
 	top: 8px;
 	right: 8px;
 	z-index: 10;
-	background: url(/images/kor/page/ico_tipG.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/page/ico_tipG.png) 0 0 no-repeat;
 	background-size: 100%;
 	width: 18px;
 	height: 18px;
@@ -7925,7 +7925,7 @@ span.txt_period.txt_red {
 	position: absolute;
 	bottom: -7px;
 	right: 10px;
-	background: url(/images/kor/page/tip_arrow.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/page/tip_arrow.png) 0 0 no-repeat;
 	background-size: 100%;
 	width: 12px;
 	height: 7px;
@@ -7942,7 +7942,7 @@ span.txt_period.txt_red {
 	position: absolute;
 	top: 12px;
 	right: 12px;
-	background: url(/images/kor/page/ico_close.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/page/ico_close.png) 0 0 no-repeat;
 	background-size: 100%;
 	width: 11px;
 	height: 11px;
@@ -8002,7 +8002,7 @@ span.txt_period.txt_red {
 	top: -7px;
 	right: auto;
 	left: 80px;
-	background-image: url(/images/kor/page/tip_arrow.png);
+	background-image: url(/koBus/resources/images/kor/page/tip_arrow.png);
 	width: 13px;
 	height: 7px;
 	transform: rotate(180deg);
@@ -8021,7 +8021,7 @@ span.txt_period.txt_red {
 }
 
 .freepass_info h3 {
-	background: url(/images/kor/page/freepass_info_s.png) center 0 no-repeat;
+	background: url(/koBus/resources/images/kor/page/freepass_info_s.png) center 0 no-repeat;
 	padding-top: 150px;
 	font-size: 28px;
 }
@@ -8062,7 +8062,7 @@ span.txt_period.txt_red {
 	position: absolute;
 	top: 50%;
 	left: -15px;
-	background: url(/images/kor/page/step_arrow.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/page/step_arrow.png) 0 0 no-repeat;
 	width: 30px;
 	height: 30px;
 	margin-top: -15px;
@@ -8242,7 +8242,7 @@ span.txt_period.txt_red {
 
 .btn-holder #btnPrev {
 	left: 25px;
-	background: url(/images/kor/common/btn_datepicker_arrow2.png) no-repeat
+	background: url(/koBus/resources/images/kor/common/btn_datepicker_arrow2.png) no-repeat
 		5px 0;
 }
 
@@ -8253,7 +8253,7 @@ span.txt_period.txt_red {
 
 .btn-holder #btnNext {
 	right: 25px;
-	background: url(/images/kor/common/btn_datepicker_arrow2.png) no-repeat
+	background: url(/koBus/resources/images/kor/common/btn_datepicker_arrow2.png) no-repeat
 		5px -31px;
 }
 
@@ -8426,7 +8426,7 @@ span.day-blue-color {
 
 .inselect .pass_userinput .selectric .button {
 	display: block;
-	background: url(/images/kor/common/bu_selectArrow2_s.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/common/bu_selectArrow2_s.png) 0 0 no-repeat;
 }
 
 /* 프리패스 사용가능 노선 안내 팝업 - 190121 수정 */
@@ -8530,7 +8530,7 @@ span.day-blue-color {
 	bottom: 0;
 	width: 361px;
 	height: 173px;
-	background: url(/images/kor/page/bnr_freepass_s.png) bottom right -24px
+	background: url(/koBus/resources/images/kor/page/bnr_freepass_s.png) bottom right -24px
 		no-repeat;
 }
 
@@ -8564,7 +8564,7 @@ span.day-blue-color {
 	bottom: 0;
 	width: 355px;
 	height: 121px;
-	background: url(/images/kor/page/bnr_seasonTicket_s.png) bottom right
+	background: url(/koBus/resources/images/kor/page/bnr_seasonTicket_s.png) bottom right
 		no-repeat;
 }
 
@@ -8604,7 +8604,7 @@ span.day-blue-color {
 	position: absolute;
 	top: 50%;
 	left: -15px;
-	background: #fff url(/images/kor/page/step_arrow.png) 0 0 no-repeat;
+	background: #fff url(/koBus/resources/images/kor/page/step_arrow.png) 0 0 no-repeat;
 	width: 30px;
 	height: 30px;
 	margin-top: -15px;
@@ -8971,7 +8971,7 @@ span.day-blue-color {
 }
 
 .search_wrap.type2 .search_box button {
-	background: var(- -bg-gray) url(/koBus/media/ico_search.png)
+	background: var(- -bg-gray) url(/koBus/resources/media/ico_search.png)
 		center center no-repeat;
 	width: 45px;
 	height: 38px;
@@ -9025,7 +9025,7 @@ span.day-blue-color {
 }
 
 .board_list .label .num {
-	background: url(/images/kor/page/label_notice_en_s.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/page/label_notice_en_s.png) 0 0 no-repeat;
 }
 
 .board_list .cont {
@@ -9068,7 +9068,7 @@ span.day-blue-color {
 	left: 0;
 	width: 40px;
 	height: 40px;
-	background: url(/images/kor/page/label_notice_en_s.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/page/label_notice_en_s.png) 0 0 no-repeat;
 }
 
 .board_view .title  p {
@@ -9111,27 +9111,27 @@ span.day-blue-color {
 }
 
 .board_view .file .hwp {
-	background: url(/images/kor/page/ico_hwp_s.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/page/ico_hwp_s.png) 0 0 no-repeat;
 }
 
 .board_view .file .doc {
-	background: url(/images/kor/page/ico_doc_s.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/page/ico_doc_s.png) 0 0 no-repeat;
 }
 
 .board_view .file .xls {
-	background: url(/images/kor/page/ico_xls_s.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/page/ico_xls_s.png) 0 0 no-repeat;
 }
 
 .board_view .file .ppt {
-	background: url(/images/kor/page/ico_ppt_s.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/page/ico_ppt_s.png) 0 0 no-repeat;
 }
 
 .board_view .file .img {
-	background: url(/images/kor/page/ico_img_s.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/page/ico_img_s.png) 0 0 no-repeat;
 }
 
 .board_view .file .pdf {
-	background: url(/images/kor/page/ico_pdf_s.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/page/ico_pdf_s.png) 0 0 no-repeat;
 }
 
 .board_view .cont {
@@ -9174,7 +9174,7 @@ span.day-blue-color {
 	position: absolute;
 	top: 50%;
 	right: 20px;
-	background: url('/koBus/media/arrow_faq.png') 0 0 no-repeat; 
+	background: url('/koBus/resources/media/arrow_faq.png') 0 0 no-repeat; 
 	background-size: 18px auto;
 	width: 18px;
 	height: 10px;
@@ -9371,32 +9371,32 @@ span.day-blue-color {
 }
 
 .ticket_noti .noti01:before {
-	background: url(/images/kor/page/ico_info1.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/page/ico_info1.png) 0 0 no-repeat;
 	background-size: contain;
 }
 
 .ticket_noti .noti02:before {
-	background: url(/images/kor/page/ico_info2.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/page/ico_info2.png) 0 0 no-repeat;
 	background-size: contain;
 }
 
 .ticket_noti .noti03:before {
-	background: url(/images/kor/page/ico_info3.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/page/ico_info3.png) 0 0 no-repeat;
 	background-size: contain;
 }
 
 .ticket_noti .noti04:before {
-	background: url(/images/kor/page/ico_info4.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/page/ico_info4.png) 0 0 no-repeat;
 	background-size: contain;
 }
 
 .ticket_noti .noti05:before {
-	background: url(/images/kor/page/ico_info5.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/page/ico_info5.png) 0 0 no-repeat;
 	background-size: contain;
 }
 
 .ticket_noti .noti06:before {
-	background: url(/images/kor/page/ico_info6.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/page/ico_info6.png) 0 0 no-repeat;
 	background-size: contain;
 }
 
@@ -9464,7 +9464,7 @@ span.day-blue-color {
 .e_pass {
 	position: relative;
 	height: 215px;
-	background: #f3f4f6 url(/images/kor/page/info_card.png) 45% 0 no-repeat;
+	background: #f3f4f6 url(/koBus/resources/images/kor/page/info_card.png) 45% 0 no-repeat;
 	background-size: contain;
 }
 

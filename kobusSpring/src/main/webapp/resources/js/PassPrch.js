@@ -4,7 +4,27 @@ var allRotInfrLen     = 0;  // 노선 전체 데이터 건수
 var allplen = 0; // tab 구분자
 var allPrchAmt = 0; // 할부 개월수를 표시할지 말지
 var g_passOptionList = [];  // 정기권 옵션 리스트 전역 저장용
+let amount = 0;
 let serverAmt = 0;
+
+function fetchAmountFromServer(callback) {
+    $.ajax({
+        url: '/koBus/pay/confirm.ajax',  // ← 이 부분, 실제 핸들러 경로로
+        type: 'POST',
+        data: {
+            passType: $("#selPassType").val(),
+            // 추가 옵션 필요시
+        },
+        dataType: "json",
+        success: function(data) {
+            amount = data.serverAmt;  // 서버에서 amount로 응답
+            $("#amountSpan").text(amount.toLocaleString() + "원"); // UI 표시
+        },
+        error: function(xhr, status, error) {
+            alert("금액 조회 실패!");
+        }
+    });
+}
 
 $(document).ready(function() {	
 	
@@ -186,7 +206,9 @@ $(document).ready(function() {
 
             if (response.status === "success") {
                 alert("결제 금액 확인 완료!");
+                amount = response.serverAmt; // 이 한 줄 추가!
                 requestPay();
+
             } else {
                 alert("금액 불일치! 관리자에게 문의하세요.");
             }
@@ -197,24 +219,7 @@ $(document).ready(function() {
 
 });
 }); // document
-function fetchAmountFromServer() {
-    $.ajax({
-        url: '/koBus/pay/confirm.ajax',  // ← 이 부분, 실제 핸들러 경로로
-        type: 'POST',
-        data: {
-            passType: $("#selPassType").val(),
-            // 추가 옵션 필요시
-        },
-        dataType: "json",
-        success: function(data) {
-            amount = data.serverAmt;  // 서버에서 amount로 응답
-            $("#amountSpan").text(amount.toLocaleString() + "원"); // UI 표시
-        },
-        error: function(xhr, status, error) {
-            alert("금액 조회 실패!");
-        }
-    });
-}
+
 
 function requestPay() {
     // ✅ 1. 함수 호출 확인
@@ -297,17 +302,18 @@ function requestPay() {
             $.ajax({
                 url: ctx + '/payment/Seasonticket.do',
                 type: 'POST',
-                data: {
-                    imp_uid: rsp.imp_uid,
-                    merchant_uid: rsp.merchant_uid,
-                    pay_method: rsp.pay_method,
+                contentType: 'application/json',               // ✅ 서버가 JSON 파싱할 수 있도록 명시
+                data: JSON.stringify({                         // ✅ 문자열화된 JSON으로 바꿔야 함
+                    impUid: rsp.imp_uid,
+                    merchantUid: rsp.merchant_uid,
+                    payMethod: rsp.pay_method,
                     amount: amount,
-                    pay_status: 'SUCCESS',
-                    pg_tid: rsp.pg_tid,
-                    paid_at: rsp.paid_at,
+                    payStatus: 'SUCCESS',
+                    pgTid: rsp.pg_tid,
+                    paidAt: rsp.paid_at,
                     adtnPrdSno: adtnPrdSno,
                     startDate: startDate
-                },
+                }),
                 success: function(data) {
                     alert('결제 정보가 서버에 저장되었습니다!');
                 },

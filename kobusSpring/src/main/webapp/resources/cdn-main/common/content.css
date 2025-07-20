@@ -1140,13 +1140,13 @@ ul.sel_list > li .btn_wrap ul li .btn + .btn {margin-left:4px;}
 .box_inputForm.desc_wrap .desc { margin-top:4px; font-size: 12px; color:#727272;} /* 181218 수정 */
 .boxinput_wrap .box_inputForm + .box_inputForm { width: -webkit-calc((100% / 3) - 8px); width: -moz-calc((100% / 3) - 8px); width: calc((100% / 3) - 8px); margin-left: 8px;}
 
-.app_info { background: var(--primary-face) url(/resources/images/appinfo_bg_s.png) center bottom no-repeat; margin-top: 5px;  padding: 20px 20px 230px;}
+.app_info { background: var(--primary-face) url(/koBus/resources/images/appinfo_bg_s.png) center bottom no-repeat; margin-top: 5px;  padding: 20px 20px 230px;}
 .app_info * { color: #fff;}
 .app_info .noti, .app_info .txt, .app_info .tip { padding-right: 400px;}
 .app_info .noti { font-size: 24px; font-weight: bold; line-height: 1.3;} 
 .app_info .txt { margin-top: 10px; font-size: 14px;}
 .app_info .tip { position: relative; margin-top: 20px; padding-left: 43px; font-size: 13px;}
-.app_info .tip:before { display: inline-block; content: ''; position: absolute; left: 0; top: 50%; background: url(/resources/images/common/ico_tip_s2.png) 0 0 no-repeat; width: 31px; height: 31px; margin-top: -15px;}
+.app_info .tip:before { display: inline-block; content: ''; position: absolute; left: 0; top: 50%; background: url(/koBus/resources/images/common/ico_tip_s2.png) 0 0 no-repeat; width: 31px; height: 31px; margin-top: -15px;}
 .app_info .tip a {  font-size: 13px; text-decoration: underline;}
 .app_info .tip a:hover { opacity: 0.5;}
 .ticket_chk { margin-top: 8px; font-size: 0;}
@@ -1156,7 +1156,7 @@ ul.sel_list > li .btn_wrap ul li .btn + .btn {margin-left:4px;}
 .ticket_chk .custom_radio.active { background: var(--primary-face); border: 1px solid var(--primary-font);}
 .ticket_chk .custom_radio input + label, .ticket_chk.custom_radio input:checked + label { background: none;}
 .ticket_chk .custom_radio input:checked + label { color: #fff;}
-.ticket_chk .custom_radio input:checked + label:before  { display: inline-block; content: ''; background: url(/resources/images/common/custom_chkW.png) 0 3px no-repeat; background-size: 12px auto; width: 12px; height: 16px; margin-right: 5px;}
+.ticket_chk .custom_radio input:checked + label:before  { display: inline-block; content: ''; background: url(/koBus/resources/images/common/custom_chkW.png) 0 3px no-repeat; background-size: 12px auto; width: 12px; height: 16px; margin-right: 5px;}
 .ticket_chk + p, .page_payment * + p.bul { margin-top: 12px;}
 
 .payment_input, .custom_input { margin-top: 5px;}
