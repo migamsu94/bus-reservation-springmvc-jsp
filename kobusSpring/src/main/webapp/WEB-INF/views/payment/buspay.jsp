@@ -19,15 +19,15 @@
 					<ul class="dropdown-list" style="display: none;">
 
 
-						<li class="selected"><a href="/koBus/region.do" title="선택됨">고속버스예매</a></li>
+						<li class="selected"><a href="${pageContext.request.contextPath}/resources/region.do" title="선택됨">고속버스예매</a></li>
 
-						<li><a href="/koBus/kobusSchedule.do">운행정보</a></li>
+						<li><a href="${pageContext.request.contextPath}/resources${pageContext.request.contextPath}/resourcesSchedule.do">운행정보</a></li>
 
-						<li><a href="/koBus/pageForward.do?page=freePass">프리패스/정기권</a></li>
+						<li><a href="${pageContext.request.contextPath}/resources/pageForward.do?page=freePass">프리패스/정기권</a></li>
 
 						<li><a href="#">이용안내</a></li>
 
-						<li><a href="/koBus/lossCenter/main.do">고객지원</a></li>
+						<li><a href="${pageContext.request.contextPath}/resources/lossCenter/main.do">고객지원</a></li>
 
 						<li><a href="#">전국고속버스운송사업조합</a></li>
 
@@ -45,8 +45,8 @@
 						class="ico ico-dropdown-arrow"></i></a>
 
 					<ul class="dropdown-list" style="display: none;">
-						<li class="selected"><a href="/koBus/region.do" title="선택됨">고속버스예매</a></li>
-						<li><a href="/koBus/manageReservations.do">예매확인/취소/변경</a></li>
+						<li class="selected"><a href="${pageContext.request.contextPath}/resources/region.do" title="선택됨">고속버스예매</a></li>
+						<li><a href="${pageContext.request.contextPath}/resources/manageReservations.do">예매확인/취소/변경</a></li>
 						<li><a href="#">영수증발행</a></li>
 					</ul>
 				</div>
@@ -60,21 +60,21 @@
 <article id="new-kor-content">
 
 
-	<script type="text/javascript" src="/koBus/js/StplCfmPym.js"></script>
-	<script type="text/javascript" src="/koBus/js/jsbn.js"></script>
-	<script type="text/javascript" src="/koBus/js/prng4.js"></script>
-	<script type="text/javascript" src="/koBus/js/rng.js"></script>
-	<script type="text/javascript" src="/koBus/js/rsa.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/StplCfmPym.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jsbn.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/prng4.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/rng.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/rsa.js"></script>
 
 	<!-- 20200617 yahan -->
-	<script type="text/javascript" src="/koBus/js/transkey.js"></script>
-	<script type="text/javascript" src="/koBus/js/TranskeyLibPack_op.js"></script>
-	<script type="text/javascript" src="/koBus/js/rsa_oaep-min.js"></script>
-	<script type="text/javascript" src="/koBus/js/jsbn-min2.js"></script>
-	<script type="text/javascript" src="/koBus/js/typedarray.js"></script>
-	<script type="text/javascript" src="/koBus/images/transkeyServlet"></script>
-	<script type="text/javascript" src="/koBus/images/transkeyServlet(1)"></script>
-	<link rel="stylesheet" type="text/css" href="/koBus/css/transkey.css">
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/transkey.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/TranskeyLibPack_op.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/rsa_oaep-min.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jsbn-min2.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/typedarray.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/images/transkeyServlet"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/images/transkeyServlet(1)"></script>
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/cdn-main/transkey.css">
 	<script>
 	$(function(){ initTranskey(); });
 </script>
@@ -436,7 +436,7 @@
 							<h4 class="first">서비스 이용약관 동의</h4>
 						</div>
 						<div class="agreement_cont scrollbar-inner">
-							<iframe src="/koBus/cmn/SvcUtlzStplAgrm.do?type=서비스"
+							<iframe src="${pageContext.request.contextPath}/resources/cmn/SvcUtlzStplAgrm.do?type=서비스"
 								frameborder="0" scrolling="no" width="100%" title="서비스 이용약관 내용"
 								onload="resize(this);"></iframe>
 						</div>
@@ -449,7 +449,7 @@
 							<h4>운송약관 동의</h4>
 						</div>
 						<div class="agreement_cont scrollbar-inner">
-							<iframe src="/koBus/cmn/TransitStplAgrm.do?type=운송"
+							<iframe src="${pageContext.request.contextPath}/resources/cmn/TransitStplAgrm.do?type=운송"
 								frameborder="0" scrolling="no" width="100%" height="100"
 								title="운송약관 동의 내용" onload="resize(this);"></iframe>
 						</div>
