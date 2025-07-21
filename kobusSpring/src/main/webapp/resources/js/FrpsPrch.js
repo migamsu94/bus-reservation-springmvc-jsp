@@ -5,7 +5,7 @@ var allRotInfAllList  = []; // 노선 전체 리스트
 var allRotInfrLen     = 0;  // 노선 전체 데이터 건수
 var allplen = 0; // tab 구분자
 var allPrchAmt = 0; // 할부 개월수를 표시할지 말지
-var realAmount = 0;
+var clientAmount = 0;
 $(document).ready(function() {
 	$("#tmpPsbYN").css('display', 'none');		// 임시차 문구
 	$("#divTermDesc").css('display', 'none');	// 사용기간 문구
@@ -36,7 +36,7 @@ $(document).ready(function() {
 	//사용시작일 	
 	$('#datepickerItem').datepicker({
 		showOn:"button",
-		buttonImage:"/koBus/images/ico_calender.png",
+		buttonImage:"/koBus/resources/images/ico_calender.png",
 		buttonImageOnly:true,
 		buttonText:"사용시작일 선택 달력",
 		minDate: min,
@@ -189,15 +189,15 @@ $(document).ready(function() {
     var adtn_prd_sno = parts[parts.length - 1];
 
     // 사용자가 볼 금액(화면의 금액, 또는 window.realAmount 등)
-    var clientAmount = realAmount;
+    var clientAmount = $("#goodsPrice").val();
 
     // 디버깅용 로그
     console.log("결제 검증 adtn_prd_sno:", adtn_prd_sno, "clientAmount:", clientAmount);
 
     // 결제 전 서버 금액 검증
     $.ajax({
-        url: '/koBus/freepass/payment/fetchAmount.ajax', // 서버에서 금액 가져오는 핸들러
-        type: 'GET',
+        url: ctx + '/payment/fetchAmount.ajax', // 서버에서 금액 가져오는 핸들러
+        type: 'POST',
         dataType: 'json', // ★★★ 반드시 추가!
         data: { adtn_prd_sno: adtn_prd_sno },
         async: false, // 금액 검증 후에만 결제창 열기 (권장: 동기처리)
@@ -291,7 +291,7 @@ $(document).on("click", "#selOptionLi li a", function() {
 */
 function requestPay() {
 	var selectedOptionText = $("#selOptionText").val();
-	
+	var clientAmount = $("#goodsPrice").val();
 	// 1. 시작일 원본 추출
 	let rawStartDate = $("#datepickerItem").val().trim(); // 예: "2025. 6. 26. 목"
 	
@@ -315,19 +315,19 @@ function requestPay() {
         pay_method: ['card', 'trans'],
         merchant_uid: 'ORD_TEST_' + new Date().getTime(),
         name: selectedOptionText, // 실제 상품명
-        amount: realAmount,
+        amount: clientAmount,
         // 기타 필요시 buyer 정보 등
     }, function (rsp) {
         if (rsp.success) {
             // ★★★ 여기서 필요한 값들 추가 ★★★
             $.ajax({
-                url: '/koBus/freepass/payment/savePayment.do',
+                url: ctx + '/payment/Freepass.do',
                 type: 'POST',
                 data: {
                     imp_uid: rsp.imp_uid,
                     merchant_uid: rsp.merchant_uid,
                     pay_method: rsp.pay_method,
-                    amount: realAmount,
+                    amount: clientAmount,
                     pay_status: 'SUCCESS',
                     pg_tid: rsp.pg_tid,
                     paid_at: rsp.paid_at,
@@ -707,7 +707,7 @@ function fnAdtnVldTerm(){
         dataType : "json",
         success  : function(termMap){	
         	
-        	console.log(termMap);
+        	console.log("✅ 응답 성공", termMap);
 
 			// 20200515 yahan
 			if (termMap.adtnDupPrchYn == "Y" &&
@@ -768,6 +768,7 @@ function fnAdtnVldTerm(){
         	}
         },
         error:function (e){
+        	console.error("❌ Ajax 실패", e);
             //alert("connection error");
         }
     });

@@ -35,8 +35,10 @@ public class ResvDTO {
 	private int aduCount; 		/* 일반좌석수 */
 	private int stuCount; 		/* 학생좌석수 */
 	private int chdCount; 		/* 아이좌석수 */
+	private String pathDvs;  // 편도(sngl)/환승(trtr)/왕복(rtrp)
 	
 	private String rideDateStr;     /* 포맷된 탑승일 문자열 */
+	private String rideTimeStr;     /* 포맷된 탑승일 문자열 */
 	private String resvDateStr;     /* 포맷된 예약일 문자열 */
 	
 	private String rideDateFormatter;

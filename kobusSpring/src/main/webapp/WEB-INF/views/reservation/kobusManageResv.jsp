@@ -1,14 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 
 <script type="text/javascript"
-	src="/koBus/js/MrsCfmInf.js"></script>
+	src="${pageContext.request.contextPath}/resources/js/MrsCfmInf.js"></script>
 <script type="text/javascript"
-	src="/koBus/js/qrcode.js"></script>
+	src="${pageContext.request.contextPath}/resources/js/qrcode.js"></script>
 	<script type="text/javascript"
-	src="/koBus/js/jquery.qrcode.js"></script>
+	src="${pageContext.request.contextPath}/resources/js/jquery.qrcode.js"></script>
 <script>
   $(function() {
 	  const qrText = $("#qrText");
@@ -253,14 +256,13 @@ $("#recpCanFrm > button").on("click", function () {
 							<input type="hidden" name="extrComp" id="extrComp" value="">
 							<!-- 거래처코드 -->
 
-						<c:if test="${empty resvList}">
-							<div class="box_detail_info noData">
+							<div class="box_detail_info noData" style="display: ${empty resvList ? 'block' : 'none'};">
 								<p>예매내역이 존재하지 않습니다.</p>
 							</div>
-						</c:if>
 
-
+			
 						<c:forEach var="resv" items="${resvList}">
+						
 							<!-- 홈티켓 form -->
 							<form id="mrsCfmInfolistFrm0" name="mrsCfmInfolistFrm0"
 								action="https://www.kobus.co.kr/mrs/mrshtckpub.ajax">
@@ -288,45 +290,47 @@ $("#recpCanFrm > button").on("click", function () {
 									style="width: 100%">
 							</form>
 							<!-- 시간변경 form -->
+							
+							
 							<form id="mrsTmznlistFrm0" name="mrsTmznlistFrm0"
 								action="/modifyReservations.do" method="post">
 								<input type="hidden" name="nonMbrsNo" value="">
 								<!-- 비회원 회원번호 -->
 
-								<input type="hidden" name="mrsMrnpNo" value="${resv.resId }">
+								<input type="hidden" name="resId" value="${resv.resId }">
 								<input type="hidden" name="mrsMrnpSno" value="01"> 
 								<input
-									type="hidden" name="deprnNm" value="${resv.deprRegName }">
+									type="hidden" name="deprRegName" value="${resv.deprRegName }">
 								<!-- 출발지 -->
-								<input type="hidden" name="arvlNm" value="${resv.arrRegName }">
+								<input type="hidden" name="arrRegName" value="${resv.arrRegName }">
 								<!-- 도착지 -->
-								<input type="hidden" name="takeDrtm" value="${resv.durMin }">
+								<input type="hidden" name="durMin" value="${resv.durMin }">
 								<!-- 소요시간 -->
-								<input type="hidden" name="deprnCd" value="${resv.deprRegCode }">
+								<input type="hidden" name="deprRegCode" value="${resv.deprRegCode }">
 								<!-- 출발지코드 -->
-								<input type="hidden" name="arvlCd" value="${resv.arrRegCode }">
+								<input type="hidden" name="arrRegCode" value="${resv.arrRegCode }">
 								<!-- 도착지코드 -->
-								<input type="hidden" name="alcnDeprnCd" value="010">
+								<input type="hidden" name="alcnDeprCd" value="010">
 								<!-- 배차출발지코드 -->
 								<input type="hidden" name="alcnArvlCd" value="200">
 								<!-- 배차도착지코드 -->
-								<input type="hidden" name="deprCd" value="${resv.busGrade }">
+								<input type="hidden" name="busGrade" value="${resv.busGrade }">
 								<!-- 등급 -->
-								<input type="hidden" name="adltNum" value="${resv.aduCount }">
+								<input type="hidden" name="aduCount" value="${resv.aduCount }">
 								<!-- 일반매수 -->
-								<input type="hidden" name="chldNum" value="${resv.chdCount }">
+								<input type="hidden" name="chdCount" value="${resv.chdCount }">
 								<!-- 초등매수 -->
-								<input type="hidden" name="teenNum" value="${resv.stuCount }">
+								<input type="hidden" name="stuCount" value="${resv.stuCount }">
 								<!-- 중고매수 -->
-								<input type="hidden" name="DEPR_DT" value="${fn:substringBefore(resv.rideDateStr, ' ')}">
+								<input type="hidden" name="rideDateStr" value="${fn:substringBefore(resv.rideDateStr, ' ')}">
 								<!-- 출발날짜 -->
-								<input type="hidden" name="deprTime" value="${fn:substringAfter(resv.rideDateStr, ' ')}">
+								<input type="hidden" name="rideTimeStr" value="${fn:substringAfter(resv.rideDateStr, ' ')}">
 								<!-- 출발시간 -->
 
 
-								<input type="hidden" name="tissuFee" value="${resv.amount }">
+								<input type="hidden" name="amount" value="${resv.amount }">
 								<!-- 결제금액-->
-								<input type="hidden" name="pynDvsCd" value="${resv.payMethod }">
+								<input type="hidden" name="payMethod" value="${resv.payMethod }">
 								<!-- 지불구분코드 : 마일리지 추가 -->
 								<input type="hidden" name="tissuStaCd" value="6"> <input
 									type="hidden" name="pynDtlCd" value="s"> <input
@@ -338,8 +342,7 @@ $("#recpCanFrm > button").on("click", function () {
 								<input type="hidden" name="mrspMbphNo" id="mrspMbphNo" value="">
 							</form>
 							<!-- 예매취소 form -->
-							<form id="recpCanFrm" name="recpCanFrm"
-								action="/koBus/kobusResvCancel.ajax">
+							<form id="recpCanFrm" name="recpCanFrm">
 
 								<%-- <input type="hidden" name="nonMbrsNo" id="nonMbrsNo" value="${resv.nonMbrsNo}"> --%>
 								<input type="hidden" name="mrsMrnpno" id="mrsMrnpno" value="${resv.resId}">
@@ -350,6 +353,7 @@ $("#recpCanFrm > button").on("click", function () {
 								<input type="hidden" name="deprnNm" id="deprnNm" value="${resv.deprRegName}">
 								<input type="hidden" name="arvlNm" id="arvlNm" value="${resv.arrRegName}">
 								<input type="hidden" name="deprnCd" id="deprnCd" value="${resv.deprRegCode}">
+								<input type="hidden" name="deprCd" id="deprCd" value="${resv.deprRegCode}">
 								<input type="hidden" name="arvlCd" id="arvlCd" value="${resv.arrRegCode}">
 								<input type="hidden" name="takeDrtm" id="takeDrtm" value="${resv.durMin}">
 								<input type="hidden" name="cacmCd" id="cacmCd" value="06">
@@ -373,8 +377,7 @@ $("#recpCanFrm > button").on("click", function () {
 								
 							</form>
 							
-							<form id="recpCanOkFrm" name="recpCanOkFrm"
-								action="/koBus/kobusResvCancel.ajax">
+							<form id="recpCanOkFrm" name="recpCanOkFrm">
 
 								<%-- <input type="hidden" name="nonMbrsNo" id="nonMbrsNo" value="${resv.nonMbrsNo}"> --%>
 								<input type="hidden" name="mrsMrnpno" id="mrsMrnpno" value="${resv.resId}">
@@ -385,6 +388,7 @@ $("#recpCanFrm > button").on("click", function () {
 								<input type="hidden" name="deprnNm" id="deprnNm" value="${resv.deprRegName}">
 								<input type="hidden" name="arvlNm" id="arvlNm" value="${resv.arrRegName}">
 								<input type="hidden" name="deprnCd" id="deprnCd" value="${resv.deprRegCode}">
+								<input type="hidden" name="deprCd" id="deprCd" value="${resv.deprRegCode}">
 								<input type="hidden" name="arvlCd" id="arvlCd" value="${resv.arrRegCode}">
 								<input type="hidden" name="takeDrtm" id="takeDrtm" value="${resv.durMin}">
 								<input type="hidden" name="cacmCd" id="cacmCd" value="06">
@@ -417,8 +421,7 @@ $("#recpCanFrm > button").on("click", function () {
 							<!-- 도착예정시간이 경과되었습니다. class="timeOver" 추가-->
 							<!-- 모바일 발권 인 경우 -->
 
-					
-						<section class="detail_info_wrap newMobileTicket marT30 ">
+						<section class="detail_info_wrap newMobileTicket marT30 " style="display: ${empty resvList ? 'none' : 'block'};">
 							<div class="ticketInfo">
 								<div class="type">
 									<span class="mobile">${resv.resvType }</span> 
@@ -447,11 +450,11 @@ $("#recpCanFrm > button").on("click", function () {
 
 											<dl class="roundBox departure kor">
 												<dt>출발</dt>
-												<dd>${resv.deprRegName }</dd>
+												<dd>${resv.deprRegName}</dd>
 											</dl>
 											<dl class="roundBox arrive kor">
 												<dt>도착</dt>
-												<dd>${resv.arrRegName }</dd>
+												<dd>${resv.arrRegName}</dd>
 											</dl>
 										</div>
 										<div class="detail_info">
@@ -483,7 +486,7 @@ $("#recpCanFrm > button").on("click", function () {
 													</tr>
 													<tr>
 														<th scope="row">고속사</th>
-														<td>${resv.comName }<span class="jabus ico_bus"></span> <!-- 동양고속 class="dyexpress" 삼화고속 class="samhwa" 중앙고속 class="jabus" 금호고속 class="kumho" 천일고속 class="chunil" 한일고속 class="hanil" 동부고속 class="dongbu" 금호속리산고속 class="songnisan" 코버스 class="kobus" -->
+														<td>${resv.comName }<span class="jabus ico_bus"></span>
 														</td>
 													</tr>
 													<tr>
@@ -496,9 +499,7 @@ $("#recpCanFrm > button").on("click", function () {
 													</tr> -->
 													<tr>
 														<th scope="row">매수</th>
-														<td>${resv.totalCount } <!-- 20210525 yahan -->
-
-														</td>
+														<td>${resv.totalCount}</td>
 
 													</tr>
 												</tbody>
@@ -585,11 +586,9 @@ $("#recpCanFrm > button").on("click", function () {
 										<!-- 검표상태에 따른 div 설정 -->
 										<li class="" style="border-top: none;">
 											<!-- 부분검표완료 시 li tag에 check_com 추가 --> <strong
-											class="seat-title">좌석</strong> <span class="seatNum" style="width: 80px;">${resv.seatNo }</span>
+											class="seat-title">좌석</strong> 
 
-											<%-- <!-- 20210525 yahan --> <span class="txt_blue">${resv.busGrade}</span>  --%>
-											<span
-											class="box_ticketNum"> <span class="ticketNum">${resv.resId }</span>
+											<span class="box_ticketNum"> <span class="ticketNum">${resv.seatNo}</span>
 												<!-- <span class="ticketNum2">01020005</span> -->
 										</span>
 											<div class="btnBox">
@@ -607,21 +606,23 @@ $("#recpCanFrm > button").on("click", function () {
 								</ul>
 							</div>
 							<!-- //좌석상세내역 -->
+							<p class="btns multi clfix col3">
+								<a href="javascript:void(0);"
+									onclick="fnmrsChangeTime(0);"
+									class="btnL btn_cancel first">시간변경</a> <a
+									href="javascript:void(0);" id="btnGenerateQr"
+									class="btnL btn_cancel" title="새창">탑승권 확인</a>
+								<!-- <a href="javascript:void(0)" onclick="fnmrsRecpPub(0);" 
+								class="btnL btn_cancel" title="새창">탑승권 확인</a>  -->
+
+								<a href="javascript:void(0)" onclick="fnRecpCanInfo(0,'all');"
+									class="btnL btn_cancel btn_pop_focus last">예매취소</a>
+							</p>
 						</section>
 
 						<!-- //왕복 끝 -->
 
-						<p class="btns multi clfix col3">
-							<a href="javascript:void(0);" onclick="return fnmrsChangeTime(0);" class="btnL btn_cancel first">시간변경</a>
-
-							<a href="javascript:void(0);" id="btnGenerateQr"
-								class="btnL btn_cancel" title="새창">탑승권 확인</a> 
-							<!-- <a href="javascript:void(0)" onclick="fnmrsRecpPub(0);" 
-								class="btnL btn_cancel" title="새창">탑승권 확인</a>  -->
-								
-							<a href="javascript:void(0)" onclick="fnRecpCanInfo(0,'all');"
-								class="btnL btn_cancel btn_pop_focus last">예매취소</a>
-						</p>
+						
 
 
 						<div class="com_pop_wrap" id="theaterPopup" style="display: none;">
@@ -745,7 +746,7 @@ $("#recpCanFrm > button").on("click", function () {
 						</c:if>
 							
 							<c:forEach var="cancel" items="${cancelList}">
-							<section class="detail_info_wrap kor mobileTicket marT30">
+							<section class="detail_info_wrap kor mobileTicket marT30" style="display: ${empty cancelList ? 'none' : 'block'};">
 								<!-- 현장발권 class="ontheSpot", 홈티켓 class="homeTicket", 모바일티켓 class="mobileTicket", 미발행 class="unissued" -->
 								<span class="ticket-type"><span class="sr-only">모바일</span></span>
 							
@@ -831,7 +832,6 @@ $("#recpCanFrm > button").on("click", function () {
 
 
 
-	</div>
 
 <!-- 	<div
 		style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
@@ -947,5 +947,3 @@ $("#recpCanFrm > button").on("click", function () {
 			</div>
 		</div>
 	</div> -->
-</body>
-</html>

@@ -2,12 +2,29 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-
-<link rel="stylesheet" type="text/css"
-	href="/koBus/css/common/style.css">
 <script type="text/javascript"
-	src="/koBus/js/new-kor-ui.js"></script>
-<script type="text/javascript" src="/koBus/js/SatsChc.js"></script>
+	src="${pageContext.request.contextPath}/resources/js/SatsChc.js"></script>
+
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/js/ReadLgnInf.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/js/rsa_oaep-min.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/js/jsbn-min2.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/js/typedarray.js"></script>
+
+<!-- 출/도착지 선택 레이어팝업 -->
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/js/ReadLgnInf.js"></script>
+
+<!-- 20200831 yahan -->
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/js/rsa_oaep-min.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/js/jsbn-min2.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/js/typedarray.js"></script>
 
 <style>
 .txt_red {
@@ -163,17 +180,17 @@ $(document).ready(function () {
 				<!-- 직통sngl,환승trtr,왕복rtrp -->
 				<input type="hidden" name="pathStep" id="pathStep" value="1">
 				<!-- 왕편 복편 설정 -->
-				<input type="hidden" name="deprDtm" id="deprDtm" value="${deprDate }">
+				<input type="hidden" name="deprDtm" id="deprDtm" value="${deprDtm }">
 				<!-- 가는날(편도,왕복) -->
 				<input type="hidden" name="deprDtmAll" id="deprDtmAll"
-					value="${deprDate }">
+					value="${deprDtm }">
 				<!-- 가는날(편도,왕복) -->
-				<input type="hidden" name="arvlDtm" id="arvlDtm" value="${deprDate }">
+				<input type="hidden" name="arvlDtm" id="arvlDtm" value="${deprDtm }">
 				<!-- 오는날(왕복) -->
 				<input type="hidden" name="arvlDtmAll" id="arvlDtmAll"
 					value="2025. 6. 21. 토">
 				<!-- 오는날(왕복) -->
-				<input type="hidden" name="busClsCd" id="busClsCd" value="0">
+				<input type="hidden" name="busClsCd" id="busClsCd" value="${bus.busGrade }">
 				<input type="hidden" name="busCode" id="busCode" value="${bus.bshId }">
 				<!-- 버스등급 -->
 				<input type="hidden" name="takeDrtmOrg" id="takeDrtmOrg" value="${bus.durMin }">
@@ -265,7 +282,7 @@ $(document).ready(function () {
 				<!-- 통합단말기여부  Y:존재, N:없음 -->
 
 				<input type="hidden" name="chkDeprDt" id="chkDeprDt"
-					value="${deprDate }">
+					value="${deprDtm }">
 				<!-- 2일 후 시간체크 -->
 				<input type="hidden" name="chkDeprTime" id="chkDeprTime"
 					value="072000">
@@ -462,7 +479,7 @@ $(document).ready(function () {
 							<!-- 좌측 infoBox -->
 							<div class="infoBox">
 
-								<p class="date" id="satsDeprDtm"></p>
+								<p class="date" id="satsDeprDtm">${deprDtm }</p>
 								<div class="route_wrap" id="satsRotInfo">
 									<div class="inner">
 
@@ -687,7 +704,7 @@ $(document).ready(function () {
 										<div class="bg_seatBox seat21" style="display: block;">
 											<div class="bg_bus_img">
 												<img
-													src="/koBus/images/bg_bus21.png"
+													src="${pageContext.request.contextPath}/resources/images/bg_bus21.png"
 													alt="버스 내부 도면으로 버스의 전방 좌측에는 운전석, 전방 우측에는 출입구가 위치하고 있습니다. 운전석 뒤로는 1,2번 좌석이 있고, 1,2번 좌석 뒤로 두 개의 좌석씩 4,5,7,8,10,11,13,14,16,17,19,20번 좌석이 있습니다. 출입구 뒤에는 3번 좌석이 있으며, 3번 뒤로 6,9,12,15,18,21번 좌석이 있습니다. 2번과 3번 좌석 사이에는 통로가 있으며, 전체적으로 통로를 중심으로 좌측에 2개 좌석, 우측에 1개 좌석이 위치하며 한 줄에 3개의 좌석씩 7줄로 배치되어 있습니다. 총 21개의 좌석이 있으며 좌석 번호는 왼쪽부터 오른쪽으로 증가합니다.">
 											</div>
 											<div class="seatList">
@@ -845,32 +862,12 @@ $(document).ready(function () {
 
 			</div>
 
-			<script type="text/javascript"
-				src="/koBus/js/ReadLgnInf.js"></script>
 
-			<!-- 20200617 yahan -->
-			<script type="text/javascript"
-				src="/koBus/js/rsa_oaep-min.js"></script>
-			<script type="text/javascript"
-				src="/koBus/js/jsbn-min2.js"></script>
-			<script type="text/javascript"
-				src="/koBus/js/typedarray.js"></script>
 			<input type="hidden" name="locInf" id="locInf" value="sats">
 			<!-- 페이지위치 -->
 			<input type="hidden" name="adtnflag" id="adtnflag" value="N">
 			<!-- 페이지위치 -->
-			<!-- 출/도착지 선택 레이어팝업 -->
-			<script type="text/javascript"
-				src="/koBus/js/ReadLgnInf.js"></script>
-
-			<!-- 20200831 yahan -->
-			<script type="text/javascript"
-				src="/koBus/js/rsa_oaep-min.js"></script>
-			<script type="text/javascript"
-				src="/koBus/js/jsbn-min2.js"></script>
-			<script type="text/javascript"
-				src="/koBus/js/typedarray.js"></script>
-
+			
 			<!-- 임시비밀번호 변경 -->
 
 			<form name="lgnForm">
@@ -944,7 +941,7 @@ $(document).ready(function () {
 			</div>
 			<div class="cont">
 				<img
-					src="/koBus/images/img_crew_info1.jpg"
+					src="${pageContext.request.contextPath}/resources/images/img_crew_info1.jpg"
 					alt="" class="crew_info">
 				<div class="alt">
 					<h4>국민안전 승무원이 되어 보시겠습니까?</h4>
@@ -1009,7 +1006,7 @@ $(document).ready(function () {
 			</div>
 			<div class="cont">
 				<img
-					src="/koBus/images/img_crew_info2.jpg"
+					src="${pageContext.request.contextPath}/resources/images/img_crew_info2.jpg"
 					alt="" class="crew_info">
 
 				<!-- 대체텍스트 -->

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="org.kobus.spring.mapper.pay.FreePassPaymentMapper">
+
+    <insert id="insertFreepassPayment" parameterType="org.kobus.spring.domain.pay.FreepassPaymentDTO">
+        <selectKey keyProperty="freePassPayId" resultType="String" order="BEFORE">
+            SELECT CONCAT('FPP', LPAD(SEQ_FREE_PASS_PAYMENT.NEXTVAL, 8, '0')) FROM DUAL
+        </selectKey>
+
+        INSERT INTO FREE_PASS_PAYMENT (
+            FREE_PASS_PAY_ID,
+            PAYMENT_ID,
+            ADTN_PRD_SNO,
+            KUSID,
+            START_DATE
+        ) VALUES (
+            #{freePassPayId},
+            #{paymentId},
+            #{adtnPrdSno},
+            #{kusid},
+            #{startDate}
+        )
+    </insert>
+
+</mapper>

@@ -8,9 +8,6 @@
 	});
 </script>
 
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/common/style.css">
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/common/new-kor-ui.js"></script>
-</head>
 		
 <script>
 $( function() {

@@ -64,8 +64,8 @@ public class ResvServiceImpl implements ResvService {
 
 
 	@Override
-	public int changeRemainSeats(String mrsMrnpNo, String rideTime) throws SQLException {
-		return resvMapper.changeRemainSeats(mrsMrnpNo, rideTime);
+	public int changeRemainSeats(String mrsMrnpNo, String rideDateTime) throws SQLException {
+		return resvMapper.changeRemainSeats(mrsMrnpNo, rideDateTime);
 	}
 
 }

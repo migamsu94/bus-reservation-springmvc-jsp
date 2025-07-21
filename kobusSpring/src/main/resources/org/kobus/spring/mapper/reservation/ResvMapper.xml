@@ -28,8 +28,8 @@
 	        C.comName,
 	        B.busGrade,
 	        BS.durMin,
-	        PM.amount,
-	        PM.PAY_METHOD
+	        PC.amount,
+	        PC.PAY_METHOD
 	    FROM reservation R
 	    JOIN ReservedSeats RS ON R.resID = RS.resID
 	    JOIN seat S ON RS.seatID = S.seatID
@@ -42,13 +42,14 @@
 	    LEFT JOIN arrival A ON RT.arrID = A.arrID
 	    LEFT JOIN region RGD ON D.regID = RGD.regID
 	    LEFT JOIN region RGA ON A.regID = RGA.regID
-	    JOIN RESERVATION_PAYMENT PM ON R.resID = PM.RES_ID
+	    JOIN RESERVATION_PAYMENT PM ON R.resID = PM.RESID
+	    JOIN PAYMENT_COMMON PC ON PC.PAYMENT_ID = PM.PAYMENT_ID
 	    WHERE KU.id = #{loginId}
 	      AND R.resvStatus = '결제완료'
 	    GROUP BY
 	        R.resID, R.rideDate, R.resvDate, R.resvStatus, R.resvType, R.qrCode,
 	        RGD.regId, RGD.regName, RGA.regId, RGA.regName,
-	        C.comName, B.busGrade, BS.durMin, PM.amount, PM.PAY_METHOD
+	        C.comName, B.busGrade, BS.durMin, PC.amount, PC.PAY_METHOD
 	    ORDER BY R.resvDate DESC
 	    ]]>
 	</select>
@@ -81,8 +82,8 @@
             C.comName,
             B.busGrade,
             BS.durMin,
-            PM.amount,
-            PM.PAY_METHOD
+            PC.amount,
+            PC.PAY_METHOD
         FROM reservation R
         FULL OUTER JOIN ReservedSeats RS ON R.resID = RS.resID
         FULL OUTER JOIN seat S ON RS.seatID = S.seatID
@@ -95,18 +96,19 @@
         FULL OUTER JOIN arrival A ON RT.arrID = A.arrID
         FULL OUTER JOIN region RGD ON D.regID = RGD.regID
         FULL OUTER JOIN region RGA ON A.regID = RGA.regID
-        FULL OUTER JOIN RESERVATION_PAYMENT PM ON R.resID = PM.RES_ID
+        JOIN RESERVATION_PAYMENT PM ON R.resID = PM.RESID
+	    JOIN PAYMENT_COMMON PC ON PC.PAYMENT_ID = PM.PAYMENT_ID
         WHERE KU.id = #{loginId}
           AND R.resvStatus = '예약취소'
         GROUP BY
             R.resID, R.rideDate, R.resvDate, R.resvStatus, R.resvType, R.qrCode,
             RGD.regId, RGD.regName, RGA.regId, RGA.regName,
-            C.comName, B.busGrade, BS.durMin, PM.amount, PM.PAY_METHOD
+            C.comName, B.busGrade, BS.durMin, PC.amount, PC.PAY_METHOD
         ORDER BY R.resvDate DESC
         ]]>
     </select>
 
-	<!-- int changeRemainSeats(@Param("mrsMrnpNo") String mrsMrnpNo, @Param("rideTime") String rideTime) throws SQLException; -->
+	<!-- int changeRemainSeats(@Param("mrsMrnpNo") String mrsMrnpNo, @Param("rideDateTime") String rideDateTime) throws SQLException; -->
 	<update id="updateRemainSeats">
 	    UPDATE BUSSCHEDULE B
 	    SET REMAINSEATS = (
@@ -119,7 +121,7 @@
 	        SELECT R.BSHID
 	        FROM RESERVATION R
 	        WHERE R.RESID = #{mrsMrnpNo}
-	          AND R.RIDEDATE = TO_TIMESTAMP(#{rideTime}, 'YYYY-MM-DD HH24:MI:SS')
+	          AND R.RIDEDATE = TO_TIMESTAMP(#{rideDateTime}, 'YYYY-MM-DD HH24:MI:SS')
 	    )
 	</update>
 	

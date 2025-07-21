@@ -15,9 +15,22 @@
 }
 </style>
 
-<script type="text/javascript" src="/koBus/js/SatsChc.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/js/SatsChc.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/ReadLgnInf.js"></script>
 
-		<!-- breadcrumb -->
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/rsa_oaep-min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jsbn-min2.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/typedarray.js"></script>
+<!-- 출/도착지 선택 레이어팝업 -->
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/ReadLgnInf.js"></script>
+
+<!-- 20200831 yahan -->
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/rsa_oaep-min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jsbn-min2.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/typedarray.js"></script>
+
+<!-- breadcrumb -->
 
 		<!-- 브레드크럼 -->
 		<nav id="new-kor-breadcrumb">
@@ -118,17 +131,17 @@
 	
 </script>
 
-			
-				
 			<c:set var="bus" value="${busList[0]}" />
 			<c:set var="change" value="${changeSeatList[0]}" />
+			
+			<%-- 어른 : ${change.rideDateStr } <br>
+			학생 : ${change.busGrade } <br>
+			아이 : ${bus.childFare } <br> --%>
+			
 			<form name="satsChcFrm" id="satsChcFrm" method="post"
-				action="/koBus/kobusSeat.do">
+				action="/koBus/setPcpy.ajax">
 				<input type="hidden" name="deprCd" id="deprCd" value="${change.deprRegCode }">
 				<!-- 출발지코드 -->
-				<%-- <input type="hidden" name="deprCd" id="deprCd" value="${param.deprCode}"> --%>
-				<!-- 추후 el 표기법으로 변경하기 그럼 request.getParameter 랑 setAttribute 없어도 됨-->
-				
 				<input type="hidden" name="deprNm" id="deprNm" value="${change.deprRegName }">
 				<!-- 출발지명 -->
 				<input type="hidden" name="arvlCd" id="arvlCd" value="${change.arrRegCode }">
@@ -156,7 +169,7 @@
 				<input type="hidden" name="arvlDtmAll" id="arvlDtmAll"
 					value="2025. 6. 21. 토">
 				<!-- 오는날(왕복) -->
-				<input type="hidden" name="busClsCd" id="busClsCd" value="${change.busGrade }">
+				<input type="hidden" name="busClsCd" id="busClsCd" value="${bus.busGrade }">
 				<!-- 버스등급 -->
 				<input type="hidden" name="takeDrtmOrg" id="takeDrtmOrg" value="${change.durMin }">
 				<!-- 소요시간 -->
@@ -165,12 +178,12 @@
 				<!-- 출발일자:deprDtm or arvlDtm, 출발터미널번호:deprCd, 도착터미널번호:arvlCd  -->
 				<input type="hidden" name="deprDt" id="deprDt" value="${change.rideDateStr }">
 				<!-- 출발일 -->
-				<input type="hidden" name="deprTime" id="deprTime" value="072000">
+				<input type="hidden" name="deprTime" id="deprTime" value="${change.rideTimeStr }">
 				<!-- 출발시각 -->
 				<input type="hidden" name="alcnDeprDt" id="alcnDeprDt" value="">
 				<!-- 배차출발일 -->
 				<input type="hidden" name="alcnDeprTime" id="alcnDeprTime"
-					value="072000">
+					value="">
 				<!-- 배차출발시각 -->
 				<input type="hidden" name="alcnDeprTrmlNo" id="alcnDeprTrmlNo"
 					value="010">
@@ -269,13 +282,13 @@
 				<input type="hidden" id="selectedSeatIds" name="selectedSeatIds" value="">
 				<!-- 좌석배열 -->
 				
-				<input type="hidden" name="selAdltCnt" id="selAdltCnt" value="0">
+				<input type="hidden" name="selAdltCnt" id="selAdltCnt" value="${change.aduCount }">
 				<!-- 어른수 -->
 				<input type="hidden" name="selAdltDcCnt" id="selAdltDcCnt" value="0">
 				<!-- 할인대상어른수 -->
-				<input type="hidden" name="selChldCnt" id="selChldCnt" value="0">
+				<input type="hidden" name="selChldCnt" id="selChldCnt" value="${change.chdCount }">
 				<!-- 초등생수 -->
-				<input type="hidden" name="selTeenCnt" id="selTeenCnt" value="0">
+				<input type="hidden" name="selTeenCnt" id="selTeenCnt" value="${change.stuCount }">
 				<!-- 중고생수 -->
 				<input type="hidden" name="selUvsdCnt" id="selUvsdCnt" value="0">
 				<!-- 대학생수 -->
@@ -312,13 +325,13 @@
 				<input type="hidden" name="pcpyNoAll2" id="pcpyNoAll2" value="">
 				<!-- 왕복시 복편 선점번호전체   -->
 
-				<input type="hidden" name="rtSelAdltCnt" id="rtSelAdltCnt" value="">
+				<input type="hidden" name="rtSelAdltCnt" id="rtSelAdltCnt" value="${change.aduCount }">
 				<!-- 어른수   -->
-				<input type="hidden" name="rtSelChldCnt" id="rtSelChldCnt" value="">
+				<input type="hidden" name="rtSelChldCnt" id="rtSelChldCnt" value="${change.chdCount }">
 				<!-- 초등생수   -->
 				<input type="hidden" name="rtSelUvsdCnt" id="rtSelUvsdCnt" value="">
 				<!-- 대학생수   -->
-				<input type="hidden" name="rtSelTeenCnt" id="rtSelTeenCnt" value="">
+				<input type="hidden" name="rtSelTeenCnt" id="rtSelTeenCnt" value="${change.stuCount }">
 				<!-- 중고생수   -->
 				<input type="hidden" name="rtSelSncnCnt" id="rtSelSncnCnt" value="">
 				<!-- 경로수(권종추가-201906) -->
@@ -341,13 +354,13 @@
 				<input type="hidden" name="tissuAmt" id="tissuAmt" value="">
 				<!-- 결제금액 -->
 				
-				<input type="hidden" name="adltTotPrice" id="adltTotPrice" value="">
+				<input type="hidden" name="adltTotPrice" id="adltTotPrice" value="${bus.adultFare }">
 				<!-- 일반금액 -->
 				
-				<input type="hidden" name="chldTotPrice" id="chldTotPrice" value="">
+				<input type="hidden" name="chldTotPrice" id="chldTotPrice" value="${bus.stuFare }">
 				<!-- 중고생금액 -->
 				
-				<input type="hidden" name="teenTotPrice" id="teenTotPrice" value="">
+				<input type="hidden" name="teenTotPrice" id="teenTotPrice" value="${bus.childFare }">
 				<!-- 초등생금액 -->
 				
 				<input type="hidden" name="allTotAmtPrice" id="allTotAmtPrice" value="">
@@ -404,8 +417,8 @@
 
 			<div class="title_wrap in_process ticketingT" style="display: none;">
 
-				<a href="https://www.kobus.co.kr/mrs/satschc.do#" class="back">back</a>
-				<a href="https://www.kobus.co.kr/mrs/satschc.do#" class="mo_toggle">메뉴</a>
+				<a href="#" class="back">back</a>
+				<a href="#" class="mo_toggle">메뉴</a>
 
 				<h2>고속버스예매</h2>
 				<ol class="process">
@@ -431,7 +444,7 @@
 					</div>
 					<!-- 광고 배너 추후 추가 예정 -->
 					<!-- <iframe
-						src="/koBus/html/_ad-tubebox-002TITLE.html"
+						src="${pageContext.request.contextPath}/resources/html/_ad-tubebox-002TITLE.html"
 						title="프레임 (전화번호안심 로그인)" class="ad-frame ad-frame-title"></iframe> -->
 				</div>
 			</div>
@@ -514,7 +527,7 @@
 										<li>
 											<div class="countBox">
 												<p class="division">
-													<em>일반</em> <span class="text_num count" id="adltCntMob">0</span>
+													<em>일반</em> <span class="text_num count" id="adltCntMob">${change.aduCount }</span>
 
 
 												</p>
@@ -522,10 +535,10 @@
 													<ul>
 
 
-														<li><button type="button" class="btn btn_add">
+														<li><button type="button" class="btn " disabled>
 																<span class="ico_plus"><span class="sr-only">증가</span></span>
 															</button></li>
-														<li><button type="button" class="btn btn_minus">
+														<li><button type="button" class="btn " disabled>
 																<span class="ico_minus"><span class="sr-only">감소</span></span>
 															</button></li>
 													</ul>
@@ -535,16 +548,16 @@
 										<li>
 											<div class="countBox">
 												<p class="division">
-													<em>초등생</em> <span class="text_num count" id="chldCntMob">0</span>
+													<em>초등생</em> <span class="text_num count" id="chldCntMob">${change.chdCount }</span>
 												</p>
 												<div class="btn_wrap">
 													<ul>
 
 
-														<li><button type="button" class="btn btn_add">
+														<li><button type="button" class="btn " disabled>
 																<span class="ico_plus"><span class="sr-only">증가</span></span>
 															</button></li>
-														<li><button type="button" class="btn btn_minus">
+														<li><button type="button" class="btn " disabled>
 																<span class="ico_minus"><span class="sr-only">감소</span></span>
 															</button></li>
 													</ul>
@@ -555,16 +568,16 @@
 										<li>
 											<div class="countBox">
 												<p class="division">
-													<em>중고생</em> <span class="text_num count" id="teenCntMob">0</span>
+													<em>중고생</em> <span class="text_num count" id="teenCntMob">${change.stuCount }</span>
 
 
 												</p>
 												<div class="btn_wrap">
 													<ul>
-														<li><button type="button" class="btn btn_add">
+														<li><button type="button" class="btn " disabled>
 																<span class="ico_plus"><span class="sr-only">증가</span></span>
 															</button></li>
-														<li><button type="button" class="btn btn_minus">
+														<li><button type="button" class="btn " disabled>
 																<span class="ico_minus"><span class="sr-only">감소</span></span>
 															</button></li>
 													</ul>
@@ -602,16 +615,16 @@
 											<li>
 												<div class="countBox">
 													<p class="division">
-														<em>일반</em> <span class="text_num count" id="adltCnt">0</span>
+														<em>일반</em> <span class="text_num count" id="adltCnt">${change.aduCount }</span>
 
 													</p>
 													<div class="btn_wrap">
 														<ul>
 
-															<li><button type="button" class="btn btn_add">
+															<li><button type="button" class="btn " disabled>
 																	<span class="ico_plus"><span class="sr-only">증가</span></span>
 																</button></li>
-															<li><button type="button" class="btn btn_minus">
+															<li><button type="button" class="btn " disabled>
 																	<span class="ico_minus"><span class="sr-only">감소</span></span>
 																</button></li>
 														</ul>
@@ -622,7 +635,7 @@
 											<li>
 												<div class="countBox">
 													<p class="division">
-														<em>초등생</em> <span class="text_num count" id="chldCnt">0</span>
+														<em>초등생</em> <span class="text_num count" id="chldCnt">${change.chdCount }</span>
 
 
 													</p>
@@ -630,10 +643,10 @@
 														<ul>
 
 
-															<li><button type="button" class="btn btn_add">
+															<li><button type="button" class="btn " disabled>
 																	<span class="ico_plus"><span class="sr-only">증가</span></span>
 																</button></li>
-															<li><button type="button" class="btn btn_minus">
+															<li><button type="button" class="btn " disabled>
 																	<span class="ico_minus"><span class="sr-only">감소</span></span>
 																</button></li>
 
@@ -645,16 +658,16 @@
 											<li>
 												<div class="countBox">
 													<p class="division">
-														<em>중고생</em> <span class="text_num count" id="teenCnt">0</span>
+														<em>중고생</em> <span class="text_num count" id="teenCnt">${change.stuCount }</span>
 													</p>
 													<div class="btn_wrap">
 														<ul>
 
 
-															<li><button type="button" class="btn btn_add">
+															<li><button type="button" class="btn " disabled>
 																	<span class="ico_plus"><span class="sr-only">증가</span></span>
 																</button></li>
-															<li><button type="button" class="btn btn_minus">
+															<li><button type="button" class="btn " disabled>
 																	<span class="ico_minus"><span class="sr-only">감소</span></span>
 																</button></li>
 														</ul>
@@ -673,21 +686,27 @@
 										<div class="bg_seatBox seat21" style="display: block;">
 											<div class="bg_bus_img">
 												<img
-													src="/koBus/images/bg_bus21.png"
+													src="${pageContext.request.contextPath}/resources/images/bg_bus21.png"
 													alt="버스 내부 도면으로 버스의 전방 좌측에는 운전석, 전방 우측에는 출입구가 위치하고 있습니다. 운전석 뒤로는 1,2번 좌석이 있고, 1,2번 좌석 뒤로 두 개의 좌석씩 4,5,7,8,10,11,13,14,16,17,19,20번 좌석이 있습니다. 출입구 뒤에는 3번 좌석이 있으며, 3번 뒤로 6,9,12,15,18,21번 좌석이 있습니다. 2번과 3번 좌석 사이에는 통로가 있으며, 전체적으로 통로를 중심으로 좌측에 2개 좌석, 우측에 1개 좌석이 위치하며 한 줄에 3개의 좌석씩 7줄로 배치되어 있습니다. 총 21개의 좌석이 있으며 좌석 번호는 왼쪽부터 오른쪽으로 증가합니다.">
 											</div>
 											<div class="seatList">
 											
 											  <c:forEach var="seatList" items="${seatList}">
 											    <span class="seatBox ${seatList.seatAble eq 'N' ? 'disabled' : ''}">
+												  
 												  <input type="checkbox"
-												         name="seatBoxDtl"
-												         id="seatNum_${seatList.seatNo}"
-												         value="${seatList.seatNo}"
-												         onclick="fnSeatChc(this, 'seatNum_${seatList.seatId}');"
-												        ${seatList.seatAble eq 'N' ? 'disabled="disabled" title="예매 완료된 좌석" tabindex="-1" class="disabled-input"' : ''}>>
+											       name="seatBoxDtl"
+											       id="seatNum_${seatList.seatNo}"
+											       value="${seatList.seatNo}"
+											       onclick="fnSeatChc(this, 'seatNum_${seatList.seatId}');"
+											       ${seatList.seatAble eq 'N' ? 'disabled="disabled" title="예매 완료된 좌석" tabindex="-1"' : ''}
+											       class="${seatList.seatAble eq 'N' ? 'disabled-input' : ''}">
+												  
+												  
+												  
 												  <label for="seatNum_${seatList.seatNo}">${seatList.seatNo}</label>
 												</span>
+
 
 											  </c:forEach>
 											</div>
@@ -831,31 +850,13 @@
 
 			</div>
 
-			<script type="text/javascript"
-				src="/koBus/js/ReadLgnInf.js"></script>
-
-			<!-- 20200617 yahan -->
-			<script type="text/javascript"
-				src="/koBus/js/rsa_oaep-min.js"></script>
-			<script type="text/javascript"
-				src="/koBus/js/jsbn-min2.js"></script>
-			<script type="text/javascript"
-				src="/koBus/js/typedarray.js"></script>
+			
+				
 			<input type="hidden" name="locInf" id="locInf" value="sats">
 			<!-- 페이지위치 -->
 			<input type="hidden" name="adtnflag" id="adtnflag" value="N">
 			<!-- 페이지위치 -->
-			<!-- 출/도착지 선택 레이어팝업 -->
-			<script type="text/javascript"
-				src="/koBus/js/ReadLgnInf.js"></script>
-
-			<!-- 20200831 yahan -->
-			<script type="text/javascript"
-				src="/koBus/js/rsa_oaep-min.js"></script>
-			<script type="text/javascript"
-				src="/koBus/js/jsbn-min2.js"></script>
-			<script type="text/javascript"
-				src="/koBus/js/typedarray.js"></script>
+			
 
 			<!-- 임시비밀번호 변경 -->
 
@@ -938,7 +939,7 @@
 			</div>
 			<div class="cont">
 				<img
-					src="/koBus/images/img_crew_info1.jpg"
+					src="${pageContext.request.contextPath}/resources/images/img_crew_info1.jpg"
 					alt="" class="crew_info">
 				<div class="alt">
 					<h4>국민안전 승무원이 되어 보시겠습니까?</h4>
@@ -1003,7 +1004,7 @@
 			</div>
 			<div class="cont">
 				<img
-					src="/koBus/images/img_crew_info2.jpg"
+					src="${pageContext.request.contextPath}/resources/images/img_crew_info2.jpg"
 					alt="" class="crew_info">
 
 				<!-- 대체텍스트 -->

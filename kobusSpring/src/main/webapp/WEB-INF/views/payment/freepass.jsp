@@ -1,6 +1,47 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+<!-- 퀵메뉴 : 서브페이지에만 적용 -->
+<nav id="new-kor-quickmenu" class="">
+	<ul class="quickmenu-list">
+		<li>
+			<a href="https://www.kobus.co.kr/mrs/rotinf.do">
+				<span class="ico"><img src="${pageContext.request.contextPath}/resources/images/ico-quick-menu01.png" alt=""></span>
+				<span class="text">고속버스 예매</span>
+			</a>
+		</li>
+		<li>
+			<a href="https://www.kobus.co.kr/mrs/mrscfm.do">
+				<span class="ico"><img src="${pageContext.request.contextPath}/resources/images/ico-quick-menu02.png" alt=""></span>
+				<span class="text">예매확인</span>
+			</a>
+		</li>
+		<li>
+			<a href="https://www.kobus.co.kr/oprninf/arscgd/oprnArscGd.do">
+				<span class="ico"><img src="${pageContext.request.contextPath}/resources/images/ico-quick-menu03.png" alt=""></span>
+				<span class="text">도착시간 안내</span>
+			</a>
+		</li>
+		<li>
+			<a href="https://www.kobus.co.kr/adtnprdnew/frps/frpsPrchGd.do">
+				<span class="ico"><img src="${pageContext.request.contextPath}/resources/images/ico-quick-menu04.png" alt=""></span>
+				<span class="text">프리패스 구매</span>
+			</a>
+		</li>
+		<li>
+			<a href="https://www.kobus.co.kr/adtnprdnew/pass/passPrchGd.do">
+				<span class="ico"><img src="${pageContext.request.contextPath}/resources/images/ico-quick-menu05.png" alt=""></span>
+				<span class="text">정기권 구매</span>
+			</a>
+		</li>
+		<li class="to-top">
+			<a href="javascript:void(0)">
+				<span class="ico"><img src="${pageContext.request.contextPath}/resources/images/ico-to-top.png" alt=""></span>
+				<span class="text">TOP</span>
+			</a>
+		</li>
+	</ul>
+</nav>
 
 <!-- 브레드크럼 -->
 <nav id="new-kor-breadcrumb">
