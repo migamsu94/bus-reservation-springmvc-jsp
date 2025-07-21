@@ -103,7 +103,7 @@
 			
 			
 			<!-- 로그인정보 입력 제대로 안했을때 알림띄워주기 -->
-			<c:if test="${result == 0}">
+			<c:if test="${param.error == 'true'}">
 				<script>
 					alert("회원정보가 없습니다, 다시 로그인해 주세요.");
 				</script>

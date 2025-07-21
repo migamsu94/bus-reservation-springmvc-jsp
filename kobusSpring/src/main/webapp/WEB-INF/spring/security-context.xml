@@ -30,7 +30,7 @@
 	   
 	   <security:logout 
 	   invalidate-session="true" 
-	   logout-success-url="/main.do" 
+	   logout-success-url="/page/logonMain.do?logout=ok" 
 	   logout-url="/logOut.do"
 	    />	   
 	  
