@@ -42,7 +42,7 @@
 	position: absolute;
 	right: 5px;
 	bottom: 5px;
-	background: url('/koBus/media/input_after.png') 0 0 no-repeat;
+	background: url('/koBus/resources/media/input_after.png') 0 0 no-repeat;
 	background-size: 100%;
 	width: 8px;
 	height: 8px;
@@ -133,7 +133,7 @@ button {
 
 [class^='custom_check'] input:checked+label, [class^='custom_radio'] input:checked+label
 	{
-	background: url(/images/kor/page/ico_tab_s_on.png) right 0 no-repeat;
+	background: url(/koBus/resources/images/kor/page/ico_tab_s_on.png) right 0 no-repeat;
 	/*background-size: 12px auto;*/
 	color: var(- -primary-font);
 }
@@ -146,13 +146,13 @@ button {
 
 .custom_check.chk_blue input:checked+label {
 	padding-left: 17px;
-	background: url(/images/kor/common/custom_chkB.png) 0 3px no-repeat;
+	background: url(/koBus/resources/images/kor/common/custom_chkB.png) 0 3px no-repeat;
 	background-size: 12px auto;
 	color: var(- -primary-font);
 }
 
 .custom_check.chk_purple input+label {
-	background: url(/images/kor/common/custom_chkG.png) 0 3px no-repeat;
+	background: url(/koBus/resources/images/kor/common/custom_chkG.png) 0 3px no-repeat;
 	background-size: 12px auto;
 	padding-right: 0;
 	padding-left: 17px;
@@ -161,7 +161,7 @@ button {
 }
 
 .custom_check.chk_purple input:checked+label {
-	background: url(/images/kor/common/custom_chkP.png) 0 3px no-repeat;
+	background: url(/koBus/resources/images/kor/common/custom_chkP.png) 0 3px no-repeat;
 	background-size: 12px auto;
 	color: var(- -primary-font);
 }
@@ -193,7 +193,7 @@ button {
 .chk_bor .custom_check.chk_purple input:checked+label:before {
 	display: inline-block;
 	content: '';
-	background: url(/images/kor/common/custom_chkP.png) 0 3px no-repeat;
+	background: url(/koBus/resources/images/kor/common/custom_chkP.png) 0 3px no-repeat;
 	background-size: 12px auto;
 	width: 12px;
 	height: 16px;
@@ -423,7 +423,7 @@ button {
 .box_inputForm .custom_radio label.ico_gender {
 	display: inline-block;
 	height: 28px;
-	background: url(/images/kor/common/ico_gender.png) right 0 no-repeat;
+	background: url(/koBus/resources/images/kor/common/ico_gender.png) right 0 no-repeat;
 	background-size: 10px auto;
 	line-height: 28px;
 	cursor: pointer
@@ -456,7 +456,7 @@ button {
 	top: 5px;
 	width: 11px;
 	height: 12px;
-	background: url(/images/kor/page/ico_tab_s_on.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/page/ico_tab_s_on.png) 0 0 no-repeat;
 }
 
 .mobile .select-box, .tablet .select-box {
@@ -819,7 +819,7 @@ button {
 }
 /* .tab_wrap.tab_type1 .tabs li:first-child:after { display: block; content: ''; position: absolute; bottom: -10px; left: 0; width: 100%; height: 10px; background: url(/images/kor/page/tab_shadow.png) center 0 no-repeat;} */
 .tab_wrap.tab_type1 .tabs.col4 li:first-child:after {
-	background: url(/images/kor/page/tab_col4_shadow.png);
+	background: url(/koBus/resources/images/kor/page/tab_col4_shadow.png);
 	background-size: 100% 10px;
 } /* 181204 추가 */
 .tab_wrap.tab_type1 .tabs>li>a {
@@ -866,7 +866,7 @@ button {
 .tab_wrap.tab_type1 .tabs li.active a:after {
 	display: inline-block;
 	content: '';
-	background: url(/images/kor/page/ico_tab_s_on.png) 0 0 no-repeat
+	background: url(/koBus/resources/images/kor/page/ico_tab_s_on.png) 0 0 no-repeat
 		!important;
 	background-size: 100%;
 	width: 11px;
@@ -875,11 +875,11 @@ button {
 }
 
 .tab_wrap.tab_type1 .tabs.violet li.active a:after {
-	background-image: url(/images/kor/page/ico_tab_s_on4.png);
+	background-image: url(/koBus/resources/images/kor/page/ico_tab_s_on4.png);
 }
 
 .tab_wrap.tab_type1 .tabs.col3:after {
-	background: url(/images/kor/common/tab_shadow_step3.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/common/tab_shadow_step3.png) 0 0 no-repeat;
 	background-size: contain;
 }
 
@@ -888,7 +888,7 @@ button {
 }
 
 .tab_wrap.tab_type1 .tabs.purple li.active a:after {
-	background: url(/images/kor/page/ico_tab_on2.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/page/ico_tab_on2.png) 0 0 no-repeat;
 	background-size: 100%
 }
 
@@ -1016,7 +1016,7 @@ button {
 } /* 190116 추가 */
 .btn_sm_link_blue {
 	padding-right: 14px;
-	background: url(/images/kor/common/bg_btnCancel_small.png) 100% 50%
+	background: url(/koBus/resources/images/kor/common/bg_btnCancel_small.png) 100% 50%
 		no-repeat;
 	background-size: 7px auto;
 	text-decoration: underline;
@@ -1025,7 +1025,7 @@ button {
 
 .btn_sm_link_purple {
 	padding-right: 14px;
-	background: url(/images/kor/common/btn_sm_link_blue.png) 100% 50%
+	background: url(/koBus/resources/images/kor/common/btn_sm_link_blue.png) 100% 50%
 		no-repeat;
 	background-size: 7px auto;
 	vertical-align: initial !important;
@@ -1033,7 +1033,7 @@ button {
 
 .btn_sm_link_white {
 	padding-right: 14px;
-	background: url(/images/kor/common/bg_btnCancel_small.png) 100% 50%
+	background: url(/koBus/resources/images/kor/common/bg_btnCancel_small.png) 100% 50%
 		no-repeat;
 	background-size: 7px auto;
 	text-decoration: underline;
@@ -1092,7 +1092,7 @@ button {
 .btn_modify {
 	height: 19px;
 	padding-left: 18px;
-	background: url(/images/kor/common/btn_modify_s.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/common/btn_modify_s.png) 0 0 no-repeat;
 	font-size: 12px;
 }
 
@@ -1101,7 +1101,7 @@ button {
 }
 
 .btn_modify.gray {
-	background: url(/images/kor/common/btn_modifyG.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/common/btn_modifyG.png) 0 0 no-repeat;
 	background-size: contain;
 	height: 19px;
 	margin-top: 8px;
@@ -1111,7 +1111,7 @@ button {
 
 .btn_arrow {
 	padding-right: 11px;
-	background: url(/images/kor/common/btn_arrow.png) right center no-repeat;
+	background: url(/koBus/resources/images/kor/common/btn_arrow.png) right center no-repeat;
 }
 
 /* no hover btn */
@@ -1203,7 +1203,7 @@ button {
 
 .remodal-close:before {
 	content: '';
-	background: url(/images/kor/common/close_mobile.png) center center
+	background: url(/koBus/resources/images/kor/common/close_mobile.png) center center
 		no-repeat;
 	background-size: 16px;
 	width: 16px;
@@ -1225,7 +1225,7 @@ button {
 
 .remodal .title .remodal-close:before {
 	content: '';
-	background: url(/images/kor/common/close_mobile.png) center center
+	background: url(/koBus/resources/images/kor/common/close_mobile.png) center center
 		no-repeat;
 	background-size: 16px;
 	width: 16px;
@@ -1458,7 +1458,7 @@ body.main #wrap { /* min-height: 828px; */
 #gnb .menu_home>a:before {
 	top: 12px;
 	left: 18px;
-	background: url(/images/kor/common/menu_home.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/common/menu_home.png) 0 0 no-repeat;
 	width: 24px;
 	height: 21px;
 }
@@ -1466,7 +1466,7 @@ body.main #wrap { /* min-height: 828px; */
 #gnb .menu01>a:before {
 	top: 12px;
 	left: 18px;
-	background: url(/images/kor/common/menu01.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/common/menu01.png) 0 0 no-repeat;
 	width: 24px;
 	height: 22px;
 }
@@ -1474,7 +1474,7 @@ body.main #wrap { /* min-height: 828px; */
 #gnb .menu02>a:before {
 	top: 11px;
 	left: 20px;
-	background: url(/images/kor/common/menu02.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/common/menu02.png) 0 0 no-repeat;
 	width: 20px;
 	height: 21px;
 }
@@ -1482,7 +1482,7 @@ body.main #wrap { /* min-height: 828px; */
 #gnb .menu03>a:before {
 	top: 14px;
 	left: 18px;
-	background: url(/images/kor/common/menu03.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/common/menu03.png) 0 0 no-repeat;
 	width: 23px;
 	height: 20px;
 }
@@ -1490,7 +1490,7 @@ body.main #wrap { /* min-height: 828px; */
 #gnb .menu04>a:before {
 	top: 11px;
 	left: 20px;
-	background: url(/images/kor/common/menu04.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/common/menu04.png) 0 0 no-repeat;
 	width: 21px;
 	height: 24px;
 }
@@ -1498,7 +1498,7 @@ body.main #wrap { /* min-height: 828px; */
 #gnb .menu05>a:before {
 	top: 13px;
 	left: 22px;
-	background: url(/images/kor/common/menu05.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/common/menu05.png) 0 0 no-repeat;
 	width: 22px;
 	height: 22px;
 }
@@ -1506,7 +1506,7 @@ body.main #wrap { /* min-height: 828px; */
 #gnb .menu06>a:before {
 	top: 13px;
 	left: 19px;
-	background: url(/images/kor/common/menu06.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/common/menu06.png) 0 0 no-repeat;
 	width: 22px;
 	height: 20px;
 }
@@ -1514,7 +1514,7 @@ body.main #wrap { /* min-height: 828px; */
 #gnb .menu07>a:before {
 	top: 9px;
 	left: 18px;
-	background: url(/images/kor/common/menu07.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/common/menu07.png) 0 0 no-repeat;
 	width: 28px;
 	height: 25px;
 }
@@ -1522,7 +1522,7 @@ body.main #wrap { /* min-height: 828px; */
 #gnb .menu08>a:before {
 	top: 10px;
 	left: 20px;
-	background: url(/images/kor/common/menu08.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/common/menu08.png) 0 0 no-repeat;
 	width: 19px;
 	height: 27px;
 }
@@ -1530,45 +1530,45 @@ body.main #wrap { /* min-height: 828px; */
 #gnb .menu09>a:before {
 	top: 10px;
 	left: 20px;
-	background: url(/images/kor/common/menu09.png) 0 0 no-repeat;
+	background: url(/koBus/resources/images/kor/common/menu09.png) 0 0 no-repeat;
 	width: 21px;
 	height: 27px;
 }
 
 #gnb .menu01.current>a:before, #gnb .menu01.active>a:before {
-	background-image: url(/images/kor/common/menu01_on.png);
+	background-image: url(/koBus/resources/images/kor/common/menu01_on.png);
 }
 
 #gnb .menu02.current>a:before, #gnb .menu02.active>a:before {
-	background-image: url(/images/kor/common/menu02_on.png);
+	background-image: url(/koBus/resources/images/kor/common/menu02_on.png);
 }
 
 #gnb .menu03.current>a:before, #gnb .menu03.active>a:before {
-	background-image: url(/images/kor/common/menu03_on.png);
+	background-image: url(/koBus/resources/images/kor/common/menu03_on.png);
 }
 
 #gnb .menu04.current>a:before, #gnb .menu04.active>a:before {
-	background-image: url(/images/kor/common/menu04_on.png);
+	background-image: url(/koBus/resources/images/kor/common/menu04_on.png);
 }
 
 #gnb .menu05.current>a:before, #gnb .menu05.active>a:before {
-	background-image: url(/images/kor/common/menu05_on.png);
+	background-image: url(/koBus/resources/images/kor/common/menu05_on.png);
 }
 
 #gnb .menu06.current>a:before, #gnb .menu06.active>a:before {
-	background-image: url(/images/kor/common/menu06_on.png);
+	background-image: url(/koBus/resources/images/kor/common/menu06_on.png);
 }
 
 #gnb .menu07.current>a:before, #gnb .menu07.active>a:before {
-	background-image: url(/images/kor/common/menu07_on.png);
+	background-image: url(/koBus/resources/images/kor/common/menu07_on.png);
 }
 
 #gnb .menu08.current>a:before, #gnb .menu08.active>a:before {
-	background-image: url(/images/kor/common/menu08_on.png);
+	background-image: url(/koBus/resources/images/kor/common/menu08_on.png);
 }
 
 #gnb .menu09.current>a:before, #gnb .menu09.active>a:before {
-	background-image: url(/images/kor/common/menu09_on.png);
+	background-image: url(/koBus/resources/images/kor/common/menu09_on.png);
 }
 
 #gnb .depth2 {
@@ -1719,27 +1719,27 @@ body.main #wrap { /* min-height: 828px; */
 }
 
 #gnb .notice_btns .btn .bx-prev {
-	background: url(/images/kor/common/btn_gnbNotice_prev.png) 50% 50%
+	background: url(/koBus/resources/images/kor/common/btn_gnbNotice_prev.png) 50% 50%
 		no-repeat;
 }
 
 #gnb .notice_btns .btn .bx-next {
-	background: url(/images/kor/common/btn_gnbNotice_next.png) 50% 50%
+	background: url(/koBus/resources/images/kor/common/btn_gnbNotice_next.png) 50% 50%
 		no-repeat;
 }
 
 #gnb .notice_btns .btn .bx-prev.disabled {
-	background: url(/images/kor/common/btn_gnbNotice_prevDis.png) 50% 50%
+	background: url(/koBus/resources/images/kor/common/btn_gnbNotice_prevDis.png) 50% 50%
 		no-repeat;
 }
 
 #gnb .notice_btns .btn .bx-next.disabled {
-	background: url(/images/kor/common/btn_gnbNotice_nextDis.png) 50% 50%
+	background: url(/koBus/resources/images/kor/common/btn_gnbNotice_nextDis.png) 50% 50%
 		no-repeat;
 }
 
 #gnb .notice_btns .btn.list {
-	background: url(/images/kor/common/ico_list.png) 50% 50% no-repeat;
+	background: url(/koBus/resources/images/kor/common/ico_list.png) 50% 50% no-repeat;
 }
 
 #contentWrap {
@@ -1748,7 +1748,7 @@ body.main #wrap { /* min-height: 828px; */
 }
 /*.main #contentWrap { position: absolute; top: 0;}*/
 .main #contents {
-	background: url(/images/kor/common/main_bg.jpg) center 0 no-repeat;
+	background: url(/koBus/resources/images/kor/common/main_bg.jpg) center 0 no-repeat;
 	background-size: cover;
 }
 
@@ -1839,7 +1839,7 @@ body.main #wrap { /* min-height: 828px; */
 }
 
 .util .selectric .button {
-	background-image: url(/images/kor/common/bu_selectArrowW.png);
+	background-image: url(/koBus/resources/images/kor/common/bu_selectArrowW.png);
 }
 
 .util .selectricWrapper {
@@ -1940,7 +1940,7 @@ body.main #wrap { /* min-height: 828px; */
 .title_wrap.in_process .process li:after {
 	display: inline-block;
 	content: '';
-	background: url(/images/kor/common/arrow_process.png) right -18px
+	background: url(/koBus/resources/images/kor/common/arrow_process.png) right -18px
 		no-repeat;
 	background-size: 28px auto;
 	width: 28px;
@@ -2024,11 +2024,11 @@ body.main #wrap { /* min-height: 828px; */
 }
 
 #footer .selectric .button, #footer .select-box select {
-	background-image: url(/images/kor/common/bu_selectArrowC.png);
+	background-image: url(/koBus/resources/images/kor/common/bu_selectArrowC.png);
 }
 
 #footer .selectricOpen .selectric .button {
-	background-image: url(/images/kor/common/bu_selectArrow.png);
+	background-image: url(/koBus/resources/images/kor/common/bu_selectArrow.png);
 }
 
 .foot_top {
@@ -2061,13 +2061,13 @@ body.main #wrap { /* min-height: 828px; */
 
 #footer .bx-wrapper .bx-prev {
 	left: -25px;
-	background: url(/images/kor/common/page_prev.png) no-repeat center
+	background: url(/koBus/resources/images/kor/common/page_prev.png) no-repeat center
 		center;
 }
 
 #footer .bx-wrapper .bx-next {
 	right: -25px;
-	background: url(/images/kor/common/page_next.png) no-repeat center
+	background: url(/koBus/resources/images/kor/common/page_next.png) no-repeat center
 		center;
 }
 
@@ -2302,10 +2302,10 @@ body.main #wrap { /* min-height: 828px; */
 	/* input */
 	[class^='custom_check'] input:checked+label, [class^='custom_radio'] input:checked+label
 		{
-		background: url(/images/kor/page/ico_tab_s_on.png) right 0 no-repeat;
+		background: url(/koBus/resources/images/kor/page/ico_tab_s_on.png) right 0 no-repeat;
 	}
 	[class^='custom_radio2'] input:checked+label {
-		background-image: url(/images/kor/common/custom_chk.png);
+		background-image: url(/koBus/resources/images/kor/common/custom_chk.png);
 		background-size: 11px auto;
 	}
 	.content-body .boxinput_wrap.col3 .box_inputForm {
@@ -2444,7 +2444,7 @@ body.main #wrap { /* min-height: 828px; */
 		display: block !important;
 	}
 	.btn_modify {
-		background-image: url(/images/kor/common/btn_modify.png);
+		background-image: url(/koBus/resources/images/kor/common/btn_modify.png);
 		background-size: contain;
 	}
 
@@ -2539,7 +2539,7 @@ body.main #wrap { /* min-height: 828px; */
 		position: fixed;
 		top: 0;
 		left: 0;
-		background: url(/images/kor/common/close_mobile.png) center 20px
+		background: url(/koBus/resources/images/kor/common/close_mobile.png) center 20px
 			no-repeat;
 		background-size: auto 16px;
 		width: 60px;
@@ -2553,7 +2553,7 @@ body.main #wrap { /* min-height: 828px; */
 	}
 	#gnb h1>a {
 		height: 30px;
-		background: url(/images/kor/common/logo_mobile.png) center 20px
+		background: url(/koBus/resources/images/kor/common/logo_mobile.png) center 20px
 			no-repeat;
 		background-size: auto 38px;
 		padding-top: 65px;
@@ -2705,7 +2705,7 @@ body.main #wrap { /* min-height: 828px; */
 	.title_wrap .mo_toggle {
 		top: 0;
 		right: 0;
-		background: url(/images/kor/common/view_mobile_black.png) center center
+		background: url(/koBus/resources/images/kor/common/view_mobile_black.png) center center
 			no-repeat;
 		background-size: auto 15px;
 		width: 20px;
@@ -2839,7 +2839,7 @@ body.main #wrap { /* min-height: 828px; */
 	.foot_lang {
 		display: block;
 		width: 100%;
-		background: url(/images/kor/common/bu_selectArrowC.png) right center
+		background: url(/koBus/resources/images/kor/common/bu_selectArrowC.png) right center
 			no-repeat;
 		background-size: 11px 6px;
 		height: 47px;
@@ -2852,7 +2852,7 @@ body.main #wrap { /* min-height: 828px; */
 		border: none;
 	}
 	.foot_lang_wrap.selected .foot_lang {
-		background-image: url(/images/kor/common/bu_selectArrow.png);
+		background-image: url(/koBus/resources/images/kor/common/bu_selectArrow.png);
 	}
 	.main #footer {
 		position: static;
@@ -2932,7 +2932,7 @@ body.main #wrap { /* min-height: 828px; */
 		width: 60px;
 	}
 	#gnb h1 a {
-		background: url(/images/kor/common/logo_tablet.png) center center
+		background: url(/koBus/resources/images/kor/common/logo_tablet.png) center center
 			no-repeat;
 		height: 179px;
 	}
@@ -2945,10 +2945,10 @@ body.main #wrap { /* min-height: 828px; */
 		height: 50px;
 	}
 	#gnb .menu_toggle.view {
-		background: url(/images/kor/common/view_tablet.png) 0 0 no-repeat;
+		background: url(/koBus/resources/images/kor/common/view_tablet.png) 0 0 no-repeat;
 	}
 	#gnb .menu_toggle.close {
-		background: url(/images/kor/common/close_tablet.png) 0 0 no-repeat;
+		background: url(/koBus/resources/images/kor/common/close_tablet.png) 0 0 no-repeat;
 	}
 	#gnb .menu {
 		position: absolute;
@@ -2993,7 +2993,7 @@ body.main #wrap { /* min-height: 828px; */
 		font-size: 13px;
 	}
 	#gnb .app {
-		background: #f7f7f7 url(/images/kor/common/ico_app.png) center center
+		background: #f7f7f7 url(/koBus/resources/images/kor/common/ico_app.png) center center
 			no-repeat;
 		height: 98px;
 		margin-top: 430px;
@@ -3011,12 +3011,12 @@ body.main #wrap { /* min-height: 828px; */
 		position: absolute;
 		top: 0;
 		left: 0;
-		background: url(/images/kor/common/app_label.png) 0 0 no-repeat;
+		background: url(/koBus/resources/images/kor/common/app_label.png) 0 0 no-repeat;
 		width: 36px;
 		height: 36px;
 	}
 	#gnb .notice {
-		background: #f7f7f7 url(/images/kor/common/ico_notice.png) center center
+		background: #f7f7f7 url(/koBus/resources/images/kor/common/ico_notice.png) center center
 			no-repeat;
 		height: 52px;
 		border-bottom: 1px solid #e5e5e5;
@@ -3106,7 +3106,7 @@ body.main #wrap { /* min-height: 828px; */
 		padding-top: 44px;
 	} /* 190925 수정 */
 	#gnb h1 a {
-		background: url(/images/kor/common/logo_pc.png) center 0 no-repeat;
+		background: url(/koBus/resources/images/kor/common/logo_pc.png) center 0 no-repeat;
 		padding-top: 56px;
 		font-size: 13px;
 		font-weight: bold;
@@ -3143,13 +3143,13 @@ body.main #wrap { /* min-height: 828px; */
 		height: 140px;
 	}
 	#gnb .app {
-		background: url(/images/kor/common/main_app.png) 144px 20px no-repeat;
+		background: url(/koBus/resources/images/kor/common/main_app.png) 144px 20px no-repeat;
 	}
 	#gnb .app.wheel {
-		background: url(/images/kor/common/main_wheel.jpg) 124px 30px no-repeat;
+		background: url(/koBus/resources/images/kor/common/main_wheel.jpg) 124px 30px no-repeat;
 	} /* 190925 추가 */
 	#gnb .app.wheel.gnb_freepass {
-		background: url(/images/kor/common/main_freepass.png) 134px 33px
+		background: url(/koBus/resources/images/kor/common/main_freepass.png) 134px 33px
 			no-repeat;
 		background-size: 65px;
 	} /* 240610 추가 */
