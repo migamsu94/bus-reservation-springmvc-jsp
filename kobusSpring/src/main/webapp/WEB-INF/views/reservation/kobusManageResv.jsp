@@ -7,11 +7,11 @@
 
 
 <script type="text/javascript"
-	src="/koBus/js/MrsCfmInf.js"></script>
+	src="${pageContext.request.contextPath}/resources/js/MrsCfmInf.js"></script>
 <script type="text/javascript"
-	src="/koBus/js/qrcode.js"></script>
+	src="${pageContext.request.contextPath}/resources/js/qrcode.js"></script>
 	<script type="text/javascript"
-	src="/koBus/js/jquery.qrcode.js"></script>
+	src="${pageContext.request.contextPath}/resources/js/jquery.qrcode.js"></script>
 <script>
   $(function() {
 	  const qrText = $("#qrText");
@@ -290,6 +290,8 @@ $("#recpCanFrm > button").on("click", function () {
 									style="width: 100%">
 							</form>
 							<!-- 시간변경 form -->
+							
+							
 							<form id="mrsTmznlistFrm0" name="mrsTmznlistFrm0"
 								action="/modifyReservations.do" method="post">
 								<input type="hidden" name="nonMbrsNo" value="">
@@ -308,7 +310,7 @@ $("#recpCanFrm > button").on("click", function () {
 								<!-- 출발지코드 -->
 								<input type="hidden" name="arrRegCode" value="${resv.arrRegCode }">
 								<!-- 도착지코드 -->
-								<input type="hidden" name="alcnDeprnCd" value="010">
+								<input type="hidden" name="alcnDeprCd" value="010">
 								<!-- 배차출발지코드 -->
 								<input type="hidden" name="alcnArvlCd" value="200">
 								<!-- 배차도착지코드 -->
@@ -340,8 +342,7 @@ $("#recpCanFrm > button").on("click", function () {
 								<input type="hidden" name="mrspMbphNo" id="mrspMbphNo" value="">
 							</form>
 							<!-- 예매취소 form -->
-							<form id="recpCanFrm" name="recpCanFrm"
-								action="/koBus/kobusResvCancel.ajax">
+							<form id="recpCanFrm" name="recpCanFrm">
 
 								<%-- <input type="hidden" name="nonMbrsNo" id="nonMbrsNo" value="${resv.nonMbrsNo}"> --%>
 								<input type="hidden" name="mrsMrnpno" id="mrsMrnpno" value="${resv.resId}">
@@ -352,6 +353,7 @@ $("#recpCanFrm > button").on("click", function () {
 								<input type="hidden" name="deprnNm" id="deprnNm" value="${resv.deprRegName}">
 								<input type="hidden" name="arvlNm" id="arvlNm" value="${resv.arrRegName}">
 								<input type="hidden" name="deprnCd" id="deprnCd" value="${resv.deprRegCode}">
+								<input type="hidden" name="deprCd" id="deprCd" value="${resv.deprRegCode}">
 								<input type="hidden" name="arvlCd" id="arvlCd" value="${resv.arrRegCode}">
 								<input type="hidden" name="takeDrtm" id="takeDrtm" value="${resv.durMin}">
 								<input type="hidden" name="cacmCd" id="cacmCd" value="06">
@@ -375,8 +377,7 @@ $("#recpCanFrm > button").on("click", function () {
 								
 							</form>
 							
-							<form id="recpCanOkFrm" name="recpCanOkFrm"
-								action="/koBus/kobusResvCancel.ajax">
+							<form id="recpCanOkFrm" name="recpCanOkFrm">
 
 								<%-- <input type="hidden" name="nonMbrsNo" id="nonMbrsNo" value="${resv.nonMbrsNo}"> --%>
 								<input type="hidden" name="mrsMrnpno" id="mrsMrnpno" value="${resv.resId}">
@@ -387,6 +388,7 @@ $("#recpCanFrm > button").on("click", function () {
 								<input type="hidden" name="deprnNm" id="deprnNm" value="${resv.deprRegName}">
 								<input type="hidden" name="arvlNm" id="arvlNm" value="${resv.arrRegName}">
 								<input type="hidden" name="deprnCd" id="deprnCd" value="${resv.deprRegCode}">
+								<input type="hidden" name="deprCd" id="deprCd" value="${resv.deprRegCode}">
 								<input type="hidden" name="arvlCd" id="arvlCd" value="${resv.arrRegCode}">
 								<input type="hidden" name="takeDrtm" id="takeDrtm" value="${resv.durMin}">
 								<input type="hidden" name="cacmCd" id="cacmCd" value="06">
@@ -606,7 +608,7 @@ $("#recpCanFrm > button").on("click", function () {
 							<!-- //좌석상세내역 -->
 							<p class="btns multi clfix col3">
 								<a href="javascript:void(0);"
-									onclick="return fnmrsChangeTime(0);"
+									onclick="fnmrsChangeTime(0);"
 									class="btnL btn_cancel first">시간변경</a> <a
 									href="javascript:void(0);" id="btnGenerateQr"
 									class="btnL btn_cancel" title="새창">탑승권 확인</a>
