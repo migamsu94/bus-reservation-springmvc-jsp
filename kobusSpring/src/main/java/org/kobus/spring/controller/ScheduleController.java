@@ -115,9 +115,49 @@ public class ScheduleController {
 		return null;
 	}
 
+	@GetMapping("/getDuration.ajax")
+	@ResponseBody
+	public ResponseEntity<?> getDurationInfo(
+	    @RequestParam(name = "ajaxType") String ajaxType,
+	    @RequestParam(name = "deprCd", required = false) String deprCd,
+	    @RequestParam(name = "arvlCd", required = false) String arvlCd,
+	    @RequestParam(name = "deprDtm", required = false) String deprDtm,
+	    @RequestParam(name = "busClsCd", required = false) String busClsCd
+	) throws SQLException {
+
+	    log.info(">> getDuration.ajax 호출됨 - ajaxType : " + ajaxType);
+
+	    if ("getDuration".equals(ajaxType)) {
+	        int duration = scheduleService.getDurationFromRoute(deprCd, arvlCd);
+	        Map<String, Object> response = new HashMap<>();
+	        response.put("duration", duration);
+	        return ResponseEntity.ok(response);
+	    }
+
+	    if ("searchSch".equals(ajaxType)) {
+	        List<ScheduleDTO> list = scheduleService.searchBusSchedule(deprCd, arvlCd, deprDtm, busClsCd);
+
+	        Map<String, Object> response = new HashMap<>();
+	        response.put("alcnAllList", list);
+	        return ResponseEntity.ok(response);
+	    }
+
+	    return ResponseEntity.badRequest().body("지원되지 않는 ajaxType");
+	}
+	
 	@GetMapping("/kobusSchedule.do")
 	public String getSchedule() {
 		return "kobus.reservation/kobusSchedule";
 
+	}
+	
+	@PostMapping("/reservation2.do")
+	public String showReservationPagePost() {
+	    return "kobus.reservation/KOBUSreservation2";
+	}
+	
+	@GetMapping("/reservation2.do")
+	public String showReservationPage() {
+	    return "kobus.reservation/KOBUSreservation2"; 
 	}
 }

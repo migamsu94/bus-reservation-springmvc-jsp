@@ -7,7 +7,7 @@ System.out.println(">> busrank: " + request.getParameter("busClsCd"));
 %>
 <!DOCTYPE html>
 <link rel="shortcut icon" type="image/x-icon"
-	href="/koBus/media/favicon.ico">
+	href="/koBus/resources/media/favicon.ico">
 <style>
 /* 날짜 선택 숨김 */
 #datepicker1, #datepicker2 {
@@ -111,13 +111,13 @@ System.out.println(">> busrank: " + request.getParameter("busClsCd"));
     * 상수
     *********************************************/
 </script>
-<link href="/koBus/css/ui.jqgrid.custom.css" rel="stylesheet"
+<link href="/koBus/resources/cdn-main/ui.jqgrid.custom.css" rel="stylesheet"
    type="text/css" />
 <script src="/koBus/js/jquery-1.12.4.min.js" type="text/javascript"></script>
 
-<script type="text/javascript" src="/koBus/js/OprnAlcnInqr.js"></script>
-<script type="text/javascript" src="/koBus/js/OprnAlcnInqrPup.js"></script>
-<script type="text/javascript" src="/koBus/js/SatsChc.js"></script>
+<script type="text/javascript" src="/koBus/resources/js/OprnAlcnInqr.js"></script>
+<script type="text/javascript" src="/koBus/resources/js/OprnAlcnInqrPup.js"></script>
+<script type="text/javascript" src="/koBus/resources/js/SatsChc.js"></script>
 
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -466,7 +466,8 @@ $(document).ready(function () {
                                  .indexOf("/adtnprdnew/frps/frpsPrchGdMbl.do") < 0
                            && location.href
                                  .indexOf("/mbrs/mbrsscsn.do") < 0) {
-                        location.href = "/mblIdx.do";
+                        //location.href = "/mblIdx.do";
+                        //location.href = "/reservation2.do";
                         return false;
                      }
                   } else {
@@ -528,17 +529,17 @@ $(document).ready(function () {
       }
    }
 </script>
-<script src="/koBus/js/ui.js" type="text/javascript"></script>
-<script src="/koBus/js/plugin.js" type="text/javascript"></script>
+<script src="/koBus/resources/js/ui.js" type="text/javascript"></script>
+<script src="/koBus/resources/js/plugin.js" type="text/javascript"></script>
 <!-- <script src="/koBus/js/common.js" type="text/javascript"></script> -->
-<script src="/koBus/js/jquery/jquery.number.js" type="text/javascript"></script>
-<script src="/koBus/js/security.js?v=0.3" type="text/javascript"></script>
-<script type="text/javascript" src="/koBus/js/common/ui.js"></script>
-<script type="text/javascript" src="/koBus/js/plugin.js"></script>
-<script type="text/javascript" src="/koBus/js/common.js"></script>
+<script src="/koBus/resources/js/jquery/jquery.number.js" type="text/javascript"></script>
+<script src="/koBus/resources/js/security.js?v=0.3" type="text/javascript"></script>
+<script type="text/javascript" src="/koBus/resources/js/common/ui.js"></script>
+<script type="text/javascript" src="/koBus/resources/js/plugin.js"></script>
+<script type="text/javascript" src="/koBus/resources/js/common.js"></script>
 
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-<link href="/koBus/css/common/style.css" rel="stylesheet" type="text/css" />
+<link href="/koBus/resources/cdn-main/common/style.css" rel="stylesheet" type="text/css" />
 <script src="/koBus/js/kor/new-kor-ui.js?v=0102.0"
    type="text/javascript"></script>
 </head>
@@ -620,7 +621,7 @@ $(document).on("click", ".time li a", function () {
 
 <!-- 헤더 -->
 <body class="main KO" style="">
-<%@ include file="common/header.jsp" %>
+<%-- <%@ include file="common/header.jsp" %> --%>
    
 
 <!-- 브레드크럼 -->
@@ -651,7 +652,7 @@ $(document).on("click", ".time li a", function () {
 							href="javascript:void(0)" title="하위메뉴 선택"> <span class="text">고속버스예매</span><i
 							class="ico ico-dropdown-arrow"></i></a>
 						<ul class="dropdown-list">
-							<li class="selected"><a href="/koBus/region.do" title="선택됨">고속버스예매</a></li>
+							<li class="selected"><a href="/koBus/reservation3.do" title="선택됨">고속버스예매</a></li>
 							<li><a href="/koBus/manageReservations.do">예매확인/취소/변경</a></li>
 							<li><a href="#">영수증발행</a></li>
 						</ul>
@@ -661,9 +662,9 @@ $(document).on("click", ".time li a", function () {
    </div>
 </nav>
 <article id="new-kor-content">
-   <script src="/koBus/js/kor/mrs/tckmrs/AlcnSrch.js?v=0102"
+   <script src="/koBus/resources/js/kor/mrs/tckmrs/AlcnSrch.js?v=0102"
       type="text/javascript"></script>
-   <form action="/koBus/mrs/alcnSrch.do" id="alcnSrchFrm" method="post"
+   <form action="/koBus/resources/mrs/alcnSrch.do" id="alcnSrchFrm" method="post"
       name="alcnSrchFrm">
       <input type="hidden" name="sourcePage" value="KOBUSreservation2.jsp">
       <input id="deprCd" name="deprCd" type="hidden" value="<%= request.getParameter("deprCd") %>" />
@@ -882,7 +883,7 @@ $(document).on("click", ".time li a", function () {
                         <!-- <input id="busDate11" type="text" readonly style="position: absolute; left: -9999px;"> -->
                         <button class="datepicker-btn" type="button"
                            id="calendarTriggerBtn">
-                           <img alt="날짜 선택 달력" src="/koBus/images/page/ico_calender.png" />
+                           <img alt="날짜 선택 달력" src="/koBus/resources/images/page/ico_calender.png" />
                         </button>
                         <label class="date_cont" for="busDate11" id="rideDate">2025.
                            6. 17. 화</label>
@@ -1006,13 +1007,13 @@ $(document).on("click", ".time li a", function () {
                <li>심야 고속ㆍ우등ㆍ프리미엄의 요금은 당일 22:00부터 익일 04:00사이 출발차량</li>
                <li>마일리지 구매 승차권은 프리미엄/편도 노선(일부노선 제외)에 한정하며 각 1매씩 예매 가능(*회원대상)</li>
                <li>유아 카시트 가능( <img alt=""
-                  src="/koBus/images/kor/page/ico_child_on.png" style="width: 13px" />
+                  src="/koBus/resources/images/kor/page/ico_child_on.png" style="width: 13px" />
                   ) 표시된 차량에만 유아 카시트 장착 가능 (본인 소유의 유아 카시트 준비)
                </li>
                <li>소요(도착)시간은 도로 사정에 따라 지연될 수 있음</li>
                <!-- 190925 추가 -->
                <li>휠체어 탑승 가능( <img alt=""
-                  src="/koBus/images/kor/page/ico_wheel_on.png" style="width: 13px" />
+                  src="/koBus/resources/images/kor/page/ico_wheel_on.png" style="width: 13px" />
                   ) 표시된 차량에만 휠체어 동반 탑승 가능 (전동식 휠체어만 탑승 가능)
                </li>
                <li>휠체어 좌석 예매는 wkobus 사이트에서 예매 가능하며, 휠체어 좌석 예매는 출발일로 부터 3일
@@ -1033,28 +1034,28 @@ $(document).on("click", ".time li a", function () {
          <ul class="express-bus-company-list">
             <li><a href="http://www.kumhobuslines.co.kr" target="_blank"
                title="새창"><img alt="금호고속"
-                  src="/koBus/images/kor/layout/logo-kumho-express.png" /></a></li>
+                  src="/koBus/resources/images/kor/layout/logo-kumho-express.png" /></a></li>
             <li><a href="http://www.dongbubus.com" target="_blank"
                title="새창"><img alt="동부고속"
-                  src="/koBus/images/kor/layout/logo-dongbu-express.png" /></a></li>
+                  src="/koBus/resources/images/kor/layout/logo-dongbu-express.png" /></a></li>
             <li><a href="http://www.songnisanbuslines.co.kr"
                target="_blank" title="새창"><img alt="속리산고속"
-                  src="/koBus/images/kor/layout/logo-sokrisan-express.png" /></a></li>
+                  src="/koBus/resources/images/kor/layout/logo-sokrisan-express.png" /></a></li>
             <li><a href="http://www.dyexpress.co.kr" target="_blank"
                title="새창"><img alt="동양고속"
-                  src="/koBus/images/kor/layout/logo-dongyang-express.png" /></a></li>
+                  src="/koBus/resources/images/kor/layout/logo-dongyang-express.png" /></a></li>
             <li><a href="http://www.samhwaexpress.co.kr" target="_blank"
                title="새창"><img alt="삼화고속"
-                  src="/koBus/images/kor/layout/logo-samhwa-express.png" /></a></li>
+                  src="/koBus/resources/images/kor/layout/logo-samhwa-express.png" /></a></li>
             <li><a href="http://www.jabus.co.kr" target="_blank" title="새창"><img
                   alt="중앙고속"
-                  src="/koBus/images/kor/layout/logo-joongang-express.png" /></a></li>
+                  src="/koBus/resources/images/kor/layout/logo-joongang-express.png" /></a></li>
             <li><a href="http://www.chunilexpress.co.kr" target="_blank"
                title="새창"><img alt="천일고속"
-                  src="/koBus/images/kor/layout/logo-chunil-express.png" /></a></li>
+                  src="/koBus/resources/images/kor/layout/logo-chunil-express.png" /></a></li>
             <li><a href="http://www.hanilexpress.co.kr" target="_blank"
                title="새창"><img alt="한일고속"
-                  src="/koBus/images/kor/layout/logo-hanil-express.png" /></a></li>
+                  src="/koBus/resources/images/kor/layout/logo-hanil-express.png" /></a></li>
          </ul>
          <!-- dropdown-top 클래스 추가 시, 드롭다운 목록 위로 노출 -->
          <div class="dropdown-wrap dropdown-top related-sites-select">
