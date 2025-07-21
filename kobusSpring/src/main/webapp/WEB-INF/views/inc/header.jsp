@@ -60,7 +60,12 @@ response.setDateHeader("Expires", 0); // Proxies
 							</c:when>
 							<c:otherwise>
 								<li>${auth}|</li>
-								<li><a class="logout" href="${pageContext.request.contextPath}/logOut.do">로그아웃</a></li>
+								<li>
+								  <form id="logoutForm" action="${pageContext.request.contextPath}/logOut.do" method="post" style="display:inline;">
+								      <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+								      <a href="#" onclick="document.getElementById('logoutForm').submit(); return false;">로그아웃</a>
+								  </form>
+								</li>
 							</c:otherwise>
 						</c:choose>
 						<li><a href="${pageContext.request.contextPath}/page/logonMyPage.do">마이페이지</a></li>

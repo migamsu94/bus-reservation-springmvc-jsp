@@ -89,6 +89,7 @@
 							<iframe class="ad-frame" 
 								title="프레임 (전화번호안심 로그인)"></iframe>
 						</div>
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 					</form>
 				</div>
 			</div>

@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;
 
@@ -19,11 +22,20 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler{
 
 	@Override
 	public void handle(
-			  HttpServletRequest request
+			HttpServletRequest request
 			, HttpServletResponse response,
 			AccessDeniedException accessDeniedException
 			) throws IOException, ServletException {
-		 
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+		if (auth != null && auth.getPrincipal() instanceof User) {
+			User user = (User) auth.getPrincipal();
+			log.error("👉 현재 로그인한 사용자 ID: " + user.getUsername());
+		} else {
+			log.error("👉 인증 정보가 없거나 알 수 없음");
+		}
+
 		// 윈도우 + .
 		log.error("👌👌👌 Access Denied Handler");
 		log.error("👌👌👌 Redirect...");

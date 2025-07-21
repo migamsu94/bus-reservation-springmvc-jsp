@@ -15,7 +15,7 @@
 	<security:http use-expressions="true">
 	  <!-- 주소 추가예정 -->
 	  <security:intercept-url pattern="/page/logonMyPage.do" access="hasRole('ROLE_USER')" />
-	  <!-- <security:intercept-url pattern="/main.do" access="permitAll" /> --> 
+	  <security:intercept-url pattern="/main.do" access="permitAll" /> 
 	  <security:intercept-url pattern="/**" access="permitAll" />
 	
 	 <!-- login-processing-url="/koBus/login" -->
@@ -31,7 +31,7 @@
 	   <security:logout 
 	   invalidate-session="true" 
 	   logout-success-url="/main.do" 
-	   logout-url="/page/logonMain.do"
+	   logout-url="/logOut.do"
 	    />	   
 	  
 	</security:http>
