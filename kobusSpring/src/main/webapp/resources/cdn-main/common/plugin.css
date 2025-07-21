@@ -1476,7 +1476,7 @@ a.ui-button:active, .ui-button:active,
 .ui-datepicker .ui-datepicker-prev {left:17px;}
 .ui-datepicker .ui-datepicker-next {right:17px;}
 .ui-datepicker .ui-datepicker-prev span, .ui-datepicker .ui-datepicker-next span {left:0; top:0; margin:0;}
-.ui-datepicker .ui-icon {width:20px; height:20px; background:url(/koBus/images/btn_datepicker_arrow.png) 0 0 no-repeat;}
+.ui-datepicker .ui-icon {width:20px; height:20px; background:url(/koBus/resources/images/btn_datepicker_arrow.png) 0 0 no-repeat;}
 .ui-datepicker .ui-icon-circle-triangle-e {background-position:0 -20px;}
 .ui-state-hover,
 .ui-widget-content .ui-state-hover,

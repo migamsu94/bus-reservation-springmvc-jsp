@@ -95,7 +95,7 @@ response.setDateHeader("Expires", 0); // Proxies
 							</ul></li>
 						<li><a href="#">운행정보</a>
 							<ul>
-								<li><a href="${pageContext.request.contextPath}">시간표 조회</a></li>
+								<li><a href="${pageContext.request.contextPath}/kobusSchedule.do">시간표 조회</a></li>
 								<li><a href="#">도착시간 안내</a></li>
 							</ul></li>
 

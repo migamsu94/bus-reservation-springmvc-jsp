@@ -7,15 +7,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+<script>
+    var ctx = "${pageContext.request.contextPath}";
+</script>
 <tiles:insertAttribute name="script" />
 
 <tiles:insertAttribute name="pageScript" />
 
 </head>
-<body class="KO">
+
 <tiles:insertAttribute name="header" />
 
+<body class="KO">
 <tiles:insertAttribute name="content" />
 
 <tiles:insertAttribute name="footer" />

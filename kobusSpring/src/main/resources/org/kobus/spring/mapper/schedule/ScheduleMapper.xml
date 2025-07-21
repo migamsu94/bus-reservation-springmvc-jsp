@@ -42,7 +42,7 @@
 	
 	        <if test="deprDtm != null and deprDtm != ''">
 			    <choose>
-			        <when test="deprDtm.length() == 16">
+			        <when test="deprDtm.length() > 8">
 			            AND BS.DEPARTUREDATE = TO_TIMESTAMP(#{deprDtm}, 'YYYYMMDD HH24:MI')
 			        </when>
 			        <when test="deprDtm.length() == 8">

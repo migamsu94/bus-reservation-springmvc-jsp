@@ -5,6 +5,26 @@ var allplen = 0; // tab 구분자
 var allPrchAmt = 0; // 할부 개월수를 표시할지 말지
 var g_passOptionList = [];  // 정기권 옵션 리스트 전역 저장용
 let amount = 0;
+let serverAmt = 0;
+
+function fetchAmountFromServer(callback) {
+    $.ajax({
+        url: '/koBus/pay/confirm.ajax',  // ← 이 부분, 실제 핸들러 경로로
+        type: 'POST',
+        data: {
+            passType: $("#selPassType").val(),
+            // 추가 옵션 필요시
+        },
+        dataType: "json",
+        success: function(data) {
+            amount = data.serverAmt;  // 서버에서 amount로 응답
+            $("#amountSpan").text(amount.toLocaleString() + "원"); // UI 표시
+        },
+        error: function(xhr, status, error) {
+            alert("금액 조회 실패!");
+        }
+    });
+}
 
 $(document).ready(function() {	
 	
@@ -178,38 +198,139 @@ $(document).ready(function() {
 		var formData = $("form[name=passPrchFrm]").serialize();
         console.log("🧾 결제 전송 데이터:", formData);
         
-        $.post("/koBus/pay/confirm", formData, function(response){
-	    if (response.status === "success") {
-	        alert("결제 금액 확인 완료!");  // 이후 실제 결제 처리
-	        amount = response.serverAmt; // 서버에서 받은 금액 세팅
-	        requestPay(); // ✅ 여기에서 호출!
-	    } else {
-	        alert("금액 불일치! 관리자에게 문의하세요.");
-	        return; // ❌ 아래로 진행 막기(실제 결제 차단)
-	    }
+        $.post("/koBus/pay/confirm.ajax", formData, function(response){
+            console.log("📦 [client] 응답 전체:", response);
+            console.log("📌 [client] typeof response:", typeof response);
+            console.log("📌 [client] status:", response.status);
+            console.log("📌 [client] keys:", Object.keys(response));
 
-	});
+            if (response.status === "success") {
+                alert("결제 금액 확인 완료!");
+                amount = response.serverAmt; // 이 한 줄 추가!
+                requestPay();
+
+            } else {
+                alert("금액 불일치! 관리자에게 문의하세요.");
+            }
+        }).fail(function(xhr, status, error) {
+            console.error("❌ [client] Ajax 실패:", status, error);
+            console.error("❌ [client] 서버 응답:", xhr.responseText);
+        });
+
 });
 }); // document
-function fetchAmountFromServer() {
-    $.ajax({
-        url: '/koBus/pay/confirm',  // ← 이 부분, 실제 핸들러 경로로
-        type: 'POST',
-        data: {
-            passType: $("#selPassType").val(),
-            // 추가 옵션 필요시
-        },
-        dataType: "json",
-        success: function(data) {
-            amount = data.amount;  // 서버에서 amount로 응답
-            $("#amountSpan").text(amount.toLocaleString() + "원"); // UI 표시
-        },
-        error: function(xhr, status, error) {
-            alert("금액 조회 실패!");
+
+
+function requestPay() {
+    // ✅ 1. 함수 호출 확인
+    console.log("🚀 [requestPay] 함수 호출됨");
+
+    // ✅ 2. 금액 유효성 확인
+    console.log("💰 amount:", amount, typeof amount);
+    console.log("💰 #goodsPrice 값:", $("#goodsPrice").val());
+
+    if (amount <= 0) {
+        alert("결제 금액이 올바르지 않습니다. 구매옵션 선택 후 다시 시도해 주세요!");
+        return;
+    }
+
+    // ✅ 3. 비회원 인증 체크
+    const nonMbrsYn = $("#nonMbrsYn").val();
+    const nonMbrsAuthYn = $("#nonMbrsAuthYn").val();
+    console.log("🙋‍♂️ 비회원 여부:", nonMbrsYn, "인증 여부:", nonMbrsAuthYn);
+
+    if (nonMbrsYn === "Y" && nonMbrsAuthYn !== "Y") {
+        alert("비회원 인증이 필요합니다.");
+        $("#nonMbrsHp").focus();
+        return;
+    }
+
+    // ✅ 4. 상품명/시작일/상품코드 추출
+    const selectedOptionText = $("#selOptionText").val();
+    const rawStartDate = $("#datepickerItem").val().trim();
+    let startDate = "";
+
+    if (rawStartDate) {
+        let parts = rawStartDate.split(".");
+        let yyyy = parts[0].trim();
+        let mm = parts[1].trim().padStart(2, '0');
+        let dd = parts[2].trim().padStart(2, '0');
+        startDate = `${yyyy}-${mm}-${dd}`;
+    }
+
+    const optionValue = $("#selOption").val();
+    const parts = optionValue.split("/");
+    const adtnPrdSno = parts[5];
+
+    console.log("🧾 선택된 옵션:", selectedOptionText);
+    console.log("🗓 변환된 시작일:", startDate);
+    console.log("🆔 부가상품번호:", adtnPrdSno);
+
+    // ✅ 5. IMP 객체 확인 및 초기화
+    const IMP = window.IMP;
+    if (!IMP) {
+        console.error("❌ IMP 객체 없음! iamport 스크립트 로드 확인 필요");
+        return;
+    }
+
+    IMP.init('imp31168041');  // ✅ 테스트용 가맹점 코드
+
+    // ✅ 6. 결제 파라미터 확인
+    const merchantUid = 'ORD_TEST_' + new Date().getTime();
+    console.log("🧾 결제 파라미터:", {
+        pg: 'html5_inicis.INIpayTest',
+        pay_method: 'card',
+        merchant_uid: merchantUid,
+        name: selectedOptionText,
+        amount: parseInt(amount)
+    });
+
+    // ✅ 7. 결제창 호출
+    IMP.request_pay({
+        pg: 'html5_inicis.INIpayTest',
+        pay_method: 'card',  // ⚠️ 문자열! 배열 ❌
+        merchant_uid: merchantUid,
+        name: selectedOptionText,
+        amount: parseInt(amount)
+    }, function (rsp) {
+        console.log("📥 [결제 응답]:", rsp);
+
+        if (rsp.success) {
+            alert('테스트 결제 성공! imp_uid: ' + rsp.imp_uid);
+
+            // ✅ 8. 결제 성공 → 서버로 전송
+            $.ajax({
+                url: ctx + '/payment/Seasonticket.do',
+                type: 'POST',
+                contentType: 'application/json',               // ✅ 서버가 JSON 파싱할 수 있도록 명시
+                data: JSON.stringify({                         // ✅ 문자열화된 JSON으로 바꿔야 함
+                    impUid: rsp.imp_uid,
+                    merchantUid: rsp.merchant_uid,
+                    payMethod: rsp.pay_method,
+                    amount: amount,
+                    payStatus: 'SUCCESS',
+                    pgTid: rsp.pg_tid,
+                    paidAt: rsp.paid_at,
+                    adtnPrdSno: adtnPrdSno,
+                    startDate: startDate
+                }),
+                success: function(data) {
+                    alert('결제 정보가 서버에 저장되었습니다!');
+                },
+                error: function(xhr, status, error) {
+                    alert('❌ 결제 정보 저장 실패!');
+                    console.error('❌ 서버 저장 오류:', error);
+                }
+            });
+        } else {
+            var msg = '❌ 테스트 결제에 실패하였습니다.\n에러 내용: ' + rsp.error_msg;
+            alert(msg);
+            console.error('❌ 결제 실패 응답:', rsp);
         }
     });
 }
 
+/*
 function requestPay() {
 	// amount 값 체크
     console.log("requestPay 호출 시 amount 값:", amount);
@@ -257,7 +378,7 @@ function requestPay() {
 
     IMP.request_pay({
         pg: 'html5_inicis.INIpayTest',
-        pay_method: ['card', 'trans'],
+        pay_method: 'card',
         merchant_uid: 'ORD_TEST_' + new Date().getTime(),
         name: selectedOptionText,
         amount: amount, // 이 부분에 서버에서 조회한 금액 변수를 대입!
@@ -268,7 +389,7 @@ function requestPay() {
 
             // 서버로 결제 데이터 전송 (이 부분이 핵심!)
             $.ajax({
-                url: '/koBus/payment/savePassPayment.do',
+                url: ctx + '/payment/Seasonticket.do',
                 type: 'POST',
                 data: {
                     imp_uid: rsp.imp_uid,
@@ -299,7 +420,7 @@ function requestPay() {
         }
     });
 }
-
+*/
 function getDateDiff(cStartDate,cEndDate)
 {
 	var sDate;
@@ -481,7 +602,7 @@ function test(mmm){
 	
 	$('#datepickerItem').datepicker({
 		showOn:"button",
-		buttonImage:"/koBus/images/ico_calender.png",
+		buttonImage:"/koBus/resources/images/ico_calender.png",
 		buttonImageOnly:true,
 		buttonText:"사용시작일 선택 달력",
 		minDate: mmm,
@@ -540,6 +661,10 @@ function fnYyDtmStup(dtVal){ // 날짜 계산
 // 부가상품 상세 조회
 function fnPassDtl(){
 	var rotLinInf = $("#selUseRot").val();
+	if(rotLinInf && rotLinInf.length > 6){
+	    rotLinInf = rotLinInf.substring(0, 6);  // 뒤 1자리 제거
+	    $("#selUseRot").val(rotLinInf);        // form 값으로 다시 넣음
+	}
 	var datepickerItem = $("#datepickerItem").val();
 	if(rotLinInf == "" || datepickerItem == ""){
 		return;
