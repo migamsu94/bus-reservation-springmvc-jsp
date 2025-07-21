@@ -117,7 +117,7 @@ public class ScheduleController {
 
 	@GetMapping("/getDuration.ajax")
 	@ResponseBody
-	public ResponseEntity<?> getDurationInfo(
+	public ResponseEntity<?> getDurationAjax(
 	    @RequestParam(name = "ajaxType") String ajaxType,
 	    @RequestParam(name = "deprCd", required = false) String deprCd,
 	    @RequestParam(name = "arvlCd", required = false) String arvlCd,
@@ -128,22 +128,57 @@ public class ScheduleController {
 	    log.info(">> getDuration.ajax 호출됨 - ajaxType : " + ajaxType);
 
 	    if ("getDuration".equals(ajaxType)) {
-	        int duration = scheduleService.getDurationFromRoute(deprCd, arvlCd);
+	        Integer duration = scheduleService.getRouteDuration(deprCd, arvlCd);
 	        Map<String, Object> response = new HashMap<>();
 	        response.put("duration", duration);
 	        return ResponseEntity.ok(response);
 	    }
 
 	    if ("searchSch".equals(ajaxType)) {
-	        List<ScheduleDTO> list = scheduleService.searchBusSchedule(deprCd, arvlCd, deprDtm, busClsCd);
+	        if (busClsCd != null) {
+	            switch (busClsCd) {
+	                case "0": busClsCd = "전체"; break;
+	                case "7": busClsCd = "프리미엄"; break;
+	                case "1": busClsCd = "우등"; break;
+	                case "2": busClsCd = "일반"; break;
+	            }
+	        }
 
-	        Map<String, Object> response = new HashMap<>();
-	        response.put("alcnAllList", list);
-	        return ResponseEntity.ok(response);
+	        List<ScheduleDTO> schList = scheduleService.searchBusSchedule(deprCd, arvlCd, deprDtm, busClsCd);
+	        int durmin = schList.isEmpty() ? 0 : schList.get(0).getDurMin();
+
+	        Map<String, Object> responseMap = new HashMap<>();
+	        responseMap.put("rotVldChc", schList.isEmpty() ? "N" : "Y");
+
+	        Map<String, Object> alcnCmnMap = new HashMap<>();
+	        alcnCmnMap.put("takeDrtm", durmin);
+	        responseMap.put("alcnCmnMap", alcnCmnMap);
+
+	        List<Map<String, Object>> alcnAllList = new ArrayList<>();
+	        for (ScheduleDTO dto : schList) {
+	            Map<String, Object> scheduleMap = new HashMap<>();
+	            LocalDateTime departureDate = dto.getDepartureDate();
+	            String time = departureDate.toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm"));
+
+	            scheduleMap.put("DEPR_TIME_DVS", time);
+	            scheduleMap.put("CACM_MN", dto.getComName());
+	            scheduleMap.put("BUS_CLS_NM", dto.getBusGrade());
+	            scheduleMap.put("ADLT_FEE", dto.getAdultFare());
+	            scheduleMap.put("CHLD_FEE", dto.getStuFare());
+	            scheduleMap.put("TEEN_FEE", dto.getChildFare());
+	            scheduleMap.put("RMN_SATS_NUM", dto.getRemainSeats());
+	            scheduleMap.put("TOT_SATS_NUM", dto.getBusSeats());
+
+	            alcnAllList.add(scheduleMap);
+	        }
+
+	        responseMap.put("alcnAllList", alcnAllList);
+	        return ResponseEntity.ok(responseMap);
 	    }
 
 	    return ResponseEntity.badRequest().body("지원되지 않는 ajaxType");
 	}
+
 	
 	@GetMapping("/kobusSchedule.do")
 	public String getSchedule() {
@@ -151,13 +186,17 @@ public class ScheduleController {
 
 	}
 	
+	
 	@PostMapping("/reservation2.do")
 	public String showReservationPagePost() {
 	    return "kobus.reservation/KOBUSreservation2";
 	}
 	
+	
 	@GetMapping("/reservation2.do")
 	public String showReservationPage() {
 	    return "kobus.reservation/KOBUSreservation2"; 
 	}
+	
+	
 }
