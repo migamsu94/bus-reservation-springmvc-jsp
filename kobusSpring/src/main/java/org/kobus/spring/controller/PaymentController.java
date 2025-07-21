@@ -10,10 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.kobus.spring.domain.pay.FreepassPaymentDTO;
 import org.kobus.spring.domain.pay.PaymentCommonDTO;
+import org.kobus.spring.domain.pay.STPaymentSet;
 import org.kobus.spring.mapper.pay.TermMapper;
 import org.kobus.spring.service.pay.FreePassPaymentService;
+import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,7 +29,8 @@ public class PaymentController {
     private TermMapper termMapper;
 	
 	@Autowired
-    private FreePassPaymentService freepassService;
+	private FreePassPaymentService freepassService;  // 인터페이스 → 구현체
+	
 	
 	// 일반 예매 결제
     @PostMapping("/Reservation.do")
@@ -46,21 +50,42 @@ public class PaymentController {
 
     // 정기권 결제
     @PostMapping("/Seasonticket.do")
-    public Map<String, Object> handleSeasonticket(HttpServletRequest request) {
+    public Map<String, Object> handleSeasonticket(HttpServletRequest request, @RequestBody STPaymentSet dto) {
+    	System.out.println("SPfreepassService 프록시 여부: " + AopUtils.isAopProxy(freepassService));
+        System.out.println("SPfreepassService 실제 클래스: " + freepassService.getClass());
         Map<String, Object> result = new HashMap<>();
 
-        // TODO: 파라미터 추출 및 처리
+        try {
+            // 로그인 사용자 확인
+            String userId = (String) request.getSession().getAttribute("userId");
+            if (userId == null) userId = "KUS003"; // 테스트용
+            dto.setKusid(userId);
 
-        // TODO: 서비스 호출 및 DB 저장
+            boolean saved = freepassService.saveSeasonTicketPayment(dto);
 
-        result.put("status", "success");
-        result.put("message", "Season ticket payment processed.");
+            if (saved) {
+                result.put("status", "success");
+                result.put("message", "정기권 결제가 완료되었습니다.");
+            } else {
+                result.put("status", "fail");
+                result.put("message", "DB 저장 실패");
+            }
+
+        } catch (Exception e) {
+            result.put("status", "error");
+            result.put("message", e.getMessage());
+            e.printStackTrace();
+        }
+
         return result;
     }
+
 
     // 프리패스 결제
     @PostMapping("/Freepass.do")
     public Map<String, Object> handleFreepass(HttpServletRequest request) {
+    	System.out.println("freepassService 프록시 여부: " + AopUtils.isAopProxy(freepassService));
+        System.out.println("freepassService 실제 클래스: " + freepassService.getClass());
         Map<String, Object> resultMap = new HashMap<>();
         try {
             // 세션에서 userId 확인
@@ -90,6 +115,14 @@ public class PaymentController {
             	long timestampMillis = Long.parseLong(paidAtStr) * 1000L;
                 paidAt = new Timestamp(timestampMillis);
             }
+            
+         // startDate 방어 코드 추가
+            if (startDateStr == null || startDateStr.trim().isEmpty()) {
+                resultMap.put("result", 0);
+                resultMap.put("msg", "startDate가 비어 있습니다.");
+                return resultMap;
+            }
+            System.out.println("startDateStr = [" + startDateStr + "]");
             Date startDate = new java.sql.Date(new SimpleDateFormat("yyyy-MM-dd").parse(startDateStr).getTime());
 
             // DTO 구성
