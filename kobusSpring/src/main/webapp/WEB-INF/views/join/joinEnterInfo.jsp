@@ -75,7 +75,7 @@
 					<div class="noti_wrap mobNone">
 						<p class="noti">회원정보를 입력해주세요.</p>
 					</div>
-					<form action="/koBus/joinOkEnterInfo.do" method="get" name="insertInfoForm" id="joinFormTag">
+					<form action="/koBus/joinOkEnterInfo.do" method="POST" name="insertInfoForm" id="joinFormTag">
 						<div class="border-box box_changeNum join-wrap">
 							<div class="inner member-info-form">
 								<div class="box_inputForm" id="idDiv">
