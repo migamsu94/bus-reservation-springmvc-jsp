@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import org.kobus.spring.domain.join.AuthDTO;
 import org.kobus.spring.domain.join.JoinDTO;
 import org.kobus.spring.mapper.join.JoinMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class JoinServiceImpl implements JoinService{
 	@Autowired
     private JoinMapper joinMapper;
 	
-	// 인증번호 받기
+	// 인증번호 받기 ajax
 	@Override
 	public String telCertificationNum(String inputNumber, int randomNumber) throws SQLException {
 		
@@ -50,18 +51,32 @@ public class JoinServiceImpl implements JoinService{
         return strRandomNumber;
 	}
 	
-	// 입력한 회원정보 member테이블에 넣기
+	// 입력한 회원정보 kobusUser테이블에 넣기
 	@Override
 	public int insert(JoinDTO dto) throws SQLException {
 		
 		// 날짜 설정
 		LocalDate today = LocalDate.now();
         String formattedDate = today.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-	    
+        
 	    dto.setJoinDate(formattedDate);
 	    // security 설정후 비밀번호 인코딩 한뒤에 저장시키기
 		
 		return joinMapper.insert(dto);
+	}
+	
+	// 입력정보 kouserAuthorities테이블에 넣기 
+	@Override
+	public int insertAuth(AuthDTO dto) throws SQLException {
+		
+		return joinMapper.insertAuth(dto);
+	}
+	
+	// 아이디 중복확인 ajax
+	@Override
+	public String idDupCheck(String inputId) throws SQLException {
+		
+		return joinMapper.idDupCheck(inputId);
 	}
 
 }

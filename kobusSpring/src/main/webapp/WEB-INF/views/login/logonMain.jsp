@@ -31,7 +31,7 @@
 			</div>
 			<div class="content-body">
 				<div class="container">
-					<form action="${pageContext.request.contextPath}/logonOk.do" id="lgnUsrInfForm" method="post" name="lgnUsrInfForm">
+					<form action="/koBus/login" id="lgnUsrInfForm" method="POST" name="lgnUsrInfForm">
 						<div class="login_wrap">
 							<!-- 회원로그인 -->
 							
@@ -49,7 +49,7 @@
 												<div class="box_inputForm">
 													<label class="label" for="usrId">아이디</label> <span
 														class="box_label"> <input class="input" id="usrId"
-														name="usrId" placeholder="아이디를 입력하세요" type="text" />
+														name="username" placeholder="아이디를 입력하세요" type="text" />
 													</span>
 												</div>
 											</li>
@@ -57,7 +57,7 @@
 												<div class="box_inputForm">
 													<label class="label" for="usrPwd">비밀번호</label> <span
 														class="box_label"> <input class="input"
-													 	id="usrPwd" name="usrPwd" placeholder="비밀번호를 입력하세요" tabindex="-1" type="password" />
+													 	id="usrPwd" name="password" placeholder="비밀번호를 입력하세요" tabindex="-1" type="password" />
 													</span>
 												</div>
 											</li>
