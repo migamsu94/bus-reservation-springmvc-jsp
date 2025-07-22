@@ -111,7 +111,7 @@
 
 						<ul class="dropdown-list" style="display: none;">
 
-							<li class="selected"><a href="/koBus/region.do" title="선택됨">고속버스예매</a></li>
+							<li class="selected"><a href="/reservation3.do" title="선택됨">고속버스예매</a></li>
 
 							<li><a href="/koBus/kobusSchedule.do">운행정보</a></li>
 
@@ -138,7 +138,7 @@
 
 						<ul class="dropdown-list" style="display: none;">
 
-							<li class="selected"><a href="/koBus/region.do" title="선택됨">고속버스예매</a></li>
+							<li class="selected"><a href="/reservation3.do" title="선택됨">고속버스예매</a></li>
 
 							<li><a href="/koBus/manageReservations.do">예매확인/취소/변경</a></li>
 

@@ -1,6 +1,7 @@
 package org.kobus.spring.mapper.schedule;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -20,8 +21,15 @@ public interface ScheduleMapper {
         @Param("busClsCd") String busClsCd
     );
 
+    /*
     int getDurationFromRoute(
         @Param("deprRegId") String deprRegId,
         @Param("arvlRegId") String arvlRegId
     );
+    */
+    
+    Integer getRouteDuration(
+            @Param("deprRegId") String deprRegId,
+            @Param("arvlRegId") String arvlRegId
+     );
 }
