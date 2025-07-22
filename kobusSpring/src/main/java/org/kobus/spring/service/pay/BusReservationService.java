@@ -1,8 +1,8 @@
 package org.kobus.spring.service.pay;
 
-import org.kobus.spring.domain.pay.BusReservationDTO;
 import org.kobus.spring.domain.pay.PaymentCommonDTO;
 import org.kobus.spring.domain.pay.ReservationPaymentDTO;
+import org.kobus.spring.domain.reservation.ResvDTO;
 import org.kobus.spring.mapper.pay.BusReservationMapper;
 import org.kobus.spring.mapper.pay.PaymentCommonMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +20,9 @@ public class BusReservationService {
 
     @Transactional
     public boolean saveReservationAndPayment(
-        BusReservationDTO resvDto,
+    		ResvDTO resvDto,
         PaymentCommonDTO payDto,
+       	
         ReservationPaymentDTO linkDto
     ) {
         // 1. 예매 저장
@@ -33,11 +34,22 @@ public class BusReservationService {
         // 3. 연결 테이블 insert
         linkDto.setPaymentId(payDto.getPaymentId()); // paymentId 전달
         linkDto.setResId(resvDto.getResId());
-        linkDto.setKusid(resvDto.getKusid()); // ✅ 이 줄 추가
+        linkDto.setKusid(resvDto.getKusId());
+        
+        
+        
+        String resId = resvDto.getResId();
+        String busId = resvDto.getBshId();
+        String seatList = resvDto.getSeatNo();
+        
+        System.out.printf("resId : %s, busId : %s, seatList : %s", resId, busId, seatList);
+        
+        
+        int updateReservedSeat = reservationMapper.callAfterReservation(resId, busId, seatList);
         
         int insertedLink = reservationMapper.insertReservationPayment(linkDto);
 
-        return insertedReservation > 0 && insertedPayment > 0 && insertedLink > 0;
+        return insertedReservation > 0 && insertedPayment > 0 && insertedLink > 0 && updateReservedSeat > 0;
     }
 
 

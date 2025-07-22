@@ -100,21 +100,6 @@ function parseKoreanDateToYYYYMMDD(dateStr) {
 	</style>
 	
 	
-
-		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/MainNew.js"></script>
-		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/Main.js"></script>
-		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/left.js"></script>
-
-		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/common/RotInfPup.js"></script>
-		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/common/RotInf.js"></script>
-		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/MrsCfmLgn.js"></script>
-
-		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/rsa_oaep-min.js"></script>
-		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jsbn-min2.js"></script>
-		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/typedarray.js"></script>
-
-
-
 <script>
 	$(document).ready(function () {
 		var langCd = 'KO';
@@ -145,21 +130,15 @@ function parseKoreanDateToYYYYMMDD(dateStr) {
 		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/common/RotInf.js"></script>
 		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/MrsCfmLgn.js"></script>
 
-		<!-- 20200617 yahan -->
-		<!-- <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/transkey.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/TranskeyLibPack_op.js"></script> -->
 		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/rsa_oaep-min.js"></script>
 		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jsbn-min2.js"></script>
 		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/typedarray.js"></script>
-		<!-- <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/transkeyServlet"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/transkeyServlet(1)"></script>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/js/transkey.css">  -->
 
 
 		<!-- 출/도착지 선택 레이어팝업 -->
 
 		<form name="rotInfFrm" id="rotInfFrm" method="post"
-			action="/koBus/mrs/alcnSrch.do">
+			action="/koBus/main.do">
 			<input type="hidden" name="sourcePage" value="kobus_main.jsp">
 			<input type="hidden" name="deprCd" id="deprCd" value="">
 			<!-- 출발지코드 -->
@@ -198,9 +177,11 @@ function parseKoreanDateToYYYYMMDD(dateStr) {
 			<!-- 결과값여부 -->
 			<input type="hidden" name="prmmDcYn" id="prmmDcYn" value="N">
 			<!-- 시외우등할인대상노선 -->
+			<input type="hidden" name="mainYn" id="mainYn" value="Y">
+			<!-- // 170110 수정 -->
+			
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		</form>
-		<input type="hidden" name="mainYn" id="mainYn" value="Y">
-		<!-- // 170110 수정 -->
 		<div class="loading" id="loading"
 			style="height: 1206px; top: 75px; display: none;">
 			<p class="load" style="margin-left: -53px;"></p>
@@ -402,6 +383,7 @@ function parseKoreanDateToYYYYMMDD(dateStr) {
 													<!-- // [2024 마크업 수정] -->
 												</div>
 												<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+
 											</form>
 											<!-- 로그인 기능 -->
 											<script>
@@ -616,6 +598,9 @@ function parseKoreanDateToYYYYMMDD(dateStr) {
 													type="hidden" id="vltlCnt" name="vltlCnt" value="Y">
 												<input type="hidden" id="cal_flg1" name="cal_flg1" value="0">
 												<input type="hidden" id="cal_flg2" name="cal_flg2" value="1">
+												
+												<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+												
 											</form>
 
 											<script>
