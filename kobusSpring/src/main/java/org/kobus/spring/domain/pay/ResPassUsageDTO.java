@@ -11,7 +11,7 @@ public class ResPassUsageDTO {
 	
 	private String usageId;
 	private String resId;
-	private String freePassPayId;
-	private Date usedDate;
+	private String fpCpnNo;
+	private Date timDte;
 
 }

@@ -149,7 +149,7 @@ public class PaymentController {
         try {
             // 세션에서 userId 확인
             String userId = (String) request.getSession().getAttribute("userId");
-            if (userId == null) userId = "KUS002"; // 테스트용
+            if (userId == null) userId = "KUS003"; // 테스트용
 
             // 필수 파라미터 추출
             String adtnPrdSno = request.getParameter("adtn_prd_sno");

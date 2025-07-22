@@ -452,7 +452,7 @@ function requestPay() {
 */
 
 function requestPay() {
-	if (!fnVldtCmn()) return;
+	// if (!fnVldtCmn()) return;
 
 	var nonMbrsYnChk = $("#nonMbrsYn").val();
 	if ($("#nonMbrsYn").val() == "Y" && $("#nonMbrsAuthYn").val() != "Y") {
@@ -945,6 +945,192 @@ function  fnPayPymWin(){
 	});
 }
 
+function proceedSeasonTicketReservation() {
+    // 선택한 좌석, 날짜, 상품번호 등을 form이나 전역 변수에서 가져옴
+    const selectedDate = $("#deprDt").val();           // 탑승일자
+    const selectedSeat = $("input[name='seat']:checked").val(); // 선택 좌석 (예시)
+    const adtnPrdSno = $("#perdAdtnPrdList").val()?.split(":")[0]; // 상품번호
+
+    if (!selectedSeat) {
+        alert("좌석을 선택해주세요.");
+        return;
+    }
+
+    // 예매 데이터 구성
+    const reservationData = {
+        adtnPrdSno: adtnPrdSno,
+        usedDate: selectedDate,
+        seatNo: selectedSeat
+        // 필요시 기타 데이터도 추가
+    };
+
+    // 서버로 예매 요청
+    $.ajax({
+        url: "/mrs/pay/reserveSeasonTicket.do",
+        type: "POST",
+        data: reservationData,
+        success: function (data) {
+            if (data.result === "SUCCESS") {
+                alert("🎉 정기권 예매가 완료되었습니다!");
+                location.href = "/koBus/reservCompl.jsp"; // 완료 페이지 이동
+            } else {
+                alert("예매 실패: " + (data.message || "알 수 없는 오류"));
+            }
+        },
+        error: function (xhr, status, err) {
+            console.error("예매 요청 오류:", err);
+            alert("서버 오류로 예매에 실패했습니다.");
+        }
+    });
+}
+
+function proceedSeasonTicketReservation() {
+    // 선택한 좌석, 날짜, 상품번호 등을 form이나 전역 변수에서 가져옴
+    const selectedDate = $("#deprDt").val();           // 탑승일자
+    const selectedSeat = $("input[name='seat']:checked").val(); // 선택 좌석 (예시)
+    const adtnPrdSno = $("#perdAdtnPrdList").val()?.split(":")[0]; // 상품번호
+
+    if (!selectedSeat) {
+        alert("좌석을 선택해주세요.");
+        return;
+    }
+
+    // 예매 데이터 구성
+    const reservationData = {
+        adtnPrdSno: adtnPrdSno,
+        usedDate: selectedDate,
+        seatNo: selectedSeat
+        // 필요시 기타 데이터도 추가
+    };
+
+    // 서버로 예매 요청
+    $.ajax({
+        url: "/mrs/pay/reserveSeasonTicket.do",
+        type: "POST",
+        data: reservationData,
+        success: function (data) {
+            if (data.result === "SUCCESS") {
+                alert("🎉 정기권 예매가 완료되었습니다!");
+                location.href = "/koBus/reservCompl.jsp"; // 완료 페이지 이동
+            } else {
+                alert("예매 실패: " + (data.message || "알 수 없는 오류"));
+            }
+        },
+        error: function (xhr, status, err) {
+            console.error("예매 요청 오류:", err);
+            alert("서버 오류로 예매에 실패했습니다.");
+        }
+    });
+}
+
+
+//정기권으로 예매
+function useSeasonTicketPayment() {
+ const selected = $("#perdAdtnPrdList").val();
+ if (!selected) {
+     alert("사용할 정기권을 선택해주세요.");
+     return false;
+ }
+
+ const arr = selected.split(":");
+ const startDateStr = arr[5]; // 예: "20250718"
+ const endDateStr = arr[6];   // 예: "20250722"
+ const selectedDateStr = $("#deprDt").val(); // 예: "2025-07-19"
+
+ // 1. 시작일/종료일을 YYYY-MM-DD 형식으로 변환
+ function formatDateStr(yyyymmdd) {
+     return yyyymmdd.replace(/^(\d{4})(\d{2})(\d{2})$/, '$1-$2-$3');
+ }
+
+ // 2. 문자열 → Date 객체 변환
+ const selectedDate = new Date(selectedDateStr);
+ const startDate = new Date(formatDateStr(startDateStr));
+ const endDate = new Date(formatDateStr(endDateStr));
+
+ // 3. 로그 확인
+ console.log("선택일:", selectedDate);
+ console.log("시작일:", startDate);
+ console.log("종료일:", endDate);
+ console.log("비교:", selectedDate < startDate, selectedDate > endDate);
+
+ // 4. 유효성 검사
+ if (isNaN(selectedDate) || isNaN(startDate) || isNaN(endDate)) {
+     alert("날짜 형식 오류입니다.");
+     return false;
+ }
+
+ if (selectedDate < startDate || selectedDate > endDate) {
+     alert("선택한 정기권의 사용기간에 해당하지 않습니다.");
+     return false;
+ }
+
+    // ✅ 서버에 ajax 요청해서 해당일자 사용횟수 조회
+    $.ajax({
+        url: ctx + "/mrs/pay/useSeasonTicket.do",
+        type: "POST",
+        data: {
+            adtnPrdSno: arr[0],
+            rideDate: selectedDate
+        },
+        success: function(res) {
+            if (res.usageCount >= 2) {
+                alert("해당 날짜에 정기권 사용횟수를 초과했습니다. (1일 2회 제한)");
+            } else {
+                // ✅ 결제 or 예매 실행
+                proceedSeasonTicketReservation(arr[0], selectedDate);
+            }
+        },
+        error: function() {
+            alert("정기권 사용내역 확인 중 오류가 발생했습니다.");
+        }
+    });
+
+    return false;
+}
+
+// 프리패스로 예매
+function useFreePassPayment() {
+	const selected = $("#frpsAdtnPrdList").val(); // 프리패스 선택값
+	if (!selected) {
+		alert("사용할 프리패스를 선택해주세요.");
+		return false;
+	}
+
+	const data = selected.split(":");
+	const startDate = data[5];
+	const endDate = data[6];
+	const adtnCpnNo = data[0];
+	const rideDate = $("#deprDt").val().replace(/-/g, "");
+
+	if (rideDate < startDate || rideDate > endDate) {
+		alert("예매일이 프리패스 사용기간에 포함되지 않습니다.");
+		return false;
+	}
+
+	// ✅ Ajax 호출로 예매처리
+	$.ajax({
+		url: ctx + "/mrs/pay/useFreePass.do",
+		type: "POST",
+		data: {
+			adtnCpnNo: adtnCpnNo,
+			rideDate: rideDate
+		},
+		success: function(response) {
+			if (response.result === "SUCCESS") {
+				alert("프리패스로 예매가 완료되었습니다.");
+				location.href = "/koBusFile/reservCompl.jsp";
+			} else {
+				alert("예매 실패: " + response.message);
+			}
+		},
+		error: function() {
+			alert("서버 오류가 발생했습니다.");
+		}
+	});
+}
+
+
+
 var openDialog = function(closeCallback){
 	var win = window.open("","pymPup","width=560,height=850,toolbar=no,menubar=no,resizable=yes");
 	var payType = $("#pymType").val();//지불방법
@@ -1012,10 +1198,29 @@ function fnVldtCmn(){ // 공통사항 체크
 			return false;
 		}
 	}
+	
+	
 
-	return true;
+	return handlePaymentByType();
 }
 
+
+function handlePaymentByType() {
+    const payMethod = $("input[name='payType']:checked").val();
+
+    switch (payMethod) {
+        case "card":
+        case "bank":
+            return requestPay(); // 포트원 결제
+        case "season":
+            return useSeasonTicketPayment(); // 정기권
+        case "freepass":
+            return useFreePassPayment(); // 프리패스
+        default:
+            alert("결제 방법을 선택해주세요.");
+            return false;
+    }
+}
 
 
 function fnNonMbrsYn(nonMbrsYn){
@@ -2013,47 +2218,59 @@ function fnAdtnPrdMod(prdType, value){
 		var infoDtl = "";
 		var exdtStt = adtnPrdChcVal[5];
 		var exdtEnd = adtnPrdChcVal[6];
-		//var timDte = adtnPrdChcVal[8];	//탑승가능일
-		var timDte = adtnPrdChcVal[9];	//탑승가능일
-		var exdtDtl = ""; 
-		
-		if(adtnPrdChcVal[1] == "3"){	//프리패스
+		var timDte = adtnPrdChcVal[9];	// 탑승가능일
+		var exdtDtl = "";
+
+		if(adtnPrdChcVal[1] == "3"){	// 프리패스
 			infoDtl = adtnPrdChcVal[7] +" / "+ adtnPrdChcVal[2] +"일 / "+ adtnPrdChcVal[4] +" / "+ adtnPrdChcVal[3];
-			var arrTimDte = timDte.split("/");
-			var timDteTxt = ""; 
-			for(var inx = 0 ; inx < arrTimDte.length-1 ; inx++){
-				var today = getToDay();
-				var yyyy = arrTimDte[inx].substring(0,4);
-				var mm = arrTimDte[inx].substring(4,6);
-				var dd = arrTimDte[inx].substring(6,8);
-				
-				if(inx > 0){
-					var yyyymm1 = arrTimDte[inx-1].substring(0,6);
-					var yyyymm2 = arrTimDte[inx].substring(0,6);
+
+			// 📌 timDte 유무에 따라 분기
+			if (timDte && timDte.trim() !== "") {
+				var arrTimDte = timDte.split("/");
+				var timDteTxt = ""; 
+				for(var inx = 0 ; inx < arrTimDte.length-1 ; inx++){
+					var today = getToDay();
+					var yyyy = arrTimDte[inx].substring(0,4);
+					var mm = arrTimDte[inx].substring(4,6);
+					var dd = arrTimDte[inx].substring(6,8);
 					
-					if(yyyymm1 != yyyymm2){				
+					if(inx > 0){
+						var yyyymm1 = arrTimDte[inx-1].substring(0,6);
+						var yyyymm2 = arrTimDte[inx].substring(0,6);
+						
+						if(yyyymm1 != yyyymm2){				
+							if(today < arrTimDte[inx]){
+								timDteTxt += yyyy + "년 " + mm + "월 " +"<em class='accent'>"+ dd + "일 </em>";
+							}else{
+								timDteTxt += yyyy + "년 " + mm + "월 " +"<span class='txt_gray2'>"+ dd + "일 </span>";
+							}
+						}else{
+							if(today < arrTimDte[inx]){
+								timDteTxt += "<em class='accent'>"+ dd + "일 </em>";
+							}else{
+								timDteTxt += "<span class='txt_gray2'>"+ dd + "일 </span>";
+							}
+						}
+					}else{
 						if(today < arrTimDte[inx]){
 							timDteTxt += yyyy + "년 " + mm + "월 " +"<em class='accent'>"+ dd + "일 </em>";
 						}else{
 							timDteTxt += yyyy + "년 " + mm + "월 " +"<span class='txt_gray2'>"+ dd + "일 </span>";
 						}
-					}else{
-						if(today < arrTimDte[inx]){
-							timDteTxt += "<em class='accent'>"+ dd + "일 </em>";
-						}else{
-							timDteTxt += "<span class='txt_gray2'>"+ dd + "일 </em>";
-						}
-					}
-				}else{
-					if(today < arrTimDte[inx]){
-						timDteTxt += yyyy + "년 " + mm + "월 " +"<em class='accent'>"+ dd + "일 </em>";
-					}else{
-						timDteTxt += yyyy + "년 " + mm + "월 " +"<span class='txt_gray2'>"+ dd + "일 </span>";
-					}
-				}			
+					}			
+				}
+				exdtDtl = timDteTxt;
+
+			} else {
+				// 📌 timDte가 비어있는 경우: exdtStt ~ exdtEnd로 사용기간 출력
+				if (exdtStt && exdtEnd) {
+					var sttStr = exdtStt.substring(0,4)+"."+exdtStt.substring(4,6)+"."+exdtStt.substring(6,8);
+					var endStr = exdtEnd.substring(0,4)+"."+exdtEnd.substring(4,6)+"."+exdtEnd.substring(6,8);
+					exdtDtl = "해당 프리패스의 사용가능 기간은 "+sttStr+" ~ "+endStr+" 입니다.";
+				}
 			}
-			exdtDtl = timDteTxt;
-		}else if(adtnPrdChcVal[1] == "2"){	//정기권
+		}
+		else if(adtnPrdChcVal[1] == "2"){	// 정기권
 			infoDtl = adtnPrdChcVal[7] +" 정기권/"+ adtnPrdChcVal[2] +"일/"+ adtnPrdChcVal[4] +"/"+ adtnPrdChcVal[3];
 			exdtStt = exdtStt.substring(0,4)+"."+exdtStt.substring(4,6)+"."+exdtStt.substring(6,8);
 			exdtEnd = exdtEnd.substring(0,4)+"."+exdtEnd.substring(4,6)+"."+exdtEnd.substring(6,8);
@@ -2064,7 +2281,8 @@ function fnAdtnPrdMod(prdType, value){
 		$("#"+prdTypeAdtnPrdExdt).html(exdtDtl);
 		$("#adtnCpnNo").val(adtnPrdChcVal[0]);
 		$("#tissuAmtView").text("0원");
-	}else{
+
+	} else {
 		$("#"+prdTypeNumList).removeClass('add');
 		$("#"+prdTypeAdtnPrdListDiv).css("display","block");
 		$("#"+prdTypeAdtnPrdInfo).css("display","none");
@@ -2072,17 +2290,18 @@ function fnAdtnPrdMod(prdType, value){
 		$("#"+prdTypeIndvDtlInfo).css("display","none");
 		$("#adtnPrdInpYn").val("N");
 	}
-	
-	// 20211218 티머니GO App 
+
+	// TGO 예외 처리
 	if (tmeneyGo == "TGO"){
 		alert("티머니GO App 에서 발행한 부가상품은 홈페이지에서 사용할 수 없습니다.\n" +
-				"티머니GO App을 이용해 주세요.");
+			"티머니GO App을 이용해 주세요.");
 		location.reload();
 		return;
 	}
-	
+
 	fnChgCfmBtn();
 	payH();
+
 }
 
 

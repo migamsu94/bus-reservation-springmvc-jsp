@@ -83,6 +83,7 @@
 
 	<form name="stplCfmPymFrm" id="stplCfmPymFrm" method="post"
 		action="/payment/buypay.htm">
+		<input type="hidden" name="kusid" value="KUS003" />
 		<input type="hidden" name="deprCd" id="deprCd" value="032">
 		<!-- 출발지코드 -->
 		<input type="hidden" name="deprNm" id="deprNm" value="${deprNm}">
@@ -768,25 +769,25 @@
 
 						<ul class="tabs clfix col5" id="payTyepAllUl">
 							<li id="cardLi" class="active"><input type="radio"
-								id="payType1" name="payType"
+								id="payType1" name="payType" value="card"
 								onclick="fnPymType(this,&#39;card&#39;);" title="선택됨"><label
 								for="payType1">카드/간편결제</label></li>
 
 
 
 							<li class="pay_account" id="payTypeAcnt"><input type="radio"
-								id="payType2" name="payType"
+								id="payType2" name="payType" value="bank"
 								onclick="fnPymType(this,&#39;acnt&#39;);"><label
 								for="payType2">계좌이체</label></li>
 
 
 							<li id="payTypePerd"><input type="radio" id="payType3"
-								name="payType" onclick="fnPymType(this,&#39;perd&#39;);"><label
+								name="payType" value="season" onclick="fnPymType(this,&#39;perd&#39;);"><label
 								for="payType3">정기권 <span id="passCntSp">(0)</span></label></li>
 
 
 							<li id="payTypeFrps"><input type="radio" id="payType4"
-								name="payType" onclick="fnPymType(this,&#39;frps&#39;);"><label
+								name="payType" value="freepass" onclick="fnPymType(this,&#39;frps&#39;);"><label
 								for="payType4">프리패스 <span id="frpsCntSp">(0)</span></label></li>
 
 
@@ -1279,7 +1280,7 @@
 						</div>
 						<p class="btn bottom">
 							<button type="button" id="stplCfmBtn"
-								class="btnL btn_confirm ready" onclick="requestPay()">결제하기</button>
+								class="btnL btn_confirm ready" onclick="fnVldtCmn()">결제하기</button>
 						</p>
 					</div>
 				</div>
