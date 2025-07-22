@@ -17,6 +17,6 @@ public class JoinDTO {
 	private String id; // 회원 아이디
 	private String passwd; // 회원 비밀번호 
 	private String birth; // 회원 탄생년도 
-	private int gender; // 회원 성별 : 남(1),여(2)
+	private String gender; // 회원 성별 : 남(1),여(2)
 	private String joinDate; // 회원가입 날짜
 }

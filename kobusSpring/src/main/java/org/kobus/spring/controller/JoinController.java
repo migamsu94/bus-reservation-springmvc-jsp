@@ -1,13 +1,23 @@
 package org.kobus.spring.controller;
 
+import java.io.IOException;
+import java.net.http.HttpResponse;
 import java.sql.SQLException;
 
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.ibatis.annotations.Param;
+import org.kobus.spring.domain.join.AuthDTO;
 import org.kobus.spring.domain.join.JoinDTO;
 import org.kobus.spring.service.join.JoinService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.extern.log4j.Log4j;
 
@@ -15,16 +25,78 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class JoinController {
 	
+	@Autowired
 	private JoinService joinService;
 	
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
+	@GetMapping("/usrIdDupCheck.do")
+	@ResponseBody
+	public String usrIdDupCheck(
+				@RequestParam("checkid") String inputId,
+				HttpServletResponse response
+			) throws SQLException, IOException {
+		
+		String result = "";
+		
+		String inputidOk = joinService.idDupCheck(inputId);
+		
+		if(inputidOk != null && !inputidOk.isEmpty()) {
+			result = "success";
+			log.info("아이디 정보가 존재합니다.");
+			response.setContentType("text/plain; charset=UTF-8");
+		    response.getWriter().write(result);
+		} else {
+			log.info("아이디 사용가능");
+			response.setContentType("text/plain; charset=UTF-8");
+		    response.getWriter().write(
+		        (result != null && !result.isEmpty()) ? result : "error"
+		    );
+		}
+	
+		return null;
+	}
+	
+	// 
+	@GetMapping("/telCertificationNum.do")
+	@ResponseBody
+	public String telCertificationNum(
+				@RequestParam("phoneNum") String inputNumber,
+				HttpServletResponse response
+			) throws SQLException, IOException {
+		
+		String result = "";
+		
+		int randomNumber = 0;
+		
+		String CertificationNum = joinService.telCertificationNum(inputNumber, randomNumber);
+		
+		log.info("4자리 랜덤 숫자: " + CertificationNum);
+		
+		response.setContentType("text/plain; charset=UTF-8");
+	    response.getWriter().write(
+	        (CertificationNum != null && !CertificationNum.isEmpty()) ? CertificationNum : "error"
+	    );
+		
+		return null;
+	}
+	
 	@PostMapping("/joinOkEnterInfo.do")
-	public String joinOkEnterInfo(@ModelAttribute JoinDTO dto) throws SQLException {
+	public String joinOkEnterInfo(
+			@ModelAttribute JoinDTO dto
+			) throws SQLException {
 		
 		log.info("> joinOkEnterInfo.POST()...");
 		
-		int result = joinService.insert(dto);
+		dto.setPasswd(bCryptPasswordEncoder.encode(dto.getPasswd()));
+		AuthDTO adto = new AuthDTO();
 		
-		if(result == 1) {
+		int result = joinService.insert(dto);
+		adto.setUsername(dto.getId());
+		int result2 = joinService.insertAuth(adto);
+		
+		if(result == 1 && result2 == 1) {
 			log.info("회원가입 성공!");
 			
 		}else {
