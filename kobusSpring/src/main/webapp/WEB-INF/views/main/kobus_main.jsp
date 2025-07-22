@@ -339,7 +339,7 @@ function parseKoreanDateToYYYYMMDD(dateStr) {
 									<c:when test="${empty auth}">
 									<div class="main_box">
 										<div class="ticket_login custom_input clfix">
-											<form action="/koBus/logonOk.do" id="lgnFrm" name="lgnFrm">
+											<form action="/koBus/login" method="POST" id="lgnFrm" name="lgnFrm">
 											<input type="hidden" name="sourcePage" value="reservationCheck.jsp">
 												<input type="hidden" id="returnUrl" name="returnUrl"
 													value="/mrs/mrscfm.do?vltlCnt=Y"> <input
@@ -352,14 +352,14 @@ function parseKoreanDateToYYYYMMDD(dateStr) {
 													</div>
 													<div class="box_inputForm">
 														<label for="usrId" class="label">아이디</label> <span
-															class="box_label"> <input type="text" name="usrId"
+															class="box_label"> <input type="text" name="username"
 															id="usrId" placeholder="아이디를 입력하세요" class="input">
 														</span>
 													</div>
 													<div class="box_inputForm">
 														<label for="usrPwd" class="label">비밀번호</label> <span
 															class="box_label">
-														 	<input type="password" name="usrPwd"
+														 	<input type="password" name="password"
 															placeholder="비밀번호를 입력하세요" id="usrPwd" tabindex="-1"
 															class="input">
 														</span>
@@ -382,9 +382,8 @@ function parseKoreanDateToYYYYMMDD(dateStr) {
 													</ul>
 													<!-- // [2024 마크업 수정] -->
 												</div>
-												
-												
-												
+												<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+
 											</form>
 											<!-- 로그인 기능 -->
 											<script>
