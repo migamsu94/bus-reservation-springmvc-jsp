@@ -25,5 +25,5 @@ public interface MemberMyPageService {
 	int updateTel(String auth, String changeTel) throws SQLException;
 
 	// 회원탈퇴
-	String deleteUsr(String auth) throws SQLException; 
+	int deleteUsr(String auth) throws SQLException; 
 }
