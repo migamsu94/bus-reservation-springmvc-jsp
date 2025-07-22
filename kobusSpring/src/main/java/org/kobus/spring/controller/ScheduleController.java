@@ -189,13 +189,13 @@ public class ScheduleController {
 	
 	@PostMapping("/reservation2.do")
 	public String showReservationPagePost() {
-	    return "kobus.reservation/KOBUSreservation2";
+	    return "kobus.reservation/KOBUSreservationTime";
 	}
 	
 	
 	@GetMapping("/reservation2.do")
 	public String showReservationPage() {
-	    return "kobus.reservation/KOBUSreservation2"; 
+	    return "kobus.reservation/KOBUSreservationTime"; 
 	}
 	
 	
