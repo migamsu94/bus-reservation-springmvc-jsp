@@ -191,7 +191,7 @@ $(document).ready(function () {
 					value="2025. 6. 21. 토">
 				<!-- 오는날(왕복) -->
 				<input type="hidden" name="busClsCd" id="busClsCd" value="${bus.busGrade }">
-				<input type="hidden" name="busCode" id="busCode" value="${bus.bshId }">
+				<input type="hidden" name="bshId" id="busCode" value="${bus.bshId }">
 				<!-- 버스등급 -->
 				<input type="hidden" name="takeDrtmOrg" id="takeDrtmOrg" value="${bus.durMin }">
 				<!-- 소요시간 -->
@@ -425,6 +425,8 @@ $(document).ready(function () {
 					type="hidden" name="endDtm" id="endDtm" value="">
 					
 				<input type="hidden" name="resId" id="resId" value="${resId }">
+				
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 
 			</form>
 
