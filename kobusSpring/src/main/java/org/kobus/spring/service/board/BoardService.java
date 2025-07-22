@@ -1,10 +1,5 @@
 package org.kobus.spring.service.board;
 
-import java.util.List;
-
-import org.kobus.spring.domain.board.BoardDTO;
-//import org.kobus.spring.mapper.board.BoardMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
