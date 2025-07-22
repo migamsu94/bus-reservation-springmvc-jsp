@@ -36,9 +36,9 @@
     <!-- 프리패스 사용일 조회 -->
     <select id="selectUsedDatesByKusid" parameterType="String" resultType="org.kobus.spring.domain.pay.ResPassUsageDTO">
         SELECT
-            FREE_PASS_PAY_ID,
+            FREE_PASS_PAY_ID AS FP_CPN_NO,
             RES_ID,
-            USED_DATE
+            USED_DATE AS TIM_DTE
         FROM
             RES_PASS_USAGE
         WHERE
@@ -48,5 +48,18 @@
                 WHERE KUSID = #{kusid}
             )
     </select>
+    
+    <!-- 프리패스 단건 조회 -->
+    <select id="selectFreePassByCpnNo" resultType="org.kobus.spring.domain.pay.FreePassDTO">
+        SELECT *
+        FROM FREE_PASS_PAYMENT
+        WHERE adtn_prd_sno = #{adtnCpnNo}
+    </select>
+
+    <!-- 예매 insert -->
+    <insert id="insertReservationForFreePass">
+        INSERT INTO RESERVATION (res_id, kusid, ride_date, ...)
+        VALUES (SEQ_RESERVATION.NEXTVAL, #{kusid}, #{rideDate}, ...)
+    </insert>
 
 </mapper>

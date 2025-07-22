@@ -1,6 +1,9 @@
 package org.kobus.spring.controller;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -71,6 +74,9 @@ public class AdtnPrdAjaxController {
     // 정기권/프리패스를 통합해서 보내기 위한 리스트 merge
     private List<Map<String, Object>> mergeResult(List<FreePassDTO> freeList, List<SeasonTicketDTO> seasonList) {
         List<Map<String, Object>> merged = new ArrayList<>();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+
+        // ✅ 프리패스
         if (freeList != null) {
             for (FreePassDTO dto : freeList) {
                 Map<String, Object> map = new HashMap<>();
@@ -79,14 +85,30 @@ public class AdtnPrdAjaxController {
                 map.put("ADTN_PRD_USE_PSB_DNO", dto.getAdtnPrdUsePsbDno());
                 map.put("wkdWkeNtknNm", dto.getWkdWkeNtknNm());
                 map.put("adtnPrdUseClsNm", dto.getAdtnPrdUseClsNm());
-                map.put("EXDT_STT_DT", dto.getStartDate());
-                map.put("EXDT_END_DT", null);
+
+                Date startDate = dto.getStartDate();
+                String endDtStr = null;
+                try {
+                	int days = dto.getAdtnPrdUsePsbDno(); // ✅ 이미 int라 바로 사용
+                    if (startDate != null && days > 0) {
+                        Calendar cal = Calendar.getInstance();
+                        cal.setTime(startDate);
+                        cal.add(Calendar.DATE, days - 1);
+                        endDtStr = sdf.format(cal.getTime());
+                    }
+                } catch (Exception e) {
+                    endDtStr = null;
+                }
+                map.put("EXDT_STT_DT", sdf.format(startDate));
+                map.put("EXDT_END_DT", endDtStr);
+
                 map.put("adtnPrdUseNtknNm", dto.getAdtnPrdUseNtknNm());
                 map.put("PUB_USER_NO", dto.getKusid());
                 merged.add(map);
             }
         }
 
+        // ✅ 정기권
         if (seasonList != null) {
             for (SeasonTicketDTO dto : seasonList) {
                 Map<String, Object> map = new HashMap<>();
@@ -95,8 +117,25 @@ public class AdtnPrdAjaxController {
                 map.put("ADTN_PRD_USE_PSB_DNO", dto.getAdtnPrdUsePsbDno());
                 map.put("wkdWkeNtknNm", dto.getWkdWkeNtknNm());
                 map.put("adtnPrdUseClsNm", dto.getAdtnPrdUseClsNm());
-                map.put("EXDT_STT_DT", dto.getStartDate());
-                map.put("EXDT_END_DT", null);
+
+                Date startDate = dto.getStartDate();
+                String endDtStr = null;
+                try {
+                    if (startDate != null && dto.getAdtnPrdUsePsbDno() != null) {
+                        int days = Integer.parseInt(dto.getAdtnPrdUsePsbDno());
+                        if (days > 0) {
+                            Calendar cal = Calendar.getInstance();
+                            cal.setTime(startDate);
+                            cal.add(Calendar.DATE, days - 1);
+                            endDtStr = sdf.format(cal.getTime());
+                        }
+                    }
+                } catch (Exception e) {
+                    endDtStr = null;
+                }
+                map.put("EXDT_STT_DT", sdf.format(startDate));
+                map.put("EXDT_END_DT", endDtStr);
+
                 map.put("adtnPrdUseNtknNm", dto.getAdtnPrdUseNtknNm());
                 map.put("PUB_USER_NO", dto.getKusid());
                 merged.add(map);
@@ -105,4 +144,5 @@ public class AdtnPrdAjaxController {
 
         return merged;
     }
+
 }
