@@ -554,7 +554,7 @@ function requestPay() {
 		            const payMethod = paymentData.pay_method;
 		            const amountStr = paymentData.amount;
 					
-					location.href = "/koBus/reservCompl.do"
+					location.href = "/koBus/payment/reservCompl.htm"
 								    + "?resId=" + encodeURIComponent(resId)
 								    + "&deprDt=" + encodeURIComponent(deprDt)
 								    + "&deprTime=" + encodeURIComponent(deprTime)

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
 <!-- 브레드크럼 -->
@@ -81,7 +82,7 @@
 
 
 	<form name="stplCfmPymFrm" id="stplCfmPymFrm" method="post"
-		action="/payment/buypay.do">
+		action="/payment/buypay.htm">
 		<input type="hidden" name="deprCd" id="deprCd" value="032">
 		<!-- 출발지코드 -->
 		<input type="hidden" name="deprNm" id="deprNm" value="${deprNm}">
@@ -393,8 +394,8 @@
 			style="display: none;">
 
 
-			<a href="/payment/buypay.do" class="back">back</a> <a
-				href="/payment/buypay.do" class="mo_toggle">메뉴</a>
+			<a href="/payment/buypay.htm" class="back">back</a> <a
+				href="/payment/buypay.htm" class="mo_toggle">메뉴</a>
 
 
 			<h2>고속버스예매</h2>
@@ -732,7 +733,16 @@
 										</tr>
 										<tr>
 											<th scope="row">등급</th>
-											<td>${indVBusClsCd}</td>
+											<td>
+											    <c:choose>
+											      <c:when test="${indVBusClsCd == '1'}">우등</c:when>
+											      <c:when test="${indVBusClsCd == '2'}">고속</c:when>
+											      <c:when test="${indVBusClsCd == '3'}">심야우등</c:when>
+											      <c:when test="${indVBusClsCd == '7'}">프리미엄</c:when>
+											      <c:when test="${indVBusClsCd == '8'}">심야프리미엄</c:when>
+											      <c:otherwise>미지정</c:otherwise>
+											    </c:choose>
+											  </td>
 										</tr>
 										<tr>
 											<th scope="row">매수</th>
@@ -1013,10 +1023,10 @@
 
 
 
-						<div class="tab_conts" id="tab2" style="display: none;">
-							<!-- 계좌이체 : 개인계좌 -->
+						<!-- <div class="tab_conts" id="tab2" style="display: none;">
+							계좌이체 : 개인계좌
 							<div class="box_inputForm">
-								<!-- <strong id="acBirthText"></strong> -->
+								<strong id="acBirthText"></strong>
 								<label for="acBirth" id="acBirthLabel" class="label">생년월일
 									6자리(YYMMDD)</label> <span class="box_label"> <input type="text"
 									name="acBirth" id="acBirth"
@@ -1027,7 +1037,7 @@
 							</div>
 
 
-							<!-- 20201124 yahan -->
+							20201124 yahan
 							<div class="box_inputForm">
 								<strong class="label">현금영수증 발급정보</strong> <span
 									class="radio_wrap"> <span class="custom_radio2">
@@ -1051,7 +1061,7 @@
 								<div class="payment2">
 
 
-									<!-- 웹 접근성 개선 셀렉트 박스 UI -->
+									웹 접근성 개선 셀렉트 박스 UI
 
 									<div class="dropdown-wrap select-default" id="acntCsrcPerson">
 										<a href="javascript:void(0)" class="btn-dropdown"
@@ -1071,7 +1081,7 @@
 
 
 
-									<!-- 웹 접근성 개선 셀렉트 박스 UI -->
+									웹 접근성 개선 셀렉트 박스 UI
 
 									<div class="dropdown-wrap select-default"
 										style="display: none;" id="acntCsrcBusiness">
@@ -1091,7 +1101,7 @@
 
 								</div>
 							</div>
-							<!-- 개인소득공제용 > 휴대폰번호 선택 -->
+							개인소득공제용 > 휴대폰번호 선택
 							<div class="box_inputForm" id="acntCsrcMbph"
 								style="margin-top: 0; padding-bottom: 10px;">
 								<label for="phoneNum2" class="label">휴대폰번호</label> <span
@@ -1102,8 +1112,8 @@
 									onkeyup="fnChgCfmBtn();">
 								</span>
 							</div>
-							<!-- // 개인소득공제용 > 휴대폰번호 선택 -->
-							<!-- 개인소득공제 and 사업자증빙 > 현금영수증카드 선택 -->
+							// 개인소득공제용 > 휴대폰번호 선택
+							개인소득공제 and 사업자증빙 > 현금영수증카드 선택
 							<div class="box_inputForm card_num clfix" id="acntCsrcCard"
 								style="margin-top: 0; padding-bottom: 10px; display: none;">
 								<strong class="label">카드번호</strong> <span class="box_label">
@@ -1128,8 +1138,8 @@
 									onkeyup="fnChgCfmBtn();">
 								</span>
 							</div>
-							<!-- // 개인소득공제 and 사업자증빙 > 현금영수증카드 선택 -->
-							<!-- 사업자증빙용 > 사업자등록번호 선택 -->
+							// 개인소득공제 and 사업자증빙 > 현금영수증카드 선택
+							사업자증빙용 > 사업자등록번호 선택
 							<div class="box_inputForm business_num clfix" id="acntCsrcBizn"
 								style="margin-top: 0; padding-bottom: 10px; display: none;">
 								<strong class="label">사업자등록번호</strong> <span class="box_label">
@@ -1149,10 +1159,10 @@
 									onkeyup="fnChgCfmBtn();">
 								</span>
 							</div>
-							<!-- // 사업자증빙용 > 사업자등록번호 선택 -->
-							<!-- // 계좌이체 : 개인계좌 -->
+							// 사업자증빙용 > 사업자등록번호 선택
+							// 계좌이체 : 개인계좌
 
-						</div>
+						</div> -->
 
 
 
