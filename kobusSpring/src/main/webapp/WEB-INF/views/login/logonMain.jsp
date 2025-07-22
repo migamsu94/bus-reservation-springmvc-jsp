@@ -31,7 +31,7 @@
 			</div>
 			<div class="content-body">
 				<div class="container">
-					<form action="${pageContext.request.contextPath}/logonOk.do" id="lgnUsrInfForm" method="post" name="lgnUsrInfForm">
+					<form action="/koBus/login" id="lgnUsrInfForm" method="POST" name="lgnUsrInfForm">
 						<div class="login_wrap">
 							<!-- 회원로그인 -->
 							
@@ -49,7 +49,7 @@
 												<div class="box_inputForm">
 													<label class="label" for="usrId">아이디</label> <span
 														class="box_label"> <input class="input" id="usrId"
-														name="usrId" placeholder="아이디를 입력하세요" type="text" />
+														name="username" placeholder="아이디를 입력하세요" type="text" />
 													</span>
 												</div>
 											</li>
@@ -57,7 +57,7 @@
 												<div class="box_inputForm">
 													<label class="label" for="usrPwd">비밀번호</label> <span
 														class="box_label"> <input class="input"
-													 	id="usrPwd" name="usrPwd" placeholder="비밀번호를 입력하세요" tabindex="-1" type="password" />
+													 	id="usrPwd" name="password" placeholder="비밀번호를 입력하세요" tabindex="-1" type="password" />
 													</span>
 												</div>
 											</li>
@@ -89,6 +89,7 @@
 							<iframe class="ad-frame" 
 								title="프레임 (전화번호안심 로그인)"></iframe>
 						</div>
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 					</form>
 				</div>
 			</div>
@@ -102,7 +103,7 @@
 			
 			
 			<!-- 로그인정보 입력 제대로 안했을때 알림띄워주기 -->
-			<c:if test="${result == 0}">
+			<c:if test="${param.error == 'true'}">
 				<script>
 					alert("회원정보가 없습니다, 다시 로그인해 주세요.");
 				</script>

@@ -61,15 +61,14 @@
 	</select>
     
 
-    <select id="getDurationFromRoute" resultType="int">
-        SELECT R.duration 
-        FROM route R 
-        JOIN departure D ON R.depid = D.depid 
-        JOIN arrival A ON R.arrid = A.arrid 
-        JOIN region RG_D ON D.regid = RG_D.regid 
-        JOIN region RG_A ON A.regid = RG_A.regid 
-        WHERE RG_D.regid = #{deprRegId}
-          AND RG_A.regid = #{arvlRegId}
-    </select>
+    <select id="getRouteDuration" parameterType="map" resultType="java.lang.Integer">
+	    SELECT R.DURATION AS duration
+	    FROM ROUTE R
+	    JOIN DEPARTURE D ON R.DEPID = D.DEPID
+	    JOIN ARRIVAL A ON R.ARRID = A.ARRID
+	    WHERE D.REGID = #{deprRegId}
+	      AND A.REGID = #{arvlRegId}
+	      AND ROWNUM = 1
+</select>
 
 </mapper>

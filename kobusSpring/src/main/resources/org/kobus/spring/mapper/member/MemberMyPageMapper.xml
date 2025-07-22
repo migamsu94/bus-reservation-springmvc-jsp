@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="org.kobus.spring.mapper.member.MemberMyPageMapper">
+  
+  	<select id="reservationCount" parameterType="String">
+  		SELECT COUNT(*) AS reservation_count 
+		FROM reservation r 
+		JOIN kobusUser u ON r.kusID = u.kusID
+		WHERE u.id = #{auth}
+  	</select>
+  
+  </mapper>
