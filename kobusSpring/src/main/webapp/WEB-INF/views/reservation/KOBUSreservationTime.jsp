@@ -147,7 +147,7 @@ $(document).ready(function () {
                 ajaxType: "getDuration",
                 deprCd: deprCd,
                 arvlCd: arvlCd,
-                sourcePage: "KOBUSreservation3.jsp"
+                sourcePage: "KOBUSreservationRegion.jsp"
             },
             dataType: "json",
             success: function (data) {
@@ -182,7 +182,7 @@ $(document).ready(function () {
                 arvlCd: arvlCd,
                 deprDtm: deprDtm,
                 busClsCd: busClsCd,
-                sourcePage: "KOBUSreservation3.jsp"
+                sourcePage: "KOBUSreservationRegion.jsp"
             },
             dataType: "json",
             success: function (data) {
@@ -328,7 +328,7 @@ $(document).ready(function () {
           arvlCd: $("#arvlCd").val(),
           deprDtm: yyyymmdd,
           busClsCd: $("#busClsCd").val(),
-          sourcePage: "KOBUSreservation2.jsp"
+          sourcePage: "KOBUSreservationTime.jsp"
         },
         dataType: "json",
         success: function (data) {
@@ -666,7 +666,7 @@ $(document).on("click", ".time li a", function () {
       type="text/javascript"></script>
    <!-- <form action="/koBus/resources/mrs/alcnSrch.do" id="alcnSrchFrm" method="post" name="alcnSrchFrm"> -->
    <form action="<%=request.getContextPath() %>/kobusSeat.do" id="alcnSrchFrm" method="get" name="alcnSrchFrm">
-      <input type="hidden" name="sourcePage" value="KOBUSreservation2.jsp">
+      <input type="hidden" name="sourcePage" value="KOBUSreservationTime.jsp">
       <input id="deprCd" name="deprCd" type="hidden" value="<%= request.getParameter("deprCd") %>" />
       <!-- 출발지코드 -->
       <!-- <input id="deprNm" name="deprNm" type="hidden" value="동서울" /> -->
@@ -771,10 +771,6 @@ $(document).on("click", ".time li a", function () {
          id="endDtm" name="endDtm" type="hidden" value="" />
       <!-- 20241008 웹접근성 -->
       <input id="reloadStatus" name="reloadStatus" type="hidden" value="" />
-      
-      <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-	
-      
    </form>
    <div class="title_wrap in_process ticketingT" style="display: none;">
       <a class="back" href="#">back</a> <a class="mo_toggle" href="#">메뉴</a>

@@ -126,6 +126,8 @@ $(document).ready(function() {
 			  <input type="hidden" name="deprDtm" id="deprDtm" value="">
 			  <input type="hidden" name="busClsCd" id="busClsCd" value="">
 			
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			
 			</form>
 			
 			<div class="title_wrap in_process checkTicketingT"

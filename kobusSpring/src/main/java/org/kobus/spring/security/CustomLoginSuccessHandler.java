@@ -34,8 +34,7 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler{
 		String passwd = userDetails.getPassword();
 		
 		log.info("로그인한 아이디 확인: " + username);
-		log.info("로그인한 비밀번호 확인 : " + passwd);
-	    
+		log.info("로그인한 비밀번호 확인 : " + passwd);	    
 
 	    // 세션에 id 저장 -> header에 auth로 불러오기 때문에 auth로 설정 
 	    request.getSession().setAttribute("auth", username);

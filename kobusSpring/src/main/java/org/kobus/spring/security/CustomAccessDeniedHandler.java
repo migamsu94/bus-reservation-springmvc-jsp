@@ -32,6 +32,7 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler{
 		if (auth != null && auth.getPrincipal() instanceof User) {
 			User user = (User) auth.getPrincipal();
 			log.error("👉 현재 로그인한 사용자 ID: " + user.getUsername());
+			log.error(" 에러뜨는 권한: " + user.getAuthorities());
 		} else {
 			log.error("👉 인증 정보가 없거나 알 수 없음");
 		}

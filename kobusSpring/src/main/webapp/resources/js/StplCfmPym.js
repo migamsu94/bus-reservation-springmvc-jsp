@@ -430,7 +430,11 @@ function requestPay() {
                     user_id: $('#user_id').val(), // 또는 세션에서 가져온 ID
                     bus_schedule_id: $('#busScheduleId').val(), // 예: 3020번 고유번호
         			seat_number: $('#seatNo').val(),
-        			boarding_dt: boardingDt // 변환된 날짜
+        			boarding_dt: boardingDt,
+        			boarding_time: deprTimeFmt
+        			
+        			
+        			 // 변환된 날짜
                 },
                 success: function(data) {
                     alert('결제 정보가 서버에 저장되었습니다!');

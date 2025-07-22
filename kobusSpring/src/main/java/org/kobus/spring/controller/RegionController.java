@@ -24,10 +24,10 @@ public class RegionController {
     @Autowired
     private RegionMapper regionMapper;
     
-    @GetMapping("/reservation3.do")
+    @GetMapping("/region.do")
     public String showReservationPage() {
         log.info("> RegionController.showReservationPage() 실행");
-        return "kobus.reservation/KOBUSreservation3"; 
+        return "kobus.reservation/KOBUSreservationRegion"; 
     }
 
     // AJAX 요청 처리용 - JSON 반환

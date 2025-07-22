@@ -30,29 +30,25 @@ public class ScheduleController {
 	@PostMapping("/readRotLinInf.ajax")
 	@ResponseBody
 	public ResponseEntity<?> readRotLinInf(
-			@RequestParam(name = "regionCode", required = false) String regionCode,
-			@RequestParam(name = "ajaxType") String ajaxType) throws SQLException {
+			@RequestParam(name = "regionCode", required = false) String regionCode
+			) throws SQLException {
 
-		log.info(">> readRotLinInf.ajax 호출됨 - ajaxType : " + ajaxType);
+		log.info(">> readRotLinInf.ajax 호출됨 - ajaxType :");
 
-		if ("getStationName".equals(ajaxType)) {
-			if (regionCode == null || regionCode.trim().isEmpty()
-					|| "null".equalsIgnoreCase(regionCode)
-					|| "undefined".equalsIgnoreCase(regionCode)) {
-				regionCode = "11";
-			}
-
-			if ("all".equals(regionCode)) {
-				List<ScheduleDTO> result = scheduleService.selectByRegion();
-				return ResponseEntity.ok(result);
-			} else {
-				int sidoCode = Integer.parseInt(regionCode);
-				List<ScheduleDTO> result = scheduleService.selectBySidoCode(sidoCode);
-				return ResponseEntity.ok(result);
-			}
-
+		if (regionCode == null || regionCode.trim().isEmpty()
+				|| "null".equalsIgnoreCase(regionCode)
+				|| "undefined".equalsIgnoreCase(regionCode)) {
+			regionCode = "11";
 		}
-		return null;
+		
+		if ("all".equals(regionCode)) {
+			List<ScheduleDTO> result = scheduleService.selectByRegion();
+			return ResponseEntity.ok(result);
+		} else {
+			int sidoCode = Integer.parseInt(regionCode);
+			List<ScheduleDTO> result = scheduleService.selectBySidoCode(sidoCode);
+			return ResponseEntity.ok(result);
+		}
 	}
 
 
@@ -189,13 +185,13 @@ public class ScheduleController {
 	
 	@PostMapping("/reservation2.do")
 	public String showReservationPagePost() {
-	    return "kobus.reservation/KOBUSreservation2";
+	    return "kobus.reservation/KOBUSreservationTime";
 	}
 	
 	
 	@GetMapping("/reservation2.do")
 	public String showReservationPage() {
-	    return "kobus.reservation/KOBUSreservation2"; 
+	    return "kobus.reservation/KOBUSreservationTime"; 
 	}
 	
 	
