@@ -7,7 +7,7 @@
 	namespace="org.kobus.spring.mapper.pay.BusReservationMapper">
 	
 	<!-- 예매 정보 INSERT -->
-	<insert id="insertReservation" parameterType="org.kobus.spring.domain.pay.BusReservationDTO">
+	<insert id="insertReservation" parameterType="org.kobus.spring.domain.reservation.ResvDTO">
 	    
 	    <!-- BEFORE insert: resid 자동 생성 -->
 	    <selectKey keyProperty="resId" resultType="String" order="BEFORE">
@@ -48,11 +48,14 @@
         )
     </insert>
     
-    <update id="changeReservation" >
-	    UPDATE reservation
-	    SET resv_status = '취소'
-	    WHERE res_id = #{resId}
-	</update>
+    <update id="callAfterReservation" statementType="CALLABLE">
+    { CALL AFTER_RESERVATION(
+      #{resid, mode=IN, jdbcType=VARCHAR},
+      #{bshid, mode=IN, jdbcType=VARCHAR},
+      #{kusid, mode=IN, jdbcType=VARCHAR},
+      #{seatList, mode=IN, jdbcType=VARCHAR}
+    ) }
+  </update>
 	
 	<select id="generateResId" resultType="String">
     	SELECT RESERVATION_SEQ.NEXTVAL FROM DUAL

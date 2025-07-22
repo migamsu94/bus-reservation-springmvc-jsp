@@ -703,7 +703,10 @@
 			</div>
 
 			
-		<input type="hidden" id="hidfrmId" name="hidfrmId" value="frpsPrchFrm"><input type="hidden" id="transkeyUuid_frpsPrchFrm" name="transkeyUuid_frpsPrchFrm" value="98d0e138207388f33c8beae202e2c7818f9cb8ade34dde37d6c3f3970d1c41d5"><input type="hidden" id="transkey_cardNum3_frpsPrchFrm" name="transkey_cardNum3_frpsPrchFrm" value=""><input type="hidden" id="transkey_HM_cardNum3_frpsPrchFrm" name="transkey_HM_cardNum3_frpsPrchFrm" value=""><input type="hidden" id="transkey_cardNum4_frpsPrchFrm" name="transkey_cardNum4_frpsPrchFrm" value=""><input type="hidden" id="transkey_HM_cardNum4_frpsPrchFrm" name="transkey_HM_cardNum4_frpsPrchFrm" value=""><input type="hidden" id="transkey_cardPwd_frpsPrchFrm" name="transkey_cardPwd_frpsPrchFrm" value=""><input type="hidden" id="transkey_HM_cardPwd_frpsPrchFrm" name="transkey_HM_cardPwd_frpsPrchFrm" value=""></form>	
+		<input type="hidden" id="hidfrmId" name="hidfrmId" value="frpsPrchFrm"><input type="hidden" id="transkeyUuid_frpsPrchFrm" name="transkeyUuid_frpsPrchFrm" value="98d0e138207388f33c8beae202e2c7818f9cb8ade34dde37d6c3f3970d1c41d5"><input type="hidden" id="transkey_cardNum3_frpsPrchFrm" name="transkey_cardNum3_frpsPrchFrm" value=""><input type="hidden" id="transkey_HM_cardNum3_frpsPrchFrm" name="transkey_HM_cardNum3_frpsPrchFrm" value=""><input type="hidden" id="transkey_cardNum4_frpsPrchFrm" name="transkey_cardNum4_frpsPrchFrm" value=""><input type="hidden" id="transkey_HM_cardNum4_frpsPrchFrm" name="transkey_HM_cardNum4_frpsPrchFrm" value=""><input type="hidden" id="transkey_cardPwd_frpsPrchFrm" name="transkey_cardPwd_frpsPrchFrm" value=""><input type="hidden" id="transkey_HM_cardPwd_frpsPrchFrm" name="transkey_HM_cardPwd_frpsPrchFrm" value="">
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+		
+		</form>	
 	</div>
 
 	</div>
@@ -723,6 +726,9 @@
 	<input type="hidden" name="goodsName" id="goodsName" value="고속버스 프리패스 여행권">
 	<input type="hidden" name="goodsCnt" id="goodsCnt" value="1">
 	<input type="hidden" name="goodsPrice" id="goodsPrice" value="0">
+	
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+	
 </form>
 
 		</article>

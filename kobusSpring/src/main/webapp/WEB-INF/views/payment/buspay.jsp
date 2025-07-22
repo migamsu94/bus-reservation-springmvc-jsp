@@ -1488,6 +1488,8 @@
 		<!-- 인증번호 -->
 		<input type="hidden" name="mbrsDvsCd" id="mbrsDvsCd" value="1">
 		<!-- 비회원 -->
+		
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	</form>
 
 	<form name="payDtaFrm" id="payDtaFrm" method="post">
@@ -1499,6 +1501,8 @@
 			id="payGoodsCnt" value="1"> <input type="hidden"
 			name="goodsPrice" id="payGoodsPrice" value="${tissuAmt}"> <input
 			type="hidden" name="popupStatus" id="popupStatus" value="">
+			
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	</form>
 	<form name="acntDtaFrm" id="acntDtaFrm" method="post">
 		<!-- 계좌이체용 FORM  -->
@@ -1541,6 +1545,8 @@
 		<!-- 필드만 필요 -->
 		<input type="hidden" name="optionList" id="optionList"
 			value="no_receipt">
+			
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	</form>
 	<form name="adtnPrdVldtFrm" id="adtnPrdVldtFrm" method="post">
 		<!-- 부가상품 유효성 검사 -->
@@ -1561,11 +1567,16 @@
 		<!-- 선택좌석수   -->
 		<input type="hidden" name="adtnBusClsCd" id="adtnBusClsCd" value="">
 		<!-- 버스등급   -->
+		
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	</form>
 	<form name="satsPcpyCancFrm" id="satsPcpyCancFrm" method="post">
 		<!-- 선점취소용 -->
 		<input type="hidden" name="cancPcpyNoAll" id="cancPcpyNoAll" value="">
 		<!-- 선점번호   -->
+		
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+		
 	</form>
 	<form name="stplCfmPymPcFrm" id="stplCfmPymPcFrm" method="post">
 		<!-- 평창연계용 -->
@@ -1583,5 +1594,7 @@
 		<!-- 도착지 명칭   -->
 		<input type="hidden" name="sn" id="sn" value="">
 		<!-- 데이터 키   -->
+		
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	</form>
 </article>

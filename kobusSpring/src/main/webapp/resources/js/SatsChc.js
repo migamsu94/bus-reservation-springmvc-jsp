@@ -2030,7 +2030,7 @@ function fnSetPcpy(){
 	        			}
 	        			
 	        			// 페이지 이동 -> pay 페이지로 이동시키기
-	        			$("#satsChcFrm").attr("action","/koBus/payment/buspay.htm");
+	        			$("#satsChcFrm").attr("action","/payment/buspay.htm");
 	        			console.log('폼 action:', $("#satsChcFrm").attr("action"));
 	        			$("#satsChcFrm").submit();
         			}else if($("#pathStep").val() == "2"){

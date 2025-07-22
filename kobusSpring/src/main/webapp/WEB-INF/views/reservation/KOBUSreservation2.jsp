@@ -771,6 +771,10 @@ $(document).on("click", ".time li a", function () {
          id="endDtm" name="endDtm" type="hidden" value="" />
       <!-- 20241008 웹접근성 -->
       <input id="reloadStatus" name="reloadStatus" type="hidden" value="" />
+      
+      <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+	
+      
    </form>
    <div class="title_wrap in_process ticketingT" style="display: none;">
       <a class="back" href="#">back</a> <a class="mo_toggle" href="#">메뉴</a>
