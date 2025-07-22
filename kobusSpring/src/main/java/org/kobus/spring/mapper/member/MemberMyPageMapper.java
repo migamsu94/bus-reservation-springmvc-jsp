@@ -26,6 +26,6 @@ public interface MemberMyPageMapper {
 	int updateTel(String auth, String changeTel) throws SQLException;
 
 	// 회원탈퇴 - DB
-	String deleteUsr(String auth) throws SQLException; 
+	int deleteUsr(String auth) throws SQLException; 
 
 }
