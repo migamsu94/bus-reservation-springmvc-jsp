@@ -184,7 +184,7 @@
 </style>
 
 <form name="rotInfFrm" id="rotInfFrm" method="post" action="/koBus/reservation2.do"> 
-	<input type="hidden" name="sourcePage" value="KOBUSreservation3.jsp">
+	<input type="hidden" name="sourcePage" value="KOBUSreservationRegion.jsp">
 	<input type="hidden" name="deprCd" id="deprCd" value=""><!-- 출발지코드 -->
 	<input type="hidden" name="deprNm" id="deprNm" value=""><!-- 출발지명 -->
 	<input type="hidden" name="arvlCd" id="arvlCd" value=""><!-- 도착지코드 -->
@@ -212,9 +212,6 @@
 	<input type="hidden" name="stdDtm" id="stdDtm" value="">
 	<input type="hidden" name="endDtm" id="endDtm" value="">
 	<input type="hidden" name="queryTime" id="queryTime" value="">
-	
-	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-	
 </form>
 
 			<div class="loading" id="loading" style="height: 1553px; top: 180px; display: none;"><p class="load" style="margin-left: -53px;"><span class="sr-only">로딩중입니다</span></p></div>
