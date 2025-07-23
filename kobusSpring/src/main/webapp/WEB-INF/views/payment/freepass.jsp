@@ -300,7 +300,7 @@
 
 <!-- 20200617 yahan -->
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/transkey.js"></script><script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/TranskeyLibPack_op.js"></script><script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/rsa_oaep-min.js"></script><script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jsbn-min2.js"></script><script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/typedarray.js"></script><script type="text/javascript" src="${pageContext.request.contextPath}/resources/images/transkeyServlet"></script><script type="text/javascript" src="${pageContext.request.contextPath}/resources/images/transkeyServlet(1)"></script>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/cdn-main//transkey.css"> 
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/cdn-main/transkey.css"> 
 <script>
 	$(function(){ initTranskey(); })
 </script>
