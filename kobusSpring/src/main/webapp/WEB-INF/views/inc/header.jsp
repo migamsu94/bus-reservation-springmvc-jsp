@@ -12,7 +12,6 @@ response.setHeader("Pragma", "no-cache"); // HTTP 1.0
 response.setDateHeader("Expires", 0); // Proxies
 %>
 
-
 <!-- [리뉴얼] 페이지 개별 스크립트 신규 정의함 -->
 
 <!-- [리뉴얼] 스킵 네비게이션 신규 정의 -->
