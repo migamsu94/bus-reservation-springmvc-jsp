@@ -42,7 +42,7 @@ public class JoinController {
 				HttpServletResponse response
 			) {
 		
-		// 메인페이지 예매내역 뿌려주는 코드 구현할것
+		
 		
 		return null;
 	}
