@@ -115,17 +115,14 @@ public class FreePassPageController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} // SeatMapper 사용
+		
+		
+		selectedSeatIds = String.join(",", seatIdList);
+
+        System.out.println("seatIdsStr " + selectedSeatIds);
 
         String resId = reservationMapper.generateResId(); // ReservationMapper 사용
         /* generateResId -> SELECT SEQ_RESERVATION.NEXTVAL FROM DUAL */
-        
-        
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.isAuthenticated()) {
-            String username = authentication.getName();
-            System.out.println("username " + username);
-        }
-        
         
         
 

@@ -15,17 +15,6 @@
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/resources/js/typedarray.js"></script>
 
-<!-- 출/도착지 선택 레이어팝업 -->
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/resources/js/ReadLgnInf.js"></script>
-
-<!-- 20200831 yahan -->
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/resources/js/rsa_oaep-min.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/resources/js/jsbn-min2.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/resources/js/typedarray.js"></script>
 
 <style>
 .txt_red {
