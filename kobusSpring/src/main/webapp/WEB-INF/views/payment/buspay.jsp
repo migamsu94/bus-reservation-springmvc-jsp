@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
 <!-- 브레드크럼 -->
@@ -19,15 +20,15 @@
 					<ul class="dropdown-list" style="display: none;">
 
 
-						<li class="selected"><a href="/koBus/region.do" title="선택됨">고속버스예매</a></li>
+						<li class="selected"><a href="${pageContext.request.contextPath}/resources/region.do" title="선택됨">고속버스예매</a></li>
 
-						<li><a href="/koBus/kobusSchedule.do">운행정보</a></li>
+						<li><a href="${pageContext.request.contextPath}/resources${pageContext.request.contextPath}/resourcesSchedule.do">운행정보</a></li>
 
-						<li><a href="/koBus/pageForward.do?page=freePass">프리패스/정기권</a></li>
+						<li><a href="${pageContext.request.contextPath}/resources/pageForward.do?page=freePass">프리패스/정기권</a></li>
 
 						<li><a href="#">이용안내</a></li>
 
-						<li><a href="/koBus/lossCenter/main.do">고객지원</a></li>
+						<li><a href="${pageContext.request.contextPath}/resources/lossCenter/main.do">고객지원</a></li>
 
 						<li><a href="#">전국고속버스운송사업조합</a></li>
 
@@ -45,8 +46,8 @@
 						class="ico ico-dropdown-arrow"></i></a>
 
 					<ul class="dropdown-list" style="display: none;">
-						<li class="selected"><a href="/koBus/region.do" title="선택됨">고속버스예매</a></li>
-						<li><a href="/koBus/manageReservations.do">예매확인/취소/변경</a></li>
+						<li class="selected"><a href="${pageContext.request.contextPath}/resources/region.do" title="선택됨">고속버스예매</a></li>
+						<li><a href="${pageContext.request.contextPath}/resources/manageReservations.do">예매확인/취소/변경</a></li>
 						<li><a href="#">영수증발행</a></li>
 					</ul>
 				</div>
@@ -60,28 +61,29 @@
 <article id="new-kor-content">
 
 
-	<script type="text/javascript" src="/koBus/js/StplCfmPym.js"></script>
-	<script type="text/javascript" src="/koBus/js/jsbn.js"></script>
-	<script type="text/javascript" src="/koBus/js/prng4.js"></script>
-	<script type="text/javascript" src="/koBus/js/rng.js"></script>
-	<script type="text/javascript" src="/koBus/js/rsa.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/StplCfmPym.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jsbn.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/prng4.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/rng.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/rsa.js"></script>
 
 	<!-- 20200617 yahan -->
-	<script type="text/javascript" src="/koBus/js/transkey.js"></script>
-	<script type="text/javascript" src="/koBus/js/TranskeyLibPack_op.js"></script>
-	<script type="text/javascript" src="/koBus/js/rsa_oaep-min.js"></script>
-	<script type="text/javascript" src="/koBus/js/jsbn-min2.js"></script>
-	<script type="text/javascript" src="/koBus/js/typedarray.js"></script>
-	<script type="text/javascript" src="/koBus/images/transkeyServlet"></script>
-	<script type="text/javascript" src="/koBus/images/transkeyServlet(1)"></script>
-	<link rel="stylesheet" type="text/css" href="/koBus/css/transkey.css">
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/transkey.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/TranskeyLibPack_op.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/rsa_oaep-min.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jsbn-min2.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/typedarray.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/images/transkeyServlet"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/images/transkeyServlet(1)"></script>
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/cdn-main/transkey.css">
 	<script>
 	$(function(){ initTranskey(); });
 </script>
 
 
 	<form name="stplCfmPymFrm" id="stplCfmPymFrm" method="post"
-		action="/payment/buypay.do">
+		action="/payment/buypay.htm">
+		<input type="hidden" name="kusid" value="KUS003" />
 		<input type="hidden" name="deprCd" id="deprCd" value="032">
 		<!-- 출발지코드 -->
 		<input type="hidden" name="deprNm" id="deprNm" value="${deprNm}">
@@ -393,8 +395,8 @@
 			style="display: none;">
 
 
-			<a href="/payment/buypay.do" class="back">back</a> <a
-				href="/payment/buypay.do" class="mo_toggle">메뉴</a>
+			<a href="/payment/buypay.htm" class="back">back</a> <a
+				href="/payment/buypay.htm" class="mo_toggle">메뉴</a>
 
 
 			<h2>고속버스예매</h2>
@@ -436,7 +438,7 @@
 							<h4 class="first">서비스 이용약관 동의</h4>
 						</div>
 						<div class="agreement_cont scrollbar-inner">
-							<iframe src="/koBus/cmn/SvcUtlzStplAgrm.do?type=서비스"
+							<iframe src="${pageContext.request.contextPath}/resources/cmn/SvcUtlzStplAgrm.do?type=서비스"
 								frameborder="0" scrolling="no" width="100%" title="서비스 이용약관 내용"
 								onload="resize(this);"></iframe>
 						</div>
@@ -449,7 +451,7 @@
 							<h4>운송약관 동의</h4>
 						</div>
 						<div class="agreement_cont scrollbar-inner">
-							<iframe src="/koBus/cmn/TransitStplAgrm.do?type=운송"
+							<iframe src="${pageContext.request.contextPath}/resources/cmn/TransitStplAgrm.do?type=운송"
 								frameborder="0" scrolling="no" width="100%" height="100"
 								title="운송약관 동의 내용" onload="resize(this);"></iframe>
 						</div>
@@ -732,7 +734,16 @@
 										</tr>
 										<tr>
 											<th scope="row">등급</th>
-											<td>${indVBusClsCd}</td>
+											<td>
+											    <c:choose>
+											      <c:when test="${indVBusClsCd == '1'}">우등</c:when>
+											      <c:when test="${indVBusClsCd == '2'}">고속</c:when>
+											      <c:when test="${indVBusClsCd == '3'}">심야우등</c:when>
+											      <c:when test="${indVBusClsCd == '7'}">프리미엄</c:when>
+											      <c:when test="${indVBusClsCd == '8'}">심야프리미엄</c:when>
+											      <c:otherwise>미지정</c:otherwise>
+											    </c:choose>
+											  </td>
 										</tr>
 										<tr>
 											<th scope="row">매수</th>
@@ -758,25 +769,25 @@
 
 						<ul class="tabs clfix col5" id="payTyepAllUl">
 							<li id="cardLi" class="active"><input type="radio"
-								id="payType1" name="payType"
+								id="payType1" name="payType" value="card"
 								onclick="fnPymType(this,&#39;card&#39;);" title="선택됨"><label
 								for="payType1">카드/간편결제</label></li>
 
 
 
 							<li class="pay_account" id="payTypeAcnt"><input type="radio"
-								id="payType2" name="payType"
+								id="payType2" name="payType" value="bank"
 								onclick="fnPymType(this,&#39;acnt&#39;);"><label
 								for="payType2">계좌이체</label></li>
 
 
 							<li id="payTypePerd"><input type="radio" id="payType3"
-								name="payType" onclick="fnPymType(this,&#39;perd&#39;);"><label
+								name="payType" value="season" onclick="fnPymType(this,&#39;perd&#39;);"><label
 								for="payType3">정기권 <span id="passCntSp">(0)</span></label></li>
 
 
 							<li id="payTypeFrps"><input type="radio" id="payType4"
-								name="payType" onclick="fnPymType(this,&#39;frps&#39;);"><label
+								name="payType" value="freepass" onclick="fnPymType(this,&#39;frps&#39;);"><label
 								for="payType4">프리패스 <span id="frpsCntSp">(0)</span></label></li>
 
 
@@ -1013,10 +1024,10 @@
 
 
 
-						<div class="tab_conts" id="tab2" style="display: none;">
-							<!-- 계좌이체 : 개인계좌 -->
+						<!-- <div class="tab_conts" id="tab2" style="display: none;">
+							계좌이체 : 개인계좌
 							<div class="box_inputForm">
-								<!-- <strong id="acBirthText"></strong> -->
+								<strong id="acBirthText"></strong>
 								<label for="acBirth" id="acBirthLabel" class="label">생년월일
 									6자리(YYMMDD)</label> <span class="box_label"> <input type="text"
 									name="acBirth" id="acBirth"
@@ -1027,7 +1038,7 @@
 							</div>
 
 
-							<!-- 20201124 yahan -->
+							20201124 yahan
 							<div class="box_inputForm">
 								<strong class="label">현금영수증 발급정보</strong> <span
 									class="radio_wrap"> <span class="custom_radio2">
@@ -1051,7 +1062,7 @@
 								<div class="payment2">
 
 
-									<!-- 웹 접근성 개선 셀렉트 박스 UI -->
+									웹 접근성 개선 셀렉트 박스 UI
 
 									<div class="dropdown-wrap select-default" id="acntCsrcPerson">
 										<a href="javascript:void(0)" class="btn-dropdown"
@@ -1071,7 +1082,7 @@
 
 
 
-									<!-- 웹 접근성 개선 셀렉트 박스 UI -->
+									웹 접근성 개선 셀렉트 박스 UI
 
 									<div class="dropdown-wrap select-default"
 										style="display: none;" id="acntCsrcBusiness">
@@ -1091,7 +1102,7 @@
 
 								</div>
 							</div>
-							<!-- 개인소득공제용 > 휴대폰번호 선택 -->
+							개인소득공제용 > 휴대폰번호 선택
 							<div class="box_inputForm" id="acntCsrcMbph"
 								style="margin-top: 0; padding-bottom: 10px;">
 								<label for="phoneNum2" class="label">휴대폰번호</label> <span
@@ -1102,8 +1113,8 @@
 									onkeyup="fnChgCfmBtn();">
 								</span>
 							</div>
-							<!-- // 개인소득공제용 > 휴대폰번호 선택 -->
-							<!-- 개인소득공제 and 사업자증빙 > 현금영수증카드 선택 -->
+							// 개인소득공제용 > 휴대폰번호 선택
+							개인소득공제 and 사업자증빙 > 현금영수증카드 선택
 							<div class="box_inputForm card_num clfix" id="acntCsrcCard"
 								style="margin-top: 0; padding-bottom: 10px; display: none;">
 								<strong class="label">카드번호</strong> <span class="box_label">
@@ -1128,8 +1139,8 @@
 									onkeyup="fnChgCfmBtn();">
 								</span>
 							</div>
-							<!-- // 개인소득공제 and 사업자증빙 > 현금영수증카드 선택 -->
-							<!-- 사업자증빙용 > 사업자등록번호 선택 -->
+							// 개인소득공제 and 사업자증빙 > 현금영수증카드 선택
+							사업자증빙용 > 사업자등록번호 선택
 							<div class="box_inputForm business_num clfix" id="acntCsrcBizn"
 								style="margin-top: 0; padding-bottom: 10px; display: none;">
 								<strong class="label">사업자등록번호</strong> <span class="box_label">
@@ -1149,10 +1160,10 @@
 									onkeyup="fnChgCfmBtn();">
 								</span>
 							</div>
-							<!-- // 사업자증빙용 > 사업자등록번호 선택 -->
-							<!-- // 계좌이체 : 개인계좌 -->
+							// 사업자증빙용 > 사업자등록번호 선택
+							// 계좌이체 : 개인계좌
 
-						</div>
+						</div> -->
 
 
 
@@ -1269,7 +1280,7 @@
 						</div>
 						<p class="btn bottom">
 							<button type="button" id="stplCfmBtn"
-								class="btnL btn_confirm ready" onclick="requestPay()">결제하기</button>
+								class="btnL btn_confirm ready" onclick="fnVldtCmn()">결제하기</button>
 						</p>
 					</div>
 				</div>
@@ -1478,6 +1489,8 @@
 		<!-- 인증번호 -->
 		<input type="hidden" name="mbrsDvsCd" id="mbrsDvsCd" value="1">
 		<!-- 비회원 -->
+		
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	</form>
 
 	<form name="payDtaFrm" id="payDtaFrm" method="post">
@@ -1489,6 +1502,8 @@
 			id="payGoodsCnt" value="1"> <input type="hidden"
 			name="goodsPrice" id="payGoodsPrice" value="${tissuAmt}"> <input
 			type="hidden" name="popupStatus" id="popupStatus" value="">
+			
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	</form>
 	<form name="acntDtaFrm" id="acntDtaFrm" method="post">
 		<!-- 계좌이체용 FORM  -->
@@ -1531,6 +1546,8 @@
 		<!-- 필드만 필요 -->
 		<input type="hidden" name="optionList" id="optionList"
 			value="no_receipt">
+			
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	</form>
 	<form name="adtnPrdVldtFrm" id="adtnPrdVldtFrm" method="post">
 		<!-- 부가상품 유효성 검사 -->
@@ -1551,11 +1568,16 @@
 		<!-- 선택좌석수   -->
 		<input type="hidden" name="adtnBusClsCd" id="adtnBusClsCd" value="">
 		<!-- 버스등급   -->
+		
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	</form>
 	<form name="satsPcpyCancFrm" id="satsPcpyCancFrm" method="post">
 		<!-- 선점취소용 -->
 		<input type="hidden" name="cancPcpyNoAll" id="cancPcpyNoAll" value="">
 		<!-- 선점번호   -->
+		
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+		
 	</form>
 	<form name="stplCfmPymPcFrm" id="stplCfmPymPcFrm" method="post">
 		<!-- 평창연계용 -->
@@ -1573,5 +1595,7 @@
 		<!-- 도착지 명칭   -->
 		<input type="hidden" name="sn" id="sn" value="">
 		<!-- 데이터 키   -->
+		
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	</form>
 </article>

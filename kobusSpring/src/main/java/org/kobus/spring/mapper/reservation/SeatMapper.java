@@ -14,6 +14,6 @@ public interface SeatMapper {
 
 	String getBusId(@Param("deprId") String deprId, @Param("arrId") String arrId, @Param("formattedTime") String formattedTime) throws SQLException;
 
-	String searchSeatId(@Param("seatIdList") List<String> seatIdList) throws SQLException;
+	String searchSeatId(@Param("list") List<String> seatIdList) throws SQLException;
 
 }

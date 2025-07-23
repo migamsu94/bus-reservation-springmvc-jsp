@@ -2,5 +2,5 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script>
-    console.log("🔥 paymentScript is loaded!");
+    console.log("🔥 logonMain is loaded!");
 </script>

@@ -208,15 +208,15 @@ if (lngCd == "KO") {
 		<article id="new-kor-content">
 
 
-<script type="text/javascript" src="/koBus/js/StplCfmPym.js"></script>
-<script type="text/javascript" src="/koBus/js/jsbn.js"></script>
-<script type="text/javascript" src="/koBus/js/prng4.js"></script>
-<script type="text/javascript" src="/koBus/js/rng.js"></script>
-<script type="text/javascript" src="/koBus/js/rsa.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/StplCfmPym.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jsbn.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/prng4.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/rng.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/rsa.js"></script>
 
 <!-- 20200617 yahan -->
-<script type="text/javascript" src="/koBus/js/transkey.js"></script><script type="text/javascript" src="/koBus/js/TranskeyLibPack_op.js"></script><script type="text/javascript" src="/koBus/js/rsa_oaep-min.js"></script><script type="text/javascript" src="/koBus/js/jsbn-min2.js"></script><script type="text/javascript" src="/koBus/js/typedarray.js"></script><script type="text/javascript" src="/koBus/images/transkeyServlet"></script><script type="text/javascript" src="/koBus/images/transkeyServlet(1)"></script>
-<link rel="stylesheet" type="text/css" href="/koBus/css/transkey.css"> 
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/transkey.js"></script><script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/TranskeyLibPack_op.js"></script><script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/rsa_oaep-min.js"></script><script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jsbn-min2.js"></script><script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/typedarray.js"></script><script type="text/javascript" src="${pageContext.request.contextPath}/resources/images/transkeyServlet"></script><script type="text/javascript" src="${pageContext.request.contextPath}/resources/images/transkeyServlet(1)"></script>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/transkey.css"> 
 <script>
 	$(function(){ initTranskey(); });
 </script>

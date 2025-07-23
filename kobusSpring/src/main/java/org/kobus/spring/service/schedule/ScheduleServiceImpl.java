@@ -1,6 +1,9 @@
 package org.kobus.spring.service.schedule;
 
+import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.kobus.spring.domain.schedule.ScheduleDTO;
 import org.kobus.spring.mapper.schedule.ScheduleMapper;
@@ -58,9 +61,18 @@ public class ScheduleServiceImpl implements ScheduleService {
         return scheduleMapper.searchBusSchedule(deprId, arrId, convertedDeprDtm, busClsCd);
     }
 
-
+    
+    /*
     @Override
     public int getDurationFromRoute(String deprRegId, String arvlRegId) {
         return scheduleMapper.getDurationFromRoute(deprRegId, arvlRegId);
     }
+    */
+    
+    @Override
+    public Integer getRouteDuration(String deprRegId, String arvlRegId) {
+        return scheduleMapper.getRouteDuration(deprRegId, arvlRegId);
+    }
+
+	
 }

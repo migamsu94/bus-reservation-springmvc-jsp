@@ -115,6 +115,9 @@
 				<!-- 버스등급 -->
 				<input type="hidden" name="prmmDcYn" id="prmmDcYn" value="N">
 				<!-- 시외우등할인대상노선 -->
+				
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+				
 			</form>
 			<div class="title_wrap drivingInfoT" style="display: none;">
 

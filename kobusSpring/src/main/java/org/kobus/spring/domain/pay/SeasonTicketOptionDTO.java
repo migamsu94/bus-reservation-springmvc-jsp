@@ -11,7 +11,7 @@ public class SeasonTicketOptionDTO {
 	private String routeId;
 	private String adtnPrdUseClsCd;
 	private String adtnPrdUseClsNm;
-	private Long adtnPrdUsePsbDno;
+	private String adtnPrdUsePsbDno;
 	private String adtnPrdUseNtknCd;
 	private String adtnPrdUseNtknNm;
 	private String wkdWkeNtknCd;
