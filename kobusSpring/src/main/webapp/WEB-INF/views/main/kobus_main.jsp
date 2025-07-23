@@ -138,7 +138,7 @@ function parseKoreanDateToYYYYMMDD(dateStr) {
 		<!-- 출/도착지 선택 레이어팝업 -->
 
 		<form name="rotInfFrm" id="rotInfFrm" method="post"
-			action="/koBus/main.do">
+			action="/koBus/reservation2.do">
 			<input type="hidden" name="sourcePage" value="kobus_main.jsp">
 			<input type="hidden" name="deprCd" id="deprCd" value="">
 			<!-- 출발지코드 -->

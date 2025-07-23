@@ -1,13 +1,14 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" trimDirectiveWhitespaces="true" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<meta charset="UTF-8" />
 <%
 System.out.println(">> deprDate: " + request.getParameter("deprDtmAll"));
 System.out.println(">> deprName: " + request.getParameter("deprNm"));
 System.out.println(">> arvlName: " + request.getParameter("arvlNm"));
 System.out.println(">> busrank: " + request.getParameter("busClsCd"));
 %>
-<!DOCTYPE html>
-<link rel="shortcut icon" type="image/x-icon"
-	href="/koBus/resources/media/favicon.ico">
+
 <style>
 /* 날짜 선택 숨김 */
 #datepicker1, #datepicker2 {
@@ -104,20 +105,20 @@ System.out.println(">> busrank: " + request.getParameter("busClsCd"));
    name="viewport" />
 <meta content="IE=Edge" http-equiv="X-UA-Compatible" />
 <title>예매정보입력(배차조회) | 고속버스예매 | 고속버스예매 | 고속버스통합예매</title>
-<link href="/koBus/images/favicon.ico" rel="shortcut icon" />
+<link href="${pageContext.request.contextPath}/images/favicon.ico" rel="shortcut icon" />
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
 <script type="text/javascript">
    /*********************************************
     * 상수
     *********************************************/
 </script>
-<link href="/koBus/resources/cdn-main/ui.jqgrid.custom.css" rel="stylesheet"
+<link href="${pageContext.request.contextPath}/resources/cdn-main/ui.jqgrid.custom.css" rel="stylesheet"
    type="text/css" />
-<script src="/koBus/js/jquery-1.12.4.min.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/js/jquery-1.12.4.min.js" type="text/javascript"></script>
 
-<script type="text/javascript" src="/koBus/resources/js/OprnAlcnInqr.js"></script>
-<script type="text/javascript" src="/koBus/resources/js/OprnAlcnInqrPup.js"></script>
-<script type="text/javascript" src="/koBus/resources/js/SatsChc.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/OprnAlcnInqr.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/OprnAlcnInqrPup.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/SatsChc.js"></script>
 
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -140,7 +141,7 @@ $(document).ready(function () {
     // 1. 소요시간 먼저 조회
     if (deprCd && arvlCd) {
         $.ajax({
-            url: "<%=request.getContextPath()%>/getDuration.ajax",
+            url: "${pageContext.request.contextPath}/getDuration.ajax",
             type: "GET",
             data: {
                 ajax: "true",
@@ -173,7 +174,7 @@ $(document).ready(function () {
     // 2. 배차 리스트 조회
     if (deprCd && arvlCd && deprDtm) {
         $.ajax({
-            url: "<%=request.getContextPath()%>/getDuration.ajax",
+            url: "${pageContext.request.contextPath}/getDuration.ajax",
             type: "GET",
             data: {
                 ajax: "true",
@@ -319,7 +320,7 @@ $(document).ready(function () {
 
       // 2) AJAX로 배차정보 조회
       $.ajax({
-        url: "<%=request.getContextPath()%>/getDuration.ajax",
+        url: "${pageContext.request.contextPath}/getDuration.ajax",
         type: "GET",
         data: {
           ajax: "true",
@@ -529,19 +530,7 @@ $(document).ready(function () {
       }
    }
 </script>
-<script src="/koBus/resources/js/ui.js" type="text/javascript"></script>
-<script src="/koBus/resources/js/plugin.js" type="text/javascript"></script>
-<!-- <script src="/koBus/js/common.js" type="text/javascript"></script> -->
-<script src="/koBus/resources/js/jquery/jquery.number.js" type="text/javascript"></script>
-<script src="/koBus/resources/js/security.js?v=0.3" type="text/javascript"></script>
-<script type="text/javascript" src="/koBus/resources/js/common/ui.js"></script>
-<script type="text/javascript" src="/koBus/resources/js/plugin.js"></script>
-<script type="text/javascript" src="/koBus/resources/js/common.js"></script>
 
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-<link href="/koBus/resources/cdn-main/common/style.css" rel="stylesheet" type="text/css" />
-<script src="/koBus/js/kor/new-kor-ui.js?v=0102.0"
-   type="text/javascript"></script>
 </head>
 <!-- [리뉴얼] 페이지 개별 스크립트 신규 정의함 -->
 
@@ -662,20 +651,21 @@ $(document).on("click", ".time li a", function () {
    </div>
 </nav>
 <article id="new-kor-content">
-   <script src="/koBus/resources/js/kor/mrs/tckmrs/AlcnSrch.js?v=0102"
+   <script src="${pageContext.request.contextPath}/resources/js/kor/mrs/tckmrs/AlcnSrch.js?v=0102"
       type="text/javascript"></script>
-   <!-- <form action="/koBus/resources/mrs/alcnSrch.do" id="alcnSrchFrm" method="post" name="alcnSrchFrm"> -->
-   <form action="<%=request.getContextPath() %>/kobusSeat.do" id="alcnSrchFrm" method="get" name="alcnSrchFrm">
+   <!-- <form action="${pageContext.request.contextPath}/resources/mrs/alcnSrch.do" id="alcnSrchFrm" method="post" name="alcnSrchFrm"> -->
+   <c:set var="param" value="${paramList[0]}" />
+   <form action="${pageContext.request.contextPath}/kobusSeat.do" id="alcnSrchFrm" method="get" name="alcnSrchFrm">
       <input type="hidden" name="sourcePage" value="KOBUSreservationTime.jsp">
-      <input id="deprCd" name="deprCd" type="hidden" value="<%= request.getParameter("deprCd") %>" />
+      <input id="deprCd" name="deprCd" type="hidden" value="${param.deprCd }" />
       <!-- 출발지코드 -->
       <!-- <input id="deprNm" name="deprNm" type="hidden" value="동서울" /> -->
-      <input id="deprNm" name="deprNm" type="hidden" value="<%= request.getParameter("deprNm") %>" />
+      <input id="deprNm" name="deprNm" type="hidden" value="${param.deprNm }" />
       <!-- 출발지명 -->
-      <input id="arvlCd" name="arvlCd" type="hidden" value="<%= request.getParameter("arvlCd") %>" />
+      <input id="arvlCd" name="arvlCd" type="hidden" value="${param.arvlCd }" />
       <!-- 도착지코드 -->
       <!-- <input id="arvlNm" name="arvlNm" type="hidden" value="삼척" /> -->
-      <input id="arvlNm" name="arvlNm" type="hidden" value="<%= request.getParameter("arvlNm") %>" />
+      <input id="arvlNm" name="arvlNm" type="hidden" value="${param.arvlNm }" />
       <!-- 도착지명 -->
       <input id="tfrCd" name="tfrCd" type="hidden" value="" />
       <!-- 환승지코드 -->
@@ -688,16 +678,16 @@ $(document).on("click", ".time li a", function () {
       <input id="pathStep" name="pathStep" type="hidden" value="1" />
       <!-- 왕복,환승 가는편순번 -->
       <!-- <input id="deprDtm" name="deprDtm" type="hidden" value="20250617" /> -->
-      <input id="deprDtm" name="deprDtm" type="hidden" value="<%= request.getParameter("deprDtm") %>" />
+      <input id="deprDtm" name="deprDtm" type="hidden" value="${param.deprDtm }" />
       <!-- 가는날(편도,왕복) -->
-      <input id="deprDtmAll" name="deprDtmAll" type="hidden" value="<%= request.getParameter("deprDtmAll") %>" />
+      <input id="deprDtmAll" name="deprDtmAll" type="hidden" value="${param.deprDtmAll }" />
       <!-- 가는날(편도,왕복) -->
       <input id="arvlDtm" name="arvlDtm" type="hidden" value="" />
       <!-- 오는날(왕복) -->
       <input id="arvlDtmAll" name="arvlDtmAll" type="hidden"
          value="2025. 6. 17. 화" />
       <!-- 오는날(왕복) -->
-      <input id="busClsCd" name="busClsCd" type="hidden" value="<%= request.getParameter("busClsCd") %>" />
+      <input id="busClsCd" name="busClsCd" type="hidden" value="${param.busClsCd }" />
       <!-- 버스등급 -->
       <input id="takeDrtmOrg" name="takeDrtmOrg" type="hidden" value="200" />
       <!-- 소요시간 -->
@@ -771,6 +761,9 @@ $(document).on("click", ".time li a", function () {
          id="endDtm" name="endDtm" type="hidden" value="" />
       <!-- 20241008 웹접근성 -->
       <input id="reloadStatus" name="reloadStatus" type="hidden" value="" />
+      
+      <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+      
    </form>
    <div class="title_wrap in_process ticketingT" style="display: none;">
       <a class="back" href="#">back</a> <a class="mo_toggle" href="#">메뉴</a>
@@ -794,10 +787,6 @@ $(document).on("click", ".time li a", function () {
                <li><span class="num">3</span> 예매완료</li>
             </ol>
          </div>
-         <!-- 광고 배너 추후 추가 예정 -->
-         <iframe class="ad-frame ad-frame-title"
-            src="/koBus/html2/_ad-tubebox-002TITLE.html"
-            title="프레임 (전화번호안심 로그인)"></iframe>
       </div>
    </div>
    <div class="content-body">
@@ -807,19 +796,19 @@ $(document).on("click", ".time li a", function () {
             <!-- 좌측 infoBox -->
             <div class="infoBox">
                <!-- <p class="date" id="alcnDeprDtm">2025. 6. 17. 화</p> -->
-               <p class="date" id="alcnDeprDtm"><%= request.getParameter("deprDtm") %></p>
+               <p class="date" id="alcnDeprDtm">${param.deprDtm }</p>
                <!-- //왕복시 노출 추가 2017-02-10 -->
                <div class="route_wrap" id="alcnRotInfo">
                   <div class="inner">
                      <dl class="roundBox departure kor">
                         <dt>출발</dt>
                         <!-- <dd id="alcnDeprTmlNm">동서울</dd> -->
-                        <dd id="alcnDeprTmlNm"><%= request.getParameter("deprNm") %></dd>
+                        <dd id="alcnDeprTmlNm">${param.deprNm }</dd>
                      </dl>
                      <dl class="roundBox arrive kor">
                         <dt>도착</dt>
                         <!-- <dd id="alcnArvlTmlNm">삼척</dd> -->
-                        <dd id="alcnArvlTmlNm"><%= request.getParameter("arvlNm") %></dd>
+                        <dd id="alcnArvlTmlNm">${param.arvlNm }</dd>
                      </dl>
                   </div>
                   <div class="detail_info">
@@ -883,7 +872,7 @@ $(document).on("click", ".time li a", function () {
                         <!-- <input id="busDate11" type="text" readonly style="position: absolute; left: -9999px;"> -->
                         <button class="datepicker-btn" type="button"
                            id="calendarTriggerBtn">
-                           <img alt="날짜 선택 달력" src="/koBus/resources/images/page/ico_calender.png" />
+                           <img alt="날짜 선택 달력" src="${pageContext.request.contextPath}/resources/images/page/ico_calender.png" />
                         </button>
                         <label class="date_cont" for="busDate11" id="rideDate">2025.
                            6. 17. 화</label>
@@ -1007,13 +996,13 @@ $(document).on("click", ".time li a", function () {
                <li>심야 고속ㆍ우등ㆍ프리미엄의 요금은 당일 22:00부터 익일 04:00사이 출발차량</li>
                <li>마일리지 구매 승차권은 프리미엄/편도 노선(일부노선 제외)에 한정하며 각 1매씩 예매 가능(*회원대상)</li>
                <li>유아 카시트 가능( <img alt=""
-                  src="/koBus/resources/images/kor/page/ico_child_on.png" style="width: 13px" />
+                  src="${pageContext.request.contextPath}/resources/images/kor/page/ico_child_on.png" style="width: 13px" />
                   ) 표시된 차량에만 유아 카시트 장착 가능 (본인 소유의 유아 카시트 준비)
                </li>
                <li>소요(도착)시간은 도로 사정에 따라 지연될 수 있음</li>
                <!-- 190925 추가 -->
                <li>휠체어 탑승 가능( <img alt=""
-                  src="/koBus/resources/images/kor/page/ico_wheel_on.png" style="width: 13px" />
+                  src="${pageContext.request.contextPath}/resources/images/kor/page/ico_wheel_on.png" style="width: 13px" />
                   ) 표시된 차량에만 휠체어 동반 탑승 가능 (전동식 휠체어만 탑승 가능)
                </li>
                <li>휠체어 좌석 예매는 wkobus 사이트에서 예매 가능하며, 휠체어 좌석 예매는 출발일로 부터 3일
@@ -1034,28 +1023,28 @@ $(document).on("click", ".time li a", function () {
          <ul class="express-bus-company-list">
             <li><a href="http://www.kumhobuslines.co.kr" target="_blank"
                title="새창"><img alt="금호고속"
-                  src="/koBus/resources/images/kor/layout/logo-kumho-express.png" /></a></li>
+                  src="${pageContext.request.contextPath}/resources/images/kor/layout/logo-kumho-express.png" /></a></li>
             <li><a href="http://www.dongbubus.com" target="_blank"
                title="새창"><img alt="동부고속"
-                  src="/koBus/resources/images/kor/layout/logo-dongbu-express.png" /></a></li>
+                  src="${pageContext.request.contextPath}/resources/images/kor/layout/logo-dongbu-express.png" /></a></li>
             <li><a href="http://www.songnisanbuslines.co.kr"
                target="_blank" title="새창"><img alt="속리산고속"
-                  src="/koBus/resources/images/kor/layout/logo-sokrisan-express.png" /></a></li>
+                  src="${pageContext.request.contextPath}/resources/images/kor/layout/logo-sokrisan-express.png" /></a></li>
             <li><a href="http://www.dyexpress.co.kr" target="_blank"
                title="새창"><img alt="동양고속"
-                  src="/koBus/resources/images/kor/layout/logo-dongyang-express.png" /></a></li>
+                  src="${pageContext.request.contextPath}/resources/images/kor/layout/logo-dongyang-express.png" /></a></li>
             <li><a href="http://www.samhwaexpress.co.kr" target="_blank"
                title="새창"><img alt="삼화고속"
-                  src="/koBus/resources/images/kor/layout/logo-samhwa-express.png" /></a></li>
+                  src="${pageContext.request.contextPath}/resources/images/kor/layout/logo-samhwa-express.png" /></a></li>
             <li><a href="http://www.jabus.co.kr" target="_blank" title="새창"><img
                   alt="중앙고속"
-                  src="/koBus/resources/images/kor/layout/logo-joongang-express.png" /></a></li>
+                  src="${pageContext.request.contextPath}/resources/images/kor/layout/logo-joongang-express.png" /></a></li>
             <li><a href="http://www.chunilexpress.co.kr" target="_blank"
                title="새창"><img alt="천일고속"
-                  src="/koBus/resources/images/kor/layout/logo-chunil-express.png" /></a></li>
+                  src="${pageContext.request.contextPath}/resources/images/kor/layout/logo-chunil-express.png" /></a></li>
             <li><a href="http://www.hanilexpress.co.kr" target="_blank"
                title="새창"><img alt="한일고속"
-                  src="/koBus/resources/images/kor/layout/logo-hanil-express.png" /></a></li>
+                  src="${pageContext.request.contextPath}/resources/images/kor/layout/logo-hanil-express.png" /></a></li>
          </ul>
          <!-- dropdown-top 클래스 추가 시, 드롭다운 목록 위로 노출 -->
          <div class="dropdown-wrap dropdown-top related-sites-select">
@@ -1100,14 +1089,14 @@ $(document).on("click", ".time li a", function () {
                href="http://www.wa.or.kr/board/list.asp?search=total&amp;SearchString=%B0%ED%BC%D3%B9%F6%BD%BA&amp;BoardID=0006"
                target="_blank" title="새창"><img
                   alt="(사)한국장애인단체총연합회 한국웹접근성인증평가원 웹 접근성 우수사이트 인증마크(WA인증마크)"
-                  height="40" src="/koBus/images/kor/layout/logo-accessibility2.png" /></a>
+                  height="40" src="${pageContext.request.contextPath}/images/kor/layout/logo-accessibility2.png" /></a>
             </li>
             <li><a href="/ugd/bustrop/Bustrop.do" title="이사장 인사말 바로가기"><img
                   alt="KOBUS 전국고속버스운송사업조합"
-                  src="/koBus/images/kor/layout/logo-kobus.png" /></a></li>
+                  src="${pageContext.request.contextPath}/images/kor/layout/logo-kobus.png" /></a></li>
             <li><a href="/ugd/trmlbizr/Trmlbizr.do" title="협회장 인사말 바로가기"><img
                   alt="전국여객자동차터미널사업자협회"
-                  src="/koBus/images/kor/layout/logo-npvtba-express.png" /></a></li>
+                  src="${pageContext.request.contextPath}/images/kor/layout/logo-npvtba-express.png" /></a></li>
          </ul>
       </div>
    </div>
@@ -1200,7 +1189,7 @@ $(document).on("click", ".schedule-row:not(.disabled)", function () {
 <div class="head_date">
   <input id="busDate11" type="text" readonly style="display: none;">
   <button class="datepicker-btn" type="button" id="calendarTriggerBtn">
-    <img alt="날짜 선택 달력" src="/koBus/images/page/ico_calender.png" />
+    <img alt="날짜 선택 달력" src="${pageContext.request.contextPath}/images/page/ico_calender.png" />
   </button>
   <label class="date_cont" for="busDate11" id="rideDate">2025. 6. 17. 화</label>
 </div>
