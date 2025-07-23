@@ -352,6 +352,8 @@
 	<input type="hidden" name="tissuFnmrsMrnpNoOrg" id="tissuFnmrsMrnpNoOrg" value="20250620567677">
 	<input type="hidden" name="tissuFnrecNcnt1" id="tissuFnrecNcnt1" value="1">
 	
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+	
 </form>
 			<div class="title_wrap in_process route_chk ticketingT" style="display: none;">
 				

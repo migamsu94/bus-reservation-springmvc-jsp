@@ -3,16 +3,18 @@ package org.kobus.spring.controller;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.kobus.spring.domain.pay.BusReservationDTO;
 import org.kobus.spring.domain.pay.FreepassPaymentDTO;
 import org.kobus.spring.domain.pay.PaymentCommonDTO;
 import org.kobus.spring.domain.pay.ReservationPaymentDTO;
 import org.kobus.spring.domain.pay.STPaymentSet;
+import org.kobus.spring.domain.reservation.ResvDTO;
 import org.kobus.spring.mapper.pay.TermMapper;
 import org.kobus.spring.service.pay.BusReservationService;
 import org.kobus.spring.service.pay.FreePassPaymentService;
@@ -40,7 +42,7 @@ public class PaymentController {
 	
 	// 일반 예매 결제
 	@PostMapping("/Reservation.do")
-	public Map<String, Object> handleReservation(HttpServletRequest request) {
+	public Map<String, Object> handleReservation(HttpServletRequest request ) {
 	    Map<String, Object> resultMap = new HashMap<>();
 
 	    try {
@@ -56,10 +58,17 @@ public class PaymentController {
 	        String pay_status = request.getParameter("pay_status");
 	        String pg_tid = request.getParameter("pg_tid");
 	        String paid_at_str = request.getParameter("paid_at");
+	        String boarding_dt = request.getParameter("boarding_dt");
+	        String boarding_time = request.getParameter("boarding_time");
 
 	        int amount = Integer.parseInt(amountStr);
 	        long paidAtMillis = Long.parseLong(paid_at_str) * 1000L;
 	        Timestamp paid_at = new Timestamp(paidAtMillis);
+	        
+	        LocalDateTime now = LocalDateTime.now();
+	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss.SSS");
+
+	        String formatted = now.format(formatter);
 
 	        // [2] payment_common DTO 생성 (paymentId는 mapper에서 selectKey로 생성됨)
 	        PaymentCommonDTO payDto = new PaymentCommonDTO();
@@ -72,12 +81,12 @@ public class PaymentController {
 	        payDto.setPaidAt(paid_at);
 
 	        // [3] reservation DTO 생성
-	        BusReservationDTO resvDto = new BusReservationDTO();
+	        ResvDTO resvDto = new ResvDTO();
 	        resvDto.setResId(resId);
-	        resvDto.setKusid(user_id);
+	        resvDto.setKusId(user_id);
 	        resvDto.setBshId(request.getParameter("bus_schedule_id"));
-	        resvDto.setRideDate(Timestamp.valueOf(request.getParameter("boarding_dt") + " 00:00:00"));
-	        resvDto.setResvDate(new Timestamp(System.currentTimeMillis()));
+	        resvDto.setRideDateFormatter(boarding_dt + " " + boarding_time);
+	        resvDto.setResvDateStr(formatted);
 	        resvDto.setResvStatus("예약");
 	        resvDto.setResvType("일반");
 	        resvDto.setQrCode((long) (Math.random() * 1000000000L));
@@ -149,7 +158,7 @@ public class PaymentController {
         try {
             // 세션에서 userId 확인
             String userId = (String) request.getSession().getAttribute("userId");
-            if (userId == null) userId = "KUS002"; // 테스트용
+            if (userId == null) userId = "KUS003"; // 테스트용
 
             // 필수 파라미터 추출
             String adtnPrdSno = request.getParameter("adtn_prd_sno");

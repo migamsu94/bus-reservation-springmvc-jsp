@@ -406,6 +406,8 @@
 					
 				<input type="hidden" name="resId" id="resId" value="${resId }">
 				<!-- 결제금액 -->
+				
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 
 			</form>
 

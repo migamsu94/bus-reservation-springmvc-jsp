@@ -15,6 +15,17 @@
 // 수    정 :
 //** ---------------------------------------------------------------------------	
 
+
+// === 공통 AJAX CSRF 세팅 ===
+var csrfToken = $("meta[name='_csrf']").attr("content");
+var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+
+$.ajaxSetup({
+  beforeSend: function(xhr) {
+    xhr.setRequestHeader(csrfHeader, csrfToken);
+  }
+});
+
 /* 노선조회 출/도착지 선택 팝업 자동검색기능 */
 function fnListAutoSrch(srchList,selNm,srchFld,rtrnFn,depArv){
 	var value="";

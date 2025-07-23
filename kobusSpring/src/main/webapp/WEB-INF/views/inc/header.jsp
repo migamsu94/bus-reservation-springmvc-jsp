@@ -11,7 +11,7 @@ response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // H
 response.setHeader("Pragma", "no-cache"); // HTTP 1.0
 response.setDateHeader("Expires", 0); // Proxies
 %>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 <!-- [리뉴얼] 페이지 개별 스크립트 신규 정의함 -->
 

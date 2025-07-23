@@ -477,6 +477,9 @@
 					name="transkey_cardPwd_passPrchFrm" value=""><input
 					type="hidden" id="transkey_HM_cardPwd_passPrchFrm"
 					name="transkey_HM_cardPwd_passPrchFrm" value="">
+					
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+					
 			</form>
 		</div>
 

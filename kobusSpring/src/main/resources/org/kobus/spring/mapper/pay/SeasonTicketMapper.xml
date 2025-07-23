@@ -46,5 +46,13 @@
                 WHERE KUSID = #{kusid}
             )
     </select>
+    
+    <!-- 정기권으로 예매 제한 하루 2회 -->
+    <select id="countUsagePerDay" resultType="int">
+	    SELECT COUNT(*) 
+	    FROM RES_SEASON_USAGE
+	    WHERE ADTN_PRD_SNO = #{adtnPrdSno}
+	      AND USED_DATE = #{usedDate}
+	</select>
 
 </mapper>

@@ -4,12 +4,14 @@ import java.io.IOException;
 import java.net.http.HttpResponse;
 import java.sql.SQLException;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.ibatis.annotations.Param;
 import org.kobus.spring.domain.join.AuthDTO;
 import org.kobus.spring.domain.join.JoinDTO;
 import org.kobus.spring.service.join.JoinService;
+import org.kobus.spring.service.reservation.ResvService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -30,6 +32,20 @@ public class JoinController {
 	
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
+	@Autowired
+	private ResvService resvService;
+	
+	@GetMapping("/koBus/mainPageResv.do")
+	public String mainPageResv(
+				HttpServletRequest request,
+				HttpServletResponse response
+			) {
+		
+		// 메인페이지 예매내역 뿌려주는 코드 구현할것
+		
+		return null;
+	}
 	
 	@GetMapping("/usrIdDupCheck.do")
 	@ResponseBody
