@@ -60,6 +60,12 @@ public class PaymentController {
 	        String paid_at_str = request.getParameter("paid_at");
 	        String boarding_dt = request.getParameter("boarding_dt");
 	        String boarding_time = request.getParameter("boarding_time");
+	        String bshid = request.getParameter("bshid");
+	        String selectedSeatIds = request.getParameter("selectedSeatIds");
+	        
+	        
+	        System.out.println("selectedSeatIds " + selectedSeatIds);
+	        System.out.println("bshid " + bshid);
 
 	        int amount = Integer.parseInt(amountStr);
 	        long paidAtMillis = Long.parseLong(paid_at_str) * 1000L;
@@ -83,15 +89,18 @@ public class PaymentController {
 	        // [3] reservation DTO 생성
 	        ResvDTO resvDto = new ResvDTO();
 	        resvDto.setResId(resId);
-	        resvDto.setKusId(user_id);
-	        resvDto.setBshId(request.getParameter("bus_schedule_id"));
-	        resvDto.setRideDateFormatter(boarding_dt + " " + boarding_time);
+	        resvDto.setKusid(user_id);
+	        resvDto.setBshId(bshid);
+	        resvDto.setSeatNo(selectedSeatIds);
+	        resvDto.setRideDateStr(boarding_dt);
 	        resvDto.setResvDateStr(formatted);
 	        resvDto.setResvStatus("예약");
 	        resvDto.setResvType("일반");
 	        resvDto.setQrCode((long) (Math.random() * 1000000000L));
 	        resvDto.setMileage(0);
 	        resvDto.setSeatable("Y");
+	        
+	        System.out.println(resvDto.toString());
 
 	        // [4] reservation_payment DTO 생성 (paymentId는 insert 후에 설정됨)
 	        ReservationPaymentDTO linkDto = new ReservationPaymentDTO();

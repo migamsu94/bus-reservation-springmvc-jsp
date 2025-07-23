@@ -12,6 +12,6 @@ public interface BusReservationMapper {
 	String generateResId();
 	
 	// 예매 후 RESERVEDSEATS 에 좌석정보 레코드 추가
-	int callAfterReservation(String resId, String busId, String seatList);
+	int callAfterReservation(String resId, String busId, String kusId, String seatList);
 
 }

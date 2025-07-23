@@ -428,7 +428,7 @@ function requestPay() {
                     pg_tid: rsp.pg_tid,
                     paid_at: rsp.paid_at,
                     user_id: $('#user_id').val(), // 또는 세션에서 가져온 ID
-                    bus_schedule_id: $('#busScheduleId').val(), // 예: 3020번 고유번호
+                    bus_schedule_id: $('#busCode').val(), // 예: 3020번 고유번호
         			seat_number: $('#seatNo').val(),
         			boarding_dt: boardingDt,
         			boarding_time: deprTimeFmt
@@ -472,6 +472,7 @@ function requestPay() {
 	var seatNos = $("#seatNos").val();
 	var resId = $("#resId").val();
 	var bshid = $("#busCode").val();
+	var selectedSeatIds = $("#selectedSeatIds").val();
 
 	// 출발/도착지 정보
 	var deprNm = $("#deprNm").val();
@@ -515,6 +516,7 @@ function requestPay() {
 				paid_at: rsp.paid_at,
 				user_id: "KUS004",
 				bshid: bshid,
+				selectedSeatIds: selectedSeatIds,
 				seat_number: seatNos,
 				boarding_dt: boardingDt,
 				resId: resId,
@@ -565,6 +567,8 @@ function requestPay() {
 								    + "&deprNm=" + encodeURIComponent(deprNm)
 								    + "&arvlNm=" + encodeURIComponent(arvlNm)
 								    + "&takeDrtmOrg=" + encodeURIComponent(takeDrtmOrg)
+								    + "&bshid=" + encodeURIComponent(bshid)
+								    + "&selectedSeatIds=" + encodeURIComponent(selectedSeatIds)
 								    + "&cacmNm=" + encodeURIComponent(cacmNm)
 								    + "&indVBusClsCd=" + encodeURIComponent(indVBusClsCd)
 								    + "&selSeatCnt=" + encodeURIComponent(selSeatCnt)
@@ -1202,7 +1206,6 @@ function fnVldtCmn(){ // 공통사항 체크
 			return false;
 		}
 	}
-	
 	
 
 	return handlePaymentByType();

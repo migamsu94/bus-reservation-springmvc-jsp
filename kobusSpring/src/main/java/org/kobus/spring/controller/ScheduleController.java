@@ -13,6 +13,7 @@ import org.kobus.spring.service.schedule.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -184,13 +185,54 @@ public class ScheduleController {
 	
 	
 	@PostMapping("/reservation2.do")
-	public String showReservationPagePost() {
+	public String showReservationPagePost(
+			@RequestParam("deprCd") String deprCd,
+			@RequestParam("deprNm") String deprNm,
+			@RequestParam("arvlCd") String arvlCd,
+			@RequestParam("arvlNm") String arvlNm,
+			@RequestParam("pathDvs") String pathDvs,
+			@RequestParam("deprDtm") String deprDtm,
+			@RequestParam("deprDtmAll") String deprDtmAll,
+			@RequestParam("arvlDtm") String arvlDtm,
+			@RequestParam("arvlDtmAll") String arvlDtmAll,
+			@RequestParam("busClsCd") String busClsCd,
+			Model model) {
+		
+		if (busClsCd != null) {
+            switch (busClsCd) {
+                case "0": busClsCd = "전체"; break;
+                case "7": busClsCd = "프리미엄"; break;
+                case "1": busClsCd = "우등"; break;
+                case "2": busClsCd = "일반"; break;
+            }
+        }
+		
+		List<Map<String, String>> paramList = new ArrayList<>();
+	    Map<String, String> paramMap = new HashMap<>();
+	    paramMap.put("deprCd", deprCd);
+	    paramMap.put("deprNm", deprNm);
+	    paramMap.put("arvlCd", arvlCd);
+	    paramMap.put("arvlNm", arvlNm);
+	    paramMap.put("pathDvs", pathDvs);
+	    paramMap.put("deprDtm", deprDtm);
+	    paramMap.put("deprDtmAll", deprDtmAll);
+	    paramMap.put("arvlDtm", arvlDtm);
+	    paramMap.put("arvlDtmAll", arvlDtmAll);
+	    paramMap.put("busClsCd", busClsCd);
+
+	    paramList.add(paramMap);
+
+	    model.addAttribute("paramList", paramList);
+		
 	    return "kobus.reservation/KOBUSreservationTime";
 	}
 	
 	
 	@GetMapping("/reservation2.do")
 	public String showReservationPage() {
+		
+		log.info("showReservationPagePost get");
+		
 	    return "kobus.reservation/KOBUSreservationTime"; 
 	}
 	

@@ -15,11 +15,11 @@
 	    </selectKey>
 	
 	    INSERT INTO reservation (
-	        resid, bshid, kusid, ridedate, resvdate, resvstatus,
+	        resid, bshId, kusid, ridedate, resvdate, resvstatus,
 	        resvtype, qrcode, mileage, seatable,
 	        return_bshid, return_seatid, return_ridedate
 	    ) VALUES (
-	        #{resId}, #{bshId, jdbcType=VARCHAR}, #{kusid}, #{rideDate}, #{resvDate}, #{resvStatus},
+	        #{resId}, #{bshId, jdbcType=VARCHAR}, #{kusid}, #{rideDateStr}, #{resvDateStr}, #{resvStatus},
 	        #{resvType}, #{qrCode}, #{mileage}, #{seatable},
 	        #{returnBshId, jdbcType=VARCHAR}, #{returnSeatId, jdbcType=VARCHAR}, #{returnRideDate, jdbcType=TIMESTAMP}
 	    )
@@ -50,9 +50,9 @@
     
     <update id="callAfterReservation" statementType="CALLABLE">
     { CALL AFTER_RESERVATION(
-      #{resid, mode=IN, jdbcType=VARCHAR},
-      #{bshid, mode=IN, jdbcType=VARCHAR},
-      #{kusid, mode=IN, jdbcType=VARCHAR},
+      #{resId, mode=IN, jdbcType=VARCHAR},
+      #{bshId, mode=IN, jdbcType=VARCHAR},
+      #{kusId, mode=IN, jdbcType=VARCHAR},
       #{seatList, mode=IN, jdbcType=VARCHAR}
     ) }
   </update>

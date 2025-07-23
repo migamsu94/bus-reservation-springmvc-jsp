@@ -1,5 +1,6 @@
 package org.kobus.spring.domain.reservation;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
@@ -16,7 +17,7 @@ import lombok.Setter;
 public class ResvDTO {
 	
 	private String resId; 			/* 예매번호 */
-	private String kusId; 			/* 예매 아이디 */
+	private String kusid; 			/* 예매 아이디 */
 	private String seatNo; 			/* 좌석번호 */
 	private LocalDateTime rideDate; 		/* 탑승일 */
 	private LocalDateTime resvDate; 		/* 예약일 */
@@ -45,8 +46,23 @@ public class ResvDTO {
 	private int mileage;
 	private String seatable;
 	
+	private String returnBshId;
+	private String returnSeatId;
+	private Timestamp returnRideDate;
 	
-	private String rideDateFormatter;
+	
 
+	@Override
+	public String toString() {
+	    return "ResvDTO{" +
+	            "resId='" + resId + '\'' +
+	            ", kusid='" + kusid + '\'' +
+	            ", bshId='" + bshId + '\'' +
+	            ", seatNo='" + seatNo + '\'' +
+	            ", rideDate='" + rideDate + '\'' +
+	            ", returnRideDate=" + rideDateStr +
+	            ", rideTimeStr=" + rideTimeStr +
+	            '}';
+	}
 
 }
