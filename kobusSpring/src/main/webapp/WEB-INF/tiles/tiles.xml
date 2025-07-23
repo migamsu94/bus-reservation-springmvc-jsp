@@ -17,24 +17,35 @@
     </definition>
     
     <!-- [1] 게시판 용 Tiles 정의 -->
-    <definition name="kobus.board/*" template="/WEB-INF/views/inc/layout.jsp">
-        <put-attribute name="header" value="/WEB-INF/views/inc/header.jsp" />
-        <put-attribute name="footer" value="/WEB-INF/views/inc/footer.jsp" />
-        <put-attribute name="script" value="/WEB-INF/views/inc/script.jsp" />
-        <put-attribute name="pageScript" value="/WEB-INF/views/board/personalScript.jsp" />
-        <put-attribute name="content" value="/WEB-INF/views/board/{1}.jsp" />
-        <put-attribute name="title" value="게시판" />
-    </definition>
+	<definition name="board.*" template="/WEB-INF/views/inc/layout.jsp">
+	    <put-attribute name="header" value="/WEB-INF/views/inc/header.jsp"/>
+	    <put-attribute name="footer" value="/WEB-INF/views/inc/footer.jsp"/>
+	    <put-attribute name="content" value="/WEB-INF/views/board/{1}.jsp"/>
+	    <put-attribute name="script" value="/WEB-INF/views/inc/script.jsp"/> <!-- 이거 꼭 추가 -->
+	    <put-attribute name="pageScript" value="/WEB-INF/views/inc/script.jsp"/>
+	    <put-attribute name="title" value="게시판"/>
+	</definition>
+	
+	<!-- FAQ Tiles  -->
+	<definition name="faq.*" template="/WEB-INF/views/inc/layout.jsp">
+	    <put-attribute name="header" value="/WEB-INF/views/inc/header.jsp"/>
+	    <put-attribute name="footer" value="/WEB-INF/views/inc/footer.jsp"/>
+	    <put-attribute name="content" value="/WEB-INF/views/board/{1}.jsp"/>
+	    <put-attribute name="script" value="/WEB-INF/views/inc/script.jsp"/>
+	    <put-attribute name="pageScript" value="/WEB-INF/views/inc/script.jsp"/>
+	</definition>
 
-    <!-- [2] 유실물 센터 용 Tiles 정의 -->
-<definition name="kobus.lossCenter/*" template="/WEB-INF/views/inc/layout.jsp">
-    <put-attribute name="header" value="/WEB-INF/views/inc/header.jsp" />
-    <put-attribute name="footer" value="/WEB-INF/views/inc/footer.jsp" />
-            <put-attribute name="pageScript" value="/WEB-INF/views/board/personalScript.jsp" />
-    <put-attribute name="content" value="/WEB-INF/views/lossCenter/{1}.jsp" />
-    <put-attribute name="title" value="유실물 센터 안내" />
-</definition>
-    
+	<!-- losscenter Tiles -->
+	<definition name="losscenter.*" template="/WEB-INF/views/inc/layout.jsp">
+	    <put-attribute name="header" value="/WEB-INF/views/inc/header.jsp"/>
+	    <put-attribute name="footer" value="/WEB-INF/views/inc/footer.jsp"/>
+	    <put-attribute name="content" value="/WEB-INF/views/losscenter/{1}.jsp"/>
+	    <put-attribute name="script" value="/WEB-INF/views/inc/script.jsp"/>
+	    <put-attribute name="pageScript" value="/WEB-INF/views/inc/script.jsp"/>
+	</definition>
+	
+	
+	
     <!-- 
     <definition name="kobus.payment/freepass" extends="kobus.*/*">
     <put-attribute name="pageScript" value="/WEB-INF/views/payment/paymentScript.jsp" />

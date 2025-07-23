@@ -18,7 +18,7 @@ public class FrpsPaymentSaveHandler implements CommandHandler {
         String userId = (String) request.getSession().getAttribute("userId");
         if (userId == null) {
             // ★ 테스트용! 실제 배포 전엔 꼭 삭제
-            userId = "KUS002"; // 또는 실제 존재하는 아이디
+            userId = "KUS003"; // 또는 실제 존재하는 아이디
         }
     	
     	try {

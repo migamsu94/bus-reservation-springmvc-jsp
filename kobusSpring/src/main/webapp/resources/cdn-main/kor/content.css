@@ -1746,11 +1746,11 @@ table td.noData {padding:60px 0 !important; font-size:16px; color:var(--primary-
 .box_searchId a {display:inline-block; height:26px; margin-left:50px; line-height:25px;}
 .box_searchId a:first-child {margin-left:0;}
 .box_searchId a span {display:block; height:100%; padding-left:38px; font-size:12px; color:#777777;}
-.box_searchId a span.ico_searchId {background:url(/koBus/images/kor/common/ico_searchId_s.png) 0 0 no-repeat;}
+.box_searchId a span.ico_searchId {background:url(/koBus/resources/images/kor/common/ico_searchId_s.png) 0 0 no-repeat;}
 .box_searchId a span.ico_searchId:hover {color:var(--primary-font); background-position:0 -30px;}
-.box_searchId a span.ico_searchPW {background:url(/koBus/images/kor/common/ico_searchPW_s.png) 0 0 no-repeat;}
+.box_searchId a span.ico_searchPW {background:url(/koBus/resources/images/kor/common/ico_searchPW_s.png) 0 0 no-repeat;}
 .box_searchId a span.ico_searchPW:hover {color:var(--primary-font); background-position:0 -30px;}
-.box_searchId a span.ico_joinUs {background:url(/koBus/images/kor/common/ico_joinUs_s.png) 0 0 no-repeat;}
+.box_searchId a span.ico_joinUs {background:url(/koBus/resources/images/kor/common/ico_joinUs_s.png) 0 0 no-repeat;}
 .box_searchId a span.ico_joinUs:hover {color:var(--primary-font); background-position:0 -81px;}
 
 /* 로그인 레이어팝업 */
@@ -3422,11 +3422,11 @@ figcaption {position:absolute; left:-9999px; top:-9999px; width:0; height:0; fon
 	.box_searchId a {width:33%; height:100%; margin:0; text-align:center;}
 	.box_searchId a span {padding:30px 0 0 0;}
 
-	.box_searchId a span.ico_searchId { background-image: url(/koBus/images/kor/common/ico_searchId.png); background-position:50% 0; background-size:30px auto;}
+	.box_searchId a span.ico_searchId { background-image: url(/koBus/resources/images/kor/common/ico_searchId.png); background-position:50% 0; background-size:30px auto;}
 	.box_searchId a span.ico_searchId:hover {background-position:50% -56px;}
-	.box_searchId a span.ico_searchPW { background-image: url(/koBus/images/kor/common/ico_searchPW.png);background-position:50% 0; background-size:30px auto;}
+	.box_searchId a span.ico_searchPW { background-image: url(/koBus/resources/images/kor/common/ico_searchPW.png);background-position:50% 0; background-size:30px auto;}
 	.box_searchId a span.ico_searchPW:hover {background-position:50% -56px;}
-	.box_searchId a span.ico_joinUs { background-image: url(/koBus/images/kor/common/ico_joinUs.png);background-position:50% 0; background-size:30px auto;}
+	.box_searchId a span.ico_joinUs { background-image: url(/koBus/resources/images/kor/common/ico_joinUs.png);background-position:50% 0; background-size:30px auto;}
 	.box_searchId a span.ico_joinUs:hover {background-position:50% -60px;}
 
 	/* 로그인 레이어팝업 */

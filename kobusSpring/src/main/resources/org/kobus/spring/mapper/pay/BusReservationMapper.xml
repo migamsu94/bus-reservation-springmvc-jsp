@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="org.kobus.spring.mapper.pay.BusReservationMapper">
+	
+	<!-- 예매 정보 INSERT -->
+	<insert id="insertReservation" parameterType="org.kobus.spring.domain.reservation.ResvDTO">
+	    
+	    <!-- BEFORE insert: resid 자동 생성 -->
+	    <selectKey keyProperty="resId" resultType="String" order="BEFORE">
+	        SELECT TO_CHAR(RESERVATION_SEQ.NEXTVAL) FROM DUAL
+	    </selectKey>
+	
+	    INSERT INTO reservation (
+	        resid, bshid, kusid, ridedate, resvdate, resvstatus,
+	        resvtype, qrcode, mileage, seatable,
+	        return_bshid, return_seatid, return_ridedate
+	    ) VALUES (
+	        #{resId}, #{bshId, jdbcType=VARCHAR}, #{kusid}, #{rideDate}, #{resvDate}, #{resvStatus},
+	        #{resvType}, #{qrCode}, #{mileage}, #{seatable},
+	        #{returnBshId, jdbcType=VARCHAR}, #{returnSeatId, jdbcType=VARCHAR}, #{returnRideDate, jdbcType=TIMESTAMP}
+	    )
+	</insert>
+
+    <!-- 예매-결제 연결 INSERT -->
+    <insert id="insertReservationPayment"
+            parameterType="org.kobus.spring.domain.pay.ReservationPaymentDTO"
+            useGeneratedKeys="false">
+        
+        <!-- BEFORE insert: resPayId 자동 생성 -->
+        <selectKey keyProperty="resPayId" resultType="String" order="BEFORE">
+            SELECT CONCAT('RP', LPAD(SEQ_RESERVATION_PAYMENT.NEXTVAL, 8, '0')) FROM DUAL
+        </selectKey>
+
+        INSERT INTO reservation_payment (
+            res_pay_id,
+            payment_id,
+            res_id,
+            kusid
+        ) VALUES (
+            #{resPayId},
+            #{paymentId},
+            #{resId},
+            #{kusid}
+        )
+    </insert>
+    
+    <update id="callAfterReservation" statementType="CALLABLE">
+    { CALL AFTER_RESERVATION(
+      #{resid, mode=IN, jdbcType=VARCHAR},
+      #{bshid, mode=IN, jdbcType=VARCHAR},
+      #{kusid, mode=IN, jdbcType=VARCHAR},
+      #{seatList, mode=IN, jdbcType=VARCHAR}
+    ) }
+  </update>
+	
+	<select id="generateResId" resultType="String">
+    	SELECT RESERVATION_SEQ.NEXTVAL FROM DUAL
+	</select>
+
+</mapper>
