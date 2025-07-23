@@ -20,6 +20,18 @@ public class MyPageController {
 	@Autowired
 	private MemberMyPageService memberMyPageService;
 	
+	// 비밀번호 바꾸는 페이지
+	@GetMapping("/page/changePwPage.do")
+	public String changePwPage() {
+		return "kobus.mypage/changePwPage";
+	}
+	
+	// 휴대폰번호 바꾸는 페이지
+	@GetMapping("/page/changePhoneNumPage.do")
+	public String changePhoneNumPage() {
+		return "kobus.mypage/changePhoneNumPage";
+	}
+	
 	// 아이디찾기 페이지 post요청
 	@GetMapping("/page/logonMyPage.do")
 	public String logonMyPage(
