@@ -6,6 +6,11 @@
 <mapper
 	namespace="org.kobus.spring.mapper.pay.BusReservationMapper">
 	
+	
+	<select id="findId" parameterType="string" resultType="string">
+	    SELECT KUSID FROM KOBUSUSER WHERE ID = #{username}
+	</select>
+	
 	<!-- 예매 정보 INSERT -->
 	<insert id="insertReservation" parameterType="org.kobus.spring.domain.reservation.ResvDTO">
 	    
@@ -49,13 +54,33 @@
     </insert>
     
     <update id="callAfterReservation" statementType="CALLABLE">
-    { CALL AFTER_RESERVATION(
-      #{resId, mode=IN, jdbcType=VARCHAR},
-      #{bshId, mode=IN, jdbcType=VARCHAR},
-      #{kusId, mode=IN, jdbcType=VARCHAR},
-      #{seatList, mode=IN, jdbcType=VARCHAR}
-    ) }
-  </update>
+	  <![CDATA[
+	    { CALL AFTER_RESERVATION(
+	        #{resId,     mode=IN, jdbcType=VARCHAR},
+	        #{bshId,     mode=IN, jdbcType=VARCHAR},
+	        #{kusId,     mode=IN, jdbcType=VARCHAR},
+	        #{seatList,  mode=IN, jdbcType=VARCHAR}
+	      )
+	    }
+	  ]]>
+	</update>
+	
+	<!-- int changeRemainSeats(@Param("resId") String mrsMrnpNo, @Param("rideDateStr") String rideDateStr) throws SQLException; -->
+	<update id="updateRemainSeats">
+	    UPDATE BUSSCHEDULE B
+	    SET REMAINSEATS = (
+	        SELECT COUNT(*)
+	        FROM SEAT S
+	        WHERE S.BUSID = B.BUSID
+	          AND S.SEATABLE = 'Y'
+	    )
+	    WHERE B.BSHID = (
+	        SELECT R.BSHID
+	        FROM RESERVATION R
+	        WHERE R.RESID = #{resId}
+	          AND R.RIDEDATE = TO_TIMESTAMP(#{rideDateStr}, 'YYYY-MM-DD HH24:MI:SS')
+	    )
+	</update>
 	
 	<select id="generateResId" resultType="String">
     	SELECT RESERVATION_SEQ.NEXTVAL FROM DUAL

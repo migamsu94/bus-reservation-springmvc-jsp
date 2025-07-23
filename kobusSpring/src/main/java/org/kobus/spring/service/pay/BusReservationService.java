@@ -39,24 +39,27 @@ public class BusReservationService {
         linkDto.setKusid(resvDto.getKusid());
         
         String resId = resvDto.getResId();
-        String busId = resvDto.getBshId();
+        String bshId = resvDto.getBshId();
         String seatList = resvDto.getSeatNo();
-        String kusId = resvDto.getKusid();
+        String username = resvDto.getKusid();
         
+        String rideDateStr = resvDto.getRideDateStr();
+        
+        
+        
+        String kusId = reservationMapper.findId(username);
         
         System.out.printf("=================================");
-        System.out.printf("resId : %s, busId : %s, kusId : %s, seatList : %s", resId, busId, kusId, seatList);
+        System.out.printf("resId : %s, busId : %s, kusId : %s, seatList : %s", resId, bshId, username, seatList);
         System.out.printf("=================================");
         
+        int updateReservedSeat = reservationMapper.callAfterReservation(resId, bshId, kusId, seatList);
         
-        
-        
-        
-        int updateReservedSeat = reservationMapper.callAfterReservation(resId, busId, kusId, seatList);
+        int updateRemainSeats = reservationMapper.updateRemainSeats(resId, rideDateStr);
         
         int insertedLink = reservationMapper.insertReservationPayment(linkDto);
 
-        return insertedReservation > 0 && insertedPayment > 0 && insertedLink > 0 && updateReservedSeat > 0;
+        return insertedReservation > 0 && insertedPayment > 0 && insertedLink > 0 && updateReservedSeat > 0 && updateRemainSeats > 0;
     }
 
 

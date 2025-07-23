@@ -856,40 +856,8 @@ function fnStplCfmPym(){
 	});
 }
 
-//평창 앱 연계시 호출 
-function fnTissuFnPc(){
-	var stplCfmPymFrm = $("form[name=stplCfmPymPcFrm]").serialize() ;		
-	$.ajax({	
-		url      : "https://maas.kt.com/srvapi/ex_content/pay_back",
-        type     : "POST",
-        data : stplCfmPymFrm,      
-        dataType : "json",
-        contentType:"application/json; charset=UTF-8",
-        async    : true,
-        success  : function(data){
-        	var result_code = data.result_code;
-        	var result_msg = data.result_msg;        	
-        	$("#loading").hide();
-    		$("#stplCfmPymFrm").attr("action","/mrs/pymcfm.do");
-    		$("#stplCfmPymFrm").submit();
-        },
-        error : function(){
-        	$("#loading").hide();
-    		$("#stplCfmPymFrm").attr("action","/mrs/pymcfm.do");
-    		$("#stplCfmPymFrm").submit();
-        }
-        
-	});
-}
-	
 	
 
-function fnTissuFn(){	
-	$("#loading").hide();
-	$("#stplCfmPymFrm").attr("action","/mrs/pymcfm.do");
-	$("#stplCfmPymFrm").submit();
-	
-}
 
 
 
