@@ -25,6 +25,8 @@ public class BusReservationService {
        	
         ReservationPaymentDTO linkDto
     ) {
+    	
+    	
         // 1. 예매 저장
         int insertedReservation = reservationMapper.insertReservation(resvDto);
 
@@ -34,18 +36,23 @@ public class BusReservationService {
         // 3. 연결 테이블 insert
         linkDto.setPaymentId(payDto.getPaymentId()); // paymentId 전달
         linkDto.setResId(resvDto.getResId());
-        linkDto.setKusid(resvDto.getKusId());
-        
-        
+        linkDto.setKusid(resvDto.getKusid());
         
         String resId = resvDto.getResId();
         String busId = resvDto.getBshId();
         String seatList = resvDto.getSeatNo();
+        String kusId = resvDto.getKusid();
         
-        System.out.printf("resId : %s, busId : %s, seatList : %s", resId, busId, seatList);
+        
+        System.out.printf("=================================");
+        System.out.printf("resId : %s, busId : %s, kusId : %s, seatList : %s", resId, busId, kusId, seatList);
+        System.out.printf("=================================");
         
         
-        int updateReservedSeat = reservationMapper.callAfterReservation(resId, busId, seatList);
+        
+        
+        
+        int updateReservedSeat = reservationMapper.callAfterReservation(resId, busId, kusId, seatList);
         
         int insertedLink = reservationMapper.insertReservationPayment(linkDto);
 
