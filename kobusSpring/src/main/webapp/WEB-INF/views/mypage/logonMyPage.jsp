@@ -145,6 +145,9 @@
 						</div>
 					</div>
 				</div>
+				
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+				
 			</form>
 			<div class="btns">
 				<!-- 버튼이 1개일경우 class="col1" 추가 -->
