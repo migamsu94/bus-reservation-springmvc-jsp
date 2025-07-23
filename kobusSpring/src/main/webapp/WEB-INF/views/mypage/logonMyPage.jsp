@@ -7,6 +7,7 @@
 %>
 <title>마이페이지 | 고속버스통합예매</title>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <style>
 	.myPage_list li .btnBox a {
 		color: black;
