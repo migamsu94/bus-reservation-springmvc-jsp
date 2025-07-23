@@ -59,7 +59,7 @@ public class FreePassPageController {
         String userPK = logonMapper.getKusIDById(loginId); // LogonMapper 사용
     	*/
         String deprCd = request.getParameter("deprCd");
-        String deprDtRaw = request.getParameter("deprDt");
+        String deprDtRaw = request.getParameter("deprDtm");
         String deprTime = request.getParameter("deprTime");
         String deprNm = request.getParameter("deprNm");
         String arvlNm = request.getParameter("arvlNm");
@@ -78,18 +78,25 @@ public class FreePassPageController {
         String selSeatCnt = request.getParameter("selSeatCnt");
         String allTotAmtPrice = request.getParameter("allTotAmtPrice");
         String busCode = request.getParameter("busCode");
-        String changeResId = request.getParameter("resId");
+//        String changeResId = request.getParameter("resId");
 
-        String deprDt = deprDtRaw.substring(0, 4) + "-" + deprDtRaw.substring(4, 6) + "-" + deprDtRaw.substring(6, 8);
-        String deprDtFmt = deprDtRaw.substring(0, 4) + "." + deprDtRaw.substring(4, 6) + "." + deprDtRaw.substring(6, 8);
-        String deprTimeFmt = (deprTime.length() == 6) ? deprTime.substring(0, 2) + ":" + deprTime.substring(2, 4) : deprTime;
+        String deprDt = deprDtRaw;
+        String deprDtFmt = deprDtRaw.substring(0, 10).replace("-", ".");
 
-        String fullDateTime = deprDt + " " + (deprTimeFmt.length() == 5 ? deprTimeFmt + ":00" : deprTimeFmt);
+        String deprTimeFmt = deprTime;
+
+        String fullDateTime = deprDtRaw + ":00";
+        
+        System.out.println("deprDt " + deprDt);
+        System.out.println("deprDtFmt " + deprDtFmt);
+        System.out.println("deprTimeFmt " + deprTimeFmt);
+        System.out.println("fullDateTime " + fullDateTime);
+        
         Timestamp rideDateTime = Timestamp.valueOf(fullDateTime);
 
-        if (changeResId != null && !changeResId.isEmpty() && !"undefined".equals(changeResId)) {
-            reservationMapper.changeReservation(changeResId); // ReservationMapper 사용
-        }
+//        if (changeResId != null && !changeResId.isEmpty() && !"undefined".equals(changeResId)) {
+//            reservationMapper.changeReservation(changeResId); // ReservationMapper 사용
+//        }
         /* changeReservation 예시 -> UPDATE reservation SET resv_status = '취소' WHERE res_id = #{resId} */
 
         // 좌석 ID 파싱

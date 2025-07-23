@@ -288,6 +288,9 @@ $("#recpCanFrm > button").on("click", function () {
 									style="width: 100%"> <input type="hidden"
 									name="mrsMrnpNoEnc2" id="mrsMrnpNoEnc2" value=""
 									style="width: 100%">
+									
+									
+									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 							</form>
 							<!-- 시간변경 form -->
 							
@@ -340,6 +343,9 @@ $("#recpCanFrm > button").on("click", function () {
 								<!-- 예매단위 좌석 -->
 								<!-- 20210618 비회원 예매휴대폰번호 yahan -->
 								<input type="hidden" name="mrspMbphNo" id="mrspMbphNo" value="">
+								
+								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+								
 							</form>
 							<!-- 예매취소 form -->
 							<form id="recpCanFrm" name="recpCanFrm">
@@ -373,7 +379,7 @@ $("#recpCanFrm > button").on("click", function () {
 								<input type="hidden" name="rtrpMrsYn" id="rtrpMrsYn" value="N">
 								<input type="hidden" name="tckSeqList" id="tckSeqList" value="20250619994950192">
 							
-							
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 								
 							</form>
 							
@@ -408,7 +414,7 @@ $("#recpCanFrm > button").on("click", function () {
 								<input type="hidden" name="rtrpMrsYn" id="rtrpMrsYn" value="N">
 								<input type="hidden" name="tckSeqList" id="tckSeqList" value="20250619994950192">
 							
-								
+								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 								
 							</form>
 							<!-- 편도 시작 -->

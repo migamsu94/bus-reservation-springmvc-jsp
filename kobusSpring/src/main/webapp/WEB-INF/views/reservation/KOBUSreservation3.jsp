@@ -212,6 +212,9 @@
 	<input type="hidden" name="stdDtm" id="stdDtm" value="">
 	<input type="hidden" name="endDtm" id="endDtm" value="">
 	<input type="hidden" name="queryTime" id="queryTime" value="">
+	
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+	
 </form>
 
 			<div class="loading" id="loading" style="height: 1553px; top: 180px; display: none;"><p class="load" style="margin-left: -53px;"><span class="sr-only">로딩중입니다</span></p></div>

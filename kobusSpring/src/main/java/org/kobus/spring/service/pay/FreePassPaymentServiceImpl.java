@@ -25,7 +25,7 @@ public class FreePassPaymentServiceImpl implements FreePassPaymentService{
     @Override
     @Transactional
     public int processFreepassPayment(PaymentCommonDTO payDto, FreepassPaymentDTO freepassDto) {
-
+    	System.out.println("✅ 프리패스 결제 Service 진입");
         // 1. 공통 결제정보 저장 (PK 생성)
         int inserted1 = paymentMapper.insertPaymentCommon(payDto);
 
