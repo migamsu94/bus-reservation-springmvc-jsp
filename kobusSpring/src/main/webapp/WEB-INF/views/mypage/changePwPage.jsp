@@ -102,6 +102,9 @@
 							id="transkey_pwdCfmCheck_" name="transkey_pwdCfmCheck_"
 							type="hidden" value="" /><input id="transkey_HM_pwdCfmCheck_"
 							name="transkey_HM_pwdCfmCheck_" type="hidden" value="" />
+							
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+							
 					</form>
 					<form name="lgnForm">
 						<input id="returnUrl" name="returnUrl" type="hidden"
@@ -214,3 +217,4 @@
 				}
 			});
 		</script>
+

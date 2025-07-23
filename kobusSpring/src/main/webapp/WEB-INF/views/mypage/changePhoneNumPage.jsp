@@ -112,6 +112,9 @@
 							id="transkey_usrPwd_" name="transkey_usrPwd_" type="hidden"
 							value="" /><input id="transkey_HM_usrPwd_"
 							name="transkey_HM_usrPwd_" type="hidden" value="" /> -->
+							
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+							
 					</form>
 				</div>
 			</div>
