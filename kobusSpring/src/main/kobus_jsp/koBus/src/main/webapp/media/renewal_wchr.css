@@ -23,7 +23,7 @@
 /* 웹폰트 */
 @font-face {
   font-family: "Pretendard GOV Variable";
-  src: url("/koBus/media/PretendardGOVVariable.woff") format("woff2-variations");
+  src: url("/koBus/resources/fonts/PretendardGOVVariable.woff") format("woff2-variations");
   font-weight: 1 999;
   font-style: normal;
   font-display: swap !important;
@@ -201,7 +201,7 @@ caption.sr-only {
   width: 12px;
   height: 12px;
   line-height: 12px;
-  background-image: url("/images/kor/common/ico-arrow-down@2x.png");
+  background-image: url("${pageContext.request.contextPath}/resources/media/ico-arrow-down@2x.png");
 }
 
 .ico-arrow-new-window {

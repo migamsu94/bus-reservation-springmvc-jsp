@@ -3,6 +3,7 @@ package org.kobus.spring.controller;
 import java.io.IOException;
 import java.net.http.HttpResponse;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.ibatis.annotations.Param;
 import org.kobus.spring.domain.join.AuthDTO;
 import org.kobus.spring.domain.join.JoinDTO;
+import org.kobus.spring.domain.reservation.ResvDTO;
 import org.kobus.spring.service.join.JoinService;
 import org.kobus.spring.service.reservation.ResvService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.google.gson.Gson;
 
 import lombok.extern.log4j.Log4j;
 
@@ -34,15 +38,29 @@ public class JoinController {
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	@Autowired
-	private ResvService resvService;
+	ResvService resvService;
 	
-	@GetMapping("/koBus/mainPageResv.do")
+	/* 메인페이지 예매내역 뿌려주는 ajax처리 */
+	@GetMapping("/mainPageResv.do")
 	public String mainPageResv(
 				HttpServletRequest request,
 				HttpServletResponse response
-			) {
+			) throws SQLException, IOException {
 		
-		// 메인페이지 예매내역 뿌려주는 코드 구현할것
+		String auth = (String)request.getSession().getAttribute("auth");
+		
+		List<ResvDTO> resvList = resvService.searchResvList(auth); 
+		
+		request.setAttribute("resvList", resvList);
+		
+		response.setContentType("application/json; charset=UTF-8");
+        
+        Gson gson = new Gson();
+        String json = gson.toJson(resvList); // Java 객체 → JSON 문자열로 변환 
+        System.out.println("받아온 객체 값들 json 문자열로 변환");
+        System.out.println(json);
+         
+        response.getWriter().write(json);
 		
 		return null;
 	}

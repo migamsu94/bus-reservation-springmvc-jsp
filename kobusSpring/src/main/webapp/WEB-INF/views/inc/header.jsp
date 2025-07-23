@@ -11,7 +11,6 @@ response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // H
 response.setHeader("Pragma", "no-cache"); // HTTP 1.0
 response.setDateHeader("Expires", 0); // Proxies
 %>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 <!-- [리뉴얼] 페이지 개별 스크립트 신규 정의함 -->
 
@@ -126,11 +125,10 @@ response.setDateHeader("Expires", 0); // Proxies
 							</ul></li>
 						<li><a href="${pageContext.request.contextPath}/main.do">고객지원</a>
 							<ul>
-								<li><a href="${pageContext.request.contextPath}/html/boardList.do">게시판</a></li>
-								<li><a href="${pageContext.request.contextPath}/html/goBusFaq.do">자주찾는 질문</a></li>
-								<li><a
-									href="${pageContext.request.contextPath}/lossCenter/main.do">유실물센터
-										안내</a></li>
+								<li><a href="${pageContext.request.contextPath}/board/list.do">게시판</a></li>
+								<li><a href="${pageContext.request.contextPath}/faq/list.do">자주찾는 질문</a></li>
+								<li><a href="${pageContext.request.contextPath}/losscenter/lossmain.do">유실물 센터</a>
+</li>
 							</ul></li>
 					</ul>
 				</div>

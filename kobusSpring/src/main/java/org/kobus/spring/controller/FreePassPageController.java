@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.kobus.spring.mapper.pay.BusReservationMapper;
 import org.kobus.spring.mapper.reservation.SeatMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -77,7 +79,7 @@ public class FreePassPageController {
         String selSeatNum = request.getParameter("selSeatNum");
         String selSeatCnt = request.getParameter("selSeatCnt");
         String allTotAmtPrice = request.getParameter("allTotAmtPrice");
-        String busCode = request.getParameter("busCode");
+        String busCode = request.getParameter("bshId");
 //        String changeResId = request.getParameter("resId");
 
         String deprDt = deprDtRaw;
@@ -116,11 +118,20 @@ public class FreePassPageController {
 
         String resId = reservationMapper.generateResId(); // ReservationMapper 사용
         /* generateResId -> SELECT SEQ_RESERVATION.NEXTVAL FROM DUAL */
-
+        
+        
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            String username = authentication.getName();
+            System.out.println("username " + username);
+        }
+        
+        
         
 
         model.addAttribute("resId", resId);
         model.addAttribute("seatNos", seatNos);
+        model.addAttribute("selectedSeatIds", selectedSeatIds);
         model.addAttribute("deprCd", deprCd);
         model.addAttribute("deprDt", deprDt);
         model.addAttribute("deprTime", deprTime);
