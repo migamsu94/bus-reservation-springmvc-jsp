@@ -1,5 +1,6 @@
 package org.kobus.spring.controller;
 
+import java.security.Principal;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -22,6 +23,8 @@ import org.kobus.spring.service.pay.BusReservationService;
 import org.kobus.spring.service.pay.FreePassPaymentService;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,6 +39,9 @@ public class PaymentController {
     private BusReservationService reservationService;
 	
 	@Autowired
+    private BusReservationMapper reservationMapper;
+	
+	@Autowired
     private TermMapper termMapper;
 	
 	@Autowired
@@ -46,7 +52,7 @@ public class PaymentController {
 	
 	// 일반 예매 결제
 	@PostMapping("/Reservation.do")
-	public Map<String, Object> handleReservation(HttpServletRequest request ) {
+	public Map<String, Object> handleReservation(HttpServletRequest request, Principal principal ) {
 	    Map<String, Object> resultMap = new HashMap<>();
 
 	    try {
@@ -63,7 +69,19 @@ public class PaymentController {
 	        String pg_tid = request.getParameter("pg_tid");
 	        String paid_at_str = request.getParameter("paid_at");
 	        String boarding_dt = request.getParameter("boarding_dt");
-	        String boarding_time = request.getParameter("boarding_time");
+	        String bshid = request.getParameter("bshid");
+	        String selectedSeatIds = request.getParameter("selectedSeatIds");
+	        
+	        
+	        System.out.println("selectedSeatIds " + selectedSeatIds);
+	        System.out.println("bshid " + bshid);
+	        
+	        String userId = principal.getName();
+	        System.out.println("POST 요청한 사용자: " + userId);
+	        
+	        
+	        String kusId = reservationMapper.findId(userId);
+	        System.out.println("kusId " + kusId);
 
 	        int amount = Integer.parseInt(amountStr);
 	        long paidAtMillis = Long.parseLong(paid_at_str) * 1000L;
@@ -87,15 +105,18 @@ public class PaymentController {
 	        // [3] reservation DTO 생성
 	        ResvDTO resvDto = new ResvDTO();
 	        resvDto.setResId(resId);
-	        resvDto.setKusId(user_id);
-	        resvDto.setBshId(request.getParameter("bus_schedule_id"));
-	        resvDto.setRideDateFormatter(boarding_dt + " " + boarding_time);
+	        resvDto.setKusid(kusId);
+	        resvDto.setBshId(bshid);
+	        resvDto.setSeatNo(selectedSeatIds);
+	        resvDto.setRideDateStr(boarding_dt);
 	        resvDto.setResvDateStr(formatted);
-	        resvDto.setResvStatus("예약");
+	        resvDto.setResvStatus("결제완료");
 	        resvDto.setResvType("일반");
 	        resvDto.setQrCode((long) (Math.random() * 1000000000L));
 	        resvDto.setMileage(0);
 	        resvDto.setSeatable("Y");
+	        
+	        System.out.println(resvDto.toString());
 
 	        // [4] reservation_payment DTO 생성 (paymentId는 insert 후에 설정됨)
 	        ReservationPaymentDTO linkDto = new ReservationPaymentDTO();

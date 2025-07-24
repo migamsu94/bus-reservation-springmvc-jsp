@@ -108,22 +108,7 @@
         ]]>
     </select>
 
-	<!-- int changeRemainSeats(@Param("mrsMrnpNo") String mrsMrnpNo, @Param("rideDateTime") String rideDateTime) throws SQLException; -->
-	<update id="updateRemainSeats">
-	    UPDATE BUSSCHEDULE B
-	    SET REMAINSEATS = (
-	        SELECT COUNT(*)
-	        FROM SEAT S
-	        WHERE S.BUSID = B.BUSID
-	          AND S.SEATABLE = 'Y'
-	    )
-	    WHERE B.BSHID = (
-	        SELECT R.BSHID
-	        FROM RESERVATION R
-	        WHERE R.RESID = #{mrsMrnpNo}
-	          AND R.RIDEDATE = TO_TIMESTAMP(#{rideDateTime}, 'YYYY-MM-DD HH24:MI:SS')
-	    )
-	</update>
+	
 	
 
 </mapper>

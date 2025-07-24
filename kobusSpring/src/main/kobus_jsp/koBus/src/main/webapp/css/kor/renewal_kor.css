@@ -24,7 +24,7 @@
 @font-face {
   font-family: "Pretendard GOV Variable";
  /* src: url("../../font/kor/PretendardGOVVariable.woff") format("woff2-variations"); */
-  src: url("/koBus/fonts/PretendardGOVVariable.woff2") format("woff2-variations");
+  src: url("/koBus/resources/fonts/PretendardGOVVariable.woff2") format("woff2-variations");
   font-weight: 1 999;
   font-style: normal;
   font-display: swap !important;
