@@ -41,19 +41,18 @@ public class BusReservationService {
         String resId = resvDto.getResId();
         String bshId = resvDto.getBshId();
         String seatList = resvDto.getSeatNo();
-        String username = resvDto.getKusid();
-        
+        String kusId = resvDto.getKusid();
         String rideDateStr = resvDto.getRideDateStr();
+        int selAdltCnt = resvDto.getAduCount();
+        int selTeenCnt = resvDto.getStuCount();
+        int selChldCnt = resvDto.getChdCount();
         
-        
-        
-        String kusId = reservationMapper.findId(username);
         
         System.out.printf("=================================");
-        System.out.printf("resId : %s, busId : %s, kusId : %s, seatList : %s", resId, bshId, username, seatList);
+        System.out.printf("resId : %s, busId : %s, kusId : %s, seatList : %s", resId, bshId, kusId, seatList);
         System.out.printf("=================================");
         
-        int updateReservedSeat = reservationMapper.callAfterReservation(resId, bshId, kusId, seatList);
+        int updateReservedSeat = reservationMapper.callAfterReservation(resId, bshId, kusId, seatList, selAdltCnt, selTeenCnt, selChldCnt);
         
         int updateRemainSeats = reservationMapper.updateRemainSeats(resId, rideDateStr);
         

@@ -32,6 +32,7 @@ public class FreePassPageController {
 	
 	@Autowired
     private BusReservationMapper reservationMapper;
+	
 	/*
 	@Autowired
     private LogonMapper logonMapper; // LogonMapper.xml
@@ -80,7 +81,7 @@ public class FreePassPageController {
         String selSeatCnt = request.getParameter("selSeatCnt");
         String allTotAmtPrice = request.getParameter("allTotAmtPrice");
         String busCode = request.getParameter("bshId");
-//        String changeResId = request.getParameter("resId");
+        String changeResId = request.getParameter("mrsMrnpNo");
 
         String deprDt = deprDtRaw;
         String deprDtFmt = deprDtRaw.substring(0, 10).replace("-", ".");
@@ -93,12 +94,8 @@ public class FreePassPageController {
         System.out.println("deprDtFmt " + deprDtFmt);
         System.out.println("deprTimeFmt " + deprTimeFmt);
         System.out.println("fullDateTime " + fullDateTime);
+        System.out.println("changeResId " + changeResId);
         
-        Timestamp rideDateTime = Timestamp.valueOf(fullDateTime);
-
-//        if (changeResId != null && !changeResId.isEmpty() && !"undefined".equals(changeResId)) {
-//            reservationMapper.changeReservation(changeResId); // ReservationMapper 사용
-//        }
         /* changeReservation 예시 -> UPDATE reservation SET resv_status = '취소' WHERE res_id = #{resId} */
 
         // 좌석 ID 파싱
@@ -127,6 +124,7 @@ public class FreePassPageController {
         
 
         model.addAttribute("resId", resId);
+        model.addAttribute("changeResId", changeResId);
         model.addAttribute("seatNos", seatNos);
         model.addAttribute("selectedSeatIds", selectedSeatIds);
         model.addAttribute("deprCd", deprCd);
@@ -179,6 +177,8 @@ public class FreePassPageController {
 
         // 1. 파라미터 수집
         String resId = request.getParameter("resId");
+        String changeResId = request.getParameter("changeResId");
+        
         String deprDtRaw = request.getParameter("deprDt");
         String deprTime = request.getParameter("deprTime");
 
@@ -241,6 +241,7 @@ public class FreePassPageController {
 
         // 6. request에 저장
         request.setAttribute("resId", resId);
+        request.setAttribute("changeResId", changeResId);
         request.setAttribute("deprNm", deprNm);
         request.setAttribute("arvlNm", arvlNm);
         request.setAttribute("takeDrtmOrg", takeDrtmOrg);

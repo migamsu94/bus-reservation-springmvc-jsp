@@ -537,10 +537,10 @@
 													<ul>
 
 
-														<li><button type="button" class="btn " disabled>
+														<li><button type="button" class="btn btn_add">
 																<span class="ico_plus"><span class="sr-only">증가</span></span>
 															</button></li>
-														<li><button type="button" class="btn " disabled>
+														<li><button type="button" class="btn btn_add">
 																<span class="ico_minus"><span class="sr-only">감소</span></span>
 															</button></li>
 													</ul>
@@ -556,10 +556,10 @@
 													<ul>
 
 
-														<li><button type="button" class="btn " disabled>
+														<li><button type="button" class="btn btn_add">
 																<span class="ico_plus"><span class="sr-only">증가</span></span>
 															</button></li>
-														<li><button type="button" class="btn " disabled>
+														<li><button type="button" class="btn btn_add">
 																<span class="ico_minus"><span class="sr-only">감소</span></span>
 															</button></li>
 													</ul>
@@ -576,10 +576,10 @@
 												</p>
 												<div class="btn_wrap">
 													<ul>
-														<li><button type="button" class="btn " disabled>
+														<li><button type="button" class="btn btn_add">
 																<span class="ico_plus"><span class="sr-only">증가</span></span>
 															</button></li>
-														<li><button type="button" class="btn " disabled>
+														<li><button type="button" class="btn btn_add">
 																<span class="ico_minus"><span class="sr-only">감소</span></span>
 															</button></li>
 													</ul>
@@ -623,10 +623,10 @@
 													<div class="btn_wrap">
 														<ul>
 
-															<li><button type="button" class="btn " disabled>
+															<li><button type="button" class="btn btn_add">
 																	<span class="ico_plus"><span class="sr-only">증가</span></span>
 																</button></li>
-															<li><button type="button" class="btn " disabled>
+															<li><button type="button" class="btn btn_add">
 																	<span class="ico_minus"><span class="sr-only">감소</span></span>
 																</button></li>
 														</ul>
@@ -645,10 +645,10 @@
 														<ul>
 
 
-															<li><button type="button" class="btn " disabled>
+															<li><button type="button" class="btn btn_add">
 																	<span class="ico_plus"><span class="sr-only">증가</span></span>
 																</button></li>
-															<li><button type="button" class="btn " disabled>
+															<li><button type="button" class="btn btn_add">
 																	<span class="ico_minus"><span class="sr-only">감소</span></span>
 																</button></li>
 
@@ -666,10 +666,10 @@
 														<ul>
 
 
-															<li><button type="button" class="btn " disabled>
+															<li><button type="button" class="btn btn_add">
 																	<span class="ico_plus"><span class="sr-only">증가</span></span>
 																</button></li>
-															<li><button type="button" class="btn " disabled>
+															<li><button type="button" class="btn btn_add">
 																	<span class="ico_minus"><span class="sr-only">감소</span></span>
 																</button></li>
 														</ul>
