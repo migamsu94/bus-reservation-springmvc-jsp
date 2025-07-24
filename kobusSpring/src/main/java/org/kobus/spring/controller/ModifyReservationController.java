@@ -199,6 +199,7 @@ public class ModifyReservationController {
 		    deprDate = date + " " + time;
 		}
 		
+		
 			// 출발지 / 도착지 / 출발시간 / 버스등급을 기준으로 사용하는 busId 가져오기
 			String busId = seatService.getBusId(resvDTO.getDeprRegCode(), resvDTO.getArrRegCode(), deprDate);
 			
@@ -218,6 +219,7 @@ public class ModifyReservationController {
 			resvDTO.setRideDateStr(deprDate);
 			resvDTO.setRideTimeStr(deprDate.substring(9, 14));
 			resvDTO.setBusGrade(busGrade);
+			
 		
     	
     	// 리스트에 담아 request에 저장
@@ -248,6 +250,8 @@ public class ModifyReservationController {
 	    System.out.println("getDeprDtm: " + paramMap.get("deprDtm"));
 	    System.out.println("getArvlDtm: " + paramMap.get("arvlDtm"));
 	    System.out.println("getBusClsCd: " + paramMap.get("busClsCd"));
+	    System.out.println("mrsMrnpNo: " + paramMap.get("mrsMrnpNo"));
+	    
 	    
 	    
 

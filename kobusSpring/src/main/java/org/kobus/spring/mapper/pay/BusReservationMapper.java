@@ -13,7 +13,8 @@ public interface BusReservationMapper {
 //	int changeReservation(@Param("resId") String resId);
 	String generateResId();
 	int callAfterReservation(@Param("resId") String resId, @Param("bshId") String bshId, 
-			@Param("kusId") String kusId, @Param("seatList") String seatList);
+			@Param("kusId") String kusId, @Param("seatList") String seatList, 
+			@Param("selAdltCnt") int selAdltCnt, @Param("selTeenCnt") int selTeenCnt, @Param("selChldCnt") int selChldCnt);
 	int updateRemainSeats(@Param("resId") String resId, @Param("rideDateStr") String rideDateStr);
 
 }

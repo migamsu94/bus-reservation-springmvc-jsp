@@ -71,6 +71,9 @@ public class PaymentController {
 	        String boarding_dt = request.getParameter("boarding_dt");
 	        String bshid = request.getParameter("bshid");
 	        String selectedSeatIds = request.getParameter("selectedSeatIds");
+	        int selAdltCnt = Integer.parseInt(request.getParameter("selAdltCnt"));
+	        int selTeenCnt = Integer.parseInt(request.getParameter("selTeenCnt"));
+	        int selChldCnt = Integer.parseInt(request.getParameter("selChldCnt"));
 	        
 	        
 	        System.out.println("selectedSeatIds " + selectedSeatIds);
@@ -115,12 +118,17 @@ public class PaymentController {
 	        resvDto.setQrCode((long) (Math.random() * 1000000000L));
 	        resvDto.setMileage(0);
 	        resvDto.setSeatable("Y");
+	        resvDto.setAduCount(selAdltCnt);
+	        resvDto.setStuCount(selTeenCnt);
+	        resvDto.setChdCount(selChldCnt);
+	        
+	        System.out.println("boarding_dt " + boarding_dt);
 	        
 	        System.out.println(resvDto.toString());
 
 	        // [4] reservation_payment DTO 생성 (paymentId는 insert 후에 설정됨)
 	        ReservationPaymentDTO linkDto = new ReservationPaymentDTO();
-	        linkDto.setKusid(user_id); // 아직 paymentId는 안 넣음
+	        linkDto.setKusid(kusId); // 아직 paymentId는 안 넣음
 
 	        // [5] 서비스 호출 → paymentId는 여기서 자동 채워짐
 	        boolean saved = reservationService.saveReservationAndPayment(resvDto, payDto, linkDto);
@@ -265,51 +273,51 @@ public class PaymentController {
     public Map<String, Object> handleSeasonTicketReservation(HttpServletRequest request) {
         Map<String, Object> resultMap = new HashMap<>();
 
-        try {
-            request.setCharacterEncoding("UTF-8");
-
-            // [1] request 파라미터 추출
-            String user_id = request.getParameter("user_id");
-            String resId = request.getParameter("resId");
-            String boarding_dt = request.getParameter("boarding_dt");
-            String boarding_time = request.getParameter("boarding_time");
-            String bus_schedule_id = request.getParameter("bus_schedule_id");
-
-            // [2] 예매일자 현재 시간으로 포맷팅
-            LocalDateTime now = LocalDateTime.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss.SSS");
-            String formatted = now.format(formatter);
-
-            // [3] reservation DTO 생성
-            ResvDTO resvDto = new ResvDTO();
-            resvDto.setResId(resId);
-            resvDto.setKusId(user_id);
-            resvDto.setBshId(bus_schedule_id);
-            resvDto.setRideDateFormatter(boarding_dt + " " + boarding_time); // 날짜+시간 문자열
-            resvDto.setResvDateStr(formatted);
-            resvDto.setResvStatus("예약");
-            resvDto.setResvType("정기권"); // 중요: 일반 -> 정기권
-            resvDto.setQrCode((long) (Math.random() * 1000000000L));
-            resvDto.setMileage(0); // 정기권은 마일리지 없음
-            resvDto.setSeatable("Y");
-            
-            ResSeasonUsageDTO usageDTO = new ResSeasonUsageDTO();
-            usageDTO.setResId(resvDto.getResId());
-            
-            
-
-            // [4] 서비스 호출 (정기권용 로직: payment 테이블 저장 없음)
-            int saved = busReservationMapper.insertReservation(resvDto);
-            int saved2 = busReservationMapper.insertSeasonUsage(usageDTO);
-            
-
-            // [5] 결과 반환
-            resultMap.put("result", saved ? 1 : 0);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            resultMap.put("result", 0);
-        }
+//        try {
+//            request.setCharacterEncoding("UTF-8");
+//
+//            // [1] request 파라미터 추출
+//            String user_id = request.getParameter("user_id");
+//            String resId = request.getParameter("resId");
+//            String boarding_dt = request.getParameter("boarding_dt");
+//            String boarding_time = request.getParameter("boarding_time");
+//            String bus_schedule_id = request.getParameter("bus_schedule_id");
+//
+//            // [2] 예매일자 현재 시간으로 포맷팅
+//            LocalDateTime now = LocalDateTime.now();
+//            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss.SSS");
+//            String formatted = now.format(formatter);
+//
+//            // [3] reservation DTO 생성
+//            ResvDTO resvDto = new ResvDTO();
+//            resvDto.setResId(resId);
+//            resvDto.setKusId(user_id);
+//            resvDto.setBshId(bus_schedule_id);
+//            resvDto.setRideDateFormatter(boarding_dt + " " + boarding_time); // 날짜+시간 문자열
+//            resvDto.setResvDateStr(formatted);
+//            resvDto.setResvStatus("예약");
+//            resvDto.setResvType("정기권"); // 중요: 일반 -> 정기권
+//            resvDto.setQrCode((long) (Math.random() * 1000000000L));
+//            resvDto.setMileage(0); // 정기권은 마일리지 없음
+//            resvDto.setSeatable("Y");
+//            
+//            ResSeasonUsageDTO usageDTO = new ResSeasonUsageDTO();
+//            usageDTO.setResId(resvDto.getResId());
+//            
+//            
+//
+//            // [4] 서비스 호출 (정기권용 로직: payment 테이블 저장 없음)
+//            int saved = busReservationMapper.insertReservation(resvDto);
+//            int saved2 = busReservationMapper.insertSeasonUsage(usageDTO);
+//            
+//
+//            // [5] 결과 반환
+//            resultMap.put("result", saved ? 1 : 0);
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            resultMap.put("result", 0);
+//        }
 
         return resultMap;
     }

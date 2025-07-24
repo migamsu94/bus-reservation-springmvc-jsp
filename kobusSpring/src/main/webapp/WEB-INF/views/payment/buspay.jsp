@@ -193,7 +193,14 @@
 
 		<input type="hidden" name="seatNos" id="seatNos" value="${seatNos}">
 		<!-- 각 좌석번호 -->
+		
+		<!-- 예매 아이디 -->
 		<input type="hidden" name="resId" id="resId" value="${resId}">
+		
+		<!-- 예매 변경 시 사용하는 예매 아이디 -->
+		<input type="hidden" name="changeResId" id="changeResId" value="${changeResId}">
+		
+		
 		<input type="hidden" name="cacmNm" id="cacmNm" value="${cacmNm}">
 
 
