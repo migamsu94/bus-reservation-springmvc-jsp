@@ -12,8 +12,8 @@
 	href="/koBus/media/favicon.ico">
 <link rel="shortcut icon" type="image/x-icon"
 	href="/koBus/images/favicon.ico">
-<link rel="stylesheet" href="/koBus/css/common/style.css">
-<link rel="stylesheet" href="/koBus/css/common/ui.jqgrid.custom.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/media/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/media/ui.jqgrid.custom.css">
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css" />
 
@@ -120,12 +120,12 @@
 			</div>
 
 			<div class="board-view-actions">
-				<a href="boardList.do" class="btn">목록</a>
-				<c:if test="${loginKusID eq dto.kusID}">
-					<a href="boardEdit.do?brdID=${dto.brdID}" class="btn edit">수정</a>
-					<a href="boardDelete.do?brdID=${dto.brdID}" class="btn delete"
-						onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
-				</c:if>
+				<a href="${pageContext.request.contextPath}/board/list.do" class="btn">목록</a>
+<c:if test="${loginKusID eq dto.kusID}">
+    <a href="${pageContext.request.contextPath}/board/edit.do?brdID=${dto.brdID}" class="btn edit">수정</a>
+	<a href="${pageContext.request.contextPath}/board/delete.do?brdID=${dto.brdID}" class="btn delete"
+   		onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
+</c:if>
 			</div>
 
 			<!-- 댓글 목록 출력 -->

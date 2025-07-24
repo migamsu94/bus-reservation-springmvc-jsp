@@ -6,8 +6,8 @@
 <meta charset="UTF-8">
 <title>게시글 작성 | 고객지원 | 고속버스통합예매</title>
 <link rel="shortcut icon" type="image/x-icon" href="/koBus/media/favicon.ico">
-<link rel="stylesheet" href="/koBus/media/style.css">
-<link rel="stylesheet" href="/koBus/media/ui.jqgrid.custom.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/media/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/media/ui.jqgrid.custom.css">
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css" />
 	
@@ -71,8 +71,10 @@
 <div class="content-body customer">
 	<div class="container board-form-container">
 		<h2>게시글 작성</h2>
-		<form action="boardSave.do" method="post">
+		<form action="${pageContext.request.contextPath}/board/write.do" method="post">
 
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			
 			<div class="board-form-group">
 				<label for="brdTitle">제목</label>
 				<input type="text" id="brdTitle" name="brdTitle" required>

@@ -316,9 +316,9 @@ body {
 					</tbody>
 				</table>
 
-				<div class="btn-wrap" id="write" href="/koBus/html/boardWrite.do"
+				<div class="btn-wrap" id="write" href="${pageContext.request.contextPath}/board/write.do"
 					class="btn">
-					<a id="write" href="/koBus/html/boardWrite.do" class="btn">글쓰기</a>
+					<a id="write" href="${pageContext.request.contextPath}/board/write.do" class="btn">글쓰기</a>
 				</div>
 			</div>
 

@@ -16,4 +16,8 @@ public interface BoardMapper {
 	void updateBoard(BoardDTO dto);
 
 	void deleteBoard(int brdID);
+	
+	void save(BoardDTO dto);
+	
+	
 }

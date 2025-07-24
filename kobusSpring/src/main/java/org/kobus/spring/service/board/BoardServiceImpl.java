@@ -26,8 +26,8 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public void saveBoard(BoardDTO dto) {
-        boardMapper.insertBoard(dto);
+    public void saveBoard(BoardDTO board) {
+        boardMapper.save(board);
     }
 
     @Override

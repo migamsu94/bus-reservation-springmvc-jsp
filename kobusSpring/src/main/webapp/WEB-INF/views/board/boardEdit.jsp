@@ -5,8 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>게시글 수정</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/media/style.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/media/ui.jqgrid.custom.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/media/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/media/ui.jqgrid.custom.css">
 <style>
 .board_edit {
     border: 1px solid #ccc;
@@ -75,7 +75,7 @@
             
             <div class="btn_wrap">
                 <input type="submit" class="btn" value="수정 완료"> 
-                <a href="${pageContext.request.contextPath}/html/boardList.do" class="btn">목록</a>
+                <a href="${pageContext.request.contextPath}/board/list.do" class="btn">목록</a>
             </div>
         </form>
     </div>

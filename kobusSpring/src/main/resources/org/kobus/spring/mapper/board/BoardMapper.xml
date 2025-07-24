@@ -13,7 +13,7 @@
         SELECT * FROM board WHERE brdID = #{brdID}
     </select>
 
-    <insert id="insertBoard">
+    <insert id="save" parameterType="org.kobus.spring.domain.board.BoardDTO">
         INSERT INTO board (brdID, kusID, brdTitle, brdContent, brdDate)
         VALUES (board_seq.NEXTVAL, #{kusID}, #{brdTitle}, #{brdContent}, SYSDATE)
     </insert>
@@ -28,5 +28,6 @@
     <delete id="deleteBoard">
         DELETE FROM board WHERE brdID = #{brdID}
     </delete>
+    
 
 </mapper>
