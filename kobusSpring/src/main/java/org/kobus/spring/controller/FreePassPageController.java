@@ -197,7 +197,7 @@ public class FreePassPageController {
 
         String payMethod = request.getParameter("payMethod");
         String amountStr = request.getParameter("amount");
-
+        
         // 2. 날짜 포맷 처리
         String deprDtFmt;
         String deprTimeFmt = "";
@@ -215,7 +215,7 @@ public class FreePassPageController {
         }
 
         fullDeprDateTime = deprDtFmt + " " + deprTimeFmt;
-
+		
         // 3. 소요시간 변환
         String durationStr;
         try {
