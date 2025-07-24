@@ -199,23 +199,6 @@ public class FreePassPageController {
         String payMethod = request.getParameter("payMethod");
         String amountStr = request.getParameter("amount");
 
-        // 2. 날짜 포맷 처리
-        String deprDtFmt;
-        String deprTimeFmt = "";
-        String fullDeprDateTime = "";
-
-        try {
-            Date deprDate = (Date) new SimpleDateFormat("yyyyMMdd").parse(deprDtRaw);
-            deprDtFmt = new SimpleDateFormat("yyyy.MM.dd (E)", Locale.KOREA).format(deprDate);
-        } catch (Exception e) {
-            deprDtFmt = "날짜오류";
-        }
-
-        if (deprTime != null && deprTime.length() >= 4) {
-            deprTimeFmt = deprTime.substring(0, 2) + ":" + deprTime.substring(2, 4);
-        }
-
-        fullDeprDateTime = deprDtFmt + " " + deprTimeFmt;
 
         // 3. 소요시간 변환
         String durationStr;
@@ -255,7 +238,7 @@ public class FreePassPageController {
         request.setAttribute("payMethod", payMethod);
         request.setAttribute("amount", amountStr);
 
-        request.setAttribute("deprDtTimeFmt", fullDeprDateTime);
+        request.setAttribute("deprDtTimeFmt", deprDtRaw);
         request.setAttribute("paidAtStr", paidAtStr);
         request.setAttribute("buyerSummary", buyerSummary.trim());
 

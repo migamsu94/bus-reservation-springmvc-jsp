@@ -776,7 +776,7 @@ $("#recpCanFrm > button").on("click", function () {
 															<dt>도착</dt>
 															<dd>${cancel.arrRegName }</dd>
 														</dl>
-														<span class="img-area"><img src="/koBus/images/bg_cancelTicket_com.png" alt="취소완료"></span>
+														<span class="img-area"><img src="${pageContext.request.contextPath}/resources/images/bg_cancelTicket_com.png" alt="취소완료"></span>
 													</div>
 													<div class="detail_info">
 													<c:set var="durMin" value="${cancel.durMin}" />

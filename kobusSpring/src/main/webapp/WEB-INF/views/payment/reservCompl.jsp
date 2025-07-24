@@ -639,17 +639,10 @@
 							</ul>
 						</div>
 					
-				
-				
-				
-					
-					
-					
 					
 						<p class="btns col1" id="mrsInqrTissu"> <!-- 홈티켓발행 버튼이 사용될때에 클래스명이 col1 에서 col2로 변경되어야 함  -->
-							<a href="https://www.kobus.co.kr/mrs/mrscfm.do" class="btnL btn_cancel">예매 확인</a>
+							<a href="/koBus/manageReservations.do" class="btnL btn_cancel">예매 확인</a>
 						</p>
-					
 					
 				
 			</div>			
