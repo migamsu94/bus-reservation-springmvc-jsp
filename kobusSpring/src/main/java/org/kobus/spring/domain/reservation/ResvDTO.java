@@ -45,7 +45,9 @@ public class ResvDTO {
 	private int mileage;
 	private String seatable;
 	
-	
+	private String returnBshId; // 0723 추가 김승효 
+	private String returnSeatId; // 0723 추가 김승효 
+	private String returnRideDate; // 0723 추가 김승효 
 	private String rideDateFormatter;
 
 

@@ -1328,13 +1328,14 @@ if (lngCd == "KO") {
 		
 		<!-- 마일리지결제시 취소반환되지 않음. -->
  		
-<input type="hidden" id="hidfrmId" name="hidfrmId" value="stplCfmPymFrm"><input type="hidden" id="transkeyUuid_stplCfmPymFrm" name="transkeyUuid_stplCfmPymFrm" value="c3f09c69d4b7f6d31d840292f9c7d3daa0432b0d0ac3f5080c7d1e9ef9a4cee7"><input type="hidden" id="transkey_cardNum3_stplCfmPymFrm" name="transkey_cardNum3_stplCfmPymFrm" value=""><input type="hidden" id="transkey_HM_cardNum3_stplCfmPymFrm" name="transkey_HM_cardNum3_stplCfmPymFrm" value=""><input type="hidden" id="transkey_cardNum4_stplCfmPymFrm" name="transkey_cardNum4_stplCfmPymFrm" value=""><input type="hidden" id="transkey_HM_cardNum4_stplCfmPymFrm" name="transkey_HM_cardNum4_stplCfmPymFrm" value=""><input type="hidden" id="transkey_cardPw_stplCfmPymFrm" name="transkey_cardPw_stplCfmPymFrm" value=""><input type="hidden" id="transkey_HM_cardPw_stplCfmPymFrm" name="transkey_HM_cardPw_stplCfmPymFrm" value=""></form>	
+<input type="hidden" id="hidfrmId" name="hidfrmId" value="stplCfmPymFrm"><input type="hidden" id="transkeyUuid_stplCfmPymFrm" name="transkeyUuid_stplCfmPymFrm" value="c3f09c69d4b7f6d31d840292f9c7d3daa0432b0d0ac3f5080c7d1e9ef9a4cee7"><input type="hidden" id="transkey_cardNum3_stplCfmPymFrm" name="transkey_cardNum3_stplCfmPymFrm" value=""><input type="hidden" id="transkey_HM_cardNum3_stplCfmPymFrm" name="transkey_HM_cardNum3_stplCfmPymFrm" value=""><input type="hidden" id="transkey_cardNum4_stplCfmPymFrm" name="transkey_cardNum4_stplCfmPymFrm" value=""><input type="hidden" id="transkey_HM_cardNum4_stplCfmPymFrm" name="transkey_HM_cardNum4_stplCfmPymFrm" value=""><input type="hidden" id="transkey_cardPw_stplCfmPymFrm" name="transkey_cardPw_stplCfmPymFrm" value=""><input type="hidden" id="transkey_HM_cardPw_stplCfmPymFrm" name="transkey_HM_cardPw_stplCfmPymFrm" value=""><input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /></form>	
 <!-- 비회원 로그인을 위한 데이터 FORM -->
 <form name="nonMbrsLgnFrm" id="nonMbrsLgnFrm" method="post">
         <input type="hidden" name="returnUrl" id="returnUrl" value="">		<!-- 리턴페이지 -->
         <input type="hidden" name="nombrsid" id="nombrsid" value="">		<!-- 전화번호 -->
         <input type="hidden" name="nombrspass" id="nombrspass" value="">		<!-- 인증번호 -->
         <input type="hidden" name="mbrsDvsCd" id="mbrsDvsCd" value="1"><!-- 비회원 -->
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 </form>
 
 <form name="payDtaFrm" id="payDtaFrm" method="post"> <!-- 간편결제용 FORM  -->
@@ -1344,6 +1345,7 @@ if (lngCd == "KO") {
 	<input type="hidden" name="goodsCnt" id="payGoodsCnt" value="1">
 	<input type="hidden" name="goodsPrice" id="payGoodsPrice" value="${tissuAmt}">
 	<input type="hidden" name="popupStatus" id="popupStatus" value="">
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 </form>
 <form name="acntDtaFrm" id="acntDtaFrm" method="post"> <!-- 계좌이체용 FORM  -->
 	<input type="hidden" name="payMethod" id="payMethod" value="BANK">
@@ -1371,6 +1373,7 @@ if (lngCd == "KO") {
 	<input type="hidden" name="encryptData" id="encryptData" value="">		<!-- 해쉬값	-->
 	<input type="hidden" name="trKey" id="trKey" value="">		<!-- 필드만 필요 -->
 	<input type="hidden" name="optionList" id="optionList" value="no_receipt">
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 </form>
 <form name="adtnPrdVldtFrm" id="adtnPrdVldtFrm" method="post"><!-- 부가상품 유효성 검사 -->
 	<input type="hidden" name="adtnPrdDvsCdVldt" id="adtnPrdDvsCdVldt" value="">		<!-- 부가상품 종류코드: 정액권, 정기권 확인필요   -->
@@ -1380,9 +1383,11 @@ if (lngCd == "KO") {
 	<input type="hidden" name="adtnArvlCd" id="adtnArvlCd" value="">		<!-- 부가상품 도착지   -->
 	<input type="hidden" name="adtnSelSeatCnt" id="adtnSelSeatCnt" value="">		<!-- 선택좌석수   -->
 	<input type="hidden" name="adtnBusClsCd" id="adtnBusClsCd" value="">		<!-- 버스등급   -->
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 </form>
 <form name="satsPcpyCancFrm" id="satsPcpyCancFrm" method="post"><!-- 선점취소용 -->
 	<input type="hidden" name="cancPcpyNoAll" id="cancPcpyNoAll" value="">		<!-- 선점번호   -->
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 </form>
 <form name="stplCfmPymPcFrm" id="stplCfmPymPcFrm" method="post"><!-- 평창연계용 -->
 	<input type="hidden" name="token" id="token" value="">		<!-- 토큰   -->
@@ -1392,6 +1397,7 @@ if (lngCd == "KO") {
 	<input type="hidden" name="from" id="from" value="">		<!-- 출발지 명칭   -->
 	<input type="hidden" name="to" id="to" value="">		<!-- 도착지 명칭   -->
 	<input type="hidden" name="sn" id="sn" value="">		<!-- 데이터 키   -->
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 </form>
 		</article>
 

@@ -12,9 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.kobus.spring.domain.pay.FreepassPaymentDTO;
 import org.kobus.spring.domain.pay.PaymentCommonDTO;
+import org.kobus.spring.domain.pay.ResSeasonUsageDTO;
 import org.kobus.spring.domain.pay.ReservationPaymentDTO;
 import org.kobus.spring.domain.pay.STPaymentSet;
 import org.kobus.spring.domain.reservation.ResvDTO;
+import org.kobus.spring.mapper.pay.BusReservationMapper;
 import org.kobus.spring.mapper.pay.TermMapper;
 import org.kobus.spring.service.pay.BusReservationService;
 import org.kobus.spring.service.pay.FreePassPaymentService;
@@ -39,6 +41,8 @@ public class PaymentController {
 	@Autowired
 	private FreePassPaymentService freepassService;  // 인터페이스 → 구현체
 	
+	@Autowired
+	private BusReservationMapper busReservationMapper;
 	
 	// 일반 예매 결제
 	@PostMapping("/Reservation.do")
@@ -234,6 +238,59 @@ public class PaymentController {
         result.put("amount", amount);
 
         return result;  // JSON 형태로 자동 반환
+    }
+    
+    @PostMapping("/usedSeasonticket.do")
+    public Map<String, Object> handleSeasonTicketReservation(HttpServletRequest request) {
+        Map<String, Object> resultMap = new HashMap<>();
+
+        try {
+            request.setCharacterEncoding("UTF-8");
+
+            // [1] request 파라미터 추출
+            String user_id = request.getParameter("user_id");
+            String resId = request.getParameter("resId");
+            String boarding_dt = request.getParameter("boarding_dt");
+            String boarding_time = request.getParameter("boarding_time");
+            String bus_schedule_id = request.getParameter("bus_schedule_id");
+
+            // [2] 예매일자 현재 시간으로 포맷팅
+            LocalDateTime now = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss.SSS");
+            String formatted = now.format(formatter);
+
+            // [3] reservation DTO 생성
+            ResvDTO resvDto = new ResvDTO();
+            resvDto.setResId(resId);
+            resvDto.setKusId(user_id);
+            resvDto.setBshId(bus_schedule_id);
+            resvDto.setRideDateFormatter(boarding_dt + " " + boarding_time); // 날짜+시간 문자열
+            resvDto.setResvDateStr(formatted);
+            resvDto.setResvStatus("예약");
+            resvDto.setResvType("정기권"); // 중요: 일반 -> 정기권
+            resvDto.setQrCode((long) (Math.random() * 1000000000L));
+            resvDto.setMileage(0); // 정기권은 마일리지 없음
+            resvDto.setSeatable("Y");
+            
+            ResSeasonUsageDTO usageDTO = new ResSeasonUsageDTO();
+            usageDTO.setResId(resvDto.getResId());
+            
+            
+
+            // [4] 서비스 호출 (정기권용 로직: payment 테이블 저장 없음)
+            int saved = busReservationMapper.insertReservation(resvDto);
+            int saved2 = busReservationMapper.insertSeasonUsage(usageDTO);
+            
+
+            // [5] 결과 반환
+            resultMap.put("result", saved ? 1 : 0);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultMap.put("result", 0);
+        }
+
+        return resultMap;
     }
     
 } // class
