@@ -108,6 +108,9 @@
         ]]>
     </select>
 
+	<delete id="deleteResv">
+		delete from reservation where resId = #{changeResId}
+	</delete>
 	
 	
 

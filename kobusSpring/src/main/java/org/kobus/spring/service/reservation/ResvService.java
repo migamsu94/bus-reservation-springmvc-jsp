@@ -14,6 +14,8 @@ public interface ResvService {
 	int cancelResvList(String mrsMrnpNo) throws SQLException;
 
 	List<ResvDTO> searchCancelResvList(String loginId) throws SQLException;
+	
+	int deleteResv(String changeResId) throws SQLException;
 
 	int changeRemainSeats(String mrsMrnpNo, String rideDateTime) throws SQLException;
 

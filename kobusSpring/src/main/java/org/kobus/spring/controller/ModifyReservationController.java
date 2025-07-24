@@ -1,5 +1,6 @@
 package org.kobus.spring.controller;
 
+import java.security.Principal;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -15,6 +16,7 @@ import org.kobus.spring.domain.reservation.ModifyResvDTO;
 import org.kobus.spring.domain.reservation.ResvDTO;
 import org.kobus.spring.domain.reservation.SeatDTO;
 import org.kobus.spring.domain.schedule.ScheduleDTO;
+import org.kobus.spring.mapper.pay.BusReservationMapper;
 import org.kobus.spring.service.reservation.ResvService;
 import org.kobus.spring.service.reservation.SeatService;
 import org.kobus.spring.service.schedule.ScheduleService;
@@ -45,18 +47,13 @@ public class ModifyReservationController {
 	@Autowired
 	ScheduleService scheduleService;
 	
+	@Autowired
+    private BusReservationMapper busReservationMapper;
+	
 	@GetMapping("/manageReservations.do")
-	public String manageReservations(HttpSession session, Model model) {
+	public String manageReservations(HttpSession session, Model model, Principal principal) {
 		
-//		String loginId = (String) session.getAttribute("id");
-		
-		String loginId = "user1";
-		
-//		if (session == null || session.getAttribute("id") == null) {
-//	        // 로그인 안 된 상태
-//			return "redirect:/koBus/koBusFile/logonMain.jsp";
-//		}
-		
+		String loginId = principal.getName();
 
 		try {
 			// 예매 내역 조회
@@ -329,9 +326,8 @@ public class ModifyReservationController {
 
 			if ("cancel".equals(ajaxType)) {
 				cancelResult = resvService.cancelResvList(mrsMrnpno);
-				changeRemainSeats = resvService.changeRemainSeats(mrsMrnpno, rideDateTime);
+				changeRemainSeats = busReservationMapper.updateRemainSeats(mrsMrnpno, rideDateTime);
 			}
-
 
 
 			recpListMap.put("cancelResult", cancelResult);

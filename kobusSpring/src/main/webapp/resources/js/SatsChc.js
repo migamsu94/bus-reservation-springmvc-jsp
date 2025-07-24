@@ -2002,7 +2002,7 @@ function fnSetPcpy(){
 	        			+":"+$("#indVBusClsCd").val() //버스등급
 	        			+":"+$("#cacmCd").val() //운수사코드
 	        			+":"+$("#cacmNm").val() //운수사명
-	        			
+	        			+":"+$("#changeResId").val() //운수사명
 	        			+":"+$("#prmmDcDvsCd").val() //시외우등형할인코드
         				+":"+$("#agrmYn").val() //국민차장제 동의 여부 (180705)
         				+":"+$("#selVtr5Cnt").val() //보훈(권종추가-20210501)

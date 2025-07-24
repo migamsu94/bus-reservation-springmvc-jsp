@@ -81,7 +81,7 @@ public class FreePassPageController {
         String selSeatCnt = request.getParameter("selSeatCnt");
         String allTotAmtPrice = request.getParameter("allTotAmtPrice");
         String busCode = request.getParameter("bshId");
-        String changeResId = request.getParameter("mrsMrnpNo");
+        String changeResId = request.getParameter("changeResId");
 
         String deprDt = deprDtRaw;
         String deprDtFmt = deprDtRaw.substring(0, 10).replace("-", ".");
@@ -95,6 +95,7 @@ public class FreePassPageController {
         System.out.println("deprTimeFmt " + deprTimeFmt);
         System.out.println("fullDateTime " + fullDateTime);
         System.out.println("changeResId " + changeResId);
+        System.out.println("busCode " + busCode);
         
         /* changeReservation 예시 -> UPDATE reservation SET resv_status = '취소' WHERE res_id = #{resId} */
 
@@ -198,23 +199,6 @@ public class FreePassPageController {
         String payMethod = request.getParameter("payMethod");
         String amountStr = request.getParameter("amount");
 
-        // 2. 날짜 포맷 처리
-        String deprDtFmt;
-        String deprTimeFmt = "";
-        String fullDeprDateTime = "";
-
-        try {
-            Date deprDate = (Date) new SimpleDateFormat("yyyyMMdd").parse(deprDtRaw);
-            deprDtFmt = new SimpleDateFormat("yyyy.MM.dd (E)", Locale.KOREA).format(deprDate);
-        } catch (Exception e) {
-            deprDtFmt = "날짜오류";
-        }
-
-        if (deprTime != null && deprTime.length() >= 4) {
-            deprTimeFmt = deprTime.substring(0, 2) + ":" + deprTime.substring(2, 4);
-        }
-
-        fullDeprDateTime = deprDtFmt + " " + deprTimeFmt;
 
         // 3. 소요시간 변환
         String durationStr;
@@ -254,7 +238,7 @@ public class FreePassPageController {
         request.setAttribute("payMethod", payMethod);
         request.setAttribute("amount", amountStr);
 
-        request.setAttribute("deprDtTimeFmt", fullDeprDateTime);
+        request.setAttribute("deprDtTimeFmt", deprDtRaw);
         request.setAttribute("paidAtStr", paidAtStr);
         request.setAttribute("buyerSummary", buyerSummary.trim());
 
