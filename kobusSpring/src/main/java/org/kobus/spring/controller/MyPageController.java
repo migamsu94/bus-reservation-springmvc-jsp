@@ -2,11 +2,15 @@ package org.kobus.spring.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.kobus.spring.domain.member.ItemCanclePurDTO;
+import org.kobus.spring.domain.member.ItemPurDTO;
+import org.kobus.spring.service.member.MemberItemPurService;
 import org.kobus.spring.service.member.MemberMyPageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -25,7 +29,32 @@ public class MyPageController {
 	private MemberMyPageService memberMyPageService;
 	
 	@Autowired
+	private MemberItemPurService memberItemPurService;
+	
+	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
+	@GetMapping("/page/itemPurListPage.do")
+	public String itemPurListPage(
+			HttpServletRequest request,
+			HttpServletResponse response
+			) throws SQLException {
+		
+		String loginId = (String)request.getSession().getAttribute("auth");
+		
+		List<ItemPurDTO> popItemList = memberItemPurService.itemPopPurList(loginId);
+		List<ItemPurDTO> freeItemList = memberItemPurService.itemFreePurList(loginId);
+		
+		List<ItemCanclePurDTO> popCancleItemList = memberItemPurService.itemCanclePopPurList(loginId);
+		List<ItemCanclePurDTO> freeCancleItemList = memberItemPurService.itemCancleFreePurList(loginId);
+		
+		request.setAttribute("popItemList", popItemList);
+		request.setAttribute("freeItemList", freeItemList);
+		request.setAttribute("popCancleItemList", popCancleItemList);
+		request.setAttribute("freeCancleItemList", freeCancleItemList);
+		
+		return "kobus.mypage/itemPurListPage";
+	}
 	
 	/* 회원탈퇴 */
 	@PostMapping("/deleteUsr.do")
