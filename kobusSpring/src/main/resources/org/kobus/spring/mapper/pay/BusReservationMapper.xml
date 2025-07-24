@@ -49,7 +49,7 @@
             #{resPayId},
             #{paymentId},
             #{resId},
-            #{kusid}
+            #{kusId}
         )
     </insert>
     
@@ -85,5 +85,40 @@
 	<select id="generateResId" resultType="String">
     	SELECT RESERVATION_SEQ.NEXTVAL FROM DUAL
 	</select>
-
+	
+	<insert id="insertSeasonUsage" parameterType="org.kobus.spring.domain.pay.ResSeasonUsageDTO">
+	<selectKey keyProperty="usageId" resultType="String" order="BEFORE">
+        SELECT TO_CHAR(SEQ_RES_SEASON_USAGE.NEXTVAL) FROM DUAL
+    </selectKey>
+    INSERT INTO res_season_usage (
+        USAGE_ID,
+        RES_ID,
+        SEASON_PAY_ID,
+        USED_DATE
+    ) VALUES (
+        #{usageId},
+        #{resId},
+        #{seasonPayId},
+        #{usedDate}
+    )
+	</insert>
+	
+	<insert id="insertFreePassUsage" parameterType="org.kobus.spring.domain.pay.ResPassUsageDTO">
+    <selectKey keyProperty="usageId" resultType="String" order="BEFORE">
+        SELECT TO_CHAR(SEQ_RES_PASS_USAGE.NEXTVAL) FROM DUAL
+    </selectKey>
+    INSERT INTO res_pass_usage (
+        USAGE_ID,
+        RES_ID,
+        FREE_PASS_PAY_ID,
+        USED_DATE
+    ) VALUES (
+        #{usageId},
+        #{resId},
+        #{fpCpnNo},
+        #{timDte}
+    )
+	</insert>
+	
+	
 </mapper>

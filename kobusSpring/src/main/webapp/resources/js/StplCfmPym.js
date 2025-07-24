@@ -924,8 +924,8 @@ function  fnPayPymWin(){
 function proceedSeasonTicketReservation() {
     // 선택한 좌석, 날짜, 상품번호 등을 form이나 전역 변수에서 가져옴
     const selectedDate = $("#deprDt").val();           // 탑승일자
-    const selectedSeat = $("input[name='seat']:checked").val(); // 선택 좌석 (예시)
-    const adtnPrdSno = $("#perdAdtnPrdList").val()?.split(":")[0]; // 상품번호
+    const selectedSeat = $("#seatNos").val();
+    const adtnPrdSno = $("#perdAdtnPrdList").val().split(":")[0]; // 상품번호
 
     if (!selectedSeat) {
         alert("좌석을 선택해주세요.");
@@ -942,46 +942,7 @@ function proceedSeasonTicketReservation() {
 
     // 서버로 예매 요청
     $.ajax({
-        url: "/mrs/pay/reserveSeasonTicket.do",
-        type: "POST",
-        data: reservationData,
-        success: function (data) {
-            if (data.result === "SUCCESS") {
-                alert("🎉 정기권 예매가 완료되었습니다!");
-                location.href = "/koBus/reservCompl.jsp"; // 완료 페이지 이동
-            } else {
-                alert("예매 실패: " + (data.message || "알 수 없는 오류"));
-            }
-        },
-        error: function (xhr, status, err) {
-            console.error("예매 요청 오류:", err);
-            alert("서버 오류로 예매에 실패했습니다.");
-        }
-    });
-}
-
-function proceedSeasonTicketReservation() {
-    // 선택한 좌석, 날짜, 상품번호 등을 form이나 전역 변수에서 가져옴
-    const selectedDate = $("#deprDt").val();           // 탑승일자
-    const selectedSeat = $("input[name='seat']:checked").val(); // 선택 좌석 (예시)
-    const adtnPrdSno = $("#perdAdtnPrdList").val()?.split(":")[0]; // 상품번호
-
-    if (!selectedSeat) {
-        alert("좌석을 선택해주세요.");
-        return;
-    }
-
-    // 예매 데이터 구성
-    const reservationData = {
-        adtnPrdSno: adtnPrdSno,
-        usedDate: selectedDate,
-        seatNo: selectedSeat
-        // 필요시 기타 데이터도 추가
-    };
-
-    // 서버로 예매 요청
-    $.ajax({
-        url: "/mrs/pay/reserveSeasonTicket.do",
+        url: ctx + "/payment/usedSeasonticket.do",
         type: "POST",
         data: reservationData,
         success: function (data) {

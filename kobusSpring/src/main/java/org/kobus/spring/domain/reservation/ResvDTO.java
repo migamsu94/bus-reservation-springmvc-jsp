@@ -50,7 +50,6 @@ public class ResvDTO {
 	private String returnSeatId;
 	private Timestamp returnRideDate;
 	
-	
 
 	@Override
 	public String toString() {
