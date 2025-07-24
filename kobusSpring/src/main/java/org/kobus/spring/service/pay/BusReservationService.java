@@ -1,10 +1,13 @@
 package org.kobus.spring.service.pay;
 
+import java.sql.SQLException;
+
 import org.kobus.spring.domain.pay.PaymentCommonDTO;
 import org.kobus.spring.domain.pay.ReservationPaymentDTO;
 import org.kobus.spring.domain.reservation.ResvDTO;
 import org.kobus.spring.mapper.pay.BusReservationMapper;
 import org.kobus.spring.mapper.pay.PaymentCommonMapper;
+import org.kobus.spring.mapper.reservation.ResvMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +17,8 @@ public class BusReservationService {
 
     @Autowired
     private BusReservationMapper reservationMapper;
+    
+    @Autowired ResvMapper modifyResvMapper;
 
     @Autowired
     private PaymentCommonMapper commonMapper;
@@ -22,10 +27,17 @@ public class BusReservationService {
     public boolean saveReservationAndPayment(
     		ResvDTO resvDto,
         PaymentCommonDTO payDto,
-       	
-        ReservationPaymentDTO linkDto
-    ) {
+        ReservationPaymentDTO linkDto, 
+        String changeResId) throws SQLException {
     	
+    	
+    	if (changeResId != null || !"undefined".equals(changeResId) 
+    			|| (changeResId != null && !changeResId.equals(""))) {
+
+    		int cancel = modifyResvMapper.cancelResvList(changeResId);
+    		int delete = modifyResvMapper.deleteResv(changeResId);
+
+    	}
     	
         // 1. 예매 저장
         int insertedReservation = reservationMapper.insertReservation(resvDto);
@@ -41,19 +53,18 @@ public class BusReservationService {
         String resId = resvDto.getResId();
         String bshId = resvDto.getBshId();
         String seatList = resvDto.getSeatNo();
-        String username = resvDto.getKusid();
-        
+        String kusId = resvDto.getKusid();
         String rideDateStr = resvDto.getRideDateStr();
+        int selAdltCnt = resvDto.getAduCount();
+        int selTeenCnt = resvDto.getStuCount();
+        int selChldCnt = resvDto.getChdCount();
         
-        
-        
-        String kusId = reservationMapper.findId(username);
         
         System.out.printf("=================================");
-        System.out.printf("resId : %s, busId : %s, kusId : %s, seatList : %s", resId, bshId, username, seatList);
+        System.out.printf("resId : %s, busId : %s, kusId : %s, seatList : %s", resId, bshId, kusId, seatList);
         System.out.printf("=================================");
         
-        int updateReservedSeat = reservationMapper.callAfterReservation(resId, bshId, kusId, seatList);
+        int updateReservedSeat = reservationMapper.callAfterReservation(resId, bshId, kusId, seatList, selAdltCnt, selTeenCnt, selChldCnt);
         
         int updateRemainSeats = reservationMapper.updateRemainSeats(resId, rideDateStr);
         

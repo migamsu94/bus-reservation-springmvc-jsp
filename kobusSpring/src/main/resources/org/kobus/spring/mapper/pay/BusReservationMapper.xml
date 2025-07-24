@@ -49,7 +49,7 @@
             #{resPayId},
             #{paymentId},
             #{resId},
-            #{kusId}
+            #{kusid}
         )
     </insert>
     
@@ -59,7 +59,10 @@
 	        #{resId,     mode=IN, jdbcType=VARCHAR},
 	        #{bshId,     mode=IN, jdbcType=VARCHAR},
 	        #{kusId,     mode=IN, jdbcType=VARCHAR},
-	        #{seatList,  mode=IN, jdbcType=VARCHAR}
+	        #{seatList,  mode=IN, jdbcType=VARCHAR},
+	        #{selAdltCnt,  mode=IN, jdbcType=INTEGER},
+	        #{selTeenCnt,  mode=IN, jdbcType=INTEGER},
+	        #{selChldCnt,  mode=IN, jdbcType=INTEGER}
 	      )
 	    }
 	  ]]>

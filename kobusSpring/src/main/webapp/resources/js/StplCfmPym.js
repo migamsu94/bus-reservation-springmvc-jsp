@@ -473,6 +473,7 @@ function requestPay() {
 	var resId = $("#resId").val();
 	var bshid = $("#busCode").val();
 	var selectedSeatIds = $("#selectedSeatIds").val();
+	var changeResId = $("#changeResId").val();
 
 	// 출발/도착지 정보
 	var deprNm = $("#deprNm").val();
@@ -520,6 +521,7 @@ function requestPay() {
 				seat_number: seatNos,
 				boarding_dt: boardingDt,
 				resId: resId,
+				changeResId: changeResId,
 				deprDt: $("#deprDt").val(),
 			    deprTime: $("#deprTime").val(),
 			    deprNm: $("#deprNm").val(),
@@ -569,6 +571,7 @@ function requestPay() {
 								    + "&takeDrtmOrg=" + encodeURIComponent(takeDrtmOrg)
 								    + "&bshid=" + encodeURIComponent(bshid)
 								    + "&selectedSeatIds=" + encodeURIComponent(selectedSeatIds)
+								    + "&changeResId=" + encodeURIComponent(changeResId)
 								    + "&cacmNm=" + encodeURIComponent(cacmNm)
 								    + "&indVBusClsCd=" + encodeURIComponent(indVBusClsCd)
 								    + "&selSeatCnt=" + encodeURIComponent(selSeatCnt)

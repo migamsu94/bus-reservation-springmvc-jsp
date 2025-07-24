@@ -13,6 +13,9 @@
     <typeAlias type="java.util.Map" alias="Map" />
     <typeAlias type="java.util.HashMap" alias="HashMap" />
     <typeAlias type="java.util.List" alias="List" />
+    <typeAlias type="org.kobus.spring.domain.board.BoardDTO" alias="BoardDTO"/>
   </typeAliases>
+	<mappers>
+	    <mapper resource="org/kobus/spring/domain/member/UserMapper.xml" />
+	</mappers>
 </configuration>   
- 
