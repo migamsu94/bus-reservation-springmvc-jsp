@@ -7,7 +7,7 @@ import org.kobus.spring.domain.board.BoardDTO;
 public interface BoardService {
     List<BoardDTO> getBoardList();
 
-	void saveBoard(BoardDTO dto);
+    void saveBoard(BoardDTO dto);
 
 	BoardDTO getBoardById(int brdID);
 
