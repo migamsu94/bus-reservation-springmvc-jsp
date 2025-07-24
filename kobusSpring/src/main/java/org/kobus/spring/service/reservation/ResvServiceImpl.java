@@ -68,4 +68,9 @@ public class ResvServiceImpl implements ResvService {
 		return resvMapper.changeRemainSeats(mrsMrnpNo, rideDateTime);
 	}
 
+	@Override
+	public int deleteResv(String changeResId) throws SQLException {
+		return resvMapper.deleteResv(changeResId);
+	}
+
 }

@@ -81,7 +81,7 @@ public class FreePassPageController {
         String selSeatCnt = request.getParameter("selSeatCnt");
         String allTotAmtPrice = request.getParameter("allTotAmtPrice");
         String busCode = request.getParameter("bshId");
-        String changeResId = request.getParameter("mrsMrnpNo");
+        String changeResId = request.getParameter("changeResId");
 
         String deprDt = deprDtRaw;
         String deprDtFmt = deprDtRaw.substring(0, 10).replace("-", ".");
@@ -95,6 +95,7 @@ public class FreePassPageController {
         System.out.println("deprTimeFmt " + deprTimeFmt);
         System.out.println("fullDateTime " + fullDateTime);
         System.out.println("changeResId " + changeResId);
+        System.out.println("busCode " + busCode);
         
         /* changeReservation 예시 -> UPDATE reservation SET resv_status = '취소' WHERE res_id = #{resId} */
 

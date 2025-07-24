@@ -71,13 +71,12 @@ public class PaymentController {
 	        String boarding_dt = request.getParameter("boarding_dt");
 	        String bshid = request.getParameter("bshid");
 	        String selectedSeatIds = request.getParameter("selectedSeatIds");
+	        String changeResId = request.getParameter("changeResId");
 	        int selAdltCnt = Integer.parseInt(request.getParameter("selAdltCnt"));
 	        int selTeenCnt = Integer.parseInt(request.getParameter("selTeenCnt"));
 	        int selChldCnt = Integer.parseInt(request.getParameter("selChldCnt"));
 	        
-	        
-	        System.out.println("selectedSeatIds " + selectedSeatIds);
-	        System.out.println("bshid " + bshid);
+	        System.out.println("changeResId " + changeResId);
 	        
 	        String userId = principal.getName();
 	        System.out.println("POST 요청한 사용자: " + userId);
@@ -131,7 +130,7 @@ public class PaymentController {
 	        linkDto.setKusid(kusId); // 아직 paymentId는 안 넣음
 
 	        // [5] 서비스 호출 → paymentId는 여기서 자동 채워짐
-	        boolean saved = reservationService.saveReservationAndPayment(resvDto, payDto, linkDto);
+	        boolean saved = reservationService.saveReservationAndPayment(resvDto, payDto, linkDto, changeResId);
 
 	        // [6] 결과 반환
 	        resultMap.put("result", saved ? 1 : 0);
