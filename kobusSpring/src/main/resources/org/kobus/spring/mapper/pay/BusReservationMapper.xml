@@ -24,7 +24,7 @@
 	        resvtype, qrcode, mileage, seatable,
 	        return_bshid, return_seatid, return_ridedate
 	    ) VALUES (
-	        #{resId}, #{bshId, jdbcType=VARCHAR}, #{kusid}, #{rideDateStr}, #{resvDateStr}, #{resvStatus},
+	        #{resId}, #{bshId, jdbcType=VARCHAR}, #{kusid, jdbcType=VARCHAR}, #{rideDate, jdbcType=TIMESTAMP}, #{resvDateStr, jdbcType=TIMESTAMP}, #{resvStatus},
 	        #{resvType}, #{qrCode}, #{mileage}, #{seatable},
 	        #{returnBshId, jdbcType=VARCHAR}, #{returnSeatId, jdbcType=VARCHAR}, #{returnRideDate, jdbcType=TIMESTAMP}
 	    )
@@ -122,6 +122,19 @@
         #{timDte}
     )
 	</insert>
+	
+	<select id="selectSeasonPayIdByAdtnSno" resultType="String">
+	  SELECT season_pay_id
+	  FROM (
+	    SELECT season_pay_id
+	    FROM season_ticket_payment
+	    WHERE adtn_prd_sno = #{adtnPrdSno}
+	      AND kusid = #{kusid}
+	    ORDER BY season_pay_id DESC
+	  )
+	  WHERE ROWNUM = 1
+	</select>
+		
 	
 	
 </mapper>

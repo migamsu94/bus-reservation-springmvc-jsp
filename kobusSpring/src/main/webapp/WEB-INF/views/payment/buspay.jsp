@@ -83,7 +83,7 @@
 
 	<form name="stplCfmPymFrm" id="stplCfmPymFrm" method="post"
 		action="/payment/buypay.htm">
-		<input type="hidden" name="kusid" value="KUS003" />
+		<input type="hidden" name="kusid" value="KUS001" />
 		<input type="hidden" name="deprCd" id="deprCd" value="032">
 		<!-- 출발지코드 -->
 		<input type="hidden" name="deprNm" id="deprNm" value="${deprNm}">

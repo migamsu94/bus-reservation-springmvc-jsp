@@ -12,6 +12,6 @@ public class ResSeasonUsageDTO {
 	private String usageId;
 	private String resId;
 	private String seasonPayId;
-	private Date usedDate;
+	private String usedDate;
 
 }

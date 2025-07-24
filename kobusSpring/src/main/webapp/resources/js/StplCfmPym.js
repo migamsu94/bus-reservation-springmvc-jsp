@@ -926,9 +926,11 @@ function  fnPayPymWin(){
 
 function proceedSeasonTicketReservation() {
     // 선택한 좌석, 날짜, 상품번호 등을 form이나 전역 변수에서 가져옴
-    const selectedDate = $("#deprDt").val();           // 탑승일자
     const selectedSeat = $("#seatNos").val();
     const adtnPrdSno = $("#perdAdtnPrdList").val().split(":")[0]; // 상품번호
+    const selectedDateStr = $("#deprDt").val(); // "2025-07-24 18:00"
+    const bshid = $("#busCode").val(); // "2025-07-24 18:00"
+    const resId = $("#resId").val(); // "2025-07-24 18:00"
 
     if (!selectedSeat) {
         alert("좌석을 선택해주세요.");
@@ -938,9 +940,22 @@ function proceedSeasonTicketReservation() {
     // 예매 데이터 구성
     const reservationData = {
         adtnPrdSno: adtnPrdSno,
-        usedDate: selectedDate,
-        seatNo: selectedSeat
-        // 필요시 기타 데이터도 추가
+        usedDate: selectedDateStr,
+        seatNo: selectedSeat,
+        bshid: bshid,
+        resId: resId,
+        deprDt: $("#deprDt").val(),
+	    deprTime: $("#deprTime").val(),
+	    deprNm: $("#deprNm").val(),
+	    arvlNm: $("#arvlNm").val(),
+	    takeDrtmOrg: $("#takeDrtmOrg").val(),
+	    cacmNm: $("#cacmNm").val(),
+	    indVBusClsCd: $("#indVBusClsCd").val(),
+	    selSeatCnt: $("#selSeatCnt").val(),
+	    seatNos: $("#seatNos").val(),
+	    selAdltCnt: $("#selAdltCnt").val(),
+	    selTeenCnt: $("#selTeenCnt").val(),
+	    selChldCnt: $("#selChldCnt").val()
     };
 
     // 서버로 예매 요청
@@ -948,10 +963,40 @@ function proceedSeasonTicketReservation() {
         url: ctx + "/payment/usedSeasonticket.do",
         type: "POST",
         data: reservationData,
+        dataType: "json",
         success: function (data) {
             if (data.result === "SUCCESS") {
                 alert("🎉 정기권 예매가 완료되었습니다!");
-                location.href = "/koBus/reservCompl.jsp"; // 완료 페이지 이동
+                const resId = reservationData.resId;
+                const deprDt = reservationData.deprDt;
+                const deprTime = reservationData.deprTime;
+                const deprNm = reservationData.deprNm;
+                const arvlNm = reservationData.arvlNm;
+                const takeDrtmOrg = reservationData.takeDrtmOrg;
+                const cacmNm = reservationData.cacmNm;
+                const indVBusClsCd = reservationData.indVBusClsCd;
+                const selSeatCnt = reservationData.selSeatCnt;
+                const seatNos = reservationData.seatNos;
+                const selAdltCnt = reservationData.selAdltCnt;
+                const selTeenCnt = reservationData.selTeenCnt;
+                const selChldCnt = reservationData.selChldCnt;
+                const payMethod = "정기권";
+
+                location.href = "/koBus/payment/reservCompl.htm" // 완료 페이지 이동
+                		+ "?resId=" + encodeURIComponent(resId)
+                	    + "&deprDt=" + encodeURIComponent(deprDt)
+                	    + "&deprTime=" + encodeURIComponent(deprTime)
+                	    + "&deprNm=" + encodeURIComponent(deprNm)
+                	    + "&arvlNm=" + encodeURIComponent(arvlNm)
+                	    + "&takeDrtmOrg=" + encodeURIComponent(takeDrtmOrg)
+                	    + "&cacmNm=" + encodeURIComponent(cacmNm)
+                	    + "&indVBusClsCd=" + encodeURIComponent(indVBusClsCd)
+                	    + "&selSeatCnt=" + encodeURIComponent(selSeatCnt)
+                	    + "&seatNos=" + encodeURIComponent(seatNos)
+                	    + "&selAdltCnt=" + encodeURIComponent(selAdltCnt)
+                	    + "&selTeenCnt=" + encodeURIComponent(selTeenCnt)
+                	    + "&selChldCnt=" + encodeURIComponent(selChldCnt)
+                	    + "&payMethod=" + encodeURIComponent(payMethod)
             } else {
                 alert("예매 실패: " + (data.message || "알 수 없는 오류"));
             }
@@ -976,7 +1021,7 @@ function useSeasonTicketPayment() {
  const startDateStr = arr[5]; // 예: "20250718"
  const endDateStr = arr[6];   // 예: "20250722"
  const selectedDateStr = $("#deprDt").val(); // 예: "2025-07-19"
-
+ const rideDateStr = selectedDateStr; // 이미 YYYY-MM-DD 형식
  // 1. 시작일/종료일을 YYYY-MM-DD 형식으로 변환
  function formatDateStr(yyyymmdd) {
      return yyyymmdd.replace(/^(\d{4})(\d{2})(\d{2})$/, '$1-$2-$3');
@@ -1010,7 +1055,7 @@ function useSeasonTicketPayment() {
         type: "POST",
         data: {
             adtnPrdSno: arr[0],
-            rideDate: selectedDate
+            rideDate: rideDateStr
         },
         success: function(res) {
             if (res.usageCount >= 2) {
@@ -1046,19 +1091,63 @@ function useFreePassPayment() {
 		alert("예매일이 프리패스 사용기간에 포함되지 않습니다.");
 		return false;
 	}
+	
+	// 예매 데이터 구성
+    const reservationData = {
+    	adtnCpnNo: adtnCpnNo,
+    	rideDate: rideDate,
+        seatNo: selectedSeat,
+        bshid: bshid,
+        deprDt: $("#deprDt").val(),
+	    deprTime: $("#deprTime").val(),
+	    deprNm: $("#deprNm").val(),
+	    arvlNm: $("#arvlNm").val(),
+	    takeDrtmOrg: $("#takeDrtmOrg").val(),
+	    cacmNm: $("#cacmNm").val(),
+	    indVBusClsCd: $("#indVBusClsCd").val(),
+	    selSeatCnt: $("#selSeatCnt").val(),
+	    seatNos: $("#seatNos").val(),
+	    selAdltCnt: $("#selAdltCnt").val(),
+	    selTeenCnt: $("#selTeenCnt").val(),
+	    selChldCnt: $("#selChldCnt").val()
+    };
 
 	// ✅ Ajax 호출로 예매처리
 	$.ajax({
 		url: ctx + "/mrs/pay/useFreePass.do",
 		type: "POST",
-		data: {
-			adtnCpnNo: adtnCpnNo,
-			rideDate: rideDate
-		},
+		data: reservationData,
 		success: function(response) {
 			if (response.result === "SUCCESS") {
 				alert("프리패스로 예매가 완료되었습니다.");
-				location.href = "/koBusFile/reservCompl.jsp";
+				const deprDt = reservationData.deprDt;
+                const deprTime = reservationData.deprTime;
+                const deprNm = reservationData.deprNm;
+                const arvlNm = reservationData.arvlNm;
+                const takeDrtmOrg = reservationData.takeDrtmOrg;
+                const cacmNm = reservationData.cacmNm;
+                const indVBusClsCd = reservationData.indVBusClsCd;
+                const selSeatCnt = reservationData.selSeatCnt;
+                const seatNos = reservationData.seatNos;
+                const selAdltCnt = reservationData.selAdltCnt;
+                const selTeenCnt = reservationData.selTeenCnt;
+                const selChldCnt = reservationData.selChldCnt;
+                const payMethod = "프리패스";
+
+                location.href = "/koBus/payment/reservCompl.htm" // 완료 페이지 이동
+                	    + "?deprDt=" + encodeURIComponent(deprDt)
+                	    + "&deprTime=" + encodeURIComponent(deprTime)
+                	    + "&deprNm=" + encodeURIComponent(deprNm)
+                	    + "&arvlNm=" + encodeURIComponent(arvlNm)
+                	    + "&takeDrtmOrg=" + encodeURIComponent(takeDrtmOrg)
+                	    + "&cacmNm=" + encodeURIComponent(cacmNm)
+                	    + "&indVBusClsCd=" + encodeURIComponent(indVBusClsCd)
+                	    + "&selSeatCnt=" + encodeURIComponent(selSeatCnt)
+                	    + "&seatNos=" + encodeURIComponent(seatNos)
+                	    + "&selAdltCnt=" + encodeURIComponent(selAdltCnt)
+                	    + "&selTeenCnt=" + encodeURIComponent(selTeenCnt)
+                	    + "&selChldCnt=" + encodeURIComponent(selChldCnt)
+                	    + "&payMethod=" + encodeURIComponent(payMethod)
 			} else {
 				alert("예매 실패: " + response.message);
 			}

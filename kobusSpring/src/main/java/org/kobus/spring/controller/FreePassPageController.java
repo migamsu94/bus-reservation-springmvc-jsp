@@ -199,7 +199,6 @@ public class FreePassPageController {
         String payMethod = request.getParameter("payMethod");
         String amountStr = request.getParameter("amount");
 
-
         // 3. 소요시간 변환
         String durationStr;
         try {
