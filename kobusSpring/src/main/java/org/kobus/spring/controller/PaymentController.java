@@ -1,5 +1,6 @@
 package org.kobus.spring.controller;
 
+import java.security.Principal;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -12,14 +13,18 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.kobus.spring.domain.pay.FreepassPaymentDTO;
 import org.kobus.spring.domain.pay.PaymentCommonDTO;
+import org.kobus.spring.domain.pay.ResSeasonUsageDTO;
 import org.kobus.spring.domain.pay.ReservationPaymentDTO;
 import org.kobus.spring.domain.pay.STPaymentSet;
 import org.kobus.spring.domain.reservation.ResvDTO;
+import org.kobus.spring.mapper.pay.BusReservationMapper;
 import org.kobus.spring.mapper.pay.TermMapper;
 import org.kobus.spring.service.pay.BusReservationService;
 import org.kobus.spring.service.pay.FreePassPaymentService;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,15 +39,20 @@ public class PaymentController {
     private BusReservationService reservationService;
 	
 	@Autowired
+    private BusReservationMapper reservationMapper;
+	
+	@Autowired
     private TermMapper termMapper;
 	
 	@Autowired
 	private FreePassPaymentService freepassService;  // 인터페이스 → 구현체
 	
+	@Autowired
+	private BusReservationMapper busReservationMapper;
 	
 	// 일반 예매 결제
 	@PostMapping("/Reservation.do")
-	public Map<String, Object> handleReservation(HttpServletRequest request ) {
+	public Map<String, Object> handleReservation(HttpServletRequest request, Principal principal ) {
 	    Map<String, Object> resultMap = new HashMap<>();
 
 	    try {
@@ -59,7 +69,19 @@ public class PaymentController {
 	        String pg_tid = request.getParameter("pg_tid");
 	        String paid_at_str = request.getParameter("paid_at");
 	        String boarding_dt = request.getParameter("boarding_dt");
-	        String boarding_time = request.getParameter("boarding_time");
+	        String bshid = request.getParameter("bshid");
+	        String selectedSeatIds = request.getParameter("selectedSeatIds");
+	        
+	        
+	        System.out.println("selectedSeatIds " + selectedSeatIds);
+	        System.out.println("bshid " + bshid);
+	        
+	        String userId = principal.getName();
+	        System.out.println("POST 요청한 사용자: " + userId);
+	        
+	        
+	        String kusId = reservationMapper.findId(userId);
+	        System.out.println("kusId " + kusId);
 
 	        int amount = Integer.parseInt(amountStr);
 	        long paidAtMillis = Long.parseLong(paid_at_str) * 1000L;
@@ -83,15 +105,18 @@ public class PaymentController {
 	        // [3] reservation DTO 생성
 	        ResvDTO resvDto = new ResvDTO();
 	        resvDto.setResId(resId);
-	        resvDto.setKusId(user_id);
-	        resvDto.setBshId(request.getParameter("bus_schedule_id"));
-	        resvDto.setRideDateFormatter(boarding_dt + " " + boarding_time);
+	        resvDto.setKusid(kusId);
+	        resvDto.setBshId(bshid);
+	        resvDto.setSeatNo(selectedSeatIds);
+	        resvDto.setRideDateStr(boarding_dt);
 	        resvDto.setResvDateStr(formatted);
-	        resvDto.setResvStatus("예약");
+	        resvDto.setResvStatus("결제완료");
 	        resvDto.setResvType("일반");
 	        resvDto.setQrCode((long) (Math.random() * 1000000000L));
 	        resvDto.setMileage(0);
 	        resvDto.setSeatable("Y");
+	        
+	        System.out.println(resvDto.toString());
 
 	        // [4] reservation_payment DTO 생성 (paymentId는 insert 후에 설정됨)
 	        ReservationPaymentDTO linkDto = new ReservationPaymentDTO();
@@ -234,6 +259,59 @@ public class PaymentController {
         result.put("amount", amount);
 
         return result;  // JSON 형태로 자동 반환
+    }
+    
+    @PostMapping("/usedSeasonticket.do")
+    public Map<String, Object> handleSeasonTicketReservation(HttpServletRequest request) {
+        Map<String, Object> resultMap = new HashMap<>();
+
+        try {
+            request.setCharacterEncoding("UTF-8");
+
+            // [1] request 파라미터 추출
+            String user_id = request.getParameter("user_id");
+            String resId = request.getParameter("resId");
+            String boarding_dt = request.getParameter("boarding_dt");
+            String boarding_time = request.getParameter("boarding_time");
+            String bus_schedule_id = request.getParameter("bus_schedule_id");
+
+            // [2] 예매일자 현재 시간으로 포맷팅
+            LocalDateTime now = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss.SSS");
+            String formatted = now.format(formatter);
+
+            // [3] reservation DTO 생성
+            ResvDTO resvDto = new ResvDTO();
+            resvDto.setResId(resId);
+            resvDto.setKusId(user_id);
+            resvDto.setBshId(bus_schedule_id);
+            resvDto.setRideDateFormatter(boarding_dt + " " + boarding_time); // 날짜+시간 문자열
+            resvDto.setResvDateStr(formatted);
+            resvDto.setResvStatus("예약");
+            resvDto.setResvType("정기권"); // 중요: 일반 -> 정기권
+            resvDto.setQrCode((long) (Math.random() * 1000000000L));
+            resvDto.setMileage(0); // 정기권은 마일리지 없음
+            resvDto.setSeatable("Y");
+            
+            ResSeasonUsageDTO usageDTO = new ResSeasonUsageDTO();
+            usageDTO.setResId(resvDto.getResId());
+            
+            
+
+            // [4] 서비스 호출 (정기권용 로직: payment 테이블 저장 없음)
+            int saved = busReservationMapper.insertReservation(resvDto);
+            int saved2 = busReservationMapper.insertSeasonUsage(usageDTO);
+            
+
+            // [5] 결과 반환
+            resultMap.put("result", saved ? 1 : 0);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultMap.put("result", 0);
+        }
+
+        return resultMap;
     }
     
 } // class

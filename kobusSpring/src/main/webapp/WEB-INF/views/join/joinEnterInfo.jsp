@@ -1,34 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-
-<html class="pc" lang="ko">
-<head>
-<meta charset="utf-8" />
-<link rel="shortcut icon" type="image/x-icon" 
-	href="/koBus/media/favicon.ico">
-<meta
-	content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"
-	name="viewport" />
-<meta content="IE=Edge" http-equiv="X-UA-Compatible" />
 <title>회원가입(정보입력) | 고속버스통합예매</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<link href="/images/favicon.ico" rel="shortcut icon" />
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-
-<link href="/koBus/css/common/ui.jqgrid.custom.css" rel="stylesheet"
-	type="text/css" />
-
-
-
-
-
-
-
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-<link href="/koBus/css/common/style.css" rel="stylesheet" type="text/css" />
-</head>
 		<!-- breadcrumb -->
 		<!-- 브레드크럼 -->
 		<nav id="new-kor-breadcrumb">
@@ -418,4 +391,3 @@
 		<div
 			style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
 	</div> -->
-</html>

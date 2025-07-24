@@ -153,6 +153,9 @@
 
 		<input type="hidden" name="busCode" id="busCode" value="${busCode}">
 		<!-- 버스스케줄ID -->
+		<input type="hidden" name="selectedSeatIds" id="selectedSeatIds" value="${selectedSeatIds}">
+		
+		
 
 
 		<input type="hidden" name="selSeatNum" id="selSeatNum"

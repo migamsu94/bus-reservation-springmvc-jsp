@@ -1,6 +1,7 @@
 <%@ page language="java" trimDirectiveWhitespaces="true" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<% request.setCharacterEncoding("UTF-8"); %>
 
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/resources/js/SatsChc.js"></script>
@@ -14,17 +15,6 @@
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/resources/js/typedarray.js"></script>
 
-<!-- 출/도착지 선택 레이어팝업 -->
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/resources/js/ReadLgnInf.js"></script>
-
-<!-- 20200831 yahan -->
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/resources/js/rsa_oaep-min.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/resources/js/jsbn-min2.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/resources/js/typedarray.js"></script>
 
 <style>
 .txt_red {
@@ -191,7 +181,7 @@ $(document).ready(function () {
 					value="2025. 6. 21. 토">
 				<!-- 오는날(왕복) -->
 				<input type="hidden" name="busClsCd" id="busClsCd" value="${bus.busGrade }">
-				<input type="hidden" name="bshId" id="busCode" value="${bus.bshId }">
+				<input type="hidden" name="bshId" id="bshId" value="${bus.bshId }">
 				<!-- 버스등급 -->
 				<input type="hidden" name="takeDrtmOrg" id="takeDrtmOrg" value="${bus.durMin }">
 				<!-- 소요시간 -->

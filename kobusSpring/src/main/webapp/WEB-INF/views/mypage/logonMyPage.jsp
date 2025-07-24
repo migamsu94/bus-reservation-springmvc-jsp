@@ -7,6 +7,7 @@
 %>
 <title>마이페이지 | 고속버스통합예매</title>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <style>
 	.myPage_list li .btnBox a {
 		color: black;
@@ -144,6 +145,9 @@
 						</div>
 					</div>
 				</div>
+				
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+				
 			</form>
 			<div class="btns">
 				<!-- 버튼이 1개일경우 class="col1" 추가 -->

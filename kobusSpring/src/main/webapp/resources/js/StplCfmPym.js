@@ -428,7 +428,7 @@ function requestPay() {
                     pg_tid: rsp.pg_tid,
                     paid_at: rsp.paid_at,
                     user_id: $('#user_id').val(), // 또는 세션에서 가져온 ID
-                    bus_schedule_id: $('#busScheduleId').val(), // 예: 3020번 고유번호
+                    bus_schedule_id: $('#busCode').val(), // 예: 3020번 고유번호
         			seat_number: $('#seatNo').val(),
         			boarding_dt: boardingDt,
         			boarding_time: deprTimeFmt
@@ -472,6 +472,7 @@ function requestPay() {
 	var seatNos = $("#seatNos").val();
 	var resId = $("#resId").val();
 	var bshid = $("#busCode").val();
+	var selectedSeatIds = $("#selectedSeatIds").val();
 
 	// 출발/도착지 정보
 	var deprNm = $("#deprNm").val();
@@ -515,6 +516,7 @@ function requestPay() {
 				paid_at: rsp.paid_at,
 				user_id: "KUS004",
 				bshid: bshid,
+				selectedSeatIds: selectedSeatIds,
 				seat_number: seatNos,
 				boarding_dt: boardingDt,
 				resId: resId,
@@ -565,6 +567,8 @@ function requestPay() {
 								    + "&deprNm=" + encodeURIComponent(deprNm)
 								    + "&arvlNm=" + encodeURIComponent(arvlNm)
 								    + "&takeDrtmOrg=" + encodeURIComponent(takeDrtmOrg)
+								    + "&bshid=" + encodeURIComponent(bshid)
+								    + "&selectedSeatIds=" + encodeURIComponent(selectedSeatIds)
 								    + "&cacmNm=" + encodeURIComponent(cacmNm)
 								    + "&indVBusClsCd=" + encodeURIComponent(indVBusClsCd)
 								    + "&selSeatCnt=" + encodeURIComponent(selSeatCnt)
@@ -852,40 +856,8 @@ function fnStplCfmPym(){
 	});
 }
 
-//평창 앱 연계시 호출 
-function fnTissuFnPc(){
-	var stplCfmPymFrm = $("form[name=stplCfmPymPcFrm]").serialize() ;		
-	$.ajax({	
-		url      : "https://maas.kt.com/srvapi/ex_content/pay_back",
-        type     : "POST",
-        data : stplCfmPymFrm,      
-        dataType : "json",
-        contentType:"application/json; charset=UTF-8",
-        async    : true,
-        success  : function(data){
-        	var result_code = data.result_code;
-        	var result_msg = data.result_msg;        	
-        	$("#loading").hide();
-    		$("#stplCfmPymFrm").attr("action","/mrs/pymcfm.do");
-    		$("#stplCfmPymFrm").submit();
-        },
-        error : function(){
-        	$("#loading").hide();
-    		$("#stplCfmPymFrm").attr("action","/mrs/pymcfm.do");
-    		$("#stplCfmPymFrm").submit();
-        }
-        
-	});
-}
-	
 	
 
-function fnTissuFn(){	
-	$("#loading").hide();
-	$("#stplCfmPymFrm").attr("action","/mrs/pymcfm.do");
-	$("#stplCfmPymFrm").submit();
-	
-}
 
 
 
@@ -952,8 +924,8 @@ function  fnPayPymWin(){
 function proceedSeasonTicketReservation() {
     // 선택한 좌석, 날짜, 상품번호 등을 form이나 전역 변수에서 가져옴
     const selectedDate = $("#deprDt").val();           // 탑승일자
-    const selectedSeat = $("input[name='seat']:checked").val(); // 선택 좌석 (예시)
-    const adtnPrdSno = $("#perdAdtnPrdList").val()?.split(":")[0]; // 상품번호
+    const selectedSeat = $("#seatNos").val();
+    const adtnPrdSno = $("#perdAdtnPrdList").val().split(":")[0]; // 상품번호
 
     if (!selectedSeat) {
         alert("좌석을 선택해주세요.");
@@ -970,46 +942,7 @@ function proceedSeasonTicketReservation() {
 
     // 서버로 예매 요청
     $.ajax({
-        url: "/mrs/pay/reserveSeasonTicket.do",
-        type: "POST",
-        data: reservationData,
-        success: function (data) {
-            if (data.result === "SUCCESS") {
-                alert("🎉 정기권 예매가 완료되었습니다!");
-                location.href = "/koBus/reservCompl.jsp"; // 완료 페이지 이동
-            } else {
-                alert("예매 실패: " + (data.message || "알 수 없는 오류"));
-            }
-        },
-        error: function (xhr, status, err) {
-            console.error("예매 요청 오류:", err);
-            alert("서버 오류로 예매에 실패했습니다.");
-        }
-    });
-}
-
-function proceedSeasonTicketReservation() {
-    // 선택한 좌석, 날짜, 상품번호 등을 form이나 전역 변수에서 가져옴
-    const selectedDate = $("#deprDt").val();           // 탑승일자
-    const selectedSeat = $("input[name='seat']:checked").val(); // 선택 좌석 (예시)
-    const adtnPrdSno = $("#perdAdtnPrdList").val()?.split(":")[0]; // 상품번호
-
-    if (!selectedSeat) {
-        alert("좌석을 선택해주세요.");
-        return;
-    }
-
-    // 예매 데이터 구성
-    const reservationData = {
-        adtnPrdSno: adtnPrdSno,
-        usedDate: selectedDate,
-        seatNo: selectedSeat
-        // 필요시 기타 데이터도 추가
-    };
-
-    // 서버로 예매 요청
-    $.ajax({
-        url: "/mrs/pay/reserveSeasonTicket.do",
+        url: ctx + "/payment/usedSeasonticket.do",
         type: "POST",
         data: reservationData,
         success: function (data) {
@@ -1202,7 +1135,6 @@ function fnVldtCmn(){ // 공통사항 체크
 			return false;
 		}
 	}
-	
 	
 
 	return handlePaymentByType();
