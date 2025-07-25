@@ -254,6 +254,8 @@ public class ModifyReservationController {
 	    System.out.println("arvlDtm " + paramMap.get("arvlDtm"));
 	    System.out.println("arvlDtmAll " + paramMap.get("arvlDtmAll"));
 	    
+	    
+	    
 
 	    // 2) 선점 로직 예시 (DB 처리나 세션에 저장)
 	    modifyResvDTO.setSelectedSeatIds(selectedSeatIds);

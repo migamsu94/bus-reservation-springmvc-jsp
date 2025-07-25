@@ -220,9 +220,11 @@ public class ScheduleController {
 			@RequestParam("arvlDtm") String arvlDtm,
 			@RequestParam("arvlDtmAll") String arvlDtmAll,
 			@RequestParam("busClsCd") String busClsCd,
-			@RequestParam(value = "pcpyNoAll1", required = false) String pcpyNoAll1,
+			@RequestParam(value = "selectedSeatIds", required = false) String pcpyNoAll1,
 			@RequestParam(value = "satsNoAll1", required = false) String satsNoAll1,
 			@RequestParam(value = "rtrpDtl1", required = false) String rtrpDtl1,
+			@RequestParam(value = "rtrpDtl2", required = false) String rtrpDtl2,
+			@RequestParam(value = "allTotAmtPrice", required = false) String allTotAmtPrice,
 			Model model) {
 		
 		if (busClsCd != null) {
@@ -247,9 +249,8 @@ public class ScheduleController {
 	    paramMap.put("arvlDtm", arvlDtm);
 	    paramMap.put("arvlDtmAll", arvlDtmAll);
 	    paramMap.put("busClsCd", busClsCd);
-	    paramMap.put("pcpyNoAll1", busClsCd);
-	    paramMap.put("satsNoAll1", busClsCd);
-	    paramMap.put("rtrpDtl1", busClsCd);
+	    paramMap.put("rtrpDtl1", rtrpDtl1);
+	    paramMap.put("rtrpDtl2", rtrpDtl2);
 
 	    paramList.add(paramMap);
 	    
@@ -258,6 +259,8 @@ public class ScheduleController {
 	    System.out.println("arvlDtm " + arvlDtm);
 	    System.out.println("arvlDtmAll " + arvlDtmAll);
 	    System.out.println("pathStep " + pathStep);
+	    System.out.println("rtrpDtl1 " + rtrpDtl1);
+	    System.out.println("rtrpDtl2 " + rtrpDtl2);
 
 	    model.addAttribute("paramList", paramList);
 		

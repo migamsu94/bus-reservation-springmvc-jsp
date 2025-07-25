@@ -131,18 +131,24 @@ System.out.println(">> busrank: " + request.getParameter("busClsCd"));
 <script>
 
 $(document).ready(function () {
-    const deprCd = $("#deprCd").val();
-    const arvlCd = $("#arvlCd").val();
+    var deprCd = $("#deprCd").val();
+    var arvlCd = $("#arvlCd").val();
     var deprDtm = $("#deprDtm").val();   // yyyy.MM.dd 형식
-    const arvlDtm = $("#arvlDtm").val();   // yyyy.MM.dd 형식
-    const busClsCd = $("#busClsCd").val();
-    const deprNm = $("#deprNm").val();
-    const arvlNm = $("#arvlNm").val();
-    const pathStep = $("#pathStep").val();
+    var arvlDtm = $("#arvlDtm").val();   // yyyy.MM.dd 형식
+    var busClsCd = $("#busClsCd").val();
+    var deprNm = $("#deprNm").val();
+    var arvlNm = $("#arvlNm").val();
+    var pathStep = $("#pathStep").val();
+    var orgDeprDtm = $("#deprDtm").val();
     
-    if (pathStep == "2") {
-    	deprDtm = $("#arvlDtm").val();
-	}
+    if (pathStep === "2") {
+    	  deprDtm = arvlDtm;
+    }
+    
+    console.log("orgDeprDtm " + orgDeprDtm);
+    console.log("deprDtm " + deprDtm);
+    
+
     
 
     // 1. 소요시간 먼저 조회
@@ -250,11 +256,17 @@ $(document).ready(function () {
 
 
                     const rowClass = isDisabled ? "disabled" : "";
+                    
+                    
+                    
+                    
 
                     // 4. HTML 구성 및 렌더링
                     const html = `
                         <p class="schedule-row \${rowClass}" 
-                           data-deprdtm="\${deprDtmRaw} \${deprTimeStr}"
+                           data-deprdtm="\${dateStr} \${deprTimeStr}"
+                           data-orgDeprDtm="\${orgDeprDtm} \${deprTimeStr}"
+                           data-arvldtm="\${arvlDtm} \${deprTimeStr}"
                            data-comname="\${item.CACM_MN}"
                            data-busClsCd="\${item.BUS_CLS_NM}"
                            data-adultFare="\${item.ADLT_FEE}"
@@ -369,6 +381,7 @@ $(document).ready(function () {
             const row = `
               <p class="schedule-row \${isDisabled ? 'disabled' : ''}" 
                  data-deprdtm="\${item.DEPR_DATE} \${time}"
+                 data-arvldtm="\${item.DEPR_DATE} \${time}"
                  data-deprtrmlno="\${item.DEPR_TRML_NO}"
                  data-arvltrmlno="\${item.ARVL_TRML_NO}">
                 <span class="start_time">\${time}</span>
@@ -404,174 +417,6 @@ $(document).ready(function () {
 
 
 
-
-
-
-<script type="text/javascript">
-   //쿠키 가져오기
-   function getCookie(name) {
-      var nameOfCookie = name + "=";
-      var x = 0;
-      while (x <= document.cookie.length) {
-         var y = (x + nameOfCookie.length);
-         if (document.cookie.substring(x, y) == nameOfCookie) {
-            if ((endOfCookie = document.cookie.indexOf(";", y)) == -1) {
-               endOfCookie = document.cookie.length;
-            }
-            return unescape(document.cookie.substring(y, endOfCookie));
-         }
-         x = document.cookie.indexOf(" ", x) + 1;
-         if (x == 0) {
-            break;
-         }
-      }
-      return "";
-   }
-   //쿠키 넣기
-   function setCookie(name, value, expiredays) {
-      var todayDate = new Date();
-      todayDate.setDate(todayDate.getDate() + expiredays);
-      document.cookie = name + "=" + escape(value) + "; path=/; expires="
-            + todayDate.toGMTString() + ";"
-   }
-
-   // 상단 네비게이션, 모바일 좌측, 모바일 하단 언어선택 설정
-   var lngCdCookie = getCookie("LNG_CD");
-
-   lngCdCookie = (lngCdCookie != null && lngCdCookie != undefined && lngCdCookie != "") ? lngCdCookie
-         : "";
-   var lngCd = (lngCdCookie == "EN" || lngCdCookie == "CN"
-         || lngCdCookie == "JP" || lngCdCookie == "KO") ? lngCdCookie : "KO";
-   $(document)
-         .ready(
-               function() {
-                  if (navigator.userAgent.toUpperCase().indexOf("MSIE 5") >= 0
-                        || navigator.userAgent.toUpperCase().indexOf(
-                              "MSIE 6") >= 0
-                        || navigator.userAgent.toUpperCase().indexOf(
-                              "MSIE 7") >= 0
-                        || navigator.userAgent.toUpperCase().indexOf(
-                              "MSIE 8") >= 0) {
-                     // IE 8 이하
-                     if (location.href.indexOf("/underIE8.do") < 0) {
-                        // IE 8 이하 페이지 아님
-                        location.href = "/underIE8.do";
-                        return false;
-                     }
-                  }
-                  if (window.innerWidth < 768) {
-                     setCookie("IS_MOBILE_YN_WIDTH", "Y", 365);
-                     if (lngCd == "KO"
-                           && location.href.indexOf("/cmn/") < 0
-                           && location.href.indexOf("/underIE8.do") < 0
-                           && location.href
-                                 .indexOf("/mrs/mrsrecppub.do") < 0
-                           && location.href
-                                 .indexOf("/mrs/mrsrecppub4.do") < 0
-                           && location.href
-                                 .indexOf("/mrs/mrsmbltck.do") < 0
-                           && location.href
-                                 .indexOf("/mrs/acntpympup.do") < 0
-                           && // 계좌이체
-                           location.href.indexOf("/mrs/pay") < 0
-                           && // 간편결제
-                           location.href
-                                 .indexOf("/adtnprdnew/prchpt/adtnrecppubmbl.do") < 0
-                           && location.href
-                                 .indexOf("/adtnprdnew/frps/frpsPrchGdMbl.do") < 0
-                           && location.href
-                                 .indexOf("/mbrs/mbrsscsn.do") < 0) {
-                        //location.href = "/mblIdx.do";
-                        //location.href = "/reservation2.do";
-                        return false;
-                     }
-                  } else {
-                     setCookie("IS_MOBILE_YN_WIDTH", "N", 365);
-                  }
-                  // 타이틀 수정
-                  if ($("h2").length > 0) {
-                     $("title").text(
-                           $("title").text() + " - "
-                                 + $("h2:eq(0)").text());
-                  }
-                  var $objBody = $("body");
-                  if (!($objBody.hasClass("KO")
-                        || $objBody.hasClass("EN")
-                        || $objBody.hasClass("CN") || $objBody
-                        .hasClass("JP"))) {
-                     $objBody.addClass(lngCd);
-                  }
-
-                  /* asis */
-                  $(
-                        "#lng_cd_navi option[value='" + lngCd
-                              + "'],#lng_cd_foot option[value='"
-                              + lngCd + "']").attr("selected",
-                        "selected");
-                  $("#lng_cd_navi,#lng_cd_foot")
-                        .unbind("change")
-                        .bind(
-                              "change",
-                              function() {
-                                 var tempCd = this.value;
-                                 lngCd = (tempCd != null
-                                       && tempCd != undefined
-                                       && tempCd != "" && (tempCd == "EN"
-                                       || tempCd == "CN"
-                                       || tempCd == "JP" || tempCd == "KO")) ? tempCd
-                                       : "KO";
-                                 setCookie("LNG_CD", lngCd, 1);
-                                 lngCdCookie = lngCd;
-                                 //document.location.reload();
-                                 location.href = "/main.do";
-                              });
-               });
-
-   if (lngCd == "KO") {
-      var dt = new Date(); //오늘날짜 전체
-      var yyyy = dt.getFullYear(); //선택한 년도
-      var mm = dt.getMonth() + 1; //선택한 월
-      var mm2Len = Number(mm) < 10 ? "0" + mm : mm; // 선택ㅡㅜ?ㅌ월 ex:01 두글자로 변환
-      var ddTo = Number(dt.getDate()) < 10 ? "0" + dt.getDate() : dt
-            .getDate(); // 숫자형
-      var yymmddD0 = yyyy + "" + mm2Len + "" + ddTo; //오늘날짜
-
-      var url = window.location.pathname;
-
-      if (yymmddD0 < 20200128) {
-         if (url == "/main.do")
-            location.href = "/mainExp.do";
-      }
-   }
-</script>
-
-</head>
-<!-- [리뉴얼] 페이지 개별 스크립트 신규 정의함 -->
-
-<!-- &lt;%
-    String departureDateStr = request.getParameter("departureDate");
-    if (departureDateStr != null) {
-        // 여기에 나중에 SQL 조회나 기타 로직 추가 가능
-        out.println("선택한 날짜: " + departureDateStr);
-    }
-%&gt; -->
-
-
-<script>
-   $(document).ready(function() {
-      var langCd = 'KO';
-      var langLi = $(".dropdown-wrap.lang-select .dropdown-list li");
-      $.each(langLi, function(ix, el) {
-         var langItem = $(el).children('a');
-         var lang = langItem.data('lang');
-         if (langCd == lang) {
-            dropdown_process(langItem);
-         }
-      });
-
-      $('.title_wrap').hide();
-   });
-</script>
 
 <!-- 25.06.23 추가 -------------------------------  -->
 <script>
@@ -694,6 +539,8 @@ $(document).on("click", ".time li a", function () {
       <!-- <input id="deprDtm" name="deprDtm" type="hidden" value="20250617" /> -->
       <input id="deprDtm" name="deprDtm" type="hidden" value="${param.deprDtm }" />
       <!-- 가는날(편도,왕복) -->
+      <input id="deprDtm" name="orgDeprDtm" type="hidden" value="${param.deprDtm }" />
+      <!-- 가는날(편도,왕복) -->
       <input id="deprDtmAll" name="deprDtmAll" type="hidden" value="${param.deprDtmAll }" />
       <!-- 가는날(편도,왕복) -->
       <input id="arvlDtm" name="arvlDtm" type="hidden" value="${param.arvlDtm }" />
@@ -703,6 +550,13 @@ $(document).on("click", ".time li a", function () {
       <!-- 오는날(왕복) -->
       <input id="busClsCd" name="busClsCd" type="hidden" value="${param.busClsCd }" />
       <!-- 버스등급 -->
+      
+      <input id="rtrpDtl1" name="rtrpDtl1" type="hidden" value="${param.rtrpDtl1 }" />
+      <!-- 가는편 예매정보 저장 -->
+      <input id=rtrpDtl2 name="rtrpDtl2" type="hidden" value="${param.rtrpDtl2 }" />
+      <!-- 오는편 예매정보 저장 -->
+      
+      
       <input id="takeDrtmOrg" name="takeDrtmOrg" type="hidden" value="200" />
       <!-- 소요시간 -->
       <input id="distOrg" name="distOrg" type="hidden" value="260.8" />
@@ -810,6 +664,10 @@ $(document).on("click", ".time li a", function () {
             <!-- 좌측 infoBox -->
             <div class="infoBox">
                <!-- <p class="date" id="alcnDeprDtm">2025. 6. 17. 화</p> -->
+               
+             arvlDtm : ${param.arvlDtm }
+			pathDvs : ${param.pathDvs }
+			pathStep : ${param.pathStep }
               
               <!-- //왕복시 노출 추가 2017-02-10 -->
 
@@ -817,13 +675,14 @@ $(document).on("click", ".time li a", function () {
 						<p class="date">
 							<span class="txtBox" id="rtrpDeprDtm"><span>가는 날</span>${param.deprDtm } </span> 
 							<span class="txtBox" id="rtrpArvlDtm"><span>오는 날</span>${param.arvlDtm }</span>
+							 
 						</p>
 					</c:if>
 					<c:if test="${param.pathDvs eq 'sngl'}">
 							 <p class="date" id="alcnDeprDtm">가는 날 ${param.deprDtm }</p>
 					</c:if>
 					
-
+					 
 
 
 					<div class="route_wrap" id="alcnRotInfo">
@@ -838,6 +697,8 @@ $(document).on("click", ".time li a", function () {
                         <!-- <dd id="alcnArvlTmlNm">삼척</dd> -->
                         <dd id="alcnArvlTmlNm">${param.arvlNm }</dd>
                      </dl>
+                     
+                     
                   </div>
                   <div class="detail_info">
                      <!-- <span id="takeDrtm">3시간 20분 소요</span> <span id="dist">260.8
