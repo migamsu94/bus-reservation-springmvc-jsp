@@ -249,7 +249,10 @@ public class ModifyReservationController {
 	    System.out.println("getBusClsCd: " + paramMap.get("busClsCd"));
 	    System.out.println("mrsMrnpNo: " + paramMap.get("mrsMrnpNo"));
 	    
-	    
+	    System.out.println("deprDtm " + paramMap.get("deprDtm"));
+	    System.out.println("deprDtmAll " + paramMap.get("deprDtmAll"));
+	    System.out.println("arvlDtm " + paramMap.get("arvlDtm"));
+	    System.out.println("arvlDtmAll " + paramMap.get("arvlDtmAll"));
 	    
 
 	    // 2) 선점 로직 예시 (DB 처리나 세션에 저장)

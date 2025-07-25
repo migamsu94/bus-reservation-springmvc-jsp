@@ -1945,7 +1945,10 @@ function fnNonUsrMrs(){
         				$("#satsNoAll2").val($("#satsNoAll").val());
         				$("#pcpyNoAll2").val($("#pcpyNoAll").val());
         				$("#rtrpDtl2").val(rtrpDt2);
-        				fnLoginChk();
+        				if (fnLoginChk()) {
+					      $("#satsChcFrm").attr("action", "/koBus/payment/buspay.htm");
+					      $("#satsChcFrm").submit();
+					    }
         			}
         		}else{
         			if ($('#extrComp').val() == 'ARMY'){
@@ -2009,7 +2012,7 @@ function fnSetPcpy(){
         				+":"+$("#selVtr7Cnt").val() //보훈(권종추가-20210501)
         				+":"+$("#selDfptCnt").val(); //후불(권종추가-20220722)
         			
-	        			$("#pathStep").val("2");
+        				$("#pathStep").val("2");
 	        			$("#pcpyNoAll1").val($("#pcpyNoAll").val());
 	        			$("#satsNoAll1").val($("#satsNoAll").val());
 	        			$("#rtrpDtl1").val(rtrpDt1);
@@ -2021,6 +2024,9 @@ function fnSetPcpy(){
 	        			if($("#arvlCd").val() == "358"){
 	        				$("#arvlCd").val("352");
 	        			}
+	        			if($("#pathStep").val() == "1") {
+	        				$("#pathStep").val("2");
+	        			}
 	        			
 	        			// 의정부 터미널 코드 분리로 인한 예외처리 (170,173 중 대표코드 170 사용) yahan 2020-01-07
 	        			if($("#deprCd").val() == "173"){
@@ -2030,11 +2036,11 @@ function fnSetPcpy(){
 	        				$("#arvlCd").val("170");
 	        			}
 	        			
-	        			// 페이지 이동 -> pay 페이지로 이동시키기
-	        			$("#satsChcFrm").attr("action","/payment/buspay.htm");
+	        			// 왕복 페이지 이동 -> 오는편 배차선택 페이지로 이동시키기
+	        			$("#satsChcFrm").attr("action","/koBus/reservation2.do");
 	        			console.log('폼 action:', $("#satsChcFrm").attr("action"));
 	        			$("#satsChcFrm").submit();
-        			}else if($("#pathStep").val() == "2"){
+        			}else if($("#pathStep").val() != "1"){
         				var rtrpDt2 = $("#selSeatCnt").val() //입력매수,일반인할인매수,일반인,중고생,초등생,대학생 순으로','로 구분
 	        			+":"+$("#selAdltDcCnt").val()  //일반인할인매수
 	        			+":"+$("#selAdltCnt").val()  //일반인
@@ -2061,11 +2067,15 @@ function fnSetPcpy(){
         				$("#satsNoAll2").val($("#satsNoAll").val());
         				$("#pcpyNoAll2").val($("#pcpyNoAll").val());
         				$("#rtrpDtl2").val(rtrpDt2);
-        				fnLoginChk();
+
+        				if (fnLoginChk()) {
+					      $("#satsChcFrm").attr("action", "/koBus/payment/buspay.htm");
+					      $("#satsChcFrm").submit();
+					    }
         			}
         		}else{
 
-						// 비회원예매
+						// 편도 예매
 						$("#satsChcFrm").attr("action","/koBus/payment/buspay.htm");
 					    console.log('폼 action:', $("#satsChcFrm").attr("action"));
 					    $("#satsChcFrm").submit();

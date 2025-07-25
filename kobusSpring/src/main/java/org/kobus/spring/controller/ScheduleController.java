@@ -94,6 +94,7 @@ public class ScheduleController {
 				LocalDateTime departureDate = dto.getDepartureDate();
 				String time = departureDate.toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm"));
 
+				
 				scheduleMap.put("DEPR_TIME_DVS", time);
 				scheduleMap.put("CACM_MN", dto.getComName());
 				scheduleMap.put("BUS_CLS_NM", dto.getBusGrade());
@@ -119,10 +120,18 @@ public class ScheduleController {
 	    @RequestParam(name = "deprCd", required = false) String deprCd,
 	    @RequestParam(name = "arvlCd", required = false) String arvlCd,
 	    @RequestParam(name = "deprDtm", required = false) String deprDtm,
+	    @RequestParam(name = "arvlDtm", required = false) String arvlDtm,
+	    @RequestParam(name = "pathStep", required = false) String pathStep,
 	    @RequestParam(name = "busClsCd", required = false) String busClsCd
 	) throws SQLException {
 
 	    log.info(">> getDuration.ajax 호출됨 - ajaxType : " + ajaxType);
+	    
+	    System.out.println("deprDtm " + deprDtm);
+	    System.out.println("arvlDtm " + arvlDtm);
+	    System.out.println("pathStep " + pathStep);
+	    System.out.println("pathStep " + pathStep);
+	    
 
 	    if ("getDuration".equals(ajaxType)) {
 	        Integer duration = scheduleService.getRouteDuration(deprCd, arvlCd);
@@ -140,12 +149,23 @@ public class ScheduleController {
 	                case "2": busClsCd = "일반"; break;
 	            }
 	        }
-
-	        List<ScheduleDTO> schList = scheduleService.searchBusSchedule(deprCd, arvlCd, deprDtm, busClsCd);
+	        
+	        List<ScheduleDTO> schList = new ArrayList<ScheduleDTO>();
+	        
+	        if (pathStep.equals("1")) {
+	        	schList = scheduleService.searchBusSchedule(deprCd, arvlCd, deprDtm, busClsCd);
+			}else {
+				
+				busClsCd = "전체";
+				schList = scheduleService.searchBusSchedule(deprCd, arvlCd, arvlDtm, busClsCd);
+			}
+	        
 	        int durmin = schList.isEmpty() ? 0 : schList.get(0).getDurMin();
 
 	        Map<String, Object> responseMap = new HashMap<>();
 	        responseMap.put("rotVldChc", schList.isEmpty() ? "N" : "Y");
+	        
+
 
 	        Map<String, Object> alcnCmnMap = new HashMap<>();
 	        alcnCmnMap.put("takeDrtm", durmin);
@@ -157,6 +177,8 @@ public class ScheduleController {
 	            LocalDateTime departureDate = dto.getDepartureDate();
 	            String time = departureDate.toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm"));
 
+	            System.out.println(dto.toString());
+	            
 	            scheduleMap.put("DEPR_TIME_DVS", time);
 	            scheduleMap.put("CACM_MN", dto.getComName());
 	            scheduleMap.put("BUS_CLS_NM", dto.getBusGrade());
@@ -184,6 +206,7 @@ public class ScheduleController {
 	}
 	
 	
+	
 	@PostMapping("/reservation2.do")
 	public String showReservationPagePost(
 			@RequestParam("deprCd") String deprCd,
@@ -191,11 +214,15 @@ public class ScheduleController {
 			@RequestParam("arvlCd") String arvlCd,
 			@RequestParam("arvlNm") String arvlNm,
 			@RequestParam("pathDvs") String pathDvs,
+			@RequestParam("pathStep") String pathStep,
 			@RequestParam("deprDtm") String deprDtm,
 			@RequestParam("deprDtmAll") String deprDtmAll,
 			@RequestParam("arvlDtm") String arvlDtm,
 			@RequestParam("arvlDtmAll") String arvlDtmAll,
 			@RequestParam("busClsCd") String busClsCd,
+			@RequestParam(value = "pcpyNoAll1", required = false) String pcpyNoAll1,
+			@RequestParam(value = "satsNoAll1", required = false) String satsNoAll1,
+			@RequestParam(value = "rtrpDtl1", required = false) String rtrpDtl1,
 			Model model) {
 		
 		if (busClsCd != null) {
@@ -213,14 +240,24 @@ public class ScheduleController {
 	    paramMap.put("deprNm", deprNm);
 	    paramMap.put("arvlCd", arvlCd);
 	    paramMap.put("arvlNm", arvlNm);
+	    paramMap.put("pathStep", pathStep);
 	    paramMap.put("pathDvs", pathDvs);
 	    paramMap.put("deprDtm", deprDtm);
 	    paramMap.put("deprDtmAll", deprDtmAll);
 	    paramMap.put("arvlDtm", arvlDtm);
 	    paramMap.put("arvlDtmAll", arvlDtmAll);
 	    paramMap.put("busClsCd", busClsCd);
+	    paramMap.put("pcpyNoAll1", busClsCd);
+	    paramMap.put("satsNoAll1", busClsCd);
+	    paramMap.put("rtrpDtl1", busClsCd);
 
 	    paramList.add(paramMap);
+	    
+	    System.out.println("deprDtm " + deprDtm);
+	    System.out.println("deprDtmAll " + deprDtmAll);
+	    System.out.println("arvlDtm " + arvlDtm);
+	    System.out.println("arvlDtmAll " + arvlDtmAll);
+	    System.out.println("pathStep " + pathStep);
 
 	    model.addAttribute("paramList", paramList);
 		
