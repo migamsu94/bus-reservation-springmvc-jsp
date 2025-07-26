@@ -104,10 +104,10 @@ response.setDateHeader("Expires", 0); // Proxies
 							</ul></li>
 
 
-						<li><a href="${pageContext.request.contextPath}/pageForward.do?page=freePass">프리패스/정기권</a>
+						<li><a href="${pageContext.request.contextPath}/payment/freepass.htm">프리패스/정기권</a>
 							<ul>
-								<li><a href="${pageContext.request.contextPath}/pageForward.do?page=freePass">프리패스 여행권</a></li>
-								<li><a href="${pageContext.request.contextPath}/pageForward.do?page=seasonTicket">정기권</a></li>
+								<li><a href="${pageContext.request.contextPath}/payment/freepass.htm">프리패스 여행권</a></li>
+								<li><a href="${pageContext.request.contextPath}/payment/seasonticket.htm">정기권</a></li>
 								<li><a href="${pageContext.request.contextPath}/page/itemPurListPage.do">상품 구매내역</a></li>
 							</ul></li>
 

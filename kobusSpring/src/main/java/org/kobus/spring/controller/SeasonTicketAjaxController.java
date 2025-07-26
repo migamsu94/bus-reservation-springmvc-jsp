@@ -1,7 +1,10 @@
 package org.kobus.spring.controller;
 
+import java.security.Principal;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -9,6 +12,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.kobus.spring.domain.pay.FreePassDTO;
+import org.kobus.spring.mapper.pay.BusReservationMapper;
 import org.kobus.spring.mapper.pay.FreePassMapper;
 import org.kobus.spring.mapper.pay.SeasonTicketMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +30,9 @@ public class SeasonTicketAjaxController {
     
     @Autowired
     private FreePassMapper freePassMapper;
+    
+    @Autowired
+    private BusReservationMapper reservationMapper;
 
     @PostMapping("/useSeasonTicket.do")
     @ResponseBody
@@ -50,15 +57,23 @@ public class SeasonTicketAjaxController {
     
     @PostMapping("/useFreePass.do")
     @ResponseBody
-    public Map<String, Object> useFreePass(HttpServletRequest request) {
+    public Map<String, Object> useFreePass(HttpServletRequest request, Principal principal) {
         Map<String, Object> result = new HashMap<>();
 
         try {
             String adtnCpnNo = request.getParameter("adtnCpnNo"); // 프리패스 번호
-            String usedDate = request.getParameter("usedDate");   // 예매일자 (yyyyMMdd)
-            String kusid = (String) request.getSession().getAttribute("kusid");
+            //String kusid = (String) request.getSession().getAttribute("kusid");
+            String userId = principal.getName();
+            String kusId = reservationMapper.findId(userId);
+            String rideDate = request.getParameter("rideDate");
+            System.out.println("rideDate: " + rideDate);
+            LocalDateTime now = LocalDateTime.now();
+	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss.SSS");
+	        String formatted = now.format(formatter);
+	        
+	        
 
-            if (kusid == null || adtnCpnNo == null || usedDate == null) {
+            if (kusId == null || adtnCpnNo == null || formatted == null) {
                 result.put("result", "FAIL");
                 result.put("message", "필수 정보 누락");
                 return result;
@@ -66,34 +81,59 @@ public class SeasonTicketAjaxController {
 
             // 1. 프리패스 유효 여부 확인
             FreePassDTO pass = freePassMapper.selectFreePassByCpnNo(adtnCpnNo);
-            if (pass == null || !kusid.equals(pass.getKusid())) {
+            if (pass == null || !kusId.equals(pass.getKusid())) {
                 result.put("result", "FAIL");
                 result.put("message", "프리패스 정보가 유효하지 않습니다.");
                 return result;
             }
 
-            // 2. 날짜 범위 확인
+            
+         // 2. 날짜 범위 확인
             SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-            Date ride = (Date) sdf.parse(usedDate);
-            Date start = pass.getStartDate();
+
+            // (1) rideDate에서 날짜만 추출 후 java.util.Date로 변환
+            java.util.Date rideUtil = sdf.parse(rideDate.substring(0, 8));
+
+            // (2) 프리패스 시작일
+            java.util.Date start = pass.getStartDate();
+
+            // (3) 프리패스 사용 가능 일수 조회
+            Integer useDays = freePassMapper.getFreePassDays(adtnCpnNo); // 👈 여기!!
+
+            // 유효성 체크
+            if (useDays == null || useDays <= 0) {
+                result.put("result", "FAIL");
+                result.put("message", "프리패스 유효기간 정보가 잘못되었습니다.");
+                return result;
+            }
+
+            // (4) 종료일 계산
             Calendar cal = Calendar.getInstance();
             cal.setTime(start);
-            cal.add(Calendar.DATE, pass.getAdtnPrdUsePsbDno() - 1);
-            Date end = (Date) cal.getTime();
+            cal.add(Calendar.DATE, useDays - 1); // 3일권이면 start + 2일 = end
+            java.util.Date end = cal.getTime();
 
-            if (ride.before(start) || ride.after(end)) {
+            // 로그 확인
+            System.out.println("✅ rideUtil: " + sdf.format(rideUtil));
+            System.out.println("✅ start: " + sdf.format(start));
+            System.out.println("✅ end: " + sdf.format(end));
+            System.out.println("✅ useDays: " + useDays);
+
+            // (5) 날짜 범위 비교
+            if (rideUtil.before(start) || rideUtil.after(end)) {
                 result.put("result", "FAIL");
                 result.put("message", "사용기간에 포함되지 않은 날짜입니다.");
                 return result;
             }
-
+            
             // 3. 예매 저장
             // (1) reservation insert
-            freePassMapper.insertReservationForFreePass(pass, usedDate, kusid);
+            freePassMapper.insertReservationForFreePass(pass, formatted, kusId);
 
 
             result.put("result", "SUCCESS");
         } catch (Exception e) {
+        	e.printStackTrace();  // 콘솔에 전체 스택트레이스 출력
             result.put("result", "FAIL");
             result.put("message", "서버 오류: " + e.getMessage());
         }
