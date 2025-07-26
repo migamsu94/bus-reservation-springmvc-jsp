@@ -342,6 +342,13 @@ $(document).ready(function () {
 				<!-- 왕복시 복편 선택좌석번호전체   -->
 				<input type="hidden" name="pcpyNoAll2" id="pcpyNoAll2" value="">
 				<!-- 왕복시 복편 선점번호전체   -->
+				
+				<input type="hidden" name="satsNoAll2" id="satsNoAll2" value="">
+				<!-- 왕복시 복편 선택좌석번호전체   -->
+				<input type="hidden" name="pcpyNoAll2" id="pcpyNoAll2" value="">
+				<!-- 왕복시 복편 선점번호전체   -->
+				
+				
 
 				<input type="hidden" name="rtSelAdltCnt" id="rtSelAdltCnt" value="">
 				<!-- 어른수   -->
@@ -387,7 +394,7 @@ $(document).ready(function () {
 
 				<input type="hidden" name="rtrpDtl1" id="rtrpDtl1" value="${rtrpDtl1 }">
 				<!-- 왕복시 왕편데이터중 선점을 제외한 나머지 데이터 입력매수,일반인할인매수,일반인,중고생,초등생,대학생,시외우등형할인구분,예매금액,할인금액,결제금액,출발일,출발시간 순으로':'로 구분 -->
-				<input type="hidden" name="rtrpDtl2" id="rtrpDtl2" value="">
+				<input type="hidden" name="rtrpDtl2" id="rtrpDtl2" value="${rtrpDtl2 }">
 				<!-- 왕복시 복편데이터중 선점을 제외한 나머지 데이터 입력매수,일반인할인매수,일반인,중고생,초등생,대학생,시외우등형할인구분,예매금액,할인금액,결제금액,출발일,출발시간 순으로':'로 구분 -->
 
 

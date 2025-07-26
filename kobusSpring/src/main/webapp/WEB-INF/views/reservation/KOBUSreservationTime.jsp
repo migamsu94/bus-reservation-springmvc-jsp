@@ -980,10 +980,14 @@ $(document).on("click", ".schedule-row:not(.disabled)", function () {
     const deprDtm = $(this).data("deprdtm"); // 20250719 08:30 형식
     const deprDate = deprDtm.split(" ")[0];  // "20250719"
     const deprTime = deprDtm.split(" ")[1];  // "08:30"
+    const busClsCd = $(this).data("busclscd");  // "08:30"
+    
 
     $("#deprDate").val(deprDate);  // 이거 form에 새로 만들어줘야 해
     $("#deprTime").val(deprTime);
     $("#deprDtm").val(deprDtm); // 있어도 되고 없어도 돼
+    $("#busClsCd").val(busClsCd); // 있어도 되고 없어도 돼
+    
 
     $("#alcnSrchFrm").submit(); // GET 방식으로 전달됨
 });

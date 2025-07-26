@@ -84,11 +84,11 @@
 	<form name="stplCfmPymFrm" id="stplCfmPymFrm" method="post"
 		action="/payment/buypay.htm">
 		<input type="hidden" name="kusid" value="KUS001" />
-		<input type="hidden" name="deprCd" id="deprCd" value="032">
+		<input type="hidden" name="deprCd" id="deprCd" value="${deprCd }">
 		<!-- 출발지코드 -->
 		<input type="hidden" name="deprNm" id="deprNm" value="${deprNm}">
 		<!-- 출발지명 -->
-		<input type="hidden" name="arvlCd" id="arvlCd" value="823">
+		<input type="hidden" name="arvlCd" id="arvlCd" value="${arvlCd }">
 		<!-- 도착지코드 -->
 		<input type="hidden" name="arvlNm" id="arvlNm" value="${arvlNm}">
 		<!-- 도착지명 -->
@@ -98,17 +98,17 @@
 		<!-- 환승지명 -->
 		<input type="hidden" name="tfrArvlFullNm" id="tfrArvlFullNm" value="">
 		<!-- 환승지포함 도착지 명 -->
-		<input type="hidden" name="pathDvs" id="pathDvs" value="sngl">
+		<input type="hidden" name="pathDvs" id="pathDvs" value="${pathDvs}">
 		<!-- 직통sngl,환승trtr,왕복rtrp -->
 		<input type="hidden" name="pathStep" id="pathStep" value="1">
 		<!-- 단계별로 1,2로 구분 -->
-		<input type="hidden" name="deprDtm" id="deprDtm" value="">
+		<input type="hidden" name="deprDtm" id="deprDtm" value="${deprDt }">
 		<!-- 가는날(편도,왕복) -->
-		<input type="hidden" name="deprDtmAll" id="deprDtmAll" value="">
+		<input type="hidden" name="deprDtmAll" id="deprDtmAll" value="${deprDtFmt }">
 		<!-- 가는날(편도,왕복) -->
-		<input type="hidden" name="arvlDtm" id="arvlDtm" value="">
+		<input type="hidden" name="arvlDtm" id="arvlDtm" value="${arvlDt }">
 		<!-- 오는날(왕복) -->
-		<input type="hidden" name="arvlDtmAll" id="arvlDtmAll" value="">
+		<input type="hidden" name="arvlDtmAll" id="arvlDtmAll" value="${arvlDtFmt }">
 		<!-- 오는날(왕복) -->
 		<input type="hidden" name="indVBusClsCd" id="indVBusClsCd"
 			value="${indVBusClsCd}">
@@ -125,6 +125,8 @@
 		<!-- 출발일 -->
 		<input type="hidden" name="deprTime" id="deprTime" value="${deprTime}">
 		<!-- 출발시각 -->
+		<input type="hidden" name="arvlDt" id="arvlDt" value="${arvlDt}">
+		<!-- 출발일 -->
 		<input type="hidden" name="alcnDeprDt" id="alcnDeprDt" value="">
 		<!-- 배차출발일 -->
 		<input type="hidden" name="alcnDeprTime" id="alcnDeprTime"
@@ -136,8 +138,10 @@
 		<input type="hidden" name="alcnArvlTrmlNo" id="alcnArvlTrmlNo"
 			value="700">
 		<!-- 배차도착터미널 -->
-		<input type="hidden" name="cacmCd" id="cacmCd" value="06">
+		<input type="hidden" name="cacmCd" id="cacmCd" value="${cacmCd }">
 		<!-- 운수사코드 -->
+		<input type="hidden" name="cacmNm" id="cacmNm" value="${cacmNm}">
+		<!-- 운수사명 -->
 		<input type="hidden" name="deprThruSeq" id="deprThruSeq" value="1">
 		<!-- 출발경유순서 -->
 		<input type="hidden" name="arvlThruSeq" id="arvlThruSeq" value="2">
@@ -201,19 +205,37 @@
 		<input type="hidden" name="changeResId" id="changeResId" value="${changeResId}">
 		
 		
-		<input type="hidden" name="cacmNm" id="cacmNm" value="${cacmNm}">
-
-
 		<!-- 예상금액 -->
 		<input type="hidden" name="estmAmt" id="estmAmt" value="${estmAmt}">
 		<!-- 예매금액 -->
 		<input type="hidden" name="dcAmt" id="dcAmt" value="0">
 		<!-- 할인금액 -->
+		
 		<input type="hidden" name="tissuAmt" id="tissuAmt" value="${tissuAmt}">
 		<!-- 결제금액 -->
-		<script>
-    console.log("JSP에서 받은 tissuAmt:", "${tissuAmt}");
-	</script>
+		
+		
+		<!-- 오는편 -->
+		<input type="hidden" id="selAdltCnt2" name="selAdltCnt2" value="${selAdltCnt2}">
+		<input type="hidden" id="selChldCnt2" name="selChldCnt2" value="${selChldCnt2}">
+		<input type="hidden" id="selTeenCnt2" name="selTeenCnt2" value="${selTeenCnt2}">
+		<input type="hidden" id="selectedSeatIds1" name="selectedSeatIds1" value="${selectedSeatIds1}">
+		<input type="hidden" id="selectedSeatIds2" name="selectedSeatIds2" value="${selectedSeatIds2}">
+		<input type="hidden" id="selSeatNum2" name="selSeatNum2" value="${selSeatNum2}">
+		<input type="hidden" id="selSeatCnt2" name="selSeatCnt2" value="${selSeatCnt2}">
+		<input type="hidden" id="allTotAmtPrice2" name="allTotAmtPrice2" value="${allTotAmtPrice2}">
+		<input type="hidden" id="busCode2" name="busCode2" value="${busCode2}">
+		<input type="hidden" id="cacmCd2" name="cacmCd2" value="${cacmCd2}">
+		<input type="hidden" id="cacmNm2" name="cacmNm2" value="${cacmNm2}">
+		<input type="hidden" id="indVBusClsCd2" name="indVBusClsCd2" value="${indVBusClsCd2}">
+		<input type="hidden" id="arvlSeatNos" name="arvlSeatNos" value="${arvlSeatNos}">
+
+		<!-- 총 결제금액 -->
+		<input type="hidden" name="allFullTotal" value="${allFullTotal}">
+		
+		<!-- <script>
+    	console.log("JSP에서 받은 tissuAmt:", "${tissuAmt}");
+		</script> -->
 
 		<input type="hidden" name="nonMbrsYn" id="nonMbrsYn" value="N">
 		<!-- 비회원여부 Y:비회원, N:회원 -->
@@ -704,7 +726,7 @@
 				<h4 class="mo_page">가는 편 승차권 정보</h4>
 				<div class="box_detail_info">
 					<div class="routeHead">
-						<p class="date">${deprDtFmt}&nbsp;${deprTimeFmt}출발</p>
+						<p class="date">${deprDt} 출발</p>
 					</div>
 					<div class="routeBody">
 						<div class="routeArea route_wrap">
@@ -715,17 +737,17 @@
 
 								<dl class="roundBox departure kor">
 									<dt>출발</dt>
-									<dd>${deprNm}</dd>
+									<dd>${arvlNm}</dd>
 								</dl>
 								<dl class="roundBox arrive kor">
 									<dt>도착</dt>
-									<dd>${arvlNm}</dd>
+									<dd>${deprNm}</dd>
 								</dl>
 
 
 							</div>
 							<div class="detail_info">
-								<span id="takeDrtm"></span>
+								<span id="takeDrtm">${takeDrtm }</span>
 							</div>
 						</div>
 						<div class="routeArea route_wrap mob_route">
@@ -751,6 +773,11 @@
 											      <c:when test="${indVBusClsCd == '3'}">심야우등</c:when>
 											      <c:when test="${indVBusClsCd == '7'}">프리미엄</c:when>
 											      <c:when test="${indVBusClsCd == '8'}">심야프리미엄</c:when>
+											      <c:when test="${indVBusClsCd == '우등'}">우등</c:when>
+											      <c:when test="${indVBusClsCd == '고속'}">고속</c:when>
+											      <c:when test="${indVBusClsCd == '심야우등'}">심야우등</c:when>
+											      <c:when test="${indVBusClsCd == '프리미엄'}">프리미엄</c:when>
+											      <c:when test="${indVBusClsCd == '심야프리미엄'}">심야프리미엄</c:when>
 											      <c:otherwise>미지정</c:otherwise>
 											    </c:choose>
 											  </td>
@@ -770,6 +797,78 @@
 						</div>
 					</div>
 				</div>
+				
+				<c:if test="${pathDvs eq 'rtrp' }">
+				<h4 class="mo_page">오는 편 승차권 정보</h4>
+				<div class="box_detail_info">
+					<div class="routeHead">
+						<p class="date">${arvlDt} 출발</p>
+					</div>
+					<div class="routeBody">
+						<div class="routeArea route_wrap">
+							<div class="inner">
+
+
+
+
+								<dl class="roundBox departure kor">
+									<dt>출발</dt>
+									<dd>${deprNm}</dd>
+								</dl>
+								<dl class="roundBox arrive kor">
+									<dt>도착</dt>
+									<dd>${arvlNm}</dd>
+								</dl>
+
+
+							</div>
+							<div class="detail_info">
+								<span id="takeDrtm2">${takeDrtm }</span>
+							</div>
+						</div>
+						<div class="routeArea route_wrap mob_route">
+							<div class="tbl_type2">
+								<table class="tbl_info">
+									<caption>예매 정보 표이며 고속사, 등급, 매수, 좌석 정보 제공</caption>
+									<colgroup>
+										<col style="width: 68px;">
+										<col style="width: *;">
+									</colgroup>
+									<tbody>
+										<tr>
+											<th scope="row">고속사</th>
+											<td><span>${cacmNm2}</span> <!-- 동양고속 class="dyexpress" 삼화고속 class="samhwa" 중앙고속 class="jabus" 금호고속 class="kumho" 천일고속 class="chunil" 한일고속 class="hanil" 동부고속 class="dongbu" 금호속리산고속 class="songnisan" 코버스 class="kobus" -->
+											</td>
+										</tr>
+										<tr>
+											<th scope="row">등급</th>
+											<td>
+											    <c:choose>
+											      <c:when test="${indVBusClsCd == '우등'}">우등</c:when>
+											      <c:when test="${indVBusClsCd == '고속'}">고속</c:when>
+											      <c:when test="${indVBusClsCd == '심야우등'}">심야우등</c:when>
+											      <c:when test="${indVBusClsCd == '프리미엄'}">프리미엄</c:when>
+											      <c:when test="${indVBusClsCd == '심야프리미엄'}">심야프리미엄</c:when>
+											      <c:otherwise>미지정</c:otherwise>
+											    </c:choose>
+											  </td>
+										</tr>
+										<tr>
+											<th scope="row">매수</th>
+											<td><span id="totSelCntView2">일반 ${selAdltCnt2}명,
+													중고생 ${selTeenCnt2}명, 초등생 ${selChldCnt2}명</span></td>
+										</tr>
+										<tr>
+											<th scope="row">좌석</th>
+											<td>${arvlSeatNos}번</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				</c:if>
 
 
 				<h4 class="mo_page">결제정보 입력</h4>
@@ -817,132 +916,7 @@
 									처리 후 다시 시도 바랍니다.</li>
 
 							</ul>
-							<!-- <div class="box_inputForm">
-								<strong class="label">카드종류</strong>
-								<span class="radio_wrap">
-									<span class="custom_radio">
-										<input type="radio" id="caPerson" name="payCard" checked="true" onclick="fnCardKindSel(&#39;indl&#39;)">
-										<label for="caPerson">개인</label>
-									</span>
-									<span class="custom_radio">
-										<input type="radio" id="caCompany" name="payCard" onclick="fnCardKindSel(&#39;cprt&#39;)">
-										<label for="caCompany">법인</label>
-									</span>
-								</span>
-							</div>
-							<div class="box_inputForm click_box inselect">
-								<strong class="label">카드 선택</strong>
-								
-								
-								웹 접근성 개선 셀렉트 박스 UI
-								
-									<div class="dropdown-wrap select-default">
-										<a href="javascript:void(0)" class="btn-dropdown" title="카드 선택" aria-expanded="false">
-											<span class="text">카드를 선택하세요</span></a>
-										<ul class="dropdown-list" id="cardKndCdLi" style="display: none;"><li><a href="javascript:void(0)" onclick="onSelectChange(this,&#39;0&#39;, &#39;cardKndCd&#39;)">카드를 선택하세요</a></li><li><a href="javascript:void(0)" onclick="onSelectChange(this,&#39;09&#39;, &#39;cardKndCd&#39;)">롯데</a></li><li><a href="javascript:void(0)" onclick="onSelectChange(this,&#39;24&#39;, &#39;cardKndCd&#39;)">하나</a></li><li><a href="javascript:void(0)" onclick="onSelectChange(this,&#39;02&#39;, &#39;cardKndCd&#39;)">국민</a></li><li><a href="javascript:void(0)" onclick="onSelectChange(this,&#39;01&#39;, &#39;cardKndCd&#39;)">BC</a></li><li><a href="javascript:void(0)" onclick="onSelectChange(this,&#39;05&#39;, &#39;cardKndCd&#39;)">신한</a></li><li><a href="javascript:void(0)" onclick="onSelectChange(this,&#39;04&#39;, &#39;cardKndCd&#39;)">삼성</a></li><li><a href="javascript:void(0)" onclick="onSelectChange(this,&#39;15&#39;, &#39;cardKndCd&#39;)">농협</a></li><li><a href="javascript:void(0)" onclick="onSelectChange(this,&#39;08&#39;, &#39;cardKndCd&#39;)">현대</a></li><li><a href="javascript:void(0)" onclick="onSelectChange(this,&#39;18&#39;, &#39;cardKndCd&#39;)">전북</a></li><li><a href="javascript:void(0)" onclick="onSelectChange(this,&#39;12&#39;, &#39;cardKndCd&#39;)">수협</a></li><li><a href="javascript:void(0)" onclick="onSelectChange(this,&#39;14&#39;, &#39;cardKndCd&#39;)">우리</a></li><li><a href="javascript:void(0)" onclick="onSelectChange(this,&#39;01&#39;, &#39;cardKndCd&#39;)">우체국</a></li><li><a href="javascript:void(0)" onclick="onSelectChange(this,&#39;17&#39;, &#39;cardKndCd&#39;)">광주</a></li><li><a href="javascript:void(0)" onclick="onSelectChange(this,&#39;26&#39;, &#39;cardKndCd&#39;)">씨티</a></li><li><a href="javascript:void(0)" onclick="onSelectChange(this,&#39;01&#39;, &#39;cardKndCd&#39;)">기타</a></li></ul>
-										<input type="hidden" name="cardKndCd" id="cardKndCd" value="">
-									</div>
-								
-							</div>
-							<div class="box_inputForm card_num clfix">
-								<strong class="label">카드번호</strong>
-								<span class="box_label">
-									<input type="text" name="cardNum1" id="cardNum1" placeholder="입력" title="카드번호 첫 번째 4자리 입력" class="input" maxlength="4" onkeydown="this.value = onlyNumPlus(this.value);" onkeyup="fnChkNext(this,&#39;cardNum2&#39;)">
-								</span>
-								<span class="box_label">
-									<input type="text" name="cardNum2" id="cardNum2" placeholder="입력" title="카드번호 두 번째 4자리 입력" class="input" maxlength="4" onkeydown="this.value = onlyNumPlus(this.value);" onkeyup="fnChkNext(this,&#39;cardNum3&#39;)">
-								</span>
-								<span class="box_label">
-									<input type="password" name="cardNum3" id="cardNum3" placeholder="입력" title="카드번호 세 번째 4자리 입력" class="input" maxlength="4" onkeydown="this.value = onlyNumPlus(this.value);" onkeyup="fnChkNext(this,&#39;cardNum4&#39;)">
-								</span>
-								<span class="box_label">
-									<input type="password" name="cardNum4" id="cardNum4" placeholder="입력" title="카드번호 네 번째 4자리 입력" class="input" maxlength="4" onkeydown="this.value = onlyNumPlus(this.value);" onblur="fnChgCfmBtn();" data-tk-kbdtype="number">
-								</span>
-							</div>
-
-							
-							
-							
-							<div class="boxinput_wrap col2 clfix">
-								<div class="box_inputForm">
-									<label for="cardMonth" class="label">유효기간 월(MONTH)</label>
-									<span class="box_label">
-										<input type="text" name="cardMonth" placeholder="2자리 입력(MM)" id="cardMonth" class="input" maxlength="2" onkeydown="this.value = onlyNumPlus(this.value);" onblur="fnChgCfmBtn();">
-									</span>
-								</div>
-								<div class="box_inputForm">
-									<label for="cardYear" class="label">유효기간 년(YEAR)</label>
-									<span class="box_label">
-										<input type="text" name="cardYear" placeholder="2자리 입력(YY)" id="cardYear" class="input" maxlength="2" onkeydown="this.value = onlyNumPlus(this.value);" onblur="fnChgCfmBtn();">
-									</span>
-								</div>
-							</div>
-							<div class="boxinput_wrap col2 clfix">
-								<div class="box_inputForm">
-									<label for="cardPw" class="label">카드 비밀번호</label>
-									<span class="box_label">
-										<input type="password" name="cardPw" placeholder="**** 비밀번호 앞 2자리 입력" id="cardPw" class="input" maxlength="2" onkeydown="this.value = onlyNumPlus(this.value);" onblur="fnChgCfmBtn();" data-tk-kbdtype="number">
-									</span>
-								</div>
-								
-								
-								
-							</div>
-							카드결제 : 개인
-							<div class="box_inputForm" id="indlBrdtCard">
-								<label for="caBirth" class="label">생년월일 6자리(YYMMDD)</label>
-								<span class="box_label">
-									<input type="text" name="caBirth" placeholder="예)1980년11월11일 → 801111" id="caBirth" class="input" maxlength="6" onkeydown="this.value = onlyNumPlus(this.value);" onkeyup="fnChgCfmBtn();">
-								</span>
-							</div>
-							// 카드결제 : 개인
-							카드결제 : 법인
-							<div class="box_inputForm" id="cprtBrnCard" style="display:none;">
-								<label for="comNumCard" class="label">사업자 등록번호</label>
-								<span class="box_label">
-									<input type="text" name="comNumCard" placeholder="(-)  없이 입력" id="comNumCard" class="input" maxlength="10" onkeydown="this.value = onlyNumPlus(this.value);" onkeyup="fnChgCfmBtn();">
-								</span>
-							</div>
-							// 카드결제 
-							<div class="box_inputForm click_box inselect" id="mipMmSel" style="display:none">
-								<strong class="label">할부 개월수 (5만원 이상만 가능)</strong>
-								
-								
-								웹 접근성 개선 셀렉트 박스 UI
-								
-									<div class="dropdown-wrap select-default">
-										<a href="javascript:void(0)" class="btn-dropdown" title="할부 개월수 선택" aria-expanded="false" id="mipMmView">
-											<span class="text">선택</span></a>
-										<ul class="dropdown-list" style="display: none;">
-											<li><a href="javascript:setMipMm(0)">일시불</a></li>
-											
-												<li><a href="javascript:setMipMm(2)">2 개월</a></li>
-											
-												<li><a href="javascript:setMipMm(3)">3 개월</a></li>
-											
-												<li><a href="javascript:setMipMm(4)">4 개월</a></li>
-											
-												<li><a href="javascript:setMipMm(5)">5 개월</a></li>
-											
-												<li><a href="javascript:setMipMm(6)">6 개월</a></li>
-											
-												<li><a href="javascript:setMipMm(7)">7 개월</a></li>
-											
-												<li><a href="javascript:setMipMm(8)">8 개월</a></li>
-											
-												<li><a href="javascript:setMipMm(9)">9 개월</a></li>
-											
-												<li><a href="javascript:setMipMm(10)">10 개월</a></li>
-											
-												<li><a href="javascript:setMipMm(11)">11 개월</a></li>
-											
-												<li><a href="javascript:setMipMm(12)">12 개월</a></li>
-											
-										</ul>
-										<input type="hidden" name="mipMm" id="mipMm" value="0">
-									</div>
-								
-							</div> -->
+						
 						</div>
 
 
@@ -1271,21 +1245,43 @@
 									<col style="width: 50%;">
 									<col style="width: *;">
 								</colgroup>
+								<c:if test="${pathDvs eq 'sngl'}">
 								<tbody>
 									<tr>
 										<th scope="row" class="txt_black">예매금액</th>
-										<td><strong id="estmAmtView">${estmAmt}원</strong></td>
+										<td><strong id="estmAmtView">${allTotAmtPrice}원</strong></td>
 									</tr>
-
+							
 									<tr>
 										<th scope="row"><span id="adtnPrdNm">&nbsp;</span></th>
 										<td><span id="adtnPrdCnt">&nbsp;</span></td>
 									</tr>
+							
 									<tr class="total">
 										<th scope="row" class="txt_black">총 결제금액</th>
-										<td class="totalPrice"><span id="tissuAmtView">${tissuAmt}원</span></td>
+										<td class="totalPrice"><span id="tissuAmtView">${allTotAmtPrice}원</span></td>
 									</tr>
 								</tbody>
+							</c:if>
+							
+							<c:if test="${pathDvs eq 'rtrp'}">
+								<tbody>
+									<tr>
+										<th scope="row" class="txt_black">예매금액</th>
+										<td><strong id="estmAmtView">${allFullTotal}원</strong></td>
+									</tr>
+							
+									<tr>
+										<th scope="row"><span id="adtnPrdNm">&nbsp;</span></th>
+										<td><span id="adtnPrdCnt">&nbsp;</span></td>
+									</tr>
+							
+									<tr class="total">
+										<th scope="row" class="txt_black">총 결제금액</th>
+										<td class="totalPrice"><span id="tissuAmtView">${allFullTotal}원</span></td>
+									</tr>
+								</tbody>
+							</c:if>
 							</table>
 						</div>
 						<p class="btn bottom">

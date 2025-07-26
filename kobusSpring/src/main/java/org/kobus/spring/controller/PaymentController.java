@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.kobus.spring.domain.pay.FreepassPaymentDTO;
 import org.kobus.spring.domain.pay.PaymentCommonDTO;
+import org.kobus.spring.domain.pay.RequestPayDTO;
 import org.kobus.spring.domain.pay.ResSeasonUsageDTO;
 import org.kobus.spring.domain.pay.ReservationPaymentDTO;
 import org.kobus.spring.domain.pay.STPaymentSet;
@@ -24,10 +25,12 @@ import org.kobus.spring.service.pay.BusReservationService;
 import org.kobus.spring.service.pay.FreePassPaymentService;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -49,29 +52,49 @@ public class PaymentController {
 	
 	// 일반 예매 결제
 	@PostMapping("/Reservation.do")
-	public Map<String, Object> handleReservation(HttpServletRequest request, Principal principal ) {
+	@ResponseBody
+	public ResponseEntity<Map<String, Object>> handleReservation(HttpServletRequest request, 
+			Principal principal, @RequestBody RequestPayDTO requestPayDTO ) {
 	    Map<String, Object> resultMap = new HashMap<>();
 
 	    try {
 	        request.setCharacterEncoding("UTF-8");
 
 	        // [1] request 파라미터 추출
-	        String user_id = request.getParameter("user_id");
-	        String resId = request.getParameter("resId");
-	        String imp_uid = request.getParameter("imp_uid");
-	        String merchant_uid = request.getParameter("merchant_uid");
-	        String pay_method = request.getParameter("pay_method");
-	        String amountStr = request.getParameter("amount");
-	        String pay_status = request.getParameter("pay_status");
-	        String pg_tid = request.getParameter("pg_tid");
-	        String paid_at_str = request.getParameter("paid_at");
-	        String boarding_dt = request.getParameter("boarding_dt");
-	        String bshid = request.getParameter("bshid");
-	        String selectedSeatIds = request.getParameter("selectedSeatIds");
-	        String changeResId = request.getParameter("changeResId");
-	        int selAdltCnt = Integer.parseInt(request.getParameter("selAdltCnt"));
-	        int selTeenCnt = Integer.parseInt(request.getParameter("selTeenCnt"));
-	        int selChldCnt = Integer.parseInt(request.getParameter("selChldCnt"));
+	        String user_id = requestPayDTO.getUser_id();
+	        String resId = requestPayDTO.getResId();             // merchant_uid 아닌 resId로 수정 필요해 보임
+	        String imp_uid = requestPayDTO.getImp_uid();
+	        String merchant_uid = requestPayDTO.getMerchant_uid();
+	        String pay_method = requestPayDTO.getPay_method();
+	        String amountStr = requestPayDTO.getAmount();
+	        String pay_status = requestPayDTO.getPay_status();
+	        String pg_tid = requestPayDTO.getPg_tid();
+	        String paid_at_str = requestPayDTO.getPaid_at();
+	        String deprDt = requestPayDTO.getBoarding_dt();
+
+	        String bshid = requestPayDTO.getBshid();
+	        String selectedSeatIds = requestPayDTO.getSelectedSeatIds();
+	        String changeResId = requestPayDTO.getChangeResId();
+	        int selAdltCnt = Integer.parseInt(requestPayDTO.getSelAdltCnt());
+	        int selTeenCnt = Integer.parseInt(requestPayDTO.getSelTeenCnt());
+	        int selChldCnt = Integer.parseInt(requestPayDTO.getSelChldCnt());
+
+	        // 왕복 추가 파라미터
+	        String arvlDt = requestPayDTO.getArvlDt();
+	        String selAdltCnt2Str = requestPayDTO.getSelAdltCnt2();
+	        String selTeenCnt2Str = requestPayDTO.getSelTeenCnt2();
+	        String selChldCnt2Str = requestPayDTO.getSelChldCnt2();
+	        String selectedSeatIds1 = requestPayDTO.getSelectedSeatIds1();
+	        String selectedSeatIds2 = requestPayDTO.getSelectedSeatIds2();
+	        String selSeatNum2 = requestPayDTO.getSelSeatNum2();
+	        String selSeatCnt2 = requestPayDTO.getSelSeatCnt2();
+	        String allTotAmtPrice1 = requestPayDTO.getAllTotAmtPrice1();
+	        String allTotAmtPrice2 = requestPayDTO.getAllTotAmtPrice2();
+	        String bshid2 = requestPayDTO.getBshid2();
+	        String cacmCd2 = requestPayDTO.getCacmCd2();
+	        String cacmNm2 = requestPayDTO.getCacmNm2();
+	        String indVBusClsCd2 = requestPayDTO.getIndVBusClsCd2();
+	        String arvlSeatNos = requestPayDTO.getArvlSeatNos();
 	        
 	        System.out.println("changeResId " + changeResId);
 	        
@@ -90,6 +113,14 @@ public class PaymentController {
 	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss.SSS");
 
 	        String formatted = now.format(formatter);
+	        
+	        DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        	LocalDateTime rideDate = LocalDateTime.parse(deprDt, formatter2);
+        	
+        	System.out.println("selectedSeatIds " + selectedSeatIds);
+        	System.out.println("selectedSeatIds2 " + selectedSeatIds2);
+        	System.out.println("arvlSeatNos " + arvlSeatNos);
+	        
 
 	        // [2] payment_common DTO 생성 (paymentId는 mapper에서 selectKey로 생성됨)
 	        PaymentCommonDTO payDto = new PaymentCommonDTO();
@@ -106,8 +137,14 @@ public class PaymentController {
 	        resvDto.setResId(resId);
 	        resvDto.setKusid(kusId);
 	        resvDto.setBshId(bshid);
-	        resvDto.setSeatNo(selectedSeatIds);
-	        resvDto.setRideDateStr(boarding_dt);
+	        
+	        if (selectedSeatIds1 != null && !selectedSeatIds1.trim().isEmpty()) {
+	        	resvDto.setSeatNo(selectedSeatIds1);
+			}else {
+				resvDto.setSeatNo(selectedSeatIds);
+			}
+	        resvDto.setRideDate(rideDate);
+	        resvDto.setRideDateStr(deprDt);
 	        resvDto.setResvDateStr(formatted);
 	        resvDto.setResvStatus("결제완료");
 	        resvDto.setResvType("일반");
@@ -118,16 +155,54 @@ public class PaymentController {
 	        resvDto.setStuCount(selTeenCnt);
 	        resvDto.setChdCount(selChldCnt);
 	        
-	        System.out.println("boarding_dt " + boarding_dt);
+	        System.out.println("deprDt " + deprDt);
+	        System.out.println("arvlDt " + arvlDt);
+	        System.out.println("setRideDateStr " + deprDt);
+	        System.out.println("arvlDt " + arvlDt);
+	        System.out.println("setRideDateStr " + arvlDt);
+	        System.out.println("bshid " + bshid);
+	       
 	        
-	        System.out.println(resvDto.toString());
+	        System.out.println("resvDto: " + resvDto.toString());
+	        
+	        ResvDTO rtnResvDto = null;
+	        
+	        // [3-1] 왕복용 DTO 따로 처리 (Optional: DTO 확장 or 2차 저장용)
+	        if (selectedSeatIds2 != null && !selectedSeatIds2.trim().isEmpty()) {
+	        	
+	        	rtnResvDto = new ResvDTO();
+	        	LocalDateTime arvlDate = LocalDateTime.parse(arvlDt, formatter2);
+	            
+	            rtnResvDto.setResId(resId); // 예: RT 구분
+	            rtnResvDto.setKusid(kusId);
+	            rtnResvDto.setBshId(bshid2);
+	            rtnResvDto.setSeatNo(selectedSeatIds2);
+	            rtnResvDto.setRideDate(arvlDate);
+	            rtnResvDto.setRideDateStr(arvlDt);
+	            rtnResvDto.setResvDateStr(formatted);
+	            rtnResvDto.setResvStatus("결제완료");
+	            rtnResvDto.setResvType("일반");
+	            rtnResvDto.setQrCode((long) (Math.random() * 1000000000L));
+	            rtnResvDto.setMileage(0);
+	            rtnResvDto.setSeatable("Y");
+	            
+	            System.out.println("bshid2 " + bshid2);
+
+	            // 성인/청소년/어린이 수 (null 안전 파싱)
+	            rtnResvDto.setAduCount(parseOrZero(selAdltCnt2Str));
+	            rtnResvDto.setStuCount(parseOrZero(selTeenCnt2Str));
+	            rtnResvDto.setChdCount(parseOrZero(selChldCnt2Str));
+
+	            System.out.println("왕복 rtnResvDto: " + rtnResvDto.toString());
+
+	        }
 
 	        // [4] reservation_payment DTO 생성 (paymentId는 insert 후에 설정됨)
 	        ReservationPaymentDTO linkDto = new ReservationPaymentDTO();
 	        linkDto.setKusid(kusId); // 아직 paymentId는 안 넣음
 
 	        // [5] 서비스 호출 → paymentId는 여기서 자동 채워짐
-	        boolean saved = reservationService.saveReservationAndPayment(resvDto, payDto, linkDto, changeResId);
+	        boolean saved = reservationService.saveReservationAndPayment(resvDto, rtnResvDto, payDto, linkDto, changeResId);
 
 	        // [6] 결과 반환
 	        resultMap.put("result", saved ? 1 : 0);
@@ -137,15 +212,24 @@ public class PaymentController {
 	        resultMap.put("result", 0);
 	    }
 
-	    return resultMap;
+	    return ResponseEntity.ok(resultMap);
+	}
+
+
+    private int parseOrZero(String selAdltCnt2Str) {
+    	try {
+            return (selAdltCnt2Str != null && !selAdltCnt2Str.trim().isEmpty()) ? Integer.parseInt(selAdltCnt2Str) : 0;
+        } catch (NumberFormatException e) {
+            return 0;
+        }
 	}
 
 
 
 
-    
 
-    // 정기권 결제
+
+	// 정기권 결제
     @PostMapping("/Seasonticket.do")
     public Map<String, Object> handleSeasonticket(HttpServletRequest request, @RequestBody STPaymentSet dto) {
     	System.out.println("SPfreepassService 프록시 여부: " + AopUtils.isAopProxy(freepassService));

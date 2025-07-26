@@ -1838,12 +1838,12 @@ function fnSetPcpy(){
 	var satsChcFrm = $("form[name=satsChcFrm]").serialize() 
                + "&ajax=true&ajaxType=setPcpy"
                + "&selectedSeatIds=" + encodeURIComponent(selectedSeatStr);
-	console.log("전송할 데이터:" + satsChcFrm);
+	alert("전송할 데이터:" + satsChcFrm);
 	
 	$("#estmAmt").val($("#allTotAmtLocU").val()); 
 	$("#dcAmt").val($("#holiMrsDc").val());
 	$("#tissuAmt").val($("#allTotAmtPrice").val());
-	
+	$("#indVBusClsCd").val($("#busClsCd").val());
 	
 	
 	$.ajax({	
@@ -1866,6 +1866,7 @@ function fnSetPcpy(){
 	        			+":"+$("#selDsprCnt").val() //장애인(권종추가-201906)
 	        			+":"+$("#selVtr3Cnt").val() //보훈(권종추가-20210501)
 	        			+":"+$("#ctyPrmmDcYn").val() //시외후등형할인구분
+	        			+":"+$("#selSeatCnt").val() //선택한 좌석 수
 	        			+":"+$("#estmAmt").val() //예매금액
 	        			+":"+$("#dcAmt").val() //할인금액
 	        			+":"+$("#tissuAmt").val() //결제금액
@@ -1874,7 +1875,8 @@ function fnSetPcpy(){
 	        			+":"+$("#indVBusClsCd").val() //버스등급
 	        			+":"+$("#cacmCd").val() //운수사코드
 	        			+":"+$("#cacmNm").val() //운수사명
-	        			+":"+$("#changeResId").val() //운수사명
+	        			+":"+$("#bshId").val() //버스스케줄 id
+	        			+":"+$("#changeResId").val() //예매변경아이디
 	        			+":"+$("#prmmDcDvsCd").val() //시외우등형할인코드
         				+":"+$("#agrmYn").val() //국민차장제 동의 여부 (180705)
         				+":"+$("#selVtr5Cnt").val() //보훈(권종추가-20210501)
@@ -1923,6 +1925,7 @@ function fnSetPcpy(){
 	        			+":"+$("#selDsprCnt").val() //장애인(권종추가-201906)
 	        			+":"+$("#selVtr3Cnt").val() //보훈(권종추가-20210501)
 	        			+":"+$("#ctyPrmmDcYn").val() //시외후등형할인구분
+	        			+":"+$("#selSeatCnt").val() //선택한 좌석 수
 	        			+":"+$("#estmAmt").val() //예매금액
 	        			+":"+$("#dcAmt").val() //할인금액
 	        			+":"+$("#tissuAmt").val() //결제금액
@@ -1930,6 +1933,8 @@ function fnSetPcpy(){
 	        			+":"+$("#deprTime").val() //출발시간
 	        			+":"+$("#indVBusClsCd").val() //버스등급
 	        			+":"+$("#cacmCd").val() //운수사코드
+	        			+":"+$("#cacmNm").val() //운수사명
+	        			+":"+$("#bshId").val() //버스스케줄 id
 	        			+":"+$("#prmmDcDvsCd").val() //시외우등형할인코드
         				+":"+$("#agrmYn").val() //국민차장제 동의 여부 (180705)
         				+":"+$("#selVtr5Cnt").val() //보훈(권종추가-20210501)

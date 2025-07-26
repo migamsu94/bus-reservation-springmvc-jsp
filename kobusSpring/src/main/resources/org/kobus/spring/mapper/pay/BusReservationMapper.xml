@@ -21,12 +21,10 @@
 	
 	    INSERT INTO reservation (
 	        resid, bshId, kusid, ridedate, resvdate, resvstatus,
-	        resvtype, qrcode, mileage, seatable,
-	        return_bshid, return_seatid, return_ridedate
+	        resvtype, qrcode, mileage, seatable
 	    ) VALUES (
-	        #{resId}, #{bshId, jdbcType=VARCHAR}, #{kusid, jdbcType=VARCHAR}, #{rideDate, jdbcType=TIMESTAMP}, #{resvDateStr, jdbcType=TIMESTAMP}, #{resvStatus},
-	        #{resvType}, #{qrCode}, #{mileage}, #{seatable},
-	        #{returnBshId, jdbcType=VARCHAR}, #{returnSeatId, jdbcType=VARCHAR}, #{returnRideDate, jdbcType=TIMESTAMP}
+	        #{resId}, #{bshId, jdbcType=VARCHAR}, #{kusid, jdbcType=VARCHAR}, #{rideDate, jdbcType=TIMESTAMP}, #{resvDateStr, jdbcType=TIMESTAMP}, '결제완료',
+	        '일반', #{qrCode}, #{mileage}, 'Y'
 	    )
 	</insert>
 

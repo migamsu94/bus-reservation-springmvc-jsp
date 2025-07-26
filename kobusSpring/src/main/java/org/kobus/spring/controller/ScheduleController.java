@@ -157,7 +157,7 @@ public class ScheduleController {
 			}else {
 				
 				busClsCd = "전체";
-				schList = scheduleService.searchBusSchedule(deprCd, arvlCd, arvlDtm, busClsCd);
+				schList = scheduleService.searchBusSchedule(arvlCd, deprCd, arvlDtm, busClsCd);
 			}
 	        
 	        int durmin = schList.isEmpty() ? 0 : schList.get(0).getDurMin();

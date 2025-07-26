@@ -57,7 +57,7 @@ public class ReservationController {
 //	    System.out.println("arrId : " + arrId);
 //	    System.out.println("deprDate : " + deprDate);
 //	    System.out.println("deprTime : " + deprTime);
-	    System.out.println("busClsCd : " + busClsCd);
+//	    System.out.println("SeatHandler busClsCd : " + busClsCd);
 //	    System.out.println("deprNm : " + deprNm);
 //	    System.out.println("arvlNm : " + arvlNm);
 //	    System.out.println("deprdtm : " + deprdtm);
@@ -103,6 +103,7 @@ public class ReservationController {
 	    System.out.println("deprId : " + deprId);
 	    System.out.println("arrId : " + arrId);
 	    System.out.println("arvlDtm : " + arvlDtm);
+	    System.out.println("busClsCd : " + busClsCd);
 	    
 	    switch (busClsCd) {
 		    case "0": busClsCd = "전체"; break;
@@ -125,12 +126,10 @@ public class ReservationController {
 	    		
 	    		System.out.println(arvlFormatter);
 	    		
-	    		busList = scheduleService.searchBusSchedule(arrId, deprId, arvlFormatter, busClsCd);
-	    		
-	    		
+	    		busList = scheduleService.searchBusSchedule(deprId, arrId,  arvlFormatter, busClsCd);
 	    		
 	    		// 출발지 / 도착지 / 출발시간 / 버스등급을 기준으로 사용하는 busId 가져오기
-	    		busId = seatService.getBusId(arrId, deprId, arvlFormatter);
+	    		busId = seatService.getBusId(deprId, arrId,  arvlFormatter);
 	    		
 	    		if (arvlFormatter.length() <14) {
 	    			arvlFormatter = arvlFormatter + ":00";
