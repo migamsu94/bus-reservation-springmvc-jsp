@@ -128,13 +128,6 @@ System.out.println(">> busrank: " + request.getParameter("busClsCd"));
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
 
 <script>
-$(document).ready(function () {
-    $("#reloadBtn").on("click", function () {
-        location.reload(); // 현재 페이지 새로고침
-    });
-});
-</script>
-<script>
 
 $(document).ready(function () {
     var deprCd = $("#deprCd").val();
@@ -755,7 +748,7 @@ $(document).on("click", ".time li a", function () {
             <div class="detailBox">
                   <div class="detailBox_head col3" style="min-height: 70px;">
                      <div class="box_refresh">
-                        <button type="button" class="btn btn_refresh" id="reloadBtn">
+                        <button type="button" class="btn btn_refresh" disabled>
 											<span class="ico_refresh"><span class="sr-only">새로고침</span></span>
 						</button>
                      </div>
