@@ -40,6 +40,7 @@ public class RequestPayDTO {
 	private String selAdltCnt;
 	private String selTeenCnt;
 	private String selChldCnt;
+	private String pathDvs;
 
 	// 왕복 관련 필드
 	private String selAdltCnt2;

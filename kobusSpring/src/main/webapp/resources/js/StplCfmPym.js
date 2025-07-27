@@ -475,7 +475,8 @@ function requestPay() {
 				cacmCd2: $("#cacmCd2").val(),
 				cacmNm2: $("#cacmNm2").val(),
 				indVBusClsCd2: $("#indVBusClsCd2").val(),
-				arvlSeatNos: $("#arvlSeatNos").val()
+				arvlSeatNos: $("#arvlSeatNos").val(),
+				pathDvs: $("#pathDvs").val(),
 			};
 
 			console.log("🚀 서버로 전송할 paymentData:", paymentData);

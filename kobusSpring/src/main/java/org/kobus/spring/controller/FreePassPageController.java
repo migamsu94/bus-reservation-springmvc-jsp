@@ -1,8 +1,6 @@
 package org.kobus.spring.controller;
 
-import java.sql.Date;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,17 +11,15 @@ import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.kobus.spring.domain.pay.RequestPayDTO;
 import org.kobus.spring.mapper.pay.BusReservationMapper;
 import org.kobus.spring.mapper.reservation.SeatMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/payment")
@@ -194,6 +190,7 @@ public class FreePassPageController {
 
 		String resId = reservationMapper.generateResId(); // ReservationMapper 사용
         /* generateResId -> SELECT SEQ_RESERVATION.NEXTVAL FROM DUAL */
+		System.out.println("generateResId " + resId);
          
          
         model.addAttribute("resId", resId);
@@ -320,32 +317,105 @@ public class FreePassPageController {
     }
     */
     @GetMapping("/reservCompl.htm")
-    public String showReservationComplete(HttpServletRequest request) {
+    public String showReservationComplete(HttpServletRequest request, Model model) {
+    	
+    	String resId = null;
+    	String changeResId = null;
 
-        // 1. 파라미터 수집
-        String resId = request.getParameter("resId");
-        String changeResId = request.getParameter("changeResId");
-        
-        String deprDtRaw = request.getParameter("deprDt");
-        String deprTime = request.getParameter("deprTime");
+    	String deprDtRaw = null;
+    	String deprTime = null;
+    	String arvlDtRaw = null;
 
-        String deprNm = request.getParameter("deprNm");
-        String arvlNm = request.getParameter("arvlNm");
-        String takeDrtmOrg = request.getParameter("takeDrtmOrg");
+    	String deprNm = null;
+    	String arvlNm = null;
+    	String takeDrtmOrg = null;
 
-        String cacmNm = request.getParameter("cacmNm");
-        String indVBusClsCd = request.getParameter("indVBusClsCd");
-        String selSeatCnt = request.getParameter("selSeatCnt");
-        String seatNos = request.getParameter("seatNos");
+    	String cacmNm = null;
+    	String indVBusClsCd = null;
+    	String selSeatCnt = null;
+    	String seatNos = null;
 
-        String selAdltCnt = request.getParameter("selAdltCnt");
-        String selTeenCnt = request.getParameter("selTeenCnt");
-        String selChldCnt = request.getParameter("selChldCnt");
+    	String selAdltCnt = null;
+    	String selTeenCnt = null;
+    	String selChldCnt = null;
+    	
+    	// 왕복 사용 필드
+    	String cacmNm2 = null;
+    	String indVBusClsCd2 = null;
+    	String selSeatCnt2 = null;
+    	String arvlSeatNos = null;
+    	
+    	String selAdltCnt2 = null;
+    	String selTeenCnt2 = null;
+    	String selChldCnt2 = null;
 
-        String payMethod = request.getParameter("payMethod");
-        String amountStr = request.getParameter("amount");
-        
-        
+    	String payMethod = null;
+    	String amountStr = null;
+    	
+    	String pathDvs = null;
+
+    	RequestPayDTO paymentData = (RequestPayDTO) request.getSession().getAttribute("paymentData");
+    	
+    	if (paymentData != null) {
+    	    // 세션에 paymentData가 존재할 때 처리
+    	    resId = paymentData.getResId();
+    	    changeResId = paymentData.getChangeResId();
+    	    
+    	    deprDtRaw = paymentData.getDeprDt();
+    	    deprTime = paymentData.getDeprTime();
+    	    arvlDtRaw = paymentData.getArvlDt();
+
+    	    deprNm = paymentData.getDeprNm();
+    	    arvlNm = paymentData.getArvlNm();
+    	    takeDrtmOrg = paymentData.getTakeDrtmOrg();
+
+    	    cacmNm = paymentData.getCacmNm();
+    	    indVBusClsCd = paymentData.getIndVBusClsCd();
+    	    selSeatCnt = paymentData.getSelSeatCnt();
+    	    seatNos = paymentData.getSeatNos();
+    	    
+    	    selAdltCnt = paymentData.getSelAdltCnt();
+    	    selTeenCnt = paymentData.getSelTeenCnt();
+    	    selChldCnt = paymentData.getSelChldCnt();
+    	    
+    	    cacmNm2 = paymentData.getCacmNm2();
+    	    indVBusClsCd2 = paymentData.getIndVBusClsCd2();
+    	    selSeatCnt2 = paymentData.getSelSeatCnt2();
+    	    arvlSeatNos = paymentData.getArvlSeatNos();
+
+    	    selAdltCnt2 = paymentData.getSelAdltCnt2();
+    	    selTeenCnt2 = paymentData.getSelTeenCnt2();
+    	    selChldCnt2 = paymentData.getSelChldCnt2();
+
+    	    payMethod = paymentData.getPay_method();
+    	    amountStr = paymentData.getAmount();
+    	    pathDvs = paymentData.getPathDvs();
+    	    
+    	} else {
+    	    // 세션에 paymentData가 없을 때 request 파라미터로 초기화
+    	    resId = request.getParameter("resId");
+    	    changeResId = request.getParameter("changeResId");
+
+    	    deprDtRaw = request.getParameter("deprDt");
+    	    deprTime = request.getParameter("deprTime");
+
+    	    deprNm = request.getParameter("deprNm");
+    	    arvlNm = request.getParameter("arvlNm");
+    	    takeDrtmOrg = request.getParameter("takeDrtmOrg");
+
+    	    cacmNm = request.getParameter("cacmNm");
+    	    indVBusClsCd = request.getParameter("indVBusClsCd");
+    	    selSeatCnt = request.getParameter("selSeatCnt");
+    	    seatNos = request.getParameter("seatNos");
+
+    	    selAdltCnt = request.getParameter("selAdltCnt");
+    	    selTeenCnt= request.getParameter("selTeenCnt");
+    	    selChldCnt = request.getParameter("selChldCnt");
+
+    	    payMethod = request.getParameter("payMethod");
+    	    amountStr = request.getParameter("amount");
+    	}
+
         
 
         // 3. 소요시간 변환
@@ -362,36 +432,68 @@ public class FreePassPageController {
         // 4. 결제일시
         String paidAtStr = new SimpleDateFormat("yyyy.MM.dd (E) HH:mm", Locale.KOREA).format(new java.util.Date());
 
-        // 5. 탑승객 요약
-        int adlt = Integer.parseInt(selAdltCnt == null ? "0" : selAdltCnt);
-        int teen = Integer.parseInt(selTeenCnt == null ? "0" : selTeenCnt);
-        int chld = Integer.parseInt(selChldCnt == null ? "0" : selChldCnt);
-
-        String buyerSummary = (adlt > 0 ? "일반 " + adlt + "명 " : "") +
-                              (teen > 0 ? "청소년 " + teen + "명 " : "") +
-                              (chld > 0 ? "어린이 " + chld + "명" : "");
+        String buyerSummary = createBuyerSummary(selAdltCnt, selTeenCnt, selChldCnt);
+        String buyerSummary2 = null;
+        
+        if (pathDvs != null) {
+        	buyerSummary2 = createBuyerSummary(selAdltCnt2, selTeenCnt2, selChldCnt2);
+		}
+        
 
         // 6. request에 저장
-        request.setAttribute("resId", resId);
-        request.setAttribute("changeResId", changeResId);
-        request.setAttribute("deprNm", deprNm);
-        request.setAttribute("arvlNm", arvlNm);
-        request.setAttribute("takeDrtmOrg", takeDrtmOrg);
-        request.setAttribute("durationStr", durationStr);
+         model.addAttribute("resId", resId);
+         model.addAttribute("changeResId", changeResId);
+         model.addAttribute("deprNm", deprNm);
+         model.addAttribute("arvlNm", arvlNm);
+         model.addAttribute("deprDtTimeFmt", deprDtRaw);
+         model.addAttribute("arvlDtTimeFmt", arvlDtRaw);
+         model.addAttribute("takeDrtmOrg", takeDrtmOrg);
+         model.addAttribute("durationStr", durationStr);
 
-        request.setAttribute("cacmNm", cacmNm);
-        request.setAttribute("indVBusClsCd", indVBusClsCd);
-        request.setAttribute("selSeatCnt", selSeatCnt);
-        request.setAttribute("seatNos", seatNos);
-        request.setAttribute("payMethod", payMethod);
-        request.setAttribute("amount", amountStr);
-
-        request.setAttribute("deprDtTimeFmt", deprDtRaw);
-        request.setAttribute("paidAtStr", paidAtStr);
-        request.setAttribute("buyerSummary", buyerSummary.trim());
+         model.addAttribute("cacmNm", cacmNm);
+         model.addAttribute("indVBusClsCd", indVBusClsCd);
+         model.addAttribute("selSeatCnt", selSeatCnt);
+         model.addAttribute("seatNos", seatNos);
+         model.addAttribute("payMethod", payMethod);
+        
+         model.addAttribute("cacmNm2", cacmNm2);
+         model.addAttribute("indVBusClsCd2", indVBusClsCd2);
+         model.addAttribute("selSeatCnt2", selSeatCnt2);
+         model.addAttribute("arvlSeatNos", arvlSeatNos);
+        
+         model.addAttribute("amount", amountStr);
+        
+         model.addAttribute("paidAtStr", paidAtStr);
+         model.addAttribute("buyerSummary", buyerSummary.trim());
+         model.addAttribute("buyerSummary2", (buyerSummary2 != null) ? buyerSummary2.trim() : "");
+        
+        model.addAttribute("pathDvs", pathDvs);
 
         // Tiles 설정에 따라 뷰 이름 반환
         return "kobus.payment/reservCompl";
+    }
+    
+    // 탑승객 요약 생성 메소드
+    private String createBuyerSummary(String selAdltCnt, String selTeenCnt, String selChldCnt) {
+        int adlt = safeParseInt(selAdltCnt);
+        int teen = safeParseInt(selTeenCnt);
+        int chld = safeParseInt(selChldCnt);
+
+        return (adlt > 0 ? "일반 " + adlt + "명 " : "") +
+               (teen > 0 ? "청소년 " + teen + "명 " : "") +
+               (chld > 0 ? "어린이 " + chld + "명" : "").trim();
+    }
+
+    private int safeParseInt(String str) {
+        if (str == null || str.trim().isEmpty()) {
+            return 0;
+        }
+        try {
+            return Integer.parseInt(str.trim());
+        } catch (NumberFormatException e) {
+            // 필요하면 로그 기록
+            return 0;
+        }
     }
     
 } // class

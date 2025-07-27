@@ -81,6 +81,10 @@ public class ModifyReservationController {
 		
 		String deprDay = resvDTO.getRideDateStr();              // fn:substringBefore(resv.rideDateStr, ' ')
 		String deprTime = resvDTO.getRideTimeStr();            // fn:substringAfter(resv.rideDateStr, ' ')
+		
+		System.out.println("/modifyReservations.do resId " + resvDTO.getResId());
+		System.out.println("/modifyReservations.do deprNm " + resvDTO.getDeprRegName());
+		System.out.println("/modifyReservations.do arvlNm " + resvDTO.getArrRegName());
 
 		int adultCnt = resvDTO.getAduCount();
 		int stuCnt = resvDTO.getStuCount();
@@ -102,6 +106,7 @@ public class ModifyReservationController {
 		resvDTO.setStuCount(stuCnt);
 		resvDTO.setChdCount(childCnt);
 		
+		System.out.println("/modifyReservations.do rideDate " + formatted);
 		
 		List<ResvDTO> resvInfoList = new ArrayList<ResvDTO>();
 		resvInfoList.add(resvDTO);
@@ -113,7 +118,6 @@ public class ModifyReservationController {
 		
 		
 		changeList = scheduleService.searchBusSchedule(resvDTO.getDeprRegCode(), resvDTO.getArrRegCode(), deprDay2, "전체");	
-
 		
 		List<String> busTimeList = new ArrayList<>();
 
@@ -166,7 +170,21 @@ public class ModifyReservationController {
 			deprDay = deprDay.replace("-", "");
 		}
 		
+		System.out.println("deprDay " + deprDay);
+		
 	    changeList = scheduleService.searchBusSchedule(resvDTO.getDeprRegCode(), resvDTO.getArrRegCode(), deprDay, "전체");	
+	    
+	    
+	    DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+	    for (ScheduleDTO schedule : changeList) {
+	        if (schedule.getDepartureDate() != null) {
+	            schedule.setDeprDateStr(schedule.getDepartureDate().format(formatter1));
+	        } else {
+	            schedule.setDeprDateStr("");
+	        }
+	    }
+	    
 	    
 	    model.addAttribute("changeList", changeList);
 		model.addAttribute("resvInfoList", resvInfoList);

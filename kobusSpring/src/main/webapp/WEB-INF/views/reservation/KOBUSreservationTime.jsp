@@ -161,6 +161,7 @@ $(document).ready(function () {
                 ajaxType: "getDuration",
                 deprCd: deprCd,
                 arvlCd: arvlCd,
+                pathStep: pathStep,
                 sourcePage: "KOBUSreservationRegion.jsp"
             },
             dataType: "json",
@@ -355,6 +356,7 @@ $(document).ready(function () {
           arvlCd: $("#arvlCd").val(),
           deprDtm: yyyymmdd,
           busClsCd: $("#busClsCd").val(),
+          pathStep: pathStep,
           sourcePage: "KOBUSreservationTime.jsp"
         },
         dataType: "json",

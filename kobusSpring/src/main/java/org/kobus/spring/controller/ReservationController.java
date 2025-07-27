@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -118,47 +119,55 @@ public class ReservationController {
 	    String busId = "";
 	    
 	    try {
-	    	
-	    	if ("2".equals(pathStep)) {
-	    		// 탑승하는 버스 스케줄 정보 가져오기
-	    		
-	    		String arvlFormatter = arvlDtm.replaceAll("-", "");
-	    		
-	    		System.out.println(arvlFormatter);
-	    		
-	    		busList = scheduleService.searchBusSchedule(deprId, arrId,  arvlFormatter, busClsCd);
-	    		
-	    		// 출발지 / 도착지 / 출발시간 / 버스등급을 기준으로 사용하는 busId 가져오기
-	    		busId = seatService.getBusId(deprId, arrId,  arvlFormatter);
-	    		
-	    		if (arvlFormatter.length() <14) {
-	    			arvlFormatter = arvlFormatter + ":00";
-	    		}
-	    		
-	    	} else {
-	    		
-	    		
+
+	    	// 가는편
+	    	if ("1".equals(pathStep)) {
+
+
 	    		// 탑승하는 버스 스케줄 정보 가져오기
 	    		busList = scheduleService.searchBusSchedule(deprId, arrId, deprDtm, busClsCd);
-	    		
+
 	    		// 출발지 / 도착지 / 출발시간 / 버스등급을 기준으로 사용하는 busId 가져오기
 	    		busId = seatService.getBusId(deprId, arrId, deprDtm);
-	    		
-	    		
 
-	    		
+
 	    		if (deprDtm.length() <14) {
 	    			deprDtm = deprDtm + ":00";
 	    		}
-	    		
-	    		
+
+
 	    		deprDtm = deprDtm.substring(0, 4) + "-" + 
 	    				deprDtm.substring(4, 6) + "-" + 
 	    				deprDtm.substring(6, 8) + " " + deprDtm.substring(9, 14);
+
+
+	    		// 오는편
+	    	} else {
+	    		// 탑승하는 버스 스케줄 정보 가져오기
 	    		
+	    		System.out.println("오는편 정보 ");
+	    		System.out.println("deprNm : " + deprNm);
+	    	    System.out.println("arvlNm : " + arvlNm);
+	    	    System.out.println("deprId : " + deprId);
+	    	    System.out.println("arrId : " + arrId);
+
+	    		String arvlFormatter = arvlDtm.replaceAll("-", "");
+
+	    		System.out.println(arvlFormatter);
+
+	    		busList = scheduleService.searchBusSchedule(deprId, arrId, arvlFormatter, busClsCd);
+
+	    		// 출발지 / 도착지 / 출발시간 / 버스등급을 기준으로 사용하는 busId 가져오기
+	    		busId = seatService.getBusId(deprId, arrId, arvlFormatter);
+
+	    		if (arvlFormatter.length() <14) {
+	    			arvlFormatter = arvlFormatter + ":00";
+	    		}
+
+
+
 	    	}
 	    	
-    		
     		
     		// 탑승하는 버스 전체 좌석 가져오기
     		int totalSeat = seatService.getTotalSeats(busId);
@@ -168,6 +177,10 @@ public class ReservationController {
 	    	
 	    	
 	    	System.out.println("pathDvs " + pathDvs);
+	    	System.out.println("busId " + busId);
+	    	
+	    	System.out.println("busList " + busList);
+	    	System.out.println("seatList " + seatList);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

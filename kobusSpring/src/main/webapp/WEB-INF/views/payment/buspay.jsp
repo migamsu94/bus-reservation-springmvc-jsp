@@ -737,11 +737,11 @@
 
 								<dl class="roundBox departure kor">
 									<dt>출발</dt>
-									<dd>${arvlNm}</dd>
+									<dd>${deprNm}</dd>
 								</dl>
 								<dl class="roundBox arrive kor">
 									<dt>도착</dt>
-									<dd>${deprNm}</dd>
+									<dd>${arvlNm}</dd>
 								</dl>
 
 
@@ -813,11 +813,11 @@
 
 								<dl class="roundBox departure kor">
 									<dt>출발</dt>
-									<dd>${deprNm}</dd>
+									<dd>${arvlNm}</dd>
 								</dl>
 								<dl class="roundBox arrive kor">
 									<dt>도착</dt>
-									<dd>${arvlNm}</dd>
+									<dd>${deprNm}</dd>
 								</dl>
 
 

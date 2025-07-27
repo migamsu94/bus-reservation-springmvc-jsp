@@ -261,7 +261,7 @@ $("#recpCanFrm > button").on("click", function () {
 							</div>
 
 			
-						<c:forEach var="resv" items="${resvList}">
+						<c:forEach var="resv" items="${resvList}" varStatus="status">
 						
 							<!-- 홈티켓 form -->
 							<form id="mrsCfmInfolistFrm0" name="mrsCfmInfolistFrm0"
@@ -295,8 +295,8 @@ $("#recpCanFrm > button").on("click", function () {
 							<!-- 시간변경 form -->
 							
 							
-							<form id="mrsTmznlistFrm0" name="mrsTmznlistFrm0"
-								action="/modifyReservations.do" method="post">
+							<form id="mrsTmznlistFrm${status.index}" name="mrsTmznlistFrm${status.index}" 
+							action="/modifyReservations.do" method="post">
 								<input type="hidden" name="nonMbrsNo" value="">
 								<!-- 비회원 회원번호 -->
 
@@ -613,15 +613,16 @@ $("#recpCanFrm > button").on("click", function () {
 							</div>
 							<!-- //좌석상세내역 -->
 							<p class="btns multi clfix col3">
-								<a href="javascript:void(0);"
-									onclick="fnmrsChangeTime(0);"
-									class="btnL btn_cancel first">시간변경</a> <a
+								<a href="javascript:void(0);" onclick="fnmrsChangeTime(${status.index});" class="btnL btn_cancel first">시간변경</a>
+
+									
+									<a
 									href="javascript:void(0);" id="btnGenerateQr"
 									class="btnL btn_cancel" title="새창">탑승권 확인</a>
 								<!-- <a href="javascript:void(0)" onclick="fnmrsRecpPub(0);" 
 								class="btnL btn_cancel" title="새창">탑승권 확인</a>  -->
 
-								<a href="javascript:void(0)" onclick="fnRecpCanInfo(0,'all');"
+								<a href="javascript:void(0)" onclick="fnRecpCanInfo(${status.index},'all');"
 									class="btnL btn_cancel btn_pop_focus last">예매취소</a>
 							</p>
 						</section>

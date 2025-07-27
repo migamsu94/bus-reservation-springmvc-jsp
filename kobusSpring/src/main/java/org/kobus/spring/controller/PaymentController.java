@@ -86,15 +86,10 @@ public class PaymentController {
 	        String selChldCnt2Str = requestPayDTO.getSelChldCnt2();
 	        String selectedSeatIds1 = requestPayDTO.getSelectedSeatIds1();
 	        String selectedSeatIds2 = requestPayDTO.getSelectedSeatIds2();
-	        String selSeatNum2 = requestPayDTO.getSelSeatNum2();
-	        String selSeatCnt2 = requestPayDTO.getSelSeatCnt2();
-	        String allTotAmtPrice1 = requestPayDTO.getAllTotAmtPrice1();
-	        String allTotAmtPrice2 = requestPayDTO.getAllTotAmtPrice2();
 	        String bshid2 = requestPayDTO.getBshid2();
-	        String cacmCd2 = requestPayDTO.getCacmCd2();
-	        String cacmNm2 = requestPayDTO.getCacmNm2();
-	        String indVBusClsCd2 = requestPayDTO.getIndVBusClsCd2();
 	        String arvlSeatNos = requestPayDTO.getArvlSeatNos();
+	        String pathDvs = requestPayDTO.getPathDvs();
+	        
 	        
 	        System.out.println("changeResId " + changeResId);
 	        
@@ -117,9 +112,10 @@ public class PaymentController {
 	        DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         	LocalDateTime rideDate = LocalDateTime.parse(deprDt, formatter2);
         	
-        	System.out.println("selectedSeatIds " + selectedSeatIds);
-        	System.out.println("selectedSeatIds2 " + selectedSeatIds2);
-        	System.out.println("arvlSeatNos " + arvlSeatNos);
+        	System.out.println("/Reservation.do selectedSeatIds " + selectedSeatIds);
+        	System.out.println("/Reservation.do selectedSeatIds 1" + selectedSeatIds1);
+        	System.out.println("/Reservation.do selectedSeatIds2 " + selectedSeatIds2);
+        	System.out.println("/Reservation.do arvlSeatNos " + arvlSeatNos);
 	        
 
 	        // [2] payment_common DTO 생성 (paymentId는 mapper에서 selectKey로 생성됨)
@@ -138,8 +134,9 @@ public class PaymentController {
 	        resvDto.setKusid(kusId);
 	        resvDto.setBshId(bshid);
 	        
-	        if (selectedSeatIds1 != null && !selectedSeatIds1.trim().isEmpty()) {
-	        	resvDto.setSeatNo(selectedSeatIds1);
+	        if ("rtrp".equals(pathDvs)) {
+	        	resvDto.setSeatNo(selectedSeatIds);
+	        	System.out.println("/Reservation.do selectedSeatIds1 " + selectedSeatIds1);
 			}else {
 				resvDto.setSeatNo(selectedSeatIds);
 			}
@@ -155,25 +152,31 @@ public class PaymentController {
 	        resvDto.setStuCount(selTeenCnt);
 	        resvDto.setChdCount(selChldCnt);
 	        
-	        System.out.println("deprDt " + deprDt);
-	        System.out.println("arvlDt " + arvlDt);
-	        System.out.println("setRideDateStr " + deprDt);
-	        System.out.println("arvlDt " + arvlDt);
-	        System.out.println("setRideDateStr " + arvlDt);
-	        System.out.println("bshid " + bshid);
+	        System.out.println("/Reservation.do deprDt " + deprDt);
+	        System.out.println("/Reservation.do arvlDt " + arvlDt);
+	        System.out.println("/Reservation.do setRideDateStr " + deprDt);
+	        System.out.println("/Reservation.do arvlDt " + arvlDt);
+	        System.out.println("/Reservation.do setRideDateStr " + arvlDt);
+	        System.out.println("/Reservation.do bshid " + bshid);
 	       
 	        
-	        System.out.println("resvDto: " + resvDto.toString());
+	        System.out.println("/Reservation.do resvDto: " + resvDto.toString());
 	        
 	        ResvDTO rtnResvDto = null;
 	        
 	        // [3-1] 왕복용 DTO 따로 처리 (Optional: DTO 확장 or 2차 저장용)
-	        if (selectedSeatIds2 != null && !selectedSeatIds2.trim().isEmpty()) {
+	        if ("rtrp".equals(pathDvs)) {
+	        	
+	        	String resId2 = reservationMapper.generateResId(); // ReservationMapper 사용
+	            /* generateResId -> SELECT SEQ_RESERVATION.NEXTVAL FROM DUAL */
+	    		System.out.println("generateResId " + resId2);
 	        	
 	        	rtnResvDto = new ResvDTO();
 	        	LocalDateTime arvlDate = LocalDateTime.parse(arvlDt, formatter2);
+	        	
+	        	System.out.println("/Reservation.do selectedSeatIds2 " + selectedSeatIds2);
 	            
-	            rtnResvDto.setResId(resId); // 예: RT 구분
+	            rtnResvDto.setResId(resId2); // 예: RT 구분
 	            rtnResvDto.setKusid(kusId);
 	            rtnResvDto.setBshId(bshid2);
 	            rtnResvDto.setSeatNo(selectedSeatIds2);
@@ -193,7 +196,7 @@ public class PaymentController {
 	            rtnResvDto.setStuCount(parseOrZero(selTeenCnt2Str));
 	            rtnResvDto.setChdCount(parseOrZero(selChldCnt2Str));
 
-	            System.out.println("왕복 rtnResvDto: " + rtnResvDto.toString());
+	            System.out.println("/Reservation.do 왕복 rtnResvDto: " + rtnResvDto.toString());
 
 	        }
 
@@ -206,6 +209,8 @@ public class PaymentController {
 
 	        // [6] 결과 반환
 	        resultMap.put("result", saved ? 1 : 0);
+	        
+	        request.getSession().setAttribute("paymentData", requestPayDTO);
 
 	    } catch (Exception e) {
 	        e.printStackTrace();

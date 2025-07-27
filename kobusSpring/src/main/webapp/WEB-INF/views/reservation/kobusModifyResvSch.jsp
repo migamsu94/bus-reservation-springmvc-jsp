@@ -33,6 +33,27 @@ $(document).ready(function() {
 
 
 </script>
+<style>
+/* 비활성화된 schedule-row */
+.schedule-row.disabled {
+  background-color: #f2f2f2;
+  color: #aaa;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+/* 비활성화된 버튼 */
+.schedule-row.disabled input[type="submit"],
+.schedule-row.disabled button {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+  padding: 10px 16px;
+  border-radius: 16px;
+  border: none;
+}
+
+</style>
 <!-- [리뉴얼] 페이지 개별 스크립트 신규 정의함 -->
 	
 		<!-- breadcrumb -->
