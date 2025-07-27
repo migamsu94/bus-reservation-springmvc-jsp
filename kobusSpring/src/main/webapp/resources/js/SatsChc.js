@@ -1838,7 +1838,6 @@ function fnSetPcpy(){
 	var satsChcFrm = $("form[name=satsChcFrm]").serialize() 
                + "&ajax=true&ajaxType=setPcpy"
                + "&selectedSeatIds=" + encodeURIComponent(selectedSeatStr);
-	alert("전송할 데이터:" + satsChcFrm);
 	
 	$("#estmAmt").val($("#allTotAmtLocU").val()); 
 	$("#dcAmt").val($("#holiMrsDc").val());

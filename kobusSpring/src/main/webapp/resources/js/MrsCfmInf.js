@@ -92,6 +92,9 @@ function fnRecpCanInfo(idx , type) {
 	//var satsNo = document.forms["recpCanFrm"+idx].elements['satsNo'].value;
 	var satsNo = $("#recpCanFrm"+idx+" #satsNo").val()
 	
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+	
 		var recpCanInfoFrm = $("#recpCanFrm" + idx).serializeArray();
 		recpCanInfoFrm.push({name: '${_csrf.parameterName}', value: '${_csrf.token}'});
 		$.ajax({
@@ -99,6 +102,9 @@ function fnRecpCanInfo(idx , type) {
 			,url: "/koBus/kobusResvCancel.ajax?ajaxType=search"
 			,data: $.param(recpCanInfoFrm)
 			,dataType:"json"
+			,beforeSend: function(xhr) {
+				 xhr.setRequestHeader(header, token);
+			}
 			,success:function(recpListMap){
 				/*if (data.MSG_CD != 'S0000'){
 					alert(data.MSG_DTL_CTT+'\n※취소불가 합니다.');
@@ -911,6 +917,9 @@ function fnTckCanInfo(idx) {
 // 예매단위 취소
 function fnRecpCan() {
 	var mrsRecpCanFrm = $("form[name=recpCanFrm"+idx+"]").serialize(); 
+	
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
 
 // 변경된 폼 상태를 다시 serialize 해서 최신 값 가져오기
 	var updatedFormData = $("form[name=recpCanOkFrm"+idx+"]").serialize();
@@ -921,6 +930,9 @@ function fnRecpCan() {
 					,url:"/koBus/kobusResvCancel.ajax?ajaxType=cancel"
 					,data:updatedFormData // input 값 세팅 
 					,dataType:"json"
+					,beforeSend: function(xhr) {
+						xhr.setRequestHeader(header, token);
+					}
 					,success:function(data){
 						location.href ="/koBus/manageReservations.do";
 					}
