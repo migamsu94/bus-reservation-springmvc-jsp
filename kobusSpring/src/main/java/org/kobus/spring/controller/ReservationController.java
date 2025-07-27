@@ -37,9 +37,12 @@ public class ReservationController {
 	    @RequestParam(value = "arvlCd", required = false) String arrId,
 	    @RequestParam(value = "deprDtmAll", required = false) String deprDate,
 	    @RequestParam(value = "deprTime", required = false) String deprTime,
+	    @RequestParam(value = "arvlDtm", required = false) String arvlDtm,
+	    @RequestParam(value = "arvlDtmAll", required = false) String arvlDtmAll,
 	    @RequestParam(value = "busClsCd", required = false) String busClsCd,
 	    @RequestParam(value = "deprNm", required = false) String deprNm,
 	    @RequestParam(value = "arvlNm", required = false) String arvlNm,
+	    @RequestParam(value = "pathDvs", required = false) String pathDvs,
 	    Model model) throws ParseException {
 
 	    System.out.println("> SeatHandler.process() ...");
@@ -51,11 +54,16 @@ public class ReservationController {
 	    System.out.println("busClsCd : " + busClsCd);
 	    System.out.println("deprNm : " + deprNm);
 	    System.out.println("arvlNm : " + arvlNm);
+	    System.out.println("arvlDtm : " + arvlDtm);
+	    System.out.println("arvlDtmAll : " + arvlDtmAll);
+	    
 	    
 	    SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy. M. d. E", Locale.KOREA);
 
         // 3️⃣ Date 객체로 파싱
         Date date = inputFormat.parse(deprDate);
+        
+        
 
         // 4️⃣ 원하는 출력 형식 지정
         SimpleDateFormat outputFormat = new SimpleDateFormat("yyyyMMdd");
@@ -92,13 +100,18 @@ public class ReservationController {
 
 	    	// 탑승하는 버스 좌석 정보 가져오기
 	    	seatList = seatService.searchSeat(busId);
-
+	    	
+	    	if (deprDtm.length() <14) {
+				deprDtm = deprDtm + ":00";
+			}
+	
 
 	    	deprDtm = deprDtm.substring(0, 4) + "-" + 
 	    			deprDtm.substring(4, 6) + "-" + 
 	    			deprDtm.substring(6, 8) + " " + deprDtm.substring(9, 14);
 	    	
 	    	System.out.println("deprDtm " + deprDtm);
+	    	System.out.println("pathDvs " + pathDvs);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -107,12 +120,16 @@ public class ReservationController {
 	    model.addAttribute("deprId", deprId);
 	    model.addAttribute("arrId", arrId);
 	    model.addAttribute("deprDtm", deprDtm);
+	    model.addAttribute("deprDtmAll", deprDate );
 	    model.addAttribute("deptTime", deprTime);
 	    model.addAttribute("busClsCd", busClsCd);
 	    model.addAttribute("deprDate", deprDate);
 	    model.addAttribute("deprTime", deprTime);
 	    model.addAttribute("deprNm", deprNm);
 	    model.addAttribute("arvlNm", arvlNm);
+	    model.addAttribute("arvlDtm", arvlDtm);
+	    model.addAttribute("arvlDtmAll", arvlDtmAll);
+	    model.addAttribute("pathDvs", pathDvs);
 	    model.addAttribute("busList", busList);
 	    model.addAttribute("seatList", seatList);
 	    

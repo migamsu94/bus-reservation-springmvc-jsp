@@ -133,10 +133,17 @@ System.out.println(">> busrank: " + request.getParameter("busClsCd"));
 $(document).ready(function () {
     const deprCd = $("#deprCd").val();
     const arvlCd = $("#arvlCd").val();
-    const deprDtm = $("#deprDtm").val();   // yyyy.MM.dd 형식
+    var deprDtm = $("#deprDtm").val();   // yyyy.MM.dd 형식
+    const arvlDtm = $("#arvlDtm").val();   // yyyy.MM.dd 형식
     const busClsCd = $("#busClsCd").val();
     const deprNm = $("#deprNm").val();
     const arvlNm = $("#arvlNm").val();
+    const pathStep = $("#pathStep").val();
+    
+    if (pathStep == "2") {
+    	deprDtm = $("#arvlDtm").val();
+	}
+    
 
     // 1. 소요시간 먼저 조회
     if (deprCd && arvlCd) {
@@ -182,6 +189,8 @@ $(document).ready(function () {
                 deprCd: deprCd,
                 arvlCd: arvlCd,
                 deprDtm: deprDtm,
+                arvlDtm: arvlDtm,
+                pathStep: pathStep,
                 busClsCd: busClsCd,
                 sourcePage: "KOBUSreservationRegion.jsp"
             },
@@ -197,7 +206,12 @@ $(document).ready(function () {
 
                 data.alcnAllList.forEach(item => {
                 	const deprTimeStr = item.DEPR_TIME_DVS; // "06:45"
-                	const deprDtmRaw = $("#deprDtm").val(); // "2025.06.25" 또는 "20250625"
+                	const deprDtmRaw = deprDtm; // "2025.06.25" 또는 "20250625"
+                	const arvlDtm = $("#arvlDtm").val();
+                	const arvlDtmAll = $("#arvlDtmAll").val();
+                	
+                	
+                	
 
                 	//1. 날짜 문자열 안전하게 ISO8601 형식으로 변환
                 	let dateStr = "";
@@ -240,7 +254,7 @@ $(document).ready(function () {
                     // 4. HTML 구성 및 렌더링
                     const html = `
                         <p class="schedule-row \${rowClass}" 
-                           data-deprdtm="\${item.DEPR_DATE} \${deprTimeStr}"
+                           data-deprdtm="\${deprDtmRaw} \${deprTimeStr}"
                            data-comname="\${item.CACM_MN}"
                            data-busClsCd="\${item.BUS_CLS_NM}"
                            data-adultFare="\${item.ADLT_FEE}"
@@ -673,19 +687,19 @@ $(document).on("click", ".time li a", function () {
       <!-- 환승지명 -->
       <input id="tfrArvlFullNm" name="tfrArvlFullNm" type="hidden" value="" />
       <!-- 환승지포함 도착지 명 -->
-      <input id="pathDvs" name="pathDvs" type="hidden" value="sngl" />
+      <input id="pathDvs" name="pathDvs" type="hidden" value="${param.pathDvs }" />
       <!-- 직통sngl,환승trtr,왕복rtrp -->
-      <input id="pathStep" name="pathStep" type="hidden" value="1" />
+      <input id="pathStep" name="pathStep" type="hidden" value="${param.pathStep }" />
       <!-- 왕복,환승 가는편순번 -->
       <!-- <input id="deprDtm" name="deprDtm" type="hidden" value="20250617" /> -->
       <input id="deprDtm" name="deprDtm" type="hidden" value="${param.deprDtm }" />
       <!-- 가는날(편도,왕복) -->
       <input id="deprDtmAll" name="deprDtmAll" type="hidden" value="${param.deprDtmAll }" />
       <!-- 가는날(편도,왕복) -->
-      <input id="arvlDtm" name="arvlDtm" type="hidden" value="" />
+      <input id="arvlDtm" name="arvlDtm" type="hidden" value="${param.arvlDtm }" />
       <!-- 오는날(왕복) -->
       <input id="arvlDtmAll" name="arvlDtmAll" type="hidden"
-         value="2025. 6. 17. 화" />
+         value="${param.arvlDtmAll }" />
       <!-- 오는날(왕복) -->
       <input id="busClsCd" name="busClsCd" type="hidden" value="${param.busClsCd }" />
       <!-- 버스등급 -->
@@ -796,9 +810,23 @@ $(document).on("click", ".time li a", function () {
             <!-- 좌측 infoBox -->
             <div class="infoBox">
                <!-- <p class="date" id="alcnDeprDtm">2025. 6. 17. 화</p> -->
-               <p class="date" id="alcnDeprDtm">${param.deprDtm }</p>
-               <!-- //왕복시 노출 추가 2017-02-10 -->
-               <div class="route_wrap" id="alcnRotInfo">
+              
+              <!-- //왕복시 노출 추가 2017-02-10 -->
+
+					<c:if test="${param.pathDvs eq 'rtrp'}">
+						<p class="date">
+							<span class="txtBox" id="rtrpDeprDtm"><span>가는 날</span>${param.deprDtm } </span> 
+							<span class="txtBox" id="rtrpArvlDtm"><span>오는 날</span>${param.arvlDtm }</span>
+						</p>
+					</c:if>
+					<c:if test="${param.pathDvs eq 'sngl'}">
+							 <p class="date" id="alcnDeprDtm">가는 날 ${param.deprDtm }</p>
+					</c:if>
+					
+
+
+
+					<div class="route_wrap" id="alcnRotInfo">
                   <div class="inner">
                      <dl class="roundBox departure kor">
                         <dt>출발</dt>
