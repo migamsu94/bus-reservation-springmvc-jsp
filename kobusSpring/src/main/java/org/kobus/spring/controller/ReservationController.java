@@ -135,11 +135,13 @@ public class ReservationController {
 	    			deprDtm = deprDtm + ":00";
 	    		}
 
+	    		if (deprDtm.length() == 14) {
+	    			deprDtm = deprDtm.substring(0, 4) + "-" + 
+		    				deprDtm.substring(4, 6) + "-" + 
+		    				deprDtm.substring(6, 8) + " " + deprDtm.substring(9, 14);
+				}
 
-	    		deprDtm = deprDtm.substring(0, 4) + "-" + 
-	    				deprDtm.substring(4, 6) + "-" + 
-	    				deprDtm.substring(6, 8) + " " + deprDtm.substring(9, 14);
-
+	    		
 
 	    		// 오는편
 	    	} else {
