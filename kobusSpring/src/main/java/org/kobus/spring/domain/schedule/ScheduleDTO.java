@@ -25,6 +25,7 @@ public class ScheduleDTO {
 	private String deprRegName;
 	private String arrRegName;
 	private LocalDateTime departureDate;    /*출발일자*/
+	private String deprDateStr;    /*출발일자*/
 	private String comName;             	/*고속사*/
 	private String busGrade;            	/*등급*/
 	private int adultFare;           		/*어른요금*/
