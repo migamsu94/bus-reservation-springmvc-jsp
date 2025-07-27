@@ -50,7 +50,8 @@ response.setDateHeader("Expires", 0); // Proxies
 <div class="col-sm-3 col-lg-2 sidebar">
   <ul class="nav menu">
     <li class="active"><a href="#"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"/></svg> 대시보드</a></li>
-    <li><a href="#">회원 관리</a></li>
+    <li><a href="${pageContext.request.contextPath}/adminPage.do">Home</a></li>
+    <li><a href="${pageContext.request.contextPath}/memberEditPage.do">회원 관리</a></li>
     <li><a href="#">결제 내역</a></li>
     <li><a href="#">공지사항</a></li>
   </ul>
