@@ -228,6 +228,8 @@ public class FreePassPageController {
             
         } else if ("rtrp".equals(pathDvs)) {
             // 가는편
+        	model.addAttribute("deprNm", arvlNm);
+        	model.addAttribute("arvlNm", deprNm);
             model.addAttribute("selAdltCnt", selAdltCnt1);
             model.addAttribute("selChldCnt", selChldCnt1);
             model.addAttribute("selTeenCnt", selTeenCnt1);

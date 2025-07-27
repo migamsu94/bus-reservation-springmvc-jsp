@@ -92,11 +92,12 @@ function fnRecpCanInfo(idx , type) {
 	//var satsNo = document.forms["recpCanFrm"+idx].elements['satsNo'].value;
 	var satsNo = $("#recpCanFrm"+idx+" #satsNo").val()
 	
-		var recpCanInfoFrm = $("form[name=recpCanFrm]").serialize();
+		var recpCanInfoFrm = $("#recpCanFrm" + idx).serializeArray();
+		recpCanInfoFrm.push({name: '${_csrf.parameterName}', value: '${_csrf.token}'});
 		$.ajax({
 			 type:"post"
 			,url: "/koBus/kobusResvCancel.ajax?ajaxType=search"
-			,data:recpCanInfoFrm // input 값 세팅 
+			,data: $.param(recpCanInfoFrm)
 			,dataType:"json"
 			,success:function(recpListMap){
 				/*if (data.MSG_CD != 'S0000'){
@@ -111,10 +112,12 @@ function fnRecpCanInfo(idx , type) {
 		    	}
 
 				// 편도일 때
-			    var html ='';
-			    html +='<form id="recpCanFrm" name="recpCanFrm" method="POST" tabindex="-1" action="/koBus/manageReservations.do">';
-	    		html +='<input type="hidden" name="nonMbrsNo" id="nonMbrsNo" tabindex="-1" value="'+recpListMap.nonMbrsNo+'">';
-	    		
+			   // 편도일 때
+				var html = '';
+				html += '<form id="recpCanFrm' + idx + '" name="recpCanFrm' + idx + '" method="POST" action="/koBus/manageReservations.do">';
+				html += '<input type="hidden" name="nonMbrsNo" id="nonMbrsNo' + idx + '" value="' + recpListMap.nonMbrsNo + '">';
+				html += '<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />';
+				
 	    		
 		    	if(recpListMap.prmmDcDvsCd != '4' || recpListMap.rtrpMrsYn != 'Y') {
 		    		html +='<input type="hidden" name="mrsMrnpNo" id="mrsMrnpNo" tabindex="-1" value="'+recpListMap.mrsMrnpno+'">';
@@ -677,8 +680,8 @@ function fnRecpCanInfo(idx , type) {
 			    	html +='<div class="mob_pad marT30"><h3 class="pop_h3 mob_h3">취소 안내</h3><p class="bul">마일리지(프리미엄) 예매 건은 <span class="accent2">취소 시 사용 마일리지 반환이 불가</span>하오니 유의하시기 바랍니다.</p></div>';
 			    }
 			    html +='</div>';
-			    html +='<div class="btns col1"><button recpListMap-remodal-action="confirm" onclick="fnRecpCan();" class="btnL btn_orange">'+'예매취소'+'</button></div>';
-			    html += '<button type="button" recpListMap-remodal-action="close" class="remodal-close"><span class="sr-only">'+'닫기'+'</span></button>'
+			    html +='<div class="btns col1"><button recpListMap-remodal-action="confirm"  onclick="fnRecpCan();" class="btnL btn_orange">'+'예매취소'+'</button></div>';
+			    html += '<button type="button" recpListMap-remodal-action="close" class="remodal-close" id="closeModal"><span class="sr-only">'+'닫기'+'</span></button>'
 			    html +='</div>';
 			    html +='</form>';
 			    // 왕복일 때
@@ -907,10 +910,10 @@ function fnTckCanInfo(idx) {
 */
 // 예매단위 취소
 function fnRecpCan() {
-	var mrsRecpCanFrm = $("form[name=recpCanFrm]").serialize(); 
+	var mrsRecpCanFrm = $("form[name=recpCanFrm"+idx+"]").serialize(); 
 
 // 변경된 폼 상태를 다시 serialize 해서 최신 값 가져오기
-	var updatedFormData = $("form[name=recpCanOkFrm]").serialize();
+	var updatedFormData = $("form[name=recpCanOkFrm"+idx+"]").serialize();
 	
 	if(confirm("예매취소 하시겠습니까?") == true){
 				$.ajax({

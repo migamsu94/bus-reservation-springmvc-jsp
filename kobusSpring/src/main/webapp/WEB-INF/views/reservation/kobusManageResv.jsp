@@ -146,10 +146,14 @@
 </style>
 
 <script>
-$("#recpCanFrm > button").on("click", function () {
-	
-})
+  $(function() {
+    var inst = $("#popTicketCancel").remodal();
 
+    // 닫기 버튼 클릭 시 모달 닫기
+    $("#closeModal").on("click", function() {
+      inst.close();
+    });
+  });
 </script>
 
 
@@ -348,7 +352,7 @@ $("#recpCanFrm > button").on("click", function () {
 								
 							</form>
 							<!-- 예매취소 form -->
-							<form id="recpCanFrm" name="recpCanFrm">
+							<form id="recpCanFrm${status.index}" name="recpCanFrm${status.index}">
 
 								<%-- <input type="hidden" name="nonMbrsNo" id="nonMbrsNo" value="${resv.nonMbrsNo}"> --%>
 								<input type="hidden" name="mrsMrnpno" id="mrsMrnpno" value="${resv.resId}">
@@ -383,7 +387,7 @@ $("#recpCanFrm > button").on("click", function () {
 								
 							</form>
 							
-							<form id="recpCanOkFrm" name="recpCanOkFrm">
+							<form id="recpCanOkFrm${status.index}" name="recpCanOkFrm${status.index}">
 
 								<%-- <input type="hidden" name="nonMbrsNo" id="nonMbrsNo" value="${resv.nonMbrsNo}"> --%>
 								<input type="hidden" name="mrsMrnpno" id="mrsMrnpno" value="${resv.resId}">

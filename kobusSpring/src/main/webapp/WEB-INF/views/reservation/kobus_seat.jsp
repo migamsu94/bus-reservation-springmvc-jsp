@@ -145,15 +145,7 @@ $(document).ready(function () {
 			
 				
 			<c:set var="bus" value="${busList[0]}" />
-			
-			arvlDtm : ${arvlDtm }
-			pathDvs : ${pathDvs }
-			pathStep : ${pathStep }
-			bus.adultFare : ${bus.adultFare }
-             
-			bus.childFare : ${bus.childFare }
-			             
-			bus.stuFare : ${bus.stuFare }
+		
 			
 			<form name="satsChcFrm" id="satsChcFrm" method="post">
 				
@@ -479,11 +471,6 @@ $(document).ready(function () {
 
 					<h3>매수 및 좌석선택</h3>
 					
-								
-					deprDtm : ${deprDtm}
-					arvlDtm : ${arvlDtm}
-					pathStep : ${pathStep }
-
 					<div class="selectSeat_wrap">
 						<!-- compareBox -->
 						<div class="compare_wrap">

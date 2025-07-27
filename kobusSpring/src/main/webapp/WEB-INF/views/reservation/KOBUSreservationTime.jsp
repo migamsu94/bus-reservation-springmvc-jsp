@@ -127,7 +127,13 @@ System.out.println(">> busrank: " + request.getParameter("busClsCd"));
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
 
-
+<script>
+$(document).ready(function () {
+    $("#reloadBtn").on("click", function () {
+        location.reload(); // 현재 페이지 새로고침
+    });
+});
+</script>
 <script>
 
 $(document).ready(function () {
@@ -666,10 +672,6 @@ $(document).on("click", ".time li a", function () {
             <!-- 좌측 infoBox -->
             <div class="infoBox">
                <!-- <p class="date" id="alcnDeprDtm">2025. 6. 17. 화</p> -->
-               
-             arvlDtm : ${param.arvlDtm }
-			pathDvs : ${param.pathDvs }
-			pathStep : ${param.pathStep }
               
               <!-- //왕복시 노출 추가 2017-02-10 -->
 
@@ -753,9 +755,9 @@ $(document).on("click", ".time li a", function () {
             <div class="detailBox">
                   <div class="detailBox_head col3" style="min-height: 70px;">
                      <div class="box_refresh">
-                        <button class="btn btn_refresh" id="reloadBtn" type="button">
-                           <span class="ico_refresh"><span class="sr-only">새로고침</span></span>
-                        </button>
+                        <button type="button" class="btn btn_refresh" id="reloadBtn">
+											<span class="ico_refresh"><span class="sr-only">새로고침</span></span>
+						</button>
                      </div>
 
                      <div class="head_date">
