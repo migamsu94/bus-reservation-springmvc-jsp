@@ -64,7 +64,8 @@
             게시글을 수정하세요.
         </p>
 
-        <form action="${pageContext.request.contextPath}/html/boardEdit.do" method="post" class="board_edit">
+        <form action="${pageContext.request.contextPath}/board/edit.do" method="post" class="board_edit">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
             <input type="hidden" name="brdID" value="${dto.brdID}"> 
             
             <label for="brdTitle">제목</label> 

@@ -5,29 +5,41 @@
 
 <mapper namespace="org.kobus.spring.mapper.board.BoardMapper">
 
-    <select id="selectBoardList" resultType="org.kobus.spring.domain.board.BoardDTO">
-        SELECT * FROM board ORDER BY brdID DESC
-    </select>
+	<select id="selectBoardList"
+		resultType="org.kobus.spring.domain.board.BoardDTO">
+		SELECT * FROM board ORDER BY brdID DESC
+	</select>
 
-    <select id="getBoardById" resultType="org.kobus.spring.domain.board.BoardDTO">
-        SELECT * FROM board WHERE brdID = #{brdID}
-    </select>
+	<select id="getBoardById"
+		resultType="org.kobus.spring.domain.board.BoardDTO">
+		SELECT b.*, u.id AS userId
+		FROM board b
+		JOIN kobusUser u ON b.kusID = u.kusID
+		WHERE b.brdID = #{brdID}
+	</select>
 
-    <insert id="save" parameterType="org.kobus.spring.domain.board.BoardDTO">
-        INSERT INTO board (brdID, kusID, brdTitle, brdContent, brdDate)
-        VALUES (board_seq.NEXTVAL, #{kusID}, #{brdTitle}, #{brdContent}, SYSDATE)
-    </insert>
 
-    <update id="updateBoard">
-        UPDATE board
-        SET brdTitle = #{brdTitle},
-            brdContent = #{brdContent}
-        WHERE brdID = #{brdID}
-    </update>
+	<insert id="save"
+		parameterType="org.kobus.spring.domain.board.BoardDTO">
+		INSERT INTO board (brdID, kusID, brdTitle, brdContent,
+		brdDate)
+		VALUES (board_seq.NEXTVAL, #{kusID}, #{brdTitle},
+		#{brdContent}, SYSDATE)
+	</insert>
 
-    <delete id="deleteBoard">
-        DELETE FROM board WHERE brdID = #{brdID}
-    </delete>
-    
+	<update id="updateBoard">
+		UPDATE board
+		SET brdTitle = #{brdTitle},
+		brdContent =
+		#{brdContent}
+		WHERE brdID = #{brdID}
+		AND kusID = #{kusID}
+	</update>
+
+
+	<delete id="deleteBoard">
+		DELETE FROM board WHERE brdID = #{brdID}
+	</delete>
+
 
 </mapper>

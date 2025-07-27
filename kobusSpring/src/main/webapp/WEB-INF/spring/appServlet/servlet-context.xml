@@ -28,6 +28,8 @@
 	<!-- @Controller 애노테이션이 붙은 클래스를 스캔 -->
 	<context:component-scan base-package="org.kobus.spring" />
  	<context:component-scan base-package="org.kobus.spring.controller" /> 
+ 	<context:component-scan base-package="org.kobus.spring.domain.board" />
+ 	
 	
 	<!--  Tiles  -->
     <beans:bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
