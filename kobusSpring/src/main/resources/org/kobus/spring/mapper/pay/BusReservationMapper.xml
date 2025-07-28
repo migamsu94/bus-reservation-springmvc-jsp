@@ -132,6 +132,18 @@
 	  )
 	  WHERE ROWNUM = 1
 	</select>
+	
+	<select id="selectFPPayIdByAdtnSno" resultType="String">
+	  SELECT free_pass_pay_id
+	  FROM (
+	    SELECT free_pass_pay_id
+	    FROM free_pass_payment
+	    WHERE adtn_prd_sno = #{adtnPrdSno}
+	      AND kusid = #{kusid}
+	    ORDER BY free_pass_pay_id DESC
+	  )
+	  WHERE ROWNUM = 1
+	</select>
 		
 	
 	

@@ -1,7 +1,5 @@
 package org.kobus.spring.domain.pay;
 
-import java.sql.Date;
-
 import lombok.Getter;
 import lombok.Setter;
 

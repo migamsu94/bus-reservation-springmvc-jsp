@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.kobus.spring.domain.pay.FreepassPaymentDTO;
 import org.kobus.spring.domain.pay.PaymentCommonDTO;
+import org.kobus.spring.domain.pay.ResPassUsageDTO;
 import org.kobus.spring.domain.pay.RequestPayDTO;
 import org.kobus.spring.domain.pay.ResSeasonUsageDTO;
 import org.kobus.spring.domain.pay.ReservationPaymentDTO;
@@ -244,7 +245,7 @@ public class PaymentController {
         try {
             // 로그인 사용자 확인
             String userId = (String) request.getSession().getAttribute("userId");
-            if (userId == null) userId = "KUS003"; // 테스트용
+            if (userId == null) userId = "KUS001"; // 테스트용
             dto.setKusid(userId);
 
             boolean saved = freepassService.saveSeasonTicketPayment(dto);
@@ -276,7 +277,7 @@ public class PaymentController {
         try {
             // 세션에서 userId 확인
             String userId = (String) request.getSession().getAttribute("userId");
-            if (userId == null) userId = "KUS003"; // 테스트용
+            if (userId == null) userId = "KUS001"; // 테스트용
 
             // 필수 파라미터 추출
             String adtnPrdSno = request.getParameter("adtn_prd_sno");
@@ -389,12 +390,12 @@ public class PaymentController {
 	        	rideDateStr = rideDateStr.replace('+', ' ').replaceAll("\\s+", " ").trim();
 	        }
 	        */
-	        String rideDateStr = request.getParameter("usedDate");
+	        String rideDateStr = request.getParameter("rideDate");
 	        System.out.println("📌 raw rideDateStr = [" + rideDateStr + "]");
 
 	        rideDateStr = rideDateStr.trim(); // 꼭 trim 해주세요
 	        System.out.println("📌 trimmed rideDateStr = [" + rideDateStr + "]");
-	        
+	        /*
 	        LocalDateTime rideDate = null;  // 먼저 선언해두기
 
 	        // 예외 발생 시 catch 하자
@@ -409,15 +410,15 @@ public class PaymentController {
 	        for (char ch : rideDateStr.toCharArray()) {
 	            System.out.printf("'%c' (U+%04X)%n", ch, (int) ch);
 	        }
-
+			*/
 	        // [3] reservation DTO 생성
 	        ResvDTO resvDto = new ResvDTO();
 	        resvDto.setResId(resId);
 	        resvDto.setKusid(kusId);
 	        resvDto.setBshId(bshid);
 	        resvDto.setSeatNo(selectedSeatIds);
-	        System.out.println("🟡 탑승일자(rideDateStr) rideDate: " + rideDate);
-	        resvDto.setRideDate(rideDate);
+	        System.out.println("🟡 탑승일자(rideDateStr) rideDate: " + rideDateStr);
+	        resvDto.setRideDateStr(rideDateStr);
 	        resvDto.setResvDateStr(formatted);
 	        resvDto.setResvStatus("결제완료");
 	        resvDto.setResvType("정기권");
@@ -459,6 +460,7 @@ public class PaymentController {
             // [5] 결과 반환
 	        if (saved == 1 && saved2 == 1) {
 	            resultMap.put("result", "SUCCESS");
+	            resultMap.put("resId", generatedResId); // 실제 시퀀스 값
 	            resultMap.put("message", "정기권 예매가 완료되었습니다.");
 	        } else {
 	            System.out.println("❗ 예매 저장 실패 - saved: " + saved + ", saved2: " + saved2);
@@ -478,72 +480,114 @@ public class PaymentController {
         return resultMap;
     }
     
-    
-    /*
-    @PostMapping("/usedSeasonticket.do")
-    public Map<String, Object> handleSeasonTicketReservation(HttpServletRequest request, Principal principal) {
+    @PostMapping("/usedFreePass.do")
+    public Map<String, Object> handleFreePassReservation(HttpServletRequest request, Principal principal) {
         Map<String, Object> resultMap = new HashMap<>();
 
         try {
             request.setCharacterEncoding("UTF-8");
-
-            // [1] request 파라미터 추출
-            String user_id = request.getParameter("user_id");
-            String resId = request.getParameter("resId");
-            String boarding_dt = request.getParameter("boarding_dt");
-            String boarding_time = request.getParameter("boarding_time");
-            String bus_schedule_id = request.getParameter("bus_schedule_id");
             
-            String userId = principal.getName();
+         // [1] request 파라미터 추출
+	        String user_id = request.getParameter("user_id");
+	        String resId = request.getParameter("resId");     
+	        // String boarding_dt = request.getParameter("usedDate");
+	        String bshid = request.getParameter("bshid");
+	        String selectedSeatIds = request.getParameter("selectedSeatIds");
+	        String adtnPrdSno = request.getParameter("adtnPrdSno");
+	        
+	        
+	        System.out.println("selectedSeatIds " + selectedSeatIds);
+	        System.out.println("bshid " + bshid);
+	        
+	        String userId = principal.getName();
 	        System.out.println("POST 요청한 사용자: " + userId);
-            
-            String kusId = reservationMapper.findId(userId);
+	        
+	        
+	        String kusId = reservationMapper.findId(userId);
 	        System.out.println("kusId " + kusId);
+	        
+	        LocalDateTime now = LocalDateTime.now();
+	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss.SSS");
 
-            // [2] 예매일자 현재 시간으로 포맷팅
-            LocalDateTime now = LocalDateTime.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss.SSS");
-            String formatted = now.format(formatter);
+	        String formatted = now.format(formatter);
+	        /*
+	        if (rideDateStr != null) {
+	        	rideDateStr = rideDateStr.replace('+', ' ').replaceAll("\\s+", " ").trim();
+	        }
+	        */
+	        String rideDateStr = request.getParameter("rideDate");
+	        System.out.println("📌 raw rideDateStr = [" + rideDateStr + "]");
 
-            // [3] reservation DTO 생성
-            ResvDTO resvDto = new ResvDTO();
-            resvDto.setResId(resId);
-            resvDto.setKusid(kusId);
-            resvDto.setBshId(bus_schedule_id);
-            resvDto.setRideDateStr(boarding_dt); // 날짜+시간 문자열
-            resvDto.setResvDateStr(formatted);
-            resvDto.setResvStatus("예약");
-            resvDto.setResvType("정기권"); // 중요: 일반 -> 정기권
-            resvDto.setQrCode((long) (Math.random() * 1000000000L));
-            resvDto.setMileage(0); // 정기권은 마일리지 없음
-            resvDto.setSeatable("Y");
-            
-            ResSeasonUsageDTO usageDTO = new ResSeasonUsageDTO();
-            usageDTO.setResId(resvDto.getResId());
-            
-            
+	        rideDateStr = rideDateStr.trim(); // 꼭 trim 해주세요
+	        System.out.println("📌 trimmed rideDateStr = [" + rideDateStr + "]");
+	       
+	        // [3] reservation DTO 생성
+	        ResvDTO resvDto = new ResvDTO();
+	        resvDto.setResId(resId);
+	        resvDto.setKusid(kusId);
+	        resvDto.setBshId(bshid);
+	        resvDto.setSeatNo(selectedSeatIds);
+	        System.out.println("🟡 탑승일자(rideDateStr) rideDate: " + rideDateStr);
+	        resvDto.setRideDateStr(rideDateStr);
+	        resvDto.setResvDateStr(formatted);
+	        resvDto.setResvStatus("결제완료");
+	        resvDto.setResvType("프리패스");
+	        resvDto.setQrCode((long) (Math.random() * 1000000000L));
+	        resvDto.setMileage(0);
+	        resvDto.setSeatable("Y");
+	        
+	        System.out.println(resvDto.toString());
+	        
+	        String fpCpnNo = reservationMapper.selectFPPayIdByAdtnSno(adtnPrdSno, kusId);
+	        System.out.println("📌 adtnPrdSno: " + adtnPrdSno);
+	        System.out.println("📌 kusId: " + kusId);
+	        System.out.println("📌 조회된 fpCpnNo: " + fpCpnNo);
+	        if (fpCpnNo == null) {
+	            // 오류 처리
+	            throw new IllegalStateException("프리패스 결제 정보가 존재하지 않습니다.");
+	        }
 
-            // [4] 서비스 호출 (정기권용 로직: payment 테이블 저장 없음)
-            int saved = reservationMapper.insertReservation(resvDto);
-            int saved2 = reservationMapper.insertSeasonUsage(usageDTO);
+	        // reservation 먼저 insert
+	        // resvDto.setResId(null); // selectKey 사용 시 생략 가능
+	        int saved = reservationMapper.insertReservation(resvDto);
+	        System.out.println("🔵 insertReservation result: " + saved);
+
+	        // 시퀀스가 적용된 resId를 DTO에서 꺼냄
+	        String generatedResId = resvDto.getResId();
+	        String generatedUsedDate = resvDto.getResvDateStr();
+
+	        // 이제 usageDTO에 넣는다
+	        ResPassUsageDTO usageDTO = new ResPassUsageDTO();
+	        usageDTO.setResId(generatedResId);
+	        usageDTO.setFpCpnNo(fpCpnNo);
+	        usageDTO.setTimDte(generatedUsedDate);
+
+	        // 사용 내역 insert
+	        int saved2 = reservationMapper.insertFreePassUsage(usageDTO);
+	        System.out.println("🟢 insertFreePassUsage result: " + saved2);
             
 
             // [5] 결과 반환
-            if (saved == 1 && saved2 == 1) {
-                resultMap.put("result", "SUCCESS");
-                resultMap.put("message", "정기권 예매가 완료되었습니다.");
-            } else {
-                resultMap.put("result", "FAIL");
-                resultMap.put("message", "예매 저장에 실패했습니다.");
-            }
+	        if (saved == 1 && saved2 == 1) {
+	            resultMap.put("result", "SUCCESS");
+	            resultMap.put("resId", generatedResId); // 실제 시퀀스 값
+	            resultMap.put("message", "프리패스 예매가 완료되었습니다.");
+	        } else {
+	            System.out.println("❗ 예매 저장 실패 - saved: " + saved + ", saved2: " + saved2);
+	            resultMap.put("result", "FAIL");
+	            resultMap.put("message", "예매 저장에 실패했습니다.");
+	        }
+
 
 
         } catch (Exception e) {
             e.printStackTrace();
-            resultMap.put("result", 0);
+            resultMap.put("result", "FAIL"); // 문자열로
+            resultMap.put("message", e.getMessage()); // 오류 메시지도 같이 전달
         }
+
 
         return resultMap;
     }
-    */
+    
 } // class
