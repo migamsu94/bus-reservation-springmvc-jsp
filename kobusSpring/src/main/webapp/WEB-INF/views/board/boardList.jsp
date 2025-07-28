@@ -272,6 +272,7 @@ body {
 
 			<div class="search_wrap type2">
 				<form action="boardList.do" method="get" class="search_wrap type2">
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 					<div class="search_box">
 						<input type="text" name="keyword" placeholder="검색어 입력"
 							value="${keyword}">
@@ -326,5 +327,12 @@ body {
 	</div>
 
 </body>
+<script>
+<c:if test="${not empty msg}">
+<script>
+    alert('${msg}');
+</script>
+</c:if>
 
+</script>
 </html>
