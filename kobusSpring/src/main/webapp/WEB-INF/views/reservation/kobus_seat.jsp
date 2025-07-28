@@ -145,14 +145,13 @@ $(document).ready(function () {
 			
 				
 			<c:set var="bus" value="${busList[0]}" />
-			<form name="satsChcFrm" id="satsChcFrm" method="post"
-				action="/koBus/kobusSeat.do">
+		
+			
+			<form name="satsChcFrm" id="satsChcFrm" method="post">
+				
 				<input type="hidden" name="sourcePage" value="kobus_seat.jsp">
 				<input type="hidden" name="deprCd" id="deprCd" value="${deprId }">
 				<!-- 출발지코드 -->
-				<%-- <input type="hidden" name="deprCd" id="deprCd" value="${param.deprCode}"> --%>
-				<!-- 추후 el 표기법으로 변경하기 그럼 request.getParameter 랑 setAttribute 없어도 됨-->
-				
 				<input type="hidden" name="deprNm" id="deprNm" value="${deprNm }">
 				<!-- 출발지명 -->
 				<input type="hidden" name="arvlCd" id="arvlCd" value="${arrId }">
@@ -166,19 +165,19 @@ $(document).ready(function () {
 				<input type="hidden" name="tfrArvlFullNm" id="tfrArvlFullNm"
 					value="">
 				<!-- 환승지포함 도착지 명 -->
-				<input type="hidden" name="pathDvs" id="pathDvs" value="sngl">
+				<input type="hidden" name="pathDvs" id="pathDvs" value="${pathDvs }">
 				<!-- 직통sngl,환승trtr,왕복rtrp -->
-				<input type="hidden" name="pathStep" id="pathStep" value="1">
+				<input type="hidden" name="pathStep" id="pathStep" value="${pathStep }">
 				<!-- 왕편 복편 설정 -->
 				<input type="hidden" name="deprDtm" id="deprDtm" value="${deprDtm }">
 				<!-- 가는날(편도,왕복) -->
 				<input type="hidden" name="deprDtmAll" id="deprDtmAll"
-					value="${deprDtm }">
+					value="${deprDtmAll }">
 				<!-- 가는날(편도,왕복) -->
-				<input type="hidden" name="arvlDtm" id="arvlDtm" value="${deprDtm }">
+				<input type="hidden" name="arvlDtm" id="arvlDtm" value="${arvlDtm }">
 				<!-- 오는날(왕복) -->
 				<input type="hidden" name="arvlDtmAll" id="arvlDtmAll"
-					value="2025. 6. 21. 토">
+					value="${arvlDtmAll }">
 				<!-- 오는날(왕복) -->
 				<input type="hidden" name="busClsCd" id="busClsCd" value="${bus.busGrade }">
 				<input type="hidden" name="bshId" id="bshId" value="${bus.bshId }">
@@ -195,7 +194,7 @@ $(document).ready(function () {
 				<input type="hidden" name="alcnDeprDt" id="alcnDeprDt" value="">
 				<!-- 배차출발일 -->
 				<input type="hidden" name="alcnDeprTime" id="alcnDeprTime"
-					value="072000">
+					value="">
 				<!-- 배차출발시각 -->
 				<input type="hidden" name="alcnDeprTrmlNo" id="alcnDeprTrmlNo"
 					value="010">
@@ -335,6 +334,13 @@ $(document).ready(function () {
 				<!-- 왕복시 복편 선택좌석번호전체   -->
 				<input type="hidden" name="pcpyNoAll2" id="pcpyNoAll2" value="">
 				<!-- 왕복시 복편 선점번호전체   -->
+				
+				<input type="hidden" name="satsNoAll2" id="satsNoAll2" value="">
+				<!-- 왕복시 복편 선택좌석번호전체   -->
+				<input type="hidden" name="pcpyNoAll2" id="pcpyNoAll2" value="">
+				<!-- 왕복시 복편 선점번호전체   -->
+				
+				
 
 				<input type="hidden" name="rtSelAdltCnt" id="rtSelAdltCnt" value="">
 				<!-- 어른수   -->
@@ -378,9 +384,9 @@ $(document).ready(function () {
 				<!-- 결제금액 -->
 				
 
-				<input type="hidden" name="rtrpDtl1" id="rtrpDtl1" value="">
+				<input type="hidden" name="rtrpDtl1" id="rtrpDtl1" value="${rtrpDtl1 }">
 				<!-- 왕복시 왕편데이터중 선점을 제외한 나머지 데이터 입력매수,일반인할인매수,일반인,중고생,초등생,대학생,시외우등형할인구분,예매금액,할인금액,결제금액,출발일,출발시간 순으로':'로 구분 -->
-				<input type="hidden" name="rtrpDtl2" id="rtrpDtl2" value="">
+				<input type="hidden" name="rtrpDtl2" id="rtrpDtl2" value="${rtrpDtl2 }">
 				<!-- 왕복시 복편데이터중 선점을 제외한 나머지 데이터 입력매수,일반인할인매수,일반인,중고생,초등생,대학생,시외우등형할인구분,예매금액,할인금액,결제금액,출발일,출발시간 순으로':'로 구분 -->
 
 
@@ -464,14 +470,21 @@ $(document).ready(function () {
 				<div class="container">
 
 					<h3>매수 및 좌석선택</h3>
-
+					
 					<div class="selectSeat_wrap">
 						<!-- compareBox -->
 						<div class="compare_wrap">
 							<!-- 좌측 infoBox -->
 							<div class="infoBox">
 
-								<p class="date" id="satsDeprDtm">${deprDtm }</p>
+								<c:if test="${pathStep eq '1'}">
+									<p class="date" id="satsDeprDtm">${deprDtm }</p>
+								</c:if>
+								<c:if test="${pathStep eq '2'}">
+									<p class="date" id="satsDeprDtm">${arvlDtm }</p>
+								</c:if>
+					
+								
 								<div class="route_wrap" id="satsRotInfo">
 									<div class="inner">
 

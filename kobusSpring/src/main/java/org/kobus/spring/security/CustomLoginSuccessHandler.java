@@ -46,6 +46,8 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler{
 		
 		log.warn("👍 > ROLE NAMES : " + roleNames );
 		
+		request.getSession().setAttribute("rolename", roleNames);
+		
 		if ( roleNames.contains("ROLE_USER") ) {
 			response.sendRedirect("/koBus/main.do");
 			return;

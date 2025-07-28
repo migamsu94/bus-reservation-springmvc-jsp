@@ -8,12 +8,14 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
+@ToString
 public class ResvDTO {
 	
 	private String resId; 			/* 예매번호 */
@@ -46,22 +48,20 @@ public class ResvDTO {
 	private int mileage;
 	private String seatable;
 	
-	private String returnBshId;
-	private String returnSeatId;
-	private Timestamp returnRideDate;
+	// 오는 편 전용 필드
+	private String selAdltCnt2;         // 복편 성인 인원 수
+	private String selTeenCnt2;         // 복편 청소년 인원 수
+	private String selChldCnt2;         // 복편 어린이 인원 수
+	private String selectedSeatIds2;    // 복편 선택한 좌석 ID 목록 (예: SEAT001,SEAT002)
+	private String selSeatNum2;         // 복편 선택 좌석 번호 문자열
+	private String selSeatCnt2;         // 복편 총 좌석 수
+	private String allTotAmtPrice1;     // 복편 가는편 금액
+	private String allTotAmtPrice2;     // 복편 오는편 금액
+	private String busId2;            // 복편 버스 코드
+	private String cacmCd2;             // 복편 노선 코드
+	private String cacmNm2;             // 복편 노선명
+	private String indVBusClsCd2;       // 복편 버스 등급 코드
+	private String arvlSeatNos;         // 복편 도착 좌석 번호 (예: 1A, 1B)
 	
-
-	@Override
-	public String toString() {
-	    return "ResvDTO{" +
-	            "resId='" + resId + '\'' +
-	            ", kusid='" + kusid + '\'' +
-	            ", bshId='" + bshId + '\'' +
-	            ", seatNo='" + seatNo + '\'' +
-	            ", rideDate='" + rideDate + '\'' +
-	            ", returnRideDate=" + rideDateStr +
-	            ", rideTimeStr=" + rideTimeStr +
-	            '}';
-	}
 
 }
