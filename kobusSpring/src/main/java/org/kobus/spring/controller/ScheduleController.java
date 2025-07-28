@@ -153,10 +153,15 @@ public class ScheduleController {
 	        List<ScheduleDTO> schList = new ArrayList<ScheduleDTO>();
 	        
 	        if (pathStep.equals("1")) {
+	        	System.out.println("getDuration deprDtm " + deprDtm);
 	        	schList = scheduleService.searchBusSchedule(deprCd, arvlCd, deprDtm, busClsCd);
 			}else {
 				
 				busClsCd = "전체";
+				System.out.println("getDuration deprDtm " + deprDtm);
+				arvlDtm = deprDtm;
+				System.out.println("getDuration arvlDtm " + arvlDtm);
+				
 				schList = scheduleService.searchBusSchedule(arvlCd, deprCd, arvlDtm, busClsCd);
 			}
 	        

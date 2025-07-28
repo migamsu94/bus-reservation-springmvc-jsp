@@ -304,13 +304,15 @@ public class PaymentController {
             }
             
          // startDate 방어 코드 추가
+         // startDate 처리 (비어 있으면 오늘 날짜로 대체)
+            Date startDate;
             if (startDateStr == null || startDateStr.trim().isEmpty()) {
-                resultMap.put("result", 0);
-                resultMap.put("msg", "startDate가 비어 있습니다.");
-                return resultMap;
+                System.out.println("📌 startDate 비어 있음 → 오늘 날짜로 설정합니다.");
+                startDate = new java.sql.Date(System.currentTimeMillis());
+            } else {
+                System.out.println("📌 startDateStr = [" + startDateStr + "]");
+                startDate = new java.sql.Date(new SimpleDateFormat("yyyy-MM-dd").parse(startDateStr).getTime());
             }
-            System.out.println("startDateStr = [" + startDateStr + "]");
-            Date startDate = new java.sql.Date(new SimpleDateFormat("yyyy-MM-dd").parse(startDateStr).getTime());
 
             // DTO 구성
             PaymentCommonDTO payDto = new PaymentCommonDTO();
@@ -369,6 +371,10 @@ public class PaymentController {
 	        String bshid = request.getParameter("bshid");
 	        String selectedSeatIds = request.getParameter("selectedSeatIds");
 	        String adtnPrdSno = request.getParameter("adtnPrdSno");
+	        String seatNos = request.getParameter("seatNos");
+	        int selAdltCnt = Integer.parseInt(request.getParameter("selAdltCnt"));
+	        int selTeenCnt = Integer.parseInt(request.getParameter("selTeenCnt"));
+	        int selChldCnt = Integer.parseInt(request.getParameter("selChldCnt"));
 	        
 	        
 	        System.out.println("selectedSeatIds " + selectedSeatIds);
@@ -395,6 +401,11 @@ public class PaymentController {
 
 	        rideDateStr = rideDateStr.trim(); // 꼭 trim 해주세요
 	        System.out.println("📌 trimmed rideDateStr = [" + rideDateStr + "]");
+	        
+	        
+	        DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        	LocalDateTime rideDate = LocalDateTime.parse(rideDateStr, formatter2);
+	        
 	        /*
 	        LocalDateTime rideDate = null;  // 먼저 선언해두기
 
@@ -418,6 +429,7 @@ public class PaymentController {
 	        resvDto.setBshId(bshid);
 	        resvDto.setSeatNo(selectedSeatIds);
 	        System.out.println("🟡 탑승일자(rideDateStr) rideDate: " + rideDateStr);
+	        resvDto.setRideDate(rideDate);
 	        resvDto.setRideDateStr(rideDateStr);
 	        resvDto.setResvDateStr(formatted);
 	        resvDto.setResvStatus("결제완료");
@@ -425,6 +437,7 @@ public class PaymentController {
 	        resvDto.setQrCode((long) (Math.random() * 1000000000L));
 	        resvDto.setMileage(0);
 	        resvDto.setSeatable("Y");
+	        
 	        
 	        System.out.println(resvDto.toString());
 	        
@@ -455,8 +468,15 @@ public class PaymentController {
 	        // 사용 내역 insert
 	        int saved2 = reservationMapper.insertSeasonUsage(usageDTO);
 	        System.out.println("🟢 insertSeasonUsage result: " + saved2);
+	        
+	        System.out.println("usedSeasonticket seatNos " + seatNos);
+	        System.out.println("usedSeasonticket selectedSeatIds " + selectedSeatIds);
             
-
+	        
+	        int updateReservedSeat = reservationMapper.callAfterReservation(resId, bshid, kusId, selectedSeatIds, selAdltCnt, selTeenCnt, selChldCnt);
+	        
+	        int updateRemainSeats = reservationMapper.updateRemainSeats(resId, rideDateStr);
+	        
             // [5] 결과 반환
 	        if (saved == 1 && saved2 == 1) {
 	            resultMap.put("result", "SUCCESS");
@@ -494,6 +514,9 @@ public class PaymentController {
 	        String bshid = request.getParameter("bshid");
 	        String selectedSeatIds = request.getParameter("selectedSeatIds");
 	        String adtnPrdSno = request.getParameter("adtnPrdSno");
+	        int selAdltCnt = Integer.parseInt(request.getParameter("selAdltCnt"));
+	        int selTeenCnt = Integer.parseInt(request.getParameter("selTeenCnt"));
+	        int selChldCnt = Integer.parseInt(request.getParameter("selChldCnt"));
 	        
 	        
 	        System.out.println("selectedSeatIds " + selectedSeatIds);
@@ -510,6 +533,9 @@ public class PaymentController {
 	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss.SSS");
 
 	        String formatted = now.format(formatter);
+	        
+
+	        
 	        /*
 	        if (rideDateStr != null) {
 	        	rideDateStr = rideDateStr.replace('+', ' ').replaceAll("\\s+", " ").trim();
@@ -520,6 +546,9 @@ public class PaymentController {
 
 	        rideDateStr = rideDateStr.trim(); // 꼭 trim 해주세요
 	        System.out.println("📌 trimmed rideDateStr = [" + rideDateStr + "]");
+	        
+	        DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        	LocalDateTime rideDate = LocalDateTime.parse(rideDateStr, formatter2);
 	       
 	        // [3] reservation DTO 생성
 	        ResvDTO resvDto = new ResvDTO();
@@ -528,6 +557,7 @@ public class PaymentController {
 	        resvDto.setBshId(bshid);
 	        resvDto.setSeatNo(selectedSeatIds);
 	        System.out.println("🟡 탑승일자(rideDateStr) rideDate: " + rideDateStr);
+	        resvDto.setRideDate(rideDate);
 	        resvDto.setRideDateStr(rideDateStr);
 	        resvDto.setResvDateStr(formatted);
 	        resvDto.setResvStatus("결제완료");
@@ -565,6 +595,10 @@ public class PaymentController {
 	        // 사용 내역 insert
 	        int saved2 = reservationMapper.insertFreePassUsage(usageDTO);
 	        System.out.println("🟢 insertFreePassUsage result: " + saved2);
+	        
+	        int updateReservedSeat = reservationMapper.callAfterReservation(resId, bshid, kusId, selectedSeatIds, selAdltCnt, selTeenCnt, selChldCnt);
+	        
+	        int updateRemainSeats = reservationMapper.updateRemainSeats(resId, rideDateStr);
             
 
             // [5] 결과 반환

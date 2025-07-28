@@ -147,10 +147,10 @@ public class FreePassPageController {
              selTeenCnt1 = rtrpDtl1Info[3];
              selChldCnt1 = rtrpDtl1Info[4];
              allTotAmtPrice1 = rtrpDtl1Info[13];
-             indVBusClsCd1 = rtrpDtl1Info[17];
-             cacmCd1 = rtrpDtl1Info[18];
-             cacmNm1 = rtrpDtl1Info[19];
-             busCode1 = rtrpDtl1Info[20];
+             indVBusClsCd1 = rtrpDtl1Info[16];
+             cacmCd1 = rtrpDtl1Info[17];
+             cacmNm1 = rtrpDtl1Info[18];
+             busCode1 = rtrpDtl1Info[19];
              
              deprSeatNos = searchSeatNos(selectedSeatIds1);
              
@@ -164,10 +164,10 @@ public class FreePassPageController {
              selTeenCnt2 = rtrpDtl2Info[3];
              selChldCnt2 = rtrpDtl2Info[4];
              allTotAmtPrice2 = rtrpDtl2Info[13];
-             indVBusClsCd2 = rtrpDtl2Info[17];
-             cacmCd2 = rtrpDtl2Info[18];
-             cacmNm2 = rtrpDtl2Info[19];
-             busCode2 = rtrpDtl2Info[20];
+             indVBusClsCd2 = rtrpDtl2Info[16];
+             cacmCd2 = rtrpDtl2Info[17];
+             cacmNm2 = rtrpDtl2Info[18];
+             busCode2 = rtrpDtl2Info[19];
              
              arvlSeatNos = searchSeatNos(selectedSeatIds2);
              
