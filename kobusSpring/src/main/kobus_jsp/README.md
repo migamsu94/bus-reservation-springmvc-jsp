@@ -1,2 +1,0 @@
-# kobus
-sist web project
