@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -12,7 +11,7 @@ System.out.println(">> busrank: " + request.getParameter("busClsCd"));
 <style>
 /* 날짜 선택 숨김 */
 #datepicker1, #datepicker2 {
-   display: none;
+    display: none; 
 }
 
 /* schedule-row 기본 스타일 */
@@ -141,7 +140,7 @@ $(document).ready(function () {
     var orgDeprDtm = $("#deprDtm").val();
     
     if (pathStep === "2") {
-    	  deprDtm = arvlDtm;
+         deprDtm = arvlDtm;
     }
     
     console.log("orgDeprDtm " + orgDeprDtm);
@@ -211,48 +210,48 @@ $(document).ready(function () {
                 }
 
                 data.alcnAllList.forEach(item => {
-                	const deprTimeStr = item.DEPR_TIME_DVS; // "06:45"
-                	const deprDtmRaw = deprDtm; // "2025.06.25" 또는 "20250625"
-                	const arvlDtm = $("#arvlDtm").val();
-                	const arvlDtmAll = $("#arvlDtmAll").val();
-                	
-                	
-                	
+                   const deprTimeStr = item.DEPR_TIME_DVS; // "06:45"
+                   const deprDtmRaw = deprDtm; // "2025.06.25" 또는 "20250625"
+                   const arvlDtm = $("#arvlDtm").val();
+                   const arvlDtmAll = $("#arvlDtmAll").val();
+                   
+                   
+                   
 
-                	//1. 날짜 문자열 안전하게 ISO8601 형식으로 변환
-                	let dateStr = "";
-                	if (deprDtmRaw && deprDtmRaw.includes(".")) {
-                	    const [yyyy, mm, dd] = deprDtmRaw.split('.').map(s => s.trim().padStart(2, '0'));
-                	    dateStr = `\${yyyy}-\${mm}-\${dd}`;
-                	} else if (deprDtmRaw && deprDtmRaw.length === 8) {
-                	    const yyyy = deprDtmRaw.substring(0, 4);
-                	    const mm = deprDtmRaw.substring(4, 6);
-                	    const dd = deprDtmRaw.substring(6, 8);
-                	    dateStr = `\${yyyy}-\${mm}-\${dd}`;
-                	} else {
-                	    console.warn("deprDtm 형식이 잘못됨:", deprDtmRaw);
-                	}
+                   //1. 날짜 문자열 안전하게 ISO8601 형식으로 변환
+                   let dateStr = "";
+                   if (deprDtmRaw && deprDtmRaw.includes(".")) {
+                       const [yyyy, mm, dd] = deprDtmRaw.split('.').map(s => s.trim().padStart(2, '0'));
+                       dateStr = `\${yyyy}-\${mm}-\${dd}`;
+                   } else if (deprDtmRaw && deprDtmRaw.length === 8) {
+                       const yyyy = deprDtmRaw.substring(0, 4);
+                       const mm = deprDtmRaw.substring(4, 6);
+                       const dd = deprDtmRaw.substring(6, 8);
+                       dateStr = `\${yyyy}-\${mm}-\${dd}`;
+                   } else {
+                       console.warn("deprDtm 형식이 잘못됨:", deprDtmRaw);
+                   }
 
-                	//2. 출발일시 fullTime 만들기 + 현재시간 비교
-                	const fullTime = new Date(`\${dateStr}T\${deprTimeStr}:00`);
-                	const now = new Date();
+                   //2. 출발일시 fullTime 만들기 + 현재시간 비교
+                   const fullTime = new Date(`\${dateStr}T\${deprTimeStr}:00`);
+                   const now = new Date();
 
-                	const isValid = !isNaN(fullTime.getTime()); // Invalid Date 체크
-                	const isPast = isValid && fullTime <= now;
+                   const isValid = !isNaN(fullTime.getTime()); // Invalid Date 체크
+                   const isPast = isValid && fullTime <= now;
 
-                	console.log(`[DEBUG] 출발시각: \${fullTime}, 현재시각: \${now}, 마감여부: \${isPast}`);
+                   console.log(`[DEBUG] 출발시각: \${fullTime}, 현재시각: \${now}, 마감여부: \${isPast}`);
 
-                	//3. 좌석 확인 및 상태 판단
-                	const seats = parseInt(item.RMN_SATS_NUM, 10);
-                	const isSoldOut = isNaN(seats) || seats === 0;
-                	const isDisabled = isSoldOut || isPast;
+                   //3. 좌석 확인 및 상태 판단
+                   const seats = parseInt(item.RMN_SATS_NUM, 10);
+                   const isSoldOut = isNaN(seats) || seats === 0;
+                   const isDisabled = isSoldOut || isPast;
 
-                	let statusText = "선택";
-                	if (isSoldOut) {
-                	    statusText = "매진";
-                	} else if (isPast) {
-                	    statusText = "예매마감";
-                	}
+                   let statusText = "선택";
+                   if (isSoldOut) {
+                       statusText = "매진";
+                   } else if (isPast) {
+                       statusText = "예매마감";
+                   }
 
 
                     const rowClass = isDisabled ? "disabled" : "";
@@ -335,6 +334,7 @@ $(document).ready(function () {
       const padM = String(month + 1).padStart(2, "0");
       const padD = String(day).padStart(2, "0");
       const yyyymmdd = `\${year}\${padM}\${padD}`;
+      const pathStep = $("#pathStep").val();
 
       // 날짜 출력
       $("#rideDate").text(formattedLabel);
@@ -478,36 +478,36 @@ $(document).on("click", ".time li a", function () {
    <div class="container">
       <ol class="breadcrumb-list">
          <li><i class="ico ico-home"></i><span class="sr-only">홈</span></li>
-				<li>
-					<div class="dropdown-wrap breadcrumb-select">
-						<a aria-expanded="false" class="btn-dropdown"
-							href="javascript:void(0)" title="대메뉴 선택"> <span class="text">고속버스예매</span><i
-							class="ico ico-dropdown-arrow"></i></a>
-						<ul class="dropdown-list">
-							<li class="selected"><a href="/koBus/region.do" title="선택됨">고속버스예매</a></li>
-							<li><a href="/koBus/kobusSchedule.do">운행정보</a></li>
-							<li><a href="/koBus/pageForward.do?page=freePass">프리패스/정기권</a></li>
-							<li><a href="#">이용안내</a></li>
-							<li><a href="/koBus/lossCenter/main.do">고객지원</a></li>
-							<li><a href="#">전국고속버스운송사업조합</a></li>
-							<li><a href="#">터미널사업자협회</a></li>
-						</ul>
-					</div>
-				</li>
-				
-				<li>
-					<div class="dropdown-wrap breadcrumb-select">
-						<a aria-expanded="false" class="btn-dropdown"
-							href="javascript:void(0)" title="하위메뉴 선택"> <span class="text">고속버스예매</span><i
-							class="ico ico-dropdown-arrow"></i></a>
-						<ul class="dropdown-list">
-							<li class="selected"><a href="/koBus/reservation3.do" title="선택됨">고속버스예매</a></li>
-							<li><a href="/koBus/manageReservations.do">예매확인/취소/변경</a></li>
-							<li><a href="#">영수증발행</a></li>
-						</ul>
-					</div>
-				</li>
-			</ol>
+            <li>
+               <div class="dropdown-wrap breadcrumb-select">
+                  <a aria-expanded="false" class="btn-dropdown"
+                     href="javascript:void(0)" title="대메뉴 선택"> <span class="text">고속버스예매</span><i
+                     class="ico ico-dropdown-arrow"></i></a>
+                  <ul class="dropdown-list">
+                     <li class="selected"><a href="/koBus/region.do" title="선택됨">고속버스예매</a></li>
+                     <li><a href="/koBus/kobusSchedule.do">운행정보</a></li>
+                     <li><a href="/koBus/pageForward.do?page=freePass">프리패스/정기권</a></li>
+                     <li><a href="#">이용안내</a></li>
+                     <li><a href="/koBus/lossCenter/main.do">고객지원</a></li>
+                     <li><a href="#">전국고속버스운송사업조합</a></li>
+                     <li><a href="#">터미널사업자협회</a></li>
+                  </ul>
+               </div>
+            </li>
+            
+            <li>
+               <div class="dropdown-wrap breadcrumb-select">
+                  <a aria-expanded="false" class="btn-dropdown"
+                     href="javascript:void(0)" title="하위메뉴 선택"> <span class="text">고속버스예매</span><i
+                     class="ico ico-dropdown-arrow"></i></a>
+                  <ul class="dropdown-list">
+                     <li class="selected"><a href="/koBus/reservation3.do" title="선택됨">고속버스예매</a></li>
+                     <li><a href="/koBus/manageReservations.do">예매확인/취소/변경</a></li>
+                     <li><a href="#">영수증발행</a></li>
+                  </ul>
+               </div>
+            </li>
+         </ol>
    </div>
 </nav>
 <article id="new-kor-content">
@@ -557,6 +557,8 @@ $(document).on("click", ".time li a", function () {
       <input id=rtrpDtl2 name="rtrpDtl2" type="hidden" value="${param.rtrpDtl2 }" />
       <!-- 오는편 예매정보 저장 -->
       
+      <input id="changeArvl" name="changeArvl" type="hidden"
+         value="" />
       
       <input id="takeDrtmOrg" name="takeDrtmOrg" type="hidden" value="200" />
       <!-- 소요시간 -->
@@ -668,21 +670,21 @@ $(document).on("click", ".time li a", function () {
               
               <!-- //왕복시 노출 추가 2017-02-10 -->
 
-					<c:if test="${param.pathDvs eq 'rtrp'}">
-						<p class="date">
-							<span class="txtBox" id="rtrpDeprDtm"><span>가는 날</span>${param.deprDtm } </span> 
-							<span class="txtBox" id="rtrpArvlDtm"><span>오는 날</span>${param.arvlDtm }</span>
-							 
-						</p>
-					</c:if>
-					<c:if test="${param.pathDvs eq 'sngl'}">
-							 <p class="date" id="alcnDeprDtm">가는 날 ${param.deprDtm }</p>
-					</c:if>
-					
-					 
+               <c:if test="${param.pathDvs eq 'rtrp'}">
+                  <p class="date">
+                     <span class="txtBox" id="rtrpDeprDtm"><span>가는 날</span>${param.deprDtm } </span> 
+                     <span class="txtBox" id="rtrpArvlDtm"><span>오는 날</span>${param.arvlDtm }</span>
+                      
+                  </p>
+               </c:if>
+               <c:if test="${param.pathDvs eq 'sngl'}">
+                      <p class="date" id="alcnDeprDtm">가는 날 ${param.deprDtm }</p>
+               </c:if>
+               
+                
 
 
-					<div class="route_wrap" id="alcnRotInfo">
+               <div class="route_wrap" id="alcnRotInfo">
                   <div class="inner">
                      <dl class="roundBox departure kor">
                         <dt>출발</dt>
@@ -749,8 +751,8 @@ $(document).on("click", ".time li a", function () {
                   <div class="detailBox_head col3" style="min-height: 70px;">
                      <div class="box_refresh">
                         <button type="button" class="btn btn_refresh" disabled>
-											<span class="ico_refresh"><span class="sr-only">새로고침</span></span>
-						</button>
+                                 <span class="ico_refresh"><span class="sr-only">새로고침</span></span>
+                  </button>
                      </div>
 
                      <div class="head_date">
@@ -984,6 +986,8 @@ $(document).on("click", ".schedule-row:not(.disabled)", function () {
     $("#deprTime").val(deprTime);
     $("#deprDtm").val(deprDtm); // 있어도 되고 없어도 돼
     $("#busClsCd").val(busClsCd); // 있어도 되고 없어도 돼
+    
+    $("#changeArvl").val($("#rideDate").text());
     
 
     $("#alcnSrchFrm").submit(); // GET 방식으로 전달됨
