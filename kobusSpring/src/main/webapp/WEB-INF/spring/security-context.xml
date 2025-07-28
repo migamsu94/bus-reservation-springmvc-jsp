@@ -17,6 +17,7 @@
 	  <security:intercept-url pattern="/page/logonMyPage.do" access="hasRole('ROLE_USER')" />
 	  <security:intercept-url pattern="/manageReservations.do" access="hasRole('ROLE_USER')" />
 	  <security:intercept-url pattern="/kobusSeat.do" access="hasRole('ROLE_USER')" />
+	  <security:intercept-url pattern="/adminPage.do" access="hasRole('ROLE_ADMIN')" />
 	  <security:intercept-url pattern="/**" access="permitAll" />
 	  <!-- <security:intercept-url pattern="/main.do" access="permitAll" /> --> 
 	  <security:intercept-url pattern="/replyWrite.do" access="hasRole('ROLE_USER')" />

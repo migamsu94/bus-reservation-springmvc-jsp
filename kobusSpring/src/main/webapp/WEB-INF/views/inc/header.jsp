@@ -1,10 +1,13 @@
+<%@page import="java.util.List"%>
 <%@ page trimDirectiveWhitespaces="true" language="java"
 	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!-- 뒤로가기 눌렀을때 로그인 풀리는거 방지 : 캐시 무효화 코드, 모든 jsp파일에 추가해야함 -->
 <%
 String auth = (String) session.getAttribute("auth");
+/* List<String> rolename = (List<String>) session.getAttribute("rolename"); */ 
 %>
 <%
 response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
@@ -51,25 +54,39 @@ response.setDateHeader("Expires", 0); // Proxies
 				</h1>
 				<nav class="util-menus">
 					<ul class="util-list">
-
+					
 						<c:choose>
 							<c:when test="${empty auth}">
 								<li><a class="login" href="${pageContext.request.contextPath}/page/logonMain.do">로그인</a></li>
 								<li><a href="${pageContext.request.contextPath}/page/joinMain.do">회원가입</a></li>
+								<li><a href="${pageContext.request.contextPath}/page/logonMyPage.do">마이페이지</a></li>
+								<li><a href="#">결제내역조회</a></li>
+								<li><a href="#">사이트맵</a></li>
+							</c:when>
+							<c:when test="${fn:contains(rolename, 'ROLE_ADMIN')}">
+								<li>${auth}님, 환영합니다 |</li>
+								<li>
+									<form id="logoutForm" action="${pageContext.request.contextPath}/logOut.do" method="post" style="display:inline;">
+										<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+										 <a href="#" onclick="document.getElementById('logoutForm').submit(); return false;">로그아웃</a>
+									</form>
+								</li>
+								<li><a href="${pageContext.request.contextPath}/adminPage.do">관리자페이지</a></li>
+								<li><a href="${pageContext.request.contextPath}/main.do">메인페이지</a></li>
 							</c:when>
 							<c:otherwise>
-								<li>${auth}|</li>
+								<li>${auth}|</li> 
 								<li>
 								  <form id="logoutForm" action="${pageContext.request.contextPath}/logOut.do" method="post" style="display:inline;">
 								      <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 								      <a href="#" onclick="document.getElementById('logoutForm').submit(); return false;">로그아웃</a>
 								  </form>
 								</li>
+								<li><a href="${pageContext.request.contextPath}/page/logonMyPage.do">마이페이지</a></li>
+								<li><a href="#">결제내역조회</a></li>
+								<li><a href="#">사이트맵</a></li>
 							</c:otherwise>
 						</c:choose>
-						<li><a href="${pageContext.request.contextPath}/page/logonMyPage.do">마이페이지</a></li>
-						<li><a href="#">결제내역조회</a></li>
-						<li><a href="#">사이트맵</a></li>
 					</ul>
 
 					<div class="dropdown-wrap lang-select">
@@ -104,10 +121,10 @@ response.setDateHeader("Expires", 0); // Proxies
 							</ul></li>
 
 
-						<li><a href="${pageContext.request.contextPath}/pageForward.do?page=freePass">프리패스/정기권</a>
+						<li><a href="${pageContext.request.contextPath}/payment/freepass.htm">프리패스/정기권</a>
 							<ul>
-								<li><a href="${pageContext.request.contextPath}/pageForward.do?page=freePass">프리패스 여행권</a></li>
-								<li><a href="${pageContext.request.contextPath}/pageForward.do?page=seasonTicket">정기권</a></li>
+								<li><a href="${pageContext.request.contextPath}/payment/freepass.htm">프리패스 여행권</a></li>
+								<li><a href="${pageContext.request.contextPath}/payment/seasonticket.htm">정기권</a></li>
 								<li><a href="${pageContext.request.contextPath}/page/itemPurListPage.do">상품 구매내역</a></li>
 							</ul></li>
 

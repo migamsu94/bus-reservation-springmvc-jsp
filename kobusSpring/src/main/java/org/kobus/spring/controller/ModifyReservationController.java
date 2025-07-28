@@ -1,5 +1,6 @@
 package org.kobus.spring.controller;
 
+import java.security.Principal;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -15,6 +16,7 @@ import org.kobus.spring.domain.reservation.ModifyResvDTO;
 import org.kobus.spring.domain.reservation.ResvDTO;
 import org.kobus.spring.domain.reservation.SeatDTO;
 import org.kobus.spring.domain.schedule.ScheduleDTO;
+import org.kobus.spring.mapper.pay.BusReservationMapper;
 import org.kobus.spring.service.reservation.ResvService;
 import org.kobus.spring.service.reservation.SeatService;
 import org.kobus.spring.service.schedule.ScheduleService;
@@ -45,18 +47,13 @@ public class ModifyReservationController {
 	@Autowired
 	ScheduleService scheduleService;
 	
+	@Autowired
+    private BusReservationMapper busReservationMapper;
+	
 	@GetMapping("/manageReservations.do")
-	public String manageReservations(HttpSession session, Model model) {
+	public String manageReservations(HttpSession session, Model model, Principal principal) {
 		
-//		String loginId = (String) session.getAttribute("id");
-		
-		String loginId = "user1";
-		
-//		if (session == null || session.getAttribute("id") == null) {
-//	        // 로그인 안 된 상태
-//			return "redirect:/koBus/koBusFile/logonMain.jsp";
-//		}
-		
+		String loginId = principal.getName();
 
 		try {
 			// 예매 내역 조회
@@ -84,6 +81,10 @@ public class ModifyReservationController {
 		
 		String deprDay = resvDTO.getRideDateStr();              // fn:substringBefore(resv.rideDateStr, ' ')
 		String deprTime = resvDTO.getRideTimeStr();            // fn:substringAfter(resv.rideDateStr, ' ')
+		
+		System.out.println("/modifyReservations.do resId " + resvDTO.getResId());
+		System.out.println("/modifyReservations.do deprNm " + resvDTO.getDeprRegName());
+		System.out.println("/modifyReservations.do arvlNm " + resvDTO.getArrRegName());
 
 		int adultCnt = resvDTO.getAduCount();
 		int stuCnt = resvDTO.getStuCount();
@@ -105,6 +106,7 @@ public class ModifyReservationController {
 		resvDTO.setStuCount(stuCnt);
 		resvDTO.setChdCount(childCnt);
 		
+		System.out.println("/modifyReservations.do rideDate " + formatted);
 		
 		List<ResvDTO> resvInfoList = new ArrayList<ResvDTO>();
 		resvInfoList.add(resvDTO);
@@ -116,7 +118,6 @@ public class ModifyReservationController {
 		
 		
 		changeList = scheduleService.searchBusSchedule(resvDTO.getDeprRegCode(), resvDTO.getArrRegCode(), deprDay2, "전체");	
-
 		
 		List<String> busTimeList = new ArrayList<>();
 
@@ -169,7 +170,21 @@ public class ModifyReservationController {
 			deprDay = deprDay.replace("-", "");
 		}
 		
+		System.out.println("deprDay " + deprDay);
+		
 	    changeList = scheduleService.searchBusSchedule(resvDTO.getDeprRegCode(), resvDTO.getArrRegCode(), deprDay, "전체");	
+	    
+	    
+	    DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+	    for (ScheduleDTO schedule : changeList) {
+	        if (schedule.getDepartureDate() != null) {
+	            schedule.setDeprDateStr(schedule.getDepartureDate().format(formatter1));
+	        } else {
+	            schedule.setDeprDateStr("");
+	        }
+	    }
+	    
 	    
 	    model.addAttribute("changeList", changeList);
 		model.addAttribute("resvInfoList", resvInfoList);
@@ -199,6 +214,7 @@ public class ModifyReservationController {
 		    deprDate = date + " " + time;
 		}
 		
+		
 			// 출발지 / 도착지 / 출발시간 / 버스등급을 기준으로 사용하는 busId 가져오기
 			String busId = seatService.getBusId(resvDTO.getDeprRegCode(), resvDTO.getArrRegCode(), deprDate);
 			
@@ -218,6 +234,7 @@ public class ModifyReservationController {
 			resvDTO.setRideDateStr(deprDate);
 			resvDTO.setRideTimeStr(deprDate.substring(9, 14));
 			resvDTO.setBusGrade(busGrade);
+			
 		
     	
     	// 리스트에 담아 request에 저장
@@ -248,6 +265,13 @@ public class ModifyReservationController {
 	    System.out.println("getDeprDtm: " + paramMap.get("deprDtm"));
 	    System.out.println("getArvlDtm: " + paramMap.get("arvlDtm"));
 	    System.out.println("getBusClsCd: " + paramMap.get("busClsCd"));
+	    System.out.println("mrsMrnpNo: " + paramMap.get("mrsMrnpNo"));
+	    
+	    System.out.println("deprDtm " + paramMap.get("deprDtm"));
+	    System.out.println("deprDtmAll " + paramMap.get("deprDtmAll"));
+	    System.out.println("arvlDtm " + paramMap.get("arvlDtm"));
+	    System.out.println("arvlDtmAll " + paramMap.get("arvlDtmAll"));
+	    
 	    
 	    
 
@@ -325,9 +349,8 @@ public class ModifyReservationController {
 
 			if ("cancel".equals(ajaxType)) {
 				cancelResult = resvService.cancelResvList(mrsMrnpno);
-				changeRemainSeats = resvService.changeRemainSeats(mrsMrnpno, rideDateTime);
+				changeRemainSeats = busReservationMapper.updateRemainSeats(mrsMrnpno, rideDateTime);
 			}
-
 
 
 			recpListMap.put("cancelResult", cancelResult);

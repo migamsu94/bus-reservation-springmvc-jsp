@@ -11,9 +11,10 @@ public interface FreePassMapper {
     List<ResPassUsageDTO> selectUsedDatesByKusid(String kusid);
     // 프리패스 단건 조회
     FreePassDTO selectFreePassByCpnNo(String adtnCpnNo);
+    Integer getFreePassDays(String adtnCpnNo);
 
     // 프리패스를 이용한 reservation insert
     void insertReservationForFreePass(@Param("dto") FreePassDTO dto, 
-                                      @Param("usedDate") String usedDate,
+                                      @Param("rideDate") String rideDate,
                                       @Param("kusid") String kusid);
 }

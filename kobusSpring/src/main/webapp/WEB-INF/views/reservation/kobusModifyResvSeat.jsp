@@ -22,8 +22,6 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/rsa_oaep-min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jsbn-min2.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/typedarray.js"></script>
-<!-- 출/도착지 선택 레이어팝업 -->
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/ReadLgnInf.js"></script>
 
 <!-- 20200831 yahan -->
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/rsa_oaep-min.js"></script>
@@ -130,7 +128,13 @@
 		feeList[tck+'_'+dc] = fee;
 	
 </script>
-
+<script>
+$(document).ready(function () {
+    $("#reloadBtn").on("click", function () {
+        location.reload(); // 현재 페이지 새로고침
+    });
+});
+</script>
 			<c:set var="bus" value="${busList[0]}" />
 			<c:set var="change" value="${changeSeatList[0]}" />
 			
@@ -202,7 +206,7 @@
 				<input type="hidden" name="arvlThruSeq" id="arvlThruSeq" value="4">
 				<!-- 도착경유순서 -->
 				
-				<input type="hidden" name="busCode" id="busCode" value="${bus.bshId }">
+				<input type="hidden" name="bshId" id="bshId" value="${bus.bshId }">
 
 				<input type="hidden" name="adltFee" id="adltFee" value="${bus.adultFare }">
 				<!-- 일반금액 -->
@@ -404,7 +408,7 @@
 					type="hidden" name="endDtm" id="endDtm" value="">
 					
 					
-				<input type="hidden" name="resId" id="resId" value="${resId }">
+				<input type="hidden" name="changeResId" id="changeResId" value="${change.resId }">
 				<!-- 결제금액 -->
 				
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
@@ -529,7 +533,7 @@
 										<li>
 											<div class="countBox">
 												<p class="division">
-													<em>일반</em> <span class="text_num count" id="adltCntMob">${change.aduCount }</span>
+													<em>일반</em> <span class="text_num count" id="adltCntMob">0</span>
 
 
 												</p>
@@ -537,10 +541,10 @@
 													<ul>
 
 
-														<li><button type="button" class="btn " disabled>
+														<li><button type="button" class="btn btn_add">
 																<span class="ico_plus"><span class="sr-only">증가</span></span>
 															</button></li>
-														<li><button type="button" class="btn " disabled>
+														<li><button type="button" class="btn btn_add">
 																<span class="ico_minus"><span class="sr-only">감소</span></span>
 															</button></li>
 													</ul>
@@ -550,16 +554,16 @@
 										<li>
 											<div class="countBox">
 												<p class="division">
-													<em>초등생</em> <span class="text_num count" id="chldCntMob">${change.chdCount }</span>
+													<em>초등생</em> <span class="text_num count" id="chldCntMob">0</span>
 												</p>
 												<div class="btn_wrap">
 													<ul>
 
 
-														<li><button type="button" class="btn " disabled>
+														<li><button type="button" class="btn btn_add">
 																<span class="ico_plus"><span class="sr-only">증가</span></span>
 															</button></li>
-														<li><button type="button" class="btn " disabled>
+														<li><button type="button" class="btn btn_add">
 																<span class="ico_minus"><span class="sr-only">감소</span></span>
 															</button></li>
 													</ul>
@@ -570,16 +574,16 @@
 										<li>
 											<div class="countBox">
 												<p class="division">
-													<em>중고생</em> <span class="text_num count" id="teenCntMob">${change.stuCount }</span>
+													<em>중고생</em> <span class="text_num count" id="teenCntMob">0</span>
 
 
 												</p>
 												<div class="btn_wrap">
 													<ul>
-														<li><button type="button" class="btn " disabled>
+														<li><button type="button" class="btn btn_add">
 																<span class="ico_plus"><span class="sr-only">증가</span></span>
 															</button></li>
-														<li><button type="button" class="btn " disabled>
+														<li><button type="button" class="btn btn_add">
 																<span class="ico_minus"><span class="sr-only">감소</span></span>
 															</button></li>
 													</ul>
@@ -592,8 +596,7 @@
 								<!-- //mobile 매수 선택 -->
 								<div class="detailBox_head" style="height: 63px;">
 									<div class="box_refresh">
-										<button type="button" class="btn btn_refresh"
-											onclick="fnReload();">
+										<button type="button" class="btn btn_refresh" id="reloadBtn">
 											<span class="ico_refresh"><span class="sr-only">새로고침</span></span>
 										</button>
 									</div>
@@ -617,16 +620,16 @@
 											<li>
 												<div class="countBox">
 													<p class="division">
-														<em>일반</em> <span class="text_num count" id="adltCnt">${change.aduCount }</span>
+														<em>일반</em> <span class="text_num count" id="adltCnt">0</span>
 
 													</p>
 													<div class="btn_wrap">
 														<ul>
 
-															<li><button type="button" class="btn " disabled>
+															<li><button type="button" class="btn btn_add">
 																	<span class="ico_plus"><span class="sr-only">증가</span></span>
 																</button></li>
-															<li><button type="button" class="btn " disabled>
+															<li><button type="button" class="btn btn_add">
 																	<span class="ico_minus"><span class="sr-only">감소</span></span>
 																</button></li>
 														</ul>
@@ -637,7 +640,7 @@
 											<li>
 												<div class="countBox">
 													<p class="division">
-														<em>초등생</em> <span class="text_num count" id="chldCnt">${change.chdCount }</span>
+														<em>초등생</em> <span class="text_num count" id="chldCnt">0</span>
 
 
 													</p>
@@ -645,10 +648,10 @@
 														<ul>
 
 
-															<li><button type="button" class="btn " disabled>
+															<li><button type="button" class="btn btn_add">
 																	<span class="ico_plus"><span class="sr-only">증가</span></span>
 																</button></li>
-															<li><button type="button" class="btn " disabled>
+															<li><button type="button" class="btn btn_add">
 																	<span class="ico_minus"><span class="sr-only">감소</span></span>
 																</button></li>
 
@@ -660,16 +663,16 @@
 											<li>
 												<div class="countBox">
 													<p class="division">
-														<em>중고생</em> <span class="text_num count" id="teenCnt">${change.stuCount }</span>
+														<em>중고생</em> <span class="text_num count" id="teenCnt">0</span>
 													</p>
 													<div class="btn_wrap">
 														<ul>
 
 
-															<li><button type="button" class="btn " disabled>
+															<li><button type="button" class="btn btn_add">
 																	<span class="ico_plus"><span class="sr-only">증가</span></span>
 																</button></li>
-															<li><button type="button" class="btn " disabled>
+															<li><button type="button" class="btn btn_add">
 																	<span class="ico_minus"><span class="sr-only">감소</span></span>
 																</button></li>
 														</ul>

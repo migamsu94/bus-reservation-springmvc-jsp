@@ -55,6 +55,13 @@
         FROM FREE_PASS_PAYMENT
         WHERE adtn_prd_sno = #{adtnCpnNo}
     </select>
+    
+    <!-- 프리패스 사용가능일수 가져오기 -->
+    <select id="getFreePassDays" resultType="int">
+	  SELECT ADTN_PRD_USE_PSB_DNO
+	  FROM FREE_PASS_OPTION
+	  WHERE ADTN_PRD_SNO = #{adtnCpnNo}
+	</select>
 
     <!-- 예매 insert -->
     <insert id="insertReservationForFreePass">

@@ -16,4 +16,6 @@ public interface ResvMapper {
 
 	int changeRemainSeats(@Param("mrsMrnpNo") String mrsMrnpNo, @Param("rideTime") String rideTime) throws SQLException;
 
+	int deleteResv(@Param("changeResId") String changeResId);
+
 }

@@ -31,7 +31,9 @@ public class ScheduleServiceImpl implements ScheduleService {
         String convertedDeprDtm = null;
 
         if (deprDtm != null) {
-            String trimmed = deprDtm.trim();
+        	String trimmed = deprDtm.trim();
+            
+            System.out.println("searchBusSchedule deprDtm "  + trimmed);
 
             if (trimmed.matches("\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}")) {
                 String datePart = trimmed.substring(0, 10).replace("-", "");
@@ -56,6 +58,8 @@ public class ScheduleServiceImpl implements ScheduleService {
             } else {
                 System.out.println("입력 형식이 올바르지 않습니다.");
             }
+            
+            System.out.println("searchBusSchedule convertedDeprDtm "  + convertedDeprDtm);
         }
 
         return scheduleMapper.searchBusSchedule(deprId, arrId, convertedDeprDtm, busClsCd);

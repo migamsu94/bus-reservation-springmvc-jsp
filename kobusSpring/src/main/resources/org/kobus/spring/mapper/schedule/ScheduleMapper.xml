@@ -6,11 +6,12 @@
 <mapper namespace="org.kobus.spring.mapper.schedule.ScheduleMapper">
 
     <select id="selectBySidoCode" resultType="org.kobus.spring.domain.schedule.ScheduleDTO">
-        SELECT * FROM region WHERE sidoCode = #{sidoCode}
+        SELECT regID, regName, sidoCode
+        FROM region WHERE sidoCode = #{sidoCode} ORDER BY REGID ASC
     </select>
 
     <select id="selectByRegion" resultType="org.kobus.spring.domain.schedule.ScheduleDTO">
-        SELECT * FROM region
+        SELECT regID, regName, sidoCode FROM region ORDER BY REGID ASC
     </select>
 
     <select id="searchBusSchedule" resultType="org.kobus.spring.domain.schedule.ScheduleDTO">
