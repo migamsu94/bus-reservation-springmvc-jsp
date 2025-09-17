@@ -1574,7 +1574,7 @@ caption.sr-only {
   color: var(--primary-font);
 }
 .wrapper-main .keyvisual-area .main_box .btn_confirm {
-  background: var(--primary-face);
+  background: red;
 }
 .wrapper-main .keyvisual-area .main_box .btn_confirm:hover {
   background: var(--primary-font);
