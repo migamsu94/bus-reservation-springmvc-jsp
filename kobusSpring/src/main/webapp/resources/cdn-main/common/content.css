@@ -864,7 +864,7 @@ dl.desc_list dd {margin-bottom:10px; padding-left:15px; font-size:14px; color:#6
 .dyexpress, .samhwa, .jabus, .kumho, .chunil, .hanil, .dongbu, .songnisan, .kobus, .chungnam, .chunyeo, .daewon, .gyeonggi, .hanyang, .kyongbuk, .seoul { width: 89px !important; height: 25px !important; font-size: 0 !important;}
 
 /* 매수 및 좌석선택(시간변경)*/
-.change_time .sel_list .btn_wrap { display: none;}
+.change_time .sel_list .btn_wrap { display: block;}
 
 /* 배차선택 */
 .selectSeat_wrap {position:relative;}

@@ -447,9 +447,10 @@
 					<p class="desc" id="noticeDtlMsgNm">고속버스 모바일앱의 <strong>예매확인</strong> <span>메뉴에서 승차권 확인이 가능합니다.</span></p>
 				</div>
 
+				
 				<div class="box_detail_info">
 					<div class="routeHead">
-						<p class="date">${deprDtTimeFmt} 출발</p>
+						<p class="date">가는 편 ${deprDtTimeFmt} 출발</p>
 						<p class="ticket_number">
 							예매번호<span class="num">${resId}</span>
 						</p>
@@ -515,6 +516,77 @@
 						</div>
 					</div>
 				</div>
+				
+				<c:if test="${pathDvs eq 'rtrp' }">
+				<div class="box_detail_info">
+					<div class="routeHead">
+						<p class="date">${arvlDtTimeFmt} 출발</p>
+						<p class="ticket_number">
+							예매번호<span class="num">${resId+1}</span>
+						</p>
+					</div>
+					<div class="routeBody">
+						<div class="routeArea route_wrap">
+							<div class="inner">
+								
+								<dl class="roundBox departure kor">
+									<dt>출발</dt>
+									<dd>${arvlNm}</dd>
+								</dl>
+								<dl class="roundBox arrive kor">
+									<dt>도착</dt>
+									<dd>${deprNm}</dd>
+								</dl>
+							</div>
+							<div class="detail_info">
+								<span>${durationStr} 소요</span>
+							</div>
+						</div>
+						<div class="routeArea route_wrap mob_route">
+							<div class="tbl_type2">
+								<table class="tbl_info">
+									<caption>버스 정보에 대한 표이며 고속사, 등급, 승차홈, 매수, 좌석 정보 제공</caption>
+									<colgroup>
+										<col style="width:68px;">
+										<col style="width:*;">
+									</colgroup>
+									<tbody>
+										<tr>
+											<th scope="row">고속사</th>
+											<td>${cacmNm2}<span class="gyeonggi ico_bus">${cacmNm2}</span></td>
+										</tr>
+										<tr>
+											<th scope="row">등급</th>
+											<td>
+											    <c:choose>
+											      <c:when test="${indVBusClsCd2 == '1'}">우등</c:when>
+											      <c:when test="${indVBusClsCd2 == '2'}">고속</c:when>
+											      <c:when test="${indVBusClsCd2 == '3'}">심야우등</c:when>
+											      <c:when test="${indVBusClsCd2 == '7'}">프리미엄</c:when>
+											      <c:when test="${indVBusClsCd2 == '8'}">심야프리미엄</c:when>
+											      <c:otherwise>미지정</c:otherwise>
+											    </c:choose>
+											  </td>
+										</tr>
+										<tr>
+											<th scope="row">승차홈</th>
+											<td>31</td>
+										</tr>
+										<tr>
+											<th scope="row">매수</th>
+											<td>${buyerSummary2}</td>
+										</tr>
+										<tr>
+											<th scope="row">좌석</th>
+											<td>${arvlSeatNos}</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				</c:if>
 				
 
 				<div class="box_detail_info bgGray">

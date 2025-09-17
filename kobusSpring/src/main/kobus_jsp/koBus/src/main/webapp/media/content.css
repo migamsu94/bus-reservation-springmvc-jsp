@@ -3241,7 +3241,7 @@ dl.desc_list dd {
 
 /* 매수 및 좌석선택(시간변경)*/
 .change_time .sel_list .btn_wrap {
-	display: none;
+	display: block;
 }
 
 /* 배차선택 */

@@ -154,7 +154,7 @@ function parseKoreanDateToYYYYMMDD(dateStr) {
 			<!-- 환승지명 -->
 			<input type="hidden" name="tfrArvlFullNm" id="tfrArvlFullNm" value="">
 			<!-- 환승지포함 도착지 명 -->
-			<input type="hidden" name="pathDvs" id="pathDvs" value="sngl">
+			<input type="hidden" name="pathDvs" id="pathDvs" value="">
 			<!-- 직통sngl,환승trtr,왕복rtrp -->
 			<input type="hidden" name="pathStep" id="pathStep" value="1">
 			<!-- 왕복,환승 가는편순번 -->

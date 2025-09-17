@@ -262,8 +262,6 @@ function fnRotVldChc(){
 	$("#loading").show();
 	var rotInfFrm = $("form[name=rotInfFrm]").serialize() + "&ajax=true&ajaxType=searchSch";
 	
-	alert(rotInfFrm);
-	
 	$.ajax({	
         url      : "/koBus/searchSchedule/readAlcnSrch.ajax",
         type     : "post",

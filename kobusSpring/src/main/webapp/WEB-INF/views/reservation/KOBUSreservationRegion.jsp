@@ -190,7 +190,7 @@
 	<input type="hidden" name="tfrNm" id="tfrNm" value=""><!-- 환승지명 -->
 	<input type="hidden" name="tfrArvlFullNm" id="tfrArvlFullNm" value=""><!-- 환승지포함 도착지 명 -->
 	<input type="hidden" name="pathDvs" id="pathDvs" value=""><!-- 직통sngl,환승trtr,왕복rtrp -->
-	<input type="hidden" name="pathStep" id="pathStep" value=""><!-- 왕복,환승 가는편순번 -->
+	<input type="hidden" name="pathStep" id="pathStep" value="1"><!-- 왕복,환승 가는편순번 -->
 	<input type="hidden" name="pathStepRtn" id="pathStepRtn" value=""><!-- 왕복,환승 가는편순번 -->
 	<input type="hidden" name="crchDeprArvlYn" id="crchDeprArvlYn" value="N"><!-- 출도착지 스왑여부 -->
 	<input type="hidden" name="deprDtm" id="deprDtm" value=""><!-- 가는날(편도,왕복) -->

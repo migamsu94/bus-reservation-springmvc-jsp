@@ -128,7 +128,13 @@
 		feeList[tck+'_'+dc] = fee;
 	
 </script>
-
+<script>
+$(document).ready(function () {
+    $("#reloadBtn").on("click", function () {
+        location.reload(); // 현재 페이지 새로고침
+    });
+});
+</script>
 			<c:set var="bus" value="${busList[0]}" />
 			<c:set var="change" value="${changeSeatList[0]}" />
 			
@@ -590,8 +596,7 @@
 								<!-- //mobile 매수 선택 -->
 								<div class="detailBox_head" style="height: 63px;">
 									<div class="box_refresh">
-										<button type="button" class="btn btn_refresh"
-											onclick="fnReload();">
+										<button type="button" class="btn btn_refresh" id="reloadBtn">
 											<span class="ico_refresh"><span class="sr-only">새로고침</span></span>
 										</button>
 									</div>

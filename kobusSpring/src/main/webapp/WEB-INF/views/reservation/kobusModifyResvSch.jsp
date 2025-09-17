@@ -10,29 +10,64 @@
 
 <script>
 $(document).ready(function() {
-	  $(".schedule-row").on("click", function() {
-	    // 클릭한 p 태그의 data-* 속성값 읽기
-	    var deprDtm = $(this).data("deprdtm");
-	    var comName = $(this).data("comname");
-	    var busGrade = $(this).data("busclscd");
-	    var adultFare = $(this).data("adute");
-	    var remainSeats = $(this).data("seats");
+  $(".schedule-row").each(function() {
+    var deprDtm = $(this).data("deprdtm"); // "2025-07-27T06:00"
+    var deprDate = new Date(deprDtm);      // Date 객체로 변환
+    var now = new Date();                  // 현재 시각
 
-	    // 숨은 input에 값 세팅
-	    $("#deprDtm").val(deprDtm);
-	    $("#comName").val(comName);
-	    $("#busGrade").val(busGrade);
-	    $("#adultFare").val(adultFare);
-	    $("#remainSeats").val(remainSeats);
+    // 만약 deprDate가 현재보다 과거면 disabled 클래스 추가
+    if (deprDate < now) {
+      $(this).addClass("disabled");
+    }
+  });
 
-	    // 폼 전송
-	    $("#rotInfFrm").submit();
-	  });
-	});
+  $(".schedule-row").on("click", function() {
+    // 이미 지난 스케줄이라면 클릭 동작 막기
+    if ($(this).hasClass("disabled")) {
+      alert("이미 지난 출발 시간입니다.");
+      return false;
+    }
 
+    // 클릭한 p 태그의 data-* 속성값 읽기
+    var deprDtm = $(this).data("deprdtm");
+    var comName = $(this).data("comname");
+    var busGrade = $(this).data("busclscd");
+    var adultFare = $(this).data("adute");
+    var remainSeats = $(this).data("seats");
 
+    // 숨은 input에 값 세팅
+    $("#deprDtm").val(deprDtm);
+    $("#comName").val(comName);
+    $("#busGrade").val(busGrade);
+    $("#adultFare").val(adultFare);
+    $("#remainSeats").val(remainSeats);
 
+    // 폼 전송
+    $("#rotInfFrm").submit();
+  });
+});
 </script>
+<style>
+/* 비활성화된 schedule-row */
+.schedule-row.disabled {
+  background-color: #f2f2f2;
+  color: #aaa;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+/* 비활성화된 버튼 */
+.schedule-row.disabled input[type="submit"],
+.schedule-row.disabled button {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+  padding: 10px 16px;
+  border-radius: 16px;
+  border: none;
+}
+
+</style>
 <!-- [리뉴얼] 페이지 개별 스크립트 신규 정의함 -->
 	
 		<!-- breadcrumb -->
