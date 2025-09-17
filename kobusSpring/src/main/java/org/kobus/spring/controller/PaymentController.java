@@ -214,14 +214,15 @@ public class PaymentController {
                 paidAt = new Timestamp(timestampMillis);
             }
             
-         // startDate 방어 코드 추가
+            // startDate 처리 (비어 있으면 오늘 날짜로 대체)
+            Date startDate;
             if (startDateStr == null || startDateStr.trim().isEmpty()) {
-                resultMap.put("result", 0);
-                resultMap.put("msg", "startDate가 비어 있습니다.");
-                return resultMap;
+                System.out.println("📌 startDate 비어 있음 → 오늘 날짜로 설정합니다.");
+                startDate = new java.sql.Date(System.currentTimeMillis());
+            } else {
+                System.out.println("📌 startDateStr = [" + startDateStr + "]");
+                startDate = new java.sql.Date(new SimpleDateFormat("yyyy-MM-dd").parse(startDateStr).getTime());
             }
-            System.out.println("startDateStr = [" + startDateStr + "]");
-            Date startDate = new java.sql.Date(new SimpleDateFormat("yyyy-MM-dd").parse(startDateStr).getTime());
 
             // DTO 구성
             PaymentCommonDTO payDto = new PaymentCommonDTO();
