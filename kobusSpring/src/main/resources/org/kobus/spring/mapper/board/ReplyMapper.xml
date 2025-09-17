@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.kobus.spring.mapper.board.ReplyMapper">
+
+	<select id="getCommentsByBoardId"
+		resultType="org.kobus.spring.domain.board.CommentDTO"
+		parameterType="int">
+		SELECT bcmID, brdID, kusID, content, cmtDate
+		FROM
+		brdComment
+		WHERE brdID = #{brdID}
+		ORDER BY cmtDate ASC
+	</select>
+
+
+	<insert id="insertComment"
+		parameterType="org.kobus.spring.domain.board.CommentDTO">
+		INSERT INTO brdComment (bcmID, brdID, kusID, content,
+		cmtDate)
+		VALUES (brdComment_seq.NEXTVAL, #{brdID}, #{kusID},
+		#{content}, SYSDATE)
+	</insert>
+	<update id="updateComment"
+		parameterType="org.kobus.spring.domain.board.CommentDTO">
+		UPDATE brdComment
+		SET content = #{content}
+		WHERE bcmID = #{bcmID} AND kusID = #{kusID}
+	</update>
+
+	<delete id="deleteComment" parameterType="map">
+		DELETE FROM brdComment
+		WHERE bcmID = #{bcmID} AND kusID = #{kusID}
+	</delete>
+
+
+
+</mapper>

@@ -27,9 +27,7 @@
 	        RGA.regName AS arrRegName,
 	        C.comName,
 	        B.busGrade,
-	        BS.durMin,
-	        PC.amount,
-	        PC.PAY_METHOD
+	        BS.durMin
 	    FROM reservation R
 	    JOIN ReservedSeats RS ON R.resID = RS.resID
 	    JOIN seat S ON RS.seatID = S.seatID
@@ -42,14 +40,12 @@
 	    LEFT JOIN arrival A ON RT.arrID = A.arrID
 	    LEFT JOIN region RGD ON D.regID = RGD.regID
 	    LEFT JOIN region RGA ON A.regID = RGA.regID
-	    JOIN RESERVATION_PAYMENT PM ON R.resID = PM.RES_ID
-	    JOIN PAYMENT_COMMON PC ON PC.PAYMENT_ID = PM.PAYMENT_ID
 	    WHERE KU.id = #{loginId}
 	      AND R.resvStatus = '결제완료'
 	    GROUP BY
 	        R.resID, R.rideDate, R.resvDate, R.resvStatus, R.resvType, R.qrCode,
 	        RGD.regId, RGD.regName, RGA.regId, RGA.regName,
-	        C.comName, B.busGrade, BS.durMin, PC.amount, PC.PAY_METHOD
+	        C.comName, B.busGrade, BS.durMin
 	    ORDER BY R.resvDate DESC
 	    ]]>
 	</select>

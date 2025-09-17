@@ -123,28 +123,39 @@
 				<a href="${pageContext.request.contextPath}/board/list.do" class="btn">목록</a>
 <c:if test="${loginKusID eq dto.kusID}">
     <a href="${pageContext.request.contextPath}/board/edit.do?brdID=${dto.brdID}" class="btn edit">수정</a>
-	<a href="${pageContext.request.contextPath}/board/delete.do?brdID=${dto.brdID}" class="btn delete"
-   		onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
+
+    <form method="post" action="${pageContext.request.contextPath}/board/delete.do" style="display:inline;">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+        <input type="hidden" name="brdID" value="${dto.brdID}" />
+        <button type="submit" class="btn delete" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</button>
+    </form>
 </c:if>
+
 			</div>
 
 			<!-- 댓글 목록 출력 -->
-			<div class="comment-list" style="margin-top: 20px;">
-				<!-- 댓글 목록은 replyList.do의 결과로 갱신됨 -->
-			</div>
-			<!-- 댓글 작성 폼 -->
-			<div class="comment-write" style="margin-top: 30px;">
-				<form id="commentForm">
-					<input type="hidden" name="brdID" value="${dto.brdID}">
-					<textarea name="content" required></textarea>
-					<button type="submit">댓글 등록</button>
-				</form>
-			</div>
+<div class="comment-list" style="margin-top: 20px;"></div>
+<input type="hidden" name="brdID" value="${dto.brdID}" id="brdID"/>
+
+
+<!-- 댓글 작성 폼 -->
+<div class="comment-write" style="margin-top: 30px;">
+<form id="commentForm" method="post">
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+    <input type="hidden" name="brdID" value="${dto.brdID}" />
+    <textarea name="content" rows="3" style="width:100%;" required></textarea>
+    <button type="submit">댓글 등록</button>
+</form>
+</div>
+
+
 		</div>
 	</div>
-
 <script>
 $(document).ready(function () {
+    const csrfHeader = "${_csrf.headerName}";
+    const csrfToken = "${_csrf.token}";
+
     $('#commentForm').submit(function (e) {
         e.preventDefault();
 
@@ -159,18 +170,21 @@ $(document).ready(function () {
         $.ajax({
             type: 'POST',
             url: '${pageContext.request.contextPath}/replyWrite.do',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
             data: {
                 brdID: brdID,
                 content: content
             },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(csrfHeader, csrfToken); // 🔥 CSRF 토큰 헤더에 추가
+            },
             success: function (result) {
-                const trimmed = result.trim();
-                if (trimmed === 'success') {
+                if (result.trim() === 'success') {
                     $('textarea[name="content"]').val('');
                     loadComments();
-                } else if (trimmed === 'nologin') {
+                } else if (result.trim() === 'nologin') {
                     alert("로그인이 필요합니다.");
-                    location.href = '${pageContext.request.contextPath}/page/logonMain.do';
+                    location.href = '${pageContext.request.contextPath}/user/login.do';
                 } else {
                     alert("댓글 등록 실패");
                 }
@@ -180,7 +194,6 @@ $(document).ready(function () {
 
     function loadComments() {
         const brdID = $('input[name="brdID"]').val();
-
         $.ajax({
             url: '${pageContext.request.contextPath}/replyList.do',
             type: 'GET',
@@ -193,8 +206,79 @@ $(document).ready(function () {
 
     loadComments();
 });
-
 </script>
+<script>
+$(document).ready(function() {
+    const brdID = $("#brdID").val();
+
+    $.ajax({
+        url: "${pageContext.request.contextPath}/replyList.do",
+        type: "GET",
+        data: { brdID: brdID },
+        success: function(result) {
+            $(".comment-list").html(result);  // 여기서 replyList.jsp 조각이 그대로 들어감
+        },
+        error: function(xhr) {
+            alert("댓글 목록 로딩 실패 (" + xhr.status + ")");
+        }
+    });
+});
+</script>
+<script>
+$(document).on("click", ".btn-edit", function () {
+    const item = $(this).closest(".comment-item");
+    item.find(".comment-content").hide();
+    item.find(".comment-content-edit").show();
+    item.find(".btn-edit, .btn-delete").hide();
+    item.find(".btn-save, .btn-cancel").show();
+});
+
+$(document).on("click", ".btn-cancel", function () {
+    const item = $(this).closest(".comment-item");
+    item.find(".comment-content-edit").hide();
+    item.find(".comment-content").show();
+    item.find(".btn-edit, .btn-delete").show();
+    item.find(".btn-save, .btn-cancel").hide();
+});
+
+$(document).on("click", ".btn-save", function () {
+    const item = $(this).closest(".comment-item");
+    const bcmID = item.data("bcmid");
+    const newContent = item.find(".comment-content-edit").val();
+
+    $.ajax({
+        url: "${pageContext.request.contextPath}/replyEdit.do",
+        type: "POST",
+        data: { bcmID: bcmID, content: newContent },
+        success: function () {
+            loadComments(); // 수정 후 댓글 다시 불러오기
+        },
+        error: function () {
+            alert("댓글 수정 실패");
+        }
+    });
+});
+
+$(document).on("click", ".btn-delete", function () {
+    if (!confirm("정말 삭제하시겠습니까?")) return;
+
+    const bcmID = $(this).closest(".comment-item").data("bcmid");
+
+    $.ajax({
+        url: "${pageContext.request.contextPath}/replyDelete.do",
+        type: "POST",
+        data: { bcmID: bcmID },
+        success: function () {
+            loadComments(); // 삭제 후 댓글 다시 불러오기
+        },
+        error: function () {
+            alert("댓글 삭제 실패");
+        }
+    });
+});
+</script>
+
+
 
 </body>
 

@@ -49,6 +49,7 @@ public class ReservationController {
 	    @RequestParam(value = "pathStep", required = false) String pathStep,
 	    @RequestParam(value = "rtrpDtl1", required = false) String rtrpDtl1,
 	    @RequestParam(value = "rtrpDtl2", required = false) String rtrpDtl2,
+	    @RequestParam(value = "changeArvl", required = false) String changeArvlDate,
 	    
 	    Model model) throws ParseException {
 
@@ -72,12 +73,16 @@ public class ReservationController {
 
         // 3️⃣ Date 객체로 파싱
         Date date = inputFormat.parse(deprDate);
+        Date changedate = inputFormat.parse(changeArvlDate);
 
         // 4️⃣ 원하는 출력 형식 지정
         SimpleDateFormat outputFormat = new SimpleDateFormat("yyyyMMdd");
 
         // 5️⃣ 최종 변환
         String result = outputFormat.format(date);
+        
+        String changeArvl = outputFormat.format(date) + " " + deprTime;
+        
 	    
 	    String deprDtm = result + " " + deprTime;
 	    
@@ -153,20 +158,27 @@ public class ReservationController {
 	    	    System.out.println("deprId : " + deprId);
 	    	    System.out.println("arrId : " + arrId);
 
-	    		String arvlFormatter = arvlDtm.replaceAll("-", "");
+	    		
 
-	    		System.out.println(arvlFormatter);
+	    		System.out.println("kobusSeat deprDtm " + deprDtm);
+	    		System.out.println("kobusSeat changeArvl " + changeArvl);
+	    		System.out.println("kobusSeat changeArvl " + changeArvl + " " + deprTime);
 
-	    		busList = scheduleService.searchBusSchedule(deprId, arrId, arvlFormatter, busClsCd);
+	    		
+	    		busList = scheduleService.searchBusSchedule(deprId, arrId, changeArvl, busClsCd);
 
 	    		// 출발지 / 도착지 / 출발시간 / 버스등급을 기준으로 사용하는 busId 가져오기
-	    		busId = seatService.getBusId(deprId, arrId, arvlFormatter);
+	    		busId = seatService.getBusId(deprId, arrId, changeArvl);
 
-	    		if (arvlFormatter.length() <14) {
-	    			arvlFormatter = arvlFormatter + ":00";
+	    		if (changeArvl.length() <14) {
+	    			changeArvl = changeArvl + ":00";
 	    		}
 
-
+	    		if (changeArvl.length() == 14) {
+	    			changeArvl = changeArvl.substring(0, 4) + "-" + 
+	    					changeArvl.substring(4, 6) + "-" + 
+	    					changeArvl.substring(6, 8) + " " + changeArvl.substring(9, 14);
+				}
 
 	    	}
 	    	
@@ -194,10 +206,9 @@ public class ReservationController {
 	    model.addAttribute("deprDtmAll", deprDate );
 	    model.addAttribute("deptTime", deprTime);
 	    model.addAttribute("deprDate", deprDate);
-	    model.addAttribute("deprTime", deprTime);
 	    model.addAttribute("deprNm", deprNm);
 	    model.addAttribute("arvlNm", arvlNm);
-	    model.addAttribute("arvlDtm", arvlDtm);
+	    model.addAttribute("arvlDtm", changeArvl);
 	    model.addAttribute("arvlDtmAll", arvlDtmAll);
 	    model.addAttribute("pathDvs", pathDvs);
 	    model.addAttribute("pathStep", pathStep);
