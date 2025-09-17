@@ -197,7 +197,7 @@ function parseKoreanDateToYYYYMMDD(dateStr) {
 			<div class="d-up-md">
 				<div class="keyvisual-area">
 					<div class="container">
-						<p class="slogan">즐거운 여행의 시작과 끝, 프리미엄 버스와 함께!</p>
+						<p class="slogan">즐거운 여행의 시작과 끝</p>
 						<div class="main-input-box main_box">
 							<h3 class="sr-only">고속버스 예매 및 예매 확인</h3>
 							<ul class="tab-menu-list">
