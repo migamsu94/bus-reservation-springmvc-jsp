@@ -303,8 +303,9 @@ public class PaymentController {
                 paidAt = new Timestamp(timestampMillis);
             }
             
-         // startDate 방어 코드 추가
-         // startDate 처리 (비어 있으면 오늘 날짜로 대체)
+
+            // startDate 처리 (비어 있으면 오늘 날짜로 대체)
+
             Date startDate;
             if (startDateStr == null || startDateStr.trim().isEmpty()) {
                 System.out.println("📌 startDate 비어 있음 → 오늘 날짜로 설정합니다.");

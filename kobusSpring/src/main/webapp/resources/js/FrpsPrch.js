@@ -30,8 +30,7 @@ $(document).ready(function() {
 //		}
 //	}
 	var max = min+10;
-	
-	
+
 	
 	//사용시작일 	
 	$('#datepickerItem').datepicker({
@@ -64,7 +63,7 @@ $(document).ready(function() {
 		},
 		beforeShowDay: disableAllTheseDays
 	});
-	
+	$("#datepickerItem").val($.datepicker.formatDate('yy-mm-dd', dt));
 	// 특정날짜들 배열
 	var disabledDays = ["2019-4-18"];
 	
@@ -290,6 +289,7 @@ $(document).on("click", "#selOptionLi li a", function() {
 });
 */
 function requestPay() {
+	setFrpsTermParamsToForm();
 	var selectedOptionText = $("#selOptionText").val();
 	var clientAmount = $("#goodsPrice").val();
 	// 1. 시작일 원본 추출
@@ -491,6 +491,7 @@ function fnFrpsDtl(){
 	        //alert("connection error");
 	    }
 	});
+	//setFrpsTermParamsToForm();
 	console.log("📌 최종 selOptionText 값:", $("#selOptionText").val());
 }
 
