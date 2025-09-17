@@ -76,7 +76,7 @@ jobs:
       - name: Checkout manifest repository
         uses: actions/checkout@v3
         with:
-          repository: migamsu94/bus-reservation-springmvc-jsp
+          repository: migamsu94/kobus-manifests
           token: ${{ secrets.GIT_PAT }}
           
       # 2. 이전 잡('build-and-push-images')의 출력('image_tag')을 직접 참조하여,
