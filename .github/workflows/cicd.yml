@@ -1,4 +1,4 @@
-# 워크플로우의 이름. GitHub Actions 탭에 이 이름으로 표시됩니다.
+# 워크플로우의 이름. GitHub Actions 탭에 이 이름으로 표시됩니다
 name: CI/CD for Web App
 
 # 이 워크플로우가 언제 실행될지를 정의하는 트리거(Trigger) 설정입니다.
